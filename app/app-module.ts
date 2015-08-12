@@ -10,6 +10,7 @@ module koans {
   angular
     .module('koans', [
       'ui.router',
+      'ui.ace',
       'home'
     ]);
 }

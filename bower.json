@@ -5,9 +5,20 @@
     "angular": "~1.4.*",
     "angular-sanitize": "~1.4.*",
     "angular-ui-router": "~0.2.10",
-    "ace-builds": "~1.2.0"
+    "angular-ui-ace": "bower"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.*"
+  },
+  "overrides": {
+    "ace-builds": {
+      "main": [
+        "src-min-noconflict/ace.js",
+        "src-min-noconflict/mode-json.js",
+        "src-min-noconflict/mode-yaml.js",
+        "src-min-noconflict/theme-idle_fingers.js",
+        "src-min-noconflict/worker-json.js"
+      ]
+    }
   }
 }
