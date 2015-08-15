@@ -31,3 +31,7 @@ logs
 pids
 *.pid
 *.seed
+
+# Generated js files
+app/**/*.js
+app/**/*.js.map
