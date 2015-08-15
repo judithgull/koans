@@ -23,6 +23,14 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildDir));
   });
 
+  // copy data files into build directory
+  gulp.task('data', ['clean'], function () {
+        return gulp.src([
+              config.appDataFiles
+            ])
+          .pipe(gulp.dest(config.buildData));
+      });
+
   // compile styles and copy into build directory
   gulp.task('styles', ['clean'], function () {
     return gulp.src([
@@ -246,6 +254,7 @@ module.exports = function (gulp, $, config) {
           config.buildDir + '*',
           '!' + config.buildCss,
           '!' + config.buildFonts,
+          '!' + config.buildData,
           '!' + config.buildImages,
           '!' + config.buildJs,
           '!' + config.extDir,
@@ -254,5 +263,5 @@ module.exports = function (gulp, $, config) {
       });
   });
 
-  gulp.task('build', ['deleteTemplates', 'bowerAssets', 'images', 'fonts']);
+  gulp.task('build', ['deleteTemplates', 'bowerAssets', 'images', 'fonts', 'data']);
 };
