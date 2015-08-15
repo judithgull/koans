@@ -11,6 +11,7 @@ module koans {
     .module('koans', [
       'ui.router',
       'ui.ace',
-      'home'
+      'home',
+      'run'
     ]);
 }
