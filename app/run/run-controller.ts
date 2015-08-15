@@ -1,50 +1,47 @@
 ///<reference path='../../typings/tsd.d.ts' />
+///<reference path='rest-client-service.ts' />
 module RunCtrl {
   'use strict';
 
   class RunCtrl {
 
-    private $http:ng.IHttpService;
-
     ctrlName: string;
     language: string;
     title: string;
     description: string;
-    exercise: string;
 
     // $inject annotation.
     // It provides $injector with information about dependencies to be injected into constructor
     // it is better to have it close to the constructor, because the parameters must match in count and type.
     // See http://docs.angularjs.org/guide/di
-    public static $inject = ['$log', '$http'];
+    public static $inject = ['$log', '$http', 'RestClient'];
 
-    load(){
-      this.$http.get('/data/data.json').then((res:any) => {
-        this.$log.debug("data received");
-        this.language = res.data.language;
-        this.title = res.data.title;
-        this.description = res.data.description;
-        this.exercise = res.data.exercise;
-      })
-    }
-
-    aceLoaded(_editor:any){
-      _editor.setValue('test');
-    }
 
     // dependencies are injected via AngularJS $injector
-    constructor(private $log: ng.ILogService, $http:ng.IHttpService) {
+    constructor(private $log: ng.ILogService, private $http:ng.IHttpService, private restClient: RestClient.IRestClient) {
       this.ctrlName = 'RunCtrl';
-      this.$http = $http;
-      this.$log = $log;
-      this.load();
-
+      restClient.getKoan(
+        (koanData) => {
+          this.language = koanData.language;
+          this.title = koanData.title;
+          this.description = koanData.description;
+        }
+      );
     }
 
+    public createExerciseDataLoader(){
+      var that = this;
+      return function(_editor:any){
+        that.restClient.getKoan(
+          function(koanData:any){
+            _editor.setValue(koanData.exercise);
+          }
+        );
+
+      };
+    }
 
   }
-
-
 
 
 
