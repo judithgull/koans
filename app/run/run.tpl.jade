@@ -8,5 +8,6 @@ p {{run.description}}
 div(ui-ace="{\
   mode: 'json',\
     theme: 'idle_fingers',\
-    useWrapMode: true}"
-) asdf
+    useWrapMode: true,\
+    onLoad: run.aceLoaded }"
+)

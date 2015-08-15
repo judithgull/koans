@@ -28,6 +28,10 @@ module RunCtrl {
       })
     }
 
+    aceLoaded(_editor:any){
+      _editor.setValue('test');
+    }
+
     // dependencies are injected via AngularJS $injector
     constructor(private $log: ng.ILogService, $http:ng.IHttpService) {
       var vm = this;
