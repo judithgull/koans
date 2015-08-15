@@ -34,13 +34,12 @@ module RunCtrl {
 
     // dependencies are injected via AngularJS $injector
     constructor(private $log: ng.ILogService, $http:ng.IHttpService) {
-      var vm = this;
-      vm.ctrlName = 'RunCtrl';
+      this.ctrlName = 'RunCtrl';
       this.$http = $http;
       this.$log = $log;
       this.load();
-    }
 
+    }
 
 
   }
