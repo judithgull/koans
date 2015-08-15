@@ -1,0 +1,7 @@
+[
+  { "id": 1, "language": "typescript", "title": "Type Declaration",
+    "description": "Typescript is strongly typed: A variable is assigned a type, that cannot be changed.",
+    "exercise": "describe('Type Declaration', function () {\\n\\n// Types are denoted by :\\nvar name: string = \"Anna\";\\var isEmpty:boolean = false;\\nvar age: number = 16;\\n//TODO fix the assignment value to make the program compile:isEmpty = 0;});",
+    "solution": "describe('Type Declaration', function () {\\n\\n// Types are denoted by :\\nvar name: string = \"Anna\";\\var isEmpty:boolean = false;\\nvar age: number = 16;\\n//TODO fix the assignment value to make the program compile:isEmpty = false;});"
+  }
+]
