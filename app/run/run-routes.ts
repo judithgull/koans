@@ -4,7 +4,7 @@ module run {
 
   angular
     .module('run')
-    .config(config)
+    .config(config);
 
   function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider

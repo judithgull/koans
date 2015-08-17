@@ -9,34 +9,35 @@ module RunCtrl {
     language: string;
     title: string;
     description: string;
+    deferredData:ng.IPromise<any>;
 
     // $inject annotation.
     // It provides $injector with information about dependencies to be injected into constructor
     // it is better to have it close to the constructor, because the parameters must match in count and type.
     // See http://docs.angularjs.org/guide/di
-    public static $inject = ['$log', '$http', 'RestClient'];
+    public static $inject = ['$log',  'RestClient'];
 
 
     // dependencies are injected via AngularJS $injector
-    constructor(private $log: ng.ILogService, private $http:ng.IHttpService, private restClient: RestClient.IRestClient) {
+    constructor(private $log: ng.ILogService,  private restClient: RestClient.IRestClient) {
       this.ctrlName = 'RunCtrl';
-      restClient.getKoan(
-        (koanData) => {
+      this.deferredData = restClient.getKoan();
+      this.deferredData.then((koanData) => {
           this.language = koanData.language;
           this.title = koanData.title;
           this.description = koanData.description;
         }
-      );
+      ).catch((reason) => this.$log.error(reason));
     }
 
     public createExerciseDataLoader(){
       return (_editor:any) => {
-        this.restClient.getKoan(
-          (koanData:any) => {
-            _editor.setValue(koanData.exercise);
-            _editor.getSession().setMode("ace/mode/typescript");
+        this.deferredData.then(
+          (data:any) => {
+            _editor.setValue(data.exercise);
+            _editor.getSession().setMode("ace/mode/" + data.language);
           }
-        );
+        )
       };
     }
   }
