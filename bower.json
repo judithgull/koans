@@ -15,6 +15,8 @@
       "main": [
         "src-min-noconflict/ace.js",
         "src-min-noconflict/mode-json.js",
+        "src-min-noconflict/mode-javascript.js",
+        "src-min-noconflict/mode-typescript.js",
         "src-min-noconflict/mode-yaml.js",
         "src-min-noconflict/theme-idle_fingers.js",
         "src-min-noconflict/worker-json.js"

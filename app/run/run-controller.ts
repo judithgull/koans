@@ -30,20 +30,16 @@ module RunCtrl {
     }
 
     public createExerciseDataLoader(){
-      var that = this;
-      return function(_editor:any){
-        that.restClient.getKoan(
-          function(koanData:any){
+      return (_editor:any) => {
+        this.restClient.getKoan(
+          (koanData:any) => {
             _editor.setValue(koanData.exercise);
+            _editor.getSession().setMode("ace/mode/typescript");
           }
         );
-
       };
     }
-
   }
-
-
 
   /**
   * @ngdoc object
