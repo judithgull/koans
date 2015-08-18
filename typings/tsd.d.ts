@@ -1,3 +1,4 @@
+/// <reference path="ace/ace.d.ts" />
 /// <reference path="angular-ui-router/angular-ui-router.d.ts" />
 /// <reference path="angularjs/angular-mocks.d.ts" />
 /// <reference path="angularjs/angular-sanitize.d.ts" />

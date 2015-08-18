@@ -31,7 +31,7 @@ module RunCtrl {
     }
 
     public createExerciseDataLoader(){
-      return (_editor:any) => {
+      return (_editor:AceAjax.Editor) => {
         this.deferredData.then(
           (data:any) => {
             _editor.setValue(data.exercise);
