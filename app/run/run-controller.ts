@@ -5,7 +5,6 @@ module RunCtrl {
 
   class RunCtrl {
 
-    ctrlName:string;
     language:string;
     title:string;
     description:string;
@@ -25,7 +24,6 @@ module RunCtrl {
 
     // dependencies are injected via AngularJS $injector
     constructor(private $log:ng.ILogService, private restClient:RestClient.IRestClient) {
-      this.ctrlName = 'RunCtrl';
       this.deferredData = restClient.getKoan();
       this.deferredData.then((koanData) => {
           this.language = koanData.language;
