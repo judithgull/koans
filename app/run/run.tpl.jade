@@ -5,18 +5,33 @@ p {{run.language}}
 h1 {{run.title}}
 p {{run.description}}
 
-div(ui-ace="{\
-  mode: 'json',\
-    theme: 'idle_fingers',\
-    useWrapMode: true,\
-    onLoad: run.createExerciseDataLoader(),\
-    onChange:run.onChange()\
-    }"
-)
+div(ng-init="tab = 1")
+  ul
+    li
+      a(href='', ng-click = "tab = 1") Your Code
+    li
+      a(href='', ng-click = "tab = 2") Solution
 
-p(ng-show="!run.success") {{run.errorMessage}}
-p(ng-show="run.success") {{run.successMessage}}
+div(ng-show="tab ===1")
+  div(ui-ace="{\
+    mode: 'json',\
+      theme: 'idle_fingers',\
+      useWrapMode: true,\
+      onLoad: run.createExerciseDataLoader(),\
+      onChange:run.onChange()\
+      }"
+  )
+  p(ng-show="!run.success") {{run.errorMessage}}
+  p(ng-show="run.success") {{run.successMessage}}
+  button.button(type='button' ng-click="run.runExercise()")
+    | Run
 
-button.button(type='button' ng-click="run.runExercise()")
-  | Run
+div(ng-show="tab ===2")
+  div(ui-ace="{\
+    mode: 'json',\
+      theme: 'idle_fingers',\
+      useWrapMode: true,\
+      onLoad: run.createSolutionDataLoader()\
+      }"
+    )
 

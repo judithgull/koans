@@ -14,6 +14,7 @@ module RunCtrl {
     errorMessage:string = "";
     successMessage:string = "You are great!!!";
     success = false;
+    solutionEditor:AceAjax.Editor;
 
     // $inject annotation.
     // It provides $injector with information about dependencies to be injected into constructor
@@ -45,6 +46,17 @@ module RunCtrl {
       };
     }
 
+    public createSolutionDataLoader() {
+      return (solutionEditor:AceAjax.Editor) => {
+        this.deferredData.then(
+          (data:any) => {
+            solutionEditor.getSession().setMode("ace/mode/" + data.language);
+            solutionEditor.resize(true);
+            this.solutionEditor = solutionEditor;
+          }
+        )
+      };
+    }
     public onChange() {
       return (e:any) => {
         this.editorContent = e[1].getValue();
