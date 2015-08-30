@@ -11,6 +11,9 @@ module RunCtrl {
     description:string;
     deferredData:ng.IPromise<any>;
     editorContent:string;
+    errorMessage:string = "";
+    successMessage:string = "You are great!!!";
+    success = false;
 
     // $inject annotation.
     // It provides $injector with information about dependencies to be injected into constructor
@@ -46,6 +49,19 @@ module RunCtrl {
       return (e:any) => {
         this.editorContent = e[1].getValue();
       };
+    }
+
+
+    public runExercise(){
+      console.log("compiling " + this.editorContent);
+      try {
+        eval(this.editorContent);
+        this.errorMessage = "";
+        this.success = true;
+      }catch(err){
+        this.errorMessage = err.toString();
+        console.log(err);
+      }
     }
   }
 

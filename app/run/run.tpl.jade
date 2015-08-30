@@ -14,6 +14,9 @@ div(ui-ace="{\
     }"
 )
 
-button.button(type='button')
+p(ng-show="!run.success") {{run.errorMessage}}
+p(ng-show="run.success") {{run.successMessage}}
+
+button.button(type='button' ng-click="run.runExercise()")
   | Run
 
