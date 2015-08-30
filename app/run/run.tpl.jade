@@ -9,7 +9,9 @@ div(ui-ace="{\
   mode: 'json',\
     theme: 'idle_fingers',\
     useWrapMode: true,\
-    onLoad: run.createExerciseDataLoader() }"
+    onLoad: run.createExerciseDataLoader(),\
+    onChange:run.onChange()\
+    }"
 )
 
 button.button(type='button')

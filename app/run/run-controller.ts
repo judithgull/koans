@@ -10,6 +10,7 @@ module RunCtrl {
     title: string;
     description: string;
     deferredData:ng.IPromise<any>;
+    editorContent:string;
 
     // $inject annotation.
     // It provides $injector with information about dependencies to be injected into constructor
@@ -38,6 +39,12 @@ module RunCtrl {
             _editor.getSession().setMode("ace/mode/" + data.language);
           }
         )
+      };
+    }
+
+    public onChange() {
+      return (e:any) => {
+        this.editorContent = e[1].getValue();
       };
     }
   }
