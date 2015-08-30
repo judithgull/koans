@@ -36,11 +36,11 @@ module RunCtrl {
     }
 
     public createExerciseDataLoader() {
-      return (_editor:AceAjax.Editor) => {
+      return (exerciseEditor:AceAjax.Editor) => {
         this.deferredData.then(
           (data:any) => {
-            _editor.setValue(data.exercise);
-            _editor.getSession().setMode("ace/mode/" + data.language);
+            exerciseEditor.setValue(data.exercise);
+            exerciseEditor.getSession().setMode("ace/mode/" + data.language);
           }
         )
       };
