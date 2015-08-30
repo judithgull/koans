@@ -60,7 +60,7 @@ module RunCtrl {
         this.success = true;
       }catch(err){
         this.errorMessage = err.toString();
-        console.log(err);
+        this.success = false;
       }
     }
   }
