@@ -57,6 +57,15 @@ module RunCtrl {
         )
       };
     }
+
+    public loadSolution(){
+      this.deferredData.then(
+        (data:any) => {
+          this.solutionEditor.setValue(data.solution);
+        }
+      )
+    }
+
     public onChange() {
       return (e:any) => {
         this.editorContent = e[1].getValue();
