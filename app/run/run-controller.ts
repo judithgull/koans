@@ -5,10 +5,10 @@ module RunCtrl {
 
   class RunCtrl {
 
-    ctrlName: string;
-    language: string;
-    title: string;
-    description: string;
+    ctrlName:string;
+    language:string;
+    title:string;
+    description:string;
     deferredData:ng.IPromise<any>;
     editorContent:string;
 
@@ -16,11 +16,11 @@ module RunCtrl {
     // It provides $injector with information about dependencies to be injected into constructor
     // it is better to have it close to the constructor, because the parameters must match in count and type.
     // See http://docs.angularjs.org/guide/di
-    public static $inject = ['$log',  'RestClient'];
+    public static $inject = ['$log', 'RestClient'];
 
 
     // dependencies are injected via AngularJS $injector
-    constructor(private $log: ng.ILogService,  private restClient: RestClient.IRestClient) {
+    constructor(private $log:ng.ILogService, private restClient:RestClient.IRestClient) {
       this.ctrlName = 'RunCtrl';
       this.deferredData = restClient.getKoan();
       this.deferredData.then((koanData) => {
@@ -31,7 +31,7 @@ module RunCtrl {
       ).catch((reason) => this.$log.error(reason));
     }
 
-    public createExerciseDataLoader(){
+    public createExerciseDataLoader() {
       return (_editor:AceAjax.Editor) => {
         this.deferredData.then(
           (data:any) => {
@@ -50,12 +50,12 @@ module RunCtrl {
   }
 
   /**
-  * @ngdoc object
-  * @name run.controller:RunCtrl
-  *
-  * @description
-  *
-  */
+   * @ngdoc object
+   * @name run.controller:RunCtrl
+   *
+   * @description
+   *
+   */
   angular
     .module('run')
     .controller('RunCtrl', RunCtrl);
