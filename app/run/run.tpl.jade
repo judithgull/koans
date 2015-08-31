@@ -4,10 +4,12 @@ p {{run.description}}
 
 div(ng-init="tab = 1")
   ul
-    li
-      a(href='', ng-click = "tab = 1") Your Code
-    li
-      a(href='', ng-click = "tab = 2;run.loadSolution()") Solution
+    li(ng-class="{ active:tab === 1 }")
+      a(href='', ng-click = "tab = 1")
+        | Your Code
+    li(ng-class="{ active:tab === 2 }")
+      a(href='', ng-click = "tab = 2;run.loadSolution()")
+        | Solution
 
 div(ng-show="tab ===1")
   div(ui-ace="{\
