@@ -7,11 +7,22 @@ module koans {
    * @description
    *
    */
-  angular
-    .module('koans', [
-      'ui.router',
-      'ui.ace',
-      'home',
-      'run'
-    ]);
+
+  var app = angular.module('koans', [
+    'ui.router',
+    'ui.ace',
+    'home',
+    'run'
+  ]);
+
+  app.controller("TabController", function(){
+    this.tab = 1;
+
+    this.selectTab = function(setTab) {
+      this.tab = setTab;
+    }
+    this.isSelected = function(checkTab){
+      return this.tab === checkTab;
+    }
+  });
 }
