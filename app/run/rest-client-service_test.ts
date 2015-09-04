@@ -53,15 +53,12 @@ describe('RestClient', function () {
 
   it('should return a topic with the correct attributes', function () {
     $httpBackend.expectGET("/data/newData.json");
-    var topicPromise = restClient.getTopic();
-    topicPromise.then(
-      data => {
-        expect(data.id).toBe(1);
-        expect(data.title).toBe("Addition");
-        expect(data.items[0].title).toBe("Type Declaration");
-      }
-    );
+    restClient.loadTopic();
     $httpBackend.flush();
+    var data:Data.ITopic = restClient.getTopic();
+    expect(data.id).toBe(1);
+    expect(data.title).toBe("Addition");
+    expect(data.items[0].title).toBe("Type Declaration");
   });
 
 });
