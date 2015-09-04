@@ -1,8 +1,8 @@
 ///<reference path='../../typings/tsd.d.ts' />
 
 /*global describe, beforeEach, it, expect, inject, module*/
-'use strict';
-
+//'use strict';
+/*
 describe('HomeCtrl', function () {
   var ctrl;
 
@@ -17,3 +17,4 @@ describe('HomeCtrl', function () {
   });
 
 });
+*/
