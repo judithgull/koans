@@ -1,4 +1,5 @@
 ///<reference path='../../typings/tsd.d.ts' />
+///<reference path='rest-client-service.ts' />
 module run {
   'use strict';
 
@@ -12,7 +13,12 @@ module run {
         url: '/run',
         templateUrl: 'run/run.tpl.html',
         controller: 'RunCtrl',
-        controllerAs: 'run'
+        controllerAs: 'run',
+        resolve: {
+          simpleObj: function(RestClient: RestClient.IRestClient){
+            RestClient.loadTopic();
+          }
+        }
       });
   }
 }

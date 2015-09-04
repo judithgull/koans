@@ -7,9 +7,11 @@ module RestClient {
   export interface IRestClient {
     getKoan(): ng.IPromise<Data.ITask>;
     getTopic(): ng.IPromise<Data.ITopic>;
+    loadTopic(): void;
   }
 
   class RestClient {
+    topicData: Data.ITopic;
 
     public static $inject = [
       '$http',
@@ -18,6 +20,17 @@ module RestClient {
 
     constructor(private $http:ng.IHttpService,
                 private $q:ng.IQService) {
+    }
+
+    loadTopic(){
+      console.log("loading data");
+      var deferred = this.$q.defer();
+      this.$http.get('/data/newData.json').then(response => {
+        this.topicData = <Data.ITopic> response.data;
+        deferred.resolve(response.data);
+      }).catch(reason => {
+        deferred.reject(reason);
+      });
     }
 
     getKoan():ng.IPromise<Data.ITask> {
