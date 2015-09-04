@@ -1,5 +1,6 @@
 ///<reference path='../../typings/tsd.d.ts' />
 ///<reference path='rest-client-service.ts' />
+///<reference path='../data/task.ts' />
 module RunCtrl {
   'use strict';
 
@@ -8,12 +9,14 @@ module RunCtrl {
     language:string;
     title:string;
     description:string;
-    deferredData:ng.IPromise<any>;
+    deferredData:ng.IPromise<Data.ITopic>;
     editorContent:string;
     errorMessage:string = "";
     successMessage:string = "You are great!!!";
     success = false;
     solutionEditor:AceAjax.Editor;
+    koanData: Data.ITask;
+    taskItem = 0;
 
     // $inject annotation.
     // It provides $injector with information about dependencies to be injected into constructor
@@ -24,11 +27,13 @@ module RunCtrl {
 
     // dependencies are injected via AngularJS $injector
     constructor(private $log:ng.ILogService, private restClient:RestClient.IRestClient) {
-      this.deferredData = restClient.getKoan();
-      this.deferredData.then((koanData) => {
-          this.language = koanData.language;
-          this.title = koanData.title;
-          this.description = koanData.description;
+      this.deferredData = restClient.getTopic();
+      this.deferredData.then((topicData) => {
+          this.title = topicData.title;
+          this.koanData = topicData.items[this.taskItem];
+          this.language = this.koanData.language;
+          this.title = this.koanData.title;
+          this.description = this.koanData.description;
         }
       ).catch((reason) => this.$log.error(reason));
     }
@@ -36,9 +41,10 @@ module RunCtrl {
     public createExerciseDataLoader() {
       return (exerciseEditor:AceAjax.Editor) => {
         this.deferredData.then(
-          (data:any) => {
-            exerciseEditor.setValue(data.exercise);
-            exerciseEditor.getSession().setMode("ace/mode/" + data.language);
+          (topicData) => {
+            var koanData = topicData.items[this.taskItem];
+            exerciseEditor.setValue(koanData.exercise);
+            exerciseEditor.getSession().setMode("ace/mode/" + koanData.language);
           }
         )
       };
@@ -47,8 +53,9 @@ module RunCtrl {
     public createSolutionDataLoader() {
       return (solutionEditor:AceAjax.Editor) => {
         this.deferredData.then(
-          (data:any) => {
-            solutionEditor.getSession().setMode("ace/mode/" + data.language);
+          (topicData) => {
+            var koanData = topicData.items[this.taskItem];
+            solutionEditor.getSession().setMode("ace/mode/" + koanData.language);
             solutionEditor.resize(true);
             this.solutionEditor = solutionEditor;
           }
@@ -58,8 +65,9 @@ module RunCtrl {
 
     public loadSolution(){
       this.deferredData.then(
-        (data:any) => {
-          this.solutionEditor.setValue(data.solution);
+        (topicData) => {
+          var koanData = topicData.items[this.taskItem];
+          this.solutionEditor.setValue(koanData.solution);
         }
       )
     }
