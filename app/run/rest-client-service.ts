@@ -6,11 +6,11 @@ module RestClient {
 
   export interface IRestClient {
     getKoan(): ng.IPromise<Data.ITask>;
-    getTopic(): ng.IPromise<Data.ITopic>;
+    getTopic(): Data.ITopic;
     loadTopic(): void;
   }
 
-  class RestClient {
+  class RestClient implements IRestClient{
     topicData: Data.ITopic;
 
     public static $inject = [
@@ -25,12 +25,18 @@ module RestClient {
     loadTopic(){
       console.log("loading data");
       var deferred = this.$q.defer();
-      this.$http.get('/data/newData.json').then(response => {
-        this.topicData = <Data.ITopic> response.data;
-        deferred.resolve(response.data);
-      }).catch(reason => {
-        deferred.reject(reason);
-      });
+
+      if (!this.topicData) {
+        this.$http.get('/data/newData.json').then(response => {
+          this.topicData = <Data.ITopic> response.data;
+          deferred.resolve(response.data);
+        }).catch(reason => {
+          deferred.reject(reason);
+        });
+      } else {
+        deferred.resolve(this.topicData);
+      }
+      return deferred.promise;
     }
 
     getKoan():ng.IPromise<Data.ITask> {
@@ -43,14 +49,8 @@ module RestClient {
       return deferred.promise;
     }
 
-    getTopic():ng.IPromise<Data.ITopic> {
-      var deferred = this.$q.defer();
-      this.$http.get('/data/newData.json').then(response => {
-        deferred.resolve(response.data);
-      }).catch(reason => {
-        deferred.reject(reason);
-      });
-      return deferred.promise;
+    getTopic():Data.ITopic {
+      return this.topicData;
     }
 
   }

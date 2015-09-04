@@ -5,9 +5,9 @@ module RunCtrl {
   'use strict';
 
   class RunCtrl {
-    deferredData:ng.IPromise<Data.ITopic>;
-    topicTitle: string;
+    topicTitle:string;
     taskItem = 0;
+    topicData:Data.ITopic;
 
     language:string;
     title:string;
@@ -29,15 +29,12 @@ module RunCtrl {
 
     // dependencies are injected via AngularJS $injector
     constructor(private $log:ng.ILogService, private restClient:RestClient.IRestClient) {
-      this.deferredData = restClient.getTopic();
-      this.deferredData.then((topicData) => {
-          this.topicTitle = topicData.title;
-          var koanData = this.getKoanData(topicData);
-          this.language = koanData.language;
-          this.title = koanData.title;
-          this.description = koanData.description;
-        }
-      ).catch((reason) => this.$log.error(reason));
+      this.topicData = restClient.getTopic();
+      this.topicTitle = this.topicData.title;
+      var koanData = this.getKoanData(this.topicData);
+      this.language = koanData.language;
+      this.title = koanData.title;
+      this.description = koanData.description;
     }
 
 
@@ -47,35 +44,23 @@ module RunCtrl {
 
     public createExerciseDataLoader() {
       return (exerciseEditor:AceAjax.Editor) => {
-        this.deferredData.then(
-          (topicData) => {
-            var koanData = this.getKoanData(topicData);
-            exerciseEditor.setValue(koanData.exercise);
-            exerciseEditor.getSession().setMode("ace/mode/" + koanData.language);
-          }
-        )
+        var koanData = this.getKoanData(this.topicData);
+        exerciseEditor.setValue(koanData.exercise);
+        exerciseEditor.getSession().setMode("ace/mode/" + koanData.language);
       };
     }
 
     public createSolutionDataLoader() {
       return (solutionEditor:AceAjax.Editor) => {
-        this.deferredData.then(
-          (topicData) => {
-            var koanData = this.getKoanData(topicData);
-            solutionEditor.getSession().setMode("ace/mode/" + koanData.language);
-            this.solutionEditor = solutionEditor;
-          }
-        )
+        var koanData = this.getKoanData(this.topicData);
+        solutionEditor.getSession().setMode("ace/mode/" + koanData.language);
+        this.solutionEditor = solutionEditor;
       };
     }
 
-    public loadSolution(){
-      this.deferredData.then(
-        (topicData) => {
-          var koanData = this.getKoanData(topicData);
-          this.solutionEditor.setValue(koanData.solution);
-        }
-      )
+    public loadSolution() {
+      var koanData = this.getKoanData(this.topicData);
+      this.solutionEditor.setValue(koanData.solution);
     }
 
     public onChange() {
@@ -85,19 +70,19 @@ module RunCtrl {
     }
 
 
-    public runExercise(){
+    public runExercise() {
       console.log("compiling " + this.editorContent);
       try {
         eval(this.editorContent);
         this.errorMessage = "";
         this.success = true;
-      }catch(err){
+      } catch (err) {
         this.errorMessage = err.toString();
         this.success = false;
       }
     }
 
-    public openNext(){
+    public openNext() {
     }
   }
 
