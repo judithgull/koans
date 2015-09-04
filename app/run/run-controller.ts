@@ -18,7 +18,7 @@ module RunCtrl {
     successMessage:string = "You are great!!!";
     success = false;
     solutionEditor:AceAjax.Editor;
-
+    exerciseEditor:AceAjax.Editor;
 
     // $inject annotation.
     // It provides $injector with information about dependencies to be injected into constructor
@@ -56,6 +56,7 @@ module RunCtrl {
         var koanData = this.getKoanData();
         exerciseEditor.setValue(koanData.exercise);
         this.updateEditorMode(exerciseEditor);
+        this.exerciseEditor = exerciseEditor;
       };
     }
 
@@ -64,6 +65,11 @@ module RunCtrl {
         this.updateEditorMode(solutionEditor);
         this.solutionEditor = solutionEditor;
       };
+    }
+
+    public loadExercise() {
+      var koanData = this.getKoanData();
+      this.exerciseEditor.setValue(koanData.exercise);
     }
 
     public loadSolution() {
@@ -93,6 +99,8 @@ module RunCtrl {
     public openNext() {
       this.taskItem ++;
       this.updateKoanData();
+      this.loadExercise();
+      this.loadSolution();
     }
   }
 
