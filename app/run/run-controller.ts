@@ -82,6 +82,9 @@ module RunCtrl {
         this.success = false;
       }
     }
+
+    public openNext(){
+    }
   }
 
   /**
