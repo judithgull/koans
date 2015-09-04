@@ -1,9 +1,10 @@
 ///<reference path='../../typings/tsd.d.ts' />
+///<reference path='../data/task.ts' />
 module RestClient {
   'use strict';
 
   export interface IRestClient {
-    getKoan(): ng.IPromise<any>;
+    getKoan(): ng.IPromise<Data.ITask>;
   }
 
   class RestClient {
@@ -17,7 +18,7 @@ module RestClient {
                 private $q:ng.IQService) {
     }
 
-    getKoan():ng.IPromise<any> {
+    getKoan():ng.IPromise<Data.ITask> {
       var deferred = this.$q.defer();
       this.$http.get('/data/data.json').then(response => {
         deferred.resolve(response.data);
