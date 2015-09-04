@@ -5,18 +5,20 @@ module RunCtrl {
   'use strict';
 
   class RunCtrl {
+    deferredData:ng.IPromise<Data.ITopic>;
     topicTitle: string;
+    taskItem = 0;
+
     language:string;
     title:string;
     description:string;
-    deferredData:ng.IPromise<Data.ITopic>;
+
     editorContent:string;
     errorMessage:string = "";
     successMessage:string = "You are great!!!";
     success = false;
     solutionEditor:AceAjax.Editor;
-    koanData: Data.ITask;
-    taskItem = 0;
+
 
     // $inject annotation.
     // It provides $injector with information about dependencies to be injected into constructor
@@ -61,7 +63,6 @@ module RunCtrl {
           (topicData) => {
             var koanData = this.getKoanData(topicData);
             solutionEditor.getSession().setMode("ace/mode/" + koanData.language);
-            solutionEditor.resize(true);
             this.solutionEditor = solutionEditor;
           }
         )
