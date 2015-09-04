@@ -5,7 +5,7 @@ module RunCtrl {
   'use strict';
 
   class RunCtrl {
-
+    topicTitle: string;
     language:string;
     title:string;
     description:string;
@@ -29,7 +29,7 @@ module RunCtrl {
     constructor(private $log:ng.ILogService, private restClient:RestClient.IRestClient) {
       this.deferredData = restClient.getTopic();
       this.deferredData.then((topicData) => {
-          this.title = topicData.title;
+          this.topicTitle = topicData.title;
           this.koanData = topicData.items[this.taskItem];
           this.language = this.koanData.language;
           this.title = this.koanData.title;
