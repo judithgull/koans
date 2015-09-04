@@ -30,19 +30,24 @@ module RunCtrl {
       this.deferredData = restClient.getTopic();
       this.deferredData.then((topicData) => {
           this.topicTitle = topicData.title;
-          this.koanData = topicData.items[this.taskItem];
-          this.language = this.koanData.language;
-          this.title = this.koanData.title;
-          this.description = this.koanData.description;
+          var koanData = this.getKoanData(topicData);
+          this.language = koanData.language;
+          this.title = koanData.title;
+          this.description = koanData.description;
         }
       ).catch((reason) => this.$log.error(reason));
+    }
+
+
+    private getKoanData(topicData:Data.ITopic) {
+      return topicData.items[this.taskItem];
     }
 
     public createExerciseDataLoader() {
       return (exerciseEditor:AceAjax.Editor) => {
         this.deferredData.then(
           (topicData) => {
-            var koanData = topicData.items[this.taskItem];
+            var koanData = this.getKoanData(topicData);
             exerciseEditor.setValue(koanData.exercise);
             exerciseEditor.getSession().setMode("ace/mode/" + koanData.language);
           }
@@ -54,7 +59,7 @@ module RunCtrl {
       return (solutionEditor:AceAjax.Editor) => {
         this.deferredData.then(
           (topicData) => {
-            var koanData = topicData.items[this.taskItem];
+            var koanData = this.getKoanData(topicData);
             solutionEditor.getSession().setMode("ace/mode/" + koanData.language);
             solutionEditor.resize(true);
             this.solutionEditor = solutionEditor;
@@ -66,7 +71,7 @@ module RunCtrl {
     public loadSolution(){
       this.deferredData.then(
         (topicData) => {
-          var koanData = topicData.items[this.taskItem];
+          var koanData = this.getKoanData(topicData);
           this.solutionEditor.setValue(koanData.solution);
         }
       )
