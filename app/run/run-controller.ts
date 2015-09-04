@@ -42,18 +42,21 @@ module RunCtrl {
       return this.topicData.items[this.taskItem];
     }
 
+    private updateEditorMode(editor:AceAjax.Editor){
+      editor.getSession().setMode("ace/mode/" + this.getKoanData().language);
+    }
+
     public createExerciseDataLoader() {
       return (exerciseEditor:AceAjax.Editor) => {
         var koanData = this.getKoanData();
         exerciseEditor.setValue(koanData.exercise);
-        exerciseEditor.getSession().setMode("ace/mode/" + koanData.language);
+        this.updateEditorMode(exerciseEditor);
       };
     }
 
     public createSolutionDataLoader() {
       return (solutionEditor:AceAjax.Editor) => {
-        var koanData = this.getKoanData();
-        solutionEditor.getSession().setMode("ace/mode/" + koanData.language);
+        this.updateEditorMode(solutionEditor);
         this.solutionEditor = solutionEditor;
       };
     }
