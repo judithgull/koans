@@ -31,20 +31,20 @@ module RunCtrl {
     constructor(private $log:ng.ILogService, private restClient:RestClient.IRestClient) {
       this.topicData = restClient.getTopic();
       this.topicTitle = this.topicData.title;
-      var koanData = this.getKoanData(this.topicData);
+      var koanData = this.getKoanData();
       this.language = koanData.language;
       this.title = koanData.title;
       this.description = koanData.description;
     }
 
 
-    private getKoanData(topicData:Data.ITopic) {
-      return topicData.items[this.taskItem];
+    private getKoanData() {
+      return this.topicData.items[this.taskItem];
     }
 
     public createExerciseDataLoader() {
       return (exerciseEditor:AceAjax.Editor) => {
-        var koanData = this.getKoanData(this.topicData);
+        var koanData = this.getKoanData();
         exerciseEditor.setValue(koanData.exercise);
         exerciseEditor.getSession().setMode("ace/mode/" + koanData.language);
       };
@@ -52,14 +52,14 @@ module RunCtrl {
 
     public createSolutionDataLoader() {
       return (solutionEditor:AceAjax.Editor) => {
-        var koanData = this.getKoanData(this.topicData);
+        var koanData = this.getKoanData();
         solutionEditor.getSession().setMode("ace/mode/" + koanData.language);
         this.solutionEditor = solutionEditor;
       };
     }
 
     public loadSolution() {
-      var koanData = this.getKoanData(this.topicData);
+      var koanData = this.getKoanData();
       this.solutionEditor.setValue(koanData.solution);
     }
 
