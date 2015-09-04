@@ -31,15 +31,20 @@ module RunCtrl {
     constructor(private $log:ng.ILogService, private restClient:RestClient.IRestClient) {
       this.topicData = restClient.getTopic();
       this.topicTitle = this.topicData.title;
-      var koanData = this.getKoanData();
-      this.language = koanData.language;
-      this.title = koanData.title;
-      this.description = koanData.description;
+      this.updateKoanData();
     }
 
 
     private getKoanData() {
       return this.topicData.items[this.taskItem];
+    }
+
+    private updateKoanData() {
+      console.log(this.taskItem + "Task Item");
+      var koanData = this.getKoanData();
+      this.language = koanData.language;
+      this.title = koanData.title;
+      this.description = koanData.description;
     }
 
     private updateEditorMode(editor:AceAjax.Editor){
@@ -86,6 +91,8 @@ module RunCtrl {
     }
 
     public openNext() {
+      this.taskItem ++;
+      this.updateKoanData();
     }
   }
 
