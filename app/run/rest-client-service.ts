@@ -23,7 +23,6 @@ module RestClient {
     }
 
     loadTopic(){
-      console.log("loading data");
       var deferred = this.$q.defer();
 
       if (!this.topicData) {
