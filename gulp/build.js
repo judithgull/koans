@@ -162,8 +162,14 @@ module.exports = function (gulp, $, config) {
       .pipe(jsFilter.restore());
   });
 
+  // copy libs into build directory
+  gulp.task('copyLibs', function () {
+    return gulp.src(config.libFiles)
+      .pipe(gulp.dest(config.extDir));
+  });
+
   // inject bower components into index.html
-  gulp.task('bowerInject', ['bowerCopy'], function () {
+  gulp.task('bowerInject', ['bowerCopy', 'copyLibs'], function () {
     if (isProd) {
       return gulp.src(config.buildDir + 'index.html')
         .pipe($.inject(gulp.src([

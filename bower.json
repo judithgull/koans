@@ -20,7 +20,9 @@
         "src-min-noconflict/mode-yaml.js",
         "src-min-noconflict/theme-idle_fingers.js",
         "src-min-noconflict/worker-json.js",
-        "src-min-noconflict/worker-javascript.js"
+        "src-min-noconflict/worker-javascript.js",
+        "src-min-noconflict/worker-typescript.js",
+        "src-min-noconflict/typescriptServices.js"
       ]
     }
   }

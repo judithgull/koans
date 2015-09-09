@@ -9,6 +9,9 @@ module.exports = {
   // app directories
   appDir: 'app',
 
+  //patches for external libraries
+  libDir: 'lib',
+
   // unit test directories
   unitTestDir: 'app',
 
