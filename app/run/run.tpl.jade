@@ -1,7 +1,3 @@
-
-h1 {{run.topicTitle}}
-
-p {{run.language}}
 h2 {{run.title}}
 p {{run.description}}
 
@@ -35,6 +31,3 @@ div(ng-controller="TabController as tab")
         onLoad: run.createSolutionDataLoader()\
         }"
     )
-
-button.button(type='button' ng-click="run.openNext()")
-  | Next

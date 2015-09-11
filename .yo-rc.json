@@ -9,6 +9,6 @@
     "style": "scss",
     "testFramework": "jasmine",
     "testScript": "ts",
-    "lastUsedModule": "run"
+    "lastUsedModule": "topic"
   }
 }

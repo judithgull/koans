@@ -12,7 +12,8 @@ module koans {
     'ui.router',
     'ui.ace',
     'home',
-    'run'
+    'run',
+    'topic'
   ]);
 
   app.controller("TabController", function(){
