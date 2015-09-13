@@ -8,25 +8,25 @@ module topic {
     .module('topic')
     .config(config);
 
-  function config($stateProvider: ng.ui.IStateProvider) {
+  function config($stateProvider:ng.ui.IStateProvider) {
     $stateProvider
       .state('topic', {
         abstract: true,
         url: '/topic',
         templateUrl: 'topic/topic.tpl.html',
         controller: 'TopicCtrl',
-        controllerAs: 'topic'
+        controllerAs: 'topic',
+        resolve: {
+          simpleObj: function (RestClient:RestClient.IRestClient) {
+            RestClient.loadTopic();
+          }
+        }
       }).state('topic.run', {
         // url will become '/topic/run'
         url: '/run/:id',
         templateUrl: 'run/run.tpl.html',
         controller: 'RunCtrl',
-        controllerAs: 'run',
-        resolve: {
-          simpleObj: function(RestClient: RestClient.IRestClient){
-            RestClient.loadTopic();
-          }
-        }
+        controllerAs: 'run'
       });
   }
 }

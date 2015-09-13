@@ -7,7 +7,7 @@ module RestClient {
   export interface IRestClient {
     getKoan(): ng.IPromise<Data.ITask>;
     getTopic(): Data.ITopic;
-    loadTopic(): void;
+    loadTopic(): ng.IPromise<Data.ITopic>;
   }
 
   class RestClient implements IRestClient{
@@ -22,7 +22,7 @@ module RestClient {
                 private $q:ng.IQService) {
     }
 
-    loadTopic(){
+    loadTopic():ng.IPromise<Data.ITopic> {
       var deferred = this.$q.defer();
 
       if (!this.topicData) {
