@@ -15,7 +15,7 @@ describe('RestClient', function () {
     $httpBackend = $injector.get("$httpBackend");
 
     requestHandler = $httpBackend.when("GET", "/data/newData.json").respond(
-      {
+      [{
         "id": 1,
         "title": "Addition",
         "items": [
@@ -44,21 +44,22 @@ describe('RestClient', function () {
             "solution": "describe('Type Declaration', function () {\n\n  //Types are denoted by :\n  var name: string = \"Anna\";\n  var isEmpty:boolean = false;\n  var age: number = 16;\n\n  //TODO fix the assignment value to make the program compile:\n  isEmpty = false;\n});"
           }
         ]
-      }
+      }]
     );
 
   }));
 
 
-
   it('should return a topic with the correct attributes', function () {
     $httpBackend.expectGET("/data/newData.json");
-    restClient.loadTopic();
+    var topicPromise = restClient.getTopic(0);
+    topicPromise.then(
+      (data) => {
+        expect(data.id).toBe(1);
+        expect(data.title).toBe("Addition");
+        expect(data.items[0].title).toBe("Type Declaration");
+      }
+    );
     $httpBackend.flush();
-    var data:Data.ITopic = restClient.getTopic();
-    expect(data.id).toBe(1);
-    expect(data.title).toBe("Addition");
-    expect(data.items[0].title).toBe("Type Declaration");
   });
-
 });
