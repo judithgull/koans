@@ -8,6 +8,7 @@ module RestClient {
     getKoan(): ng.IPromise<Data.ITask>;
     getTopic(): Data.ITopic;
     loadTopic(): ng.IPromise<Data.ITopic>;
+    getExercise(id:number):Data.ITask;
   }
 
   class RestClient implements IRestClient{
@@ -36,6 +37,10 @@ module RestClient {
         deferred.resolve(this.topicData);
       }
       return deferred.promise;
+    }
+
+    getExercise(id:number):Data.ITask {
+      return this.topicData.items[id-1];
     }
 
     getKoan():ng.IPromise<Data.ITask> {

@@ -6,7 +6,7 @@ module RunCtrl {
   'use strict';
 
   interface IRunRouteParams extends ng.ui.IStateParamsService {
-    id: string;
+    id: number;
   }
 
   class RunCtrl {
