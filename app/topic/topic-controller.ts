@@ -5,9 +5,10 @@ module TopicCtrl {
   'use strict';
 
   class TopicCtrl {
+    data:Data.ITopic;
 
     exerciseId: number = 1;
-    data:Data.ITopic;
+    exerciseCount:number;
 
     // $inject annotation.
     // It provides $injector with information about dependencies to be injected into constructor
@@ -19,6 +20,7 @@ module TopicCtrl {
     // dependencies are injected via AngularJS $injector
     constructor(private restClient:RestClient.IRestClient) {
       this.data = restClient.getTopic();
+      this.exerciseCount = this.data.items.length;
     }
   }
 
