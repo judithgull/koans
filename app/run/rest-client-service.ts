@@ -28,7 +28,7 @@ module RestClient {
       if (!this.topicData) {
         this.$http.get('/data/newData.json').then(response => {
           this.topicData = <Data.ITopic> response.data[id];
-          deferred.resolve(response.data);
+          deferred.resolve(this.topicData);
         }).catch(reason => {
           deferred.reject(reason);
         });
