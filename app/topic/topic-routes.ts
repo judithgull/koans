@@ -16,7 +16,7 @@ module topic {
         templateUrl: 'topic/topic.tpl.html'
       }).state('topic.run', {
         // url will become '/topic/run'
-        url: '/run',
+        url: '/run/:id',
         templateUrl: 'run/run.tpl.html',
         controller: 'RunCtrl',
         controllerAs: 'run',

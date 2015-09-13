@@ -1,8 +1,13 @@
 ///<reference path='../../typings/tsd.d.ts' />
 ///<reference path='rest-client-service.ts' />
 ///<reference path='../data/task.ts' />
+///<reference path="../../typings/angular-ui-router/angular-ui-router.d.ts"/>
 module RunCtrl {
   'use strict';
+
+  interface IRunRouteParams extends ng.ui.IStateParamsService {
+    id: string;
+  }
 
   class RunCtrl {
     topicTitle:string;
@@ -24,11 +29,12 @@ module RunCtrl {
     // It provides $injector with information about dependencies to be injected into constructor
     // it is better to have it close to the constructor, because the parameters must match in count and type.
     // See http://docs.angularjs.org/guide/di
-    public static $inject = ['$log', 'RestClient'];
+    public static $inject = ['$stateParams', 'RestClient'];
 
 
     // dependencies are injected via AngularJS $injector
-    constructor(private $log:ng.ILogService, private restClient:RestClient.IRestClient) {
+    constructor(private $stateParams:IRunRouteParams, private restClient:RestClient.IRestClient) {
+      console.log($stateParams.id);
       this.topicData = restClient.getTopic();
       this.topicTitle = this.topicData.title;
       this.updateKoanData();
