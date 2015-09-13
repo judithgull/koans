@@ -33,14 +33,12 @@ module RunCtrl {
 
     // dependencies are injected via AngularJS $injector
     constructor(private $stateParams:IRunRouteParams, private restClient:RestClient.IRestClient) {
-      console.log($stateParams.id);
       this.exData = restClient.getExercise($stateParams.id);
       this.updateKoanData();
     }
 
 
     private updateKoanData() {
-      console.log(this.taskItem + "Task Item");
       this.language = this.exData.language;
       this.title = this.exData.title;
       this.description = this.exData.description;
@@ -81,7 +79,6 @@ module RunCtrl {
 
 
     public runExercise() {
-      console.log("compiling " + this.editorContent);
       try {
         eval(this.editorContent);
         this.errorMessage = "";
