@@ -12,7 +12,7 @@ module topic {
     $stateProvider
       .state('topic', {
         abstract: true,
-        url: '/topic',
+        url: '/topic/:topicId',
         templateUrl: 'topic/topic.tpl.html',
         controller: 'TopicCtrl',
         controllerAs: 'topic',

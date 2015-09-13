@@ -3,12 +3,12 @@ p {{run.language}}
 
 div(ui-view="")
 
-a(href='#/topic/run/{{topic.exerciseId}}',
+a(ui-sref='topic.run({id:topic.exerciseId})',
 ng-click='topic.exerciseId=topic.exerciseId-1',
 ng-show="topic.exerciseId > 1 ")
   | Previous
 
-a(href='#/topic/run/{{topic.exerciseId}}',
+a(ui-sref='topic.run({id:topic.exerciseId})',
 ng-click='topic.exerciseId=topic.exerciseId+1',
 ng-show="topic.exerciseId < topic.exerciseCount")
   | Next
