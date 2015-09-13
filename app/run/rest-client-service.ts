@@ -5,7 +5,7 @@ module RestClient {
   'use strict';
 
   export interface IRestClient {
-    loadTopic(id:number): ng.IPromise<Data.ITopic>;
+    getTopic(id:number): ng.IPromise<Data.ITopic>;
     getExercise(topicId:number, exerciseId:number):ng.IPromise<Data.ITask>;
   }
 
@@ -21,7 +21,7 @@ module RestClient {
                 private $q:ng.IQService) {
     }
 
-    loadTopic(id:number):ng.IPromise<Data.ITopic> {
+    getTopic(id:number):ng.IPromise<Data.ITopic> {
       var deferred = this.$q.defer();
 
       if (!this.topicData) {
@@ -38,8 +38,7 @@ module RestClient {
     }
 
     getExercise(topidId:number, exerciseId:number):ng.IPromise<Data.ITask> {
-      return this.loadTopic(topidId).then(() => this.topicData.items[exerciseId - 1]);
-      //return this.topicData.items[id-1];
+      return this.getTopic(topidId).then(() => this.topicData.items[exerciseId - 1]);
     }
 
   }

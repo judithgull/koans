@@ -18,7 +18,7 @@ module topic {
         controllerAs: 'topic',
         resolve: {
           topicData: function (RestClient:RestClient.IRestClient, $stateParams) {
-            return RestClient.loadTopic($stateParams.topicId);
+            return RestClient.getTopic($stateParams.topicId);
           }
         }
       }).state('topic.run', {
