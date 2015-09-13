@@ -10,7 +10,6 @@ module RunCtrl {
   }
 
   class RunCtrl {
-    taskItem = 0;
     exData:Data.ITask;
 
     language:string;

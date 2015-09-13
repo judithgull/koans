@@ -6,7 +6,6 @@ module TopicCtrl {
 
   class TopicCtrl {
 
-    ctrlName: string;
     exerciseId: number = 1;
     data:Data.ITopic;
 
@@ -19,8 +18,6 @@ module TopicCtrl {
 
     // dependencies are injected via AngularJS $injector
     constructor(private restClient:RestClient.IRestClient) {
-      var vm = this;
-      vm.ctrlName = 'TopicCtrl';
       this.data = restClient.getTopic();
     }
   }
