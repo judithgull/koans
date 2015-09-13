@@ -17,8 +17,8 @@ module topic {
         controller: 'TopicCtrl',
         controllerAs: 'topic',
         resolve: {
-          simpleObj: function (RestClient:RestClient.IRestClient) {
-            RestClient.loadTopic();
+          simpleObj: function (RestClient:RestClient.IRestClient, $stateParams) {
+            RestClient.loadTopic($stateParams.topicId);
           }
         }
       }).state('topic.run', {

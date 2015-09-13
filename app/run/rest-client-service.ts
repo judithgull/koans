@@ -6,7 +6,7 @@ module RestClient {
 
   export interface IRestClient {
     getTopic(): Data.ITopic;
-    loadTopic(): ng.IPromise<Data.ITopic>;
+    loadTopic(id:number): ng.IPromise<Data.ITopic>;
     getExercise(id:number):Data.ITask;
   }
 
@@ -22,12 +22,12 @@ module RestClient {
                 private $q:ng.IQService) {
     }
 
-    loadTopic():ng.IPromise<Data.ITopic> {
+    loadTopic(id:number):ng.IPromise<Data.ITopic> {
       var deferred = this.$q.defer();
 
       if (!this.topicData) {
         this.$http.get('/data/newData.json').then(response => {
-          this.topicData = <Data.ITopic> response.data;
+          this.topicData = <Data.ITopic> response.data[id];
           deferred.resolve(response.data);
         }).catch(reason => {
           deferred.reject(reason);
