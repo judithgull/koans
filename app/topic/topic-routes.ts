@@ -13,6 +13,9 @@ module topic {
       .state('topic', {
         abstract: true,
         url: '/topic/:topicId',
+        params: {
+          exId: 1
+        },
         templateUrl: 'topic/topic.tpl.html',
         controller: 'TopicCtrl',
         controllerAs: 'topic',
@@ -22,13 +25,13 @@ module topic {
           }
         }
       }).state('topic.run', {
-        url: '/run/:id',
+        url: '/run/:exId',
         templateUrl: 'run/run.tpl.html',
         controller: 'RunCtrl',
         controllerAs: 'run',
         resolve: {
           exData: function (RestClient:RestClient.IRestClient, $stateParams) {
-            return RestClient.getExercise($stateParams.topicId, $stateParams.id);
+            return RestClient.getExercise($stateParams.topicId, $stateParams.exId);
           }
         }
       });
