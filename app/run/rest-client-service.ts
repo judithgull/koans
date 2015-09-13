@@ -6,7 +6,7 @@ module RestClient {
 
   export interface IRestClient {
     loadTopic(id:number): ng.IPromise<Data.ITopic>;
-    getExercise(id:number):Data.ITask;
+    getExercise(topicId:number, exerciseId:number):ng.IPromise<Data.ITask>;
   }
 
   class RestClient implements IRestClient{
@@ -37,8 +37,9 @@ module RestClient {
       return deferred.promise;
     }
 
-    getExercise(id:number):Data.ITask {
-      return this.topicData.items[id-1];
+    getExercise(topidId:number, exerciseId:number):ng.IPromise<Data.ITask> {
+      return this.loadTopic(topidId).then(() => this.topicData.items[exerciseId - 1]);
+      //return this.topicData.items[id-1];
     }
 
   }

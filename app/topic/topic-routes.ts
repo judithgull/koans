@@ -25,7 +25,12 @@ module topic {
         url: '/run/:id',
         templateUrl: 'run/run.tpl.html',
         controller: 'RunCtrl',
-        controllerAs: 'run'
+        controllerAs: 'run',
+        resolve: {
+          exData: function (RestClient:RestClient.IRestClient, $stateParams) {
+            return RestClient.getExercise($stateParams.topicId, $stateParams.id);
+          }
+        }
       });
   }
 }

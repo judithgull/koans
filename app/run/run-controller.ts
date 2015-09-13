@@ -5,10 +5,6 @@
 module RunCtrl {
   'use strict';
 
-  interface IRunRouteParams extends ng.ui.IStateParamsService {
-    id: number;
-  }
-
   class RunCtrl {
     exData:Data.ITask;
 
@@ -27,12 +23,12 @@ module RunCtrl {
     // It provides $injector with information about dependencies to be injected into constructor
     // it is better to have it close to the constructor, because the parameters must match in count and type.
     // See http://docs.angularjs.org/guide/di
-    public static $inject = ['$stateParams', 'RestClient'];
+    public static $inject = ['exData'];
 
 
     // dependencies are injected via AngularJS $injector
-    constructor(private $stateParams:IRunRouteParams, private restClient:RestClient.IRestClient) {
-      this.exData = restClient.getExercise($stateParams.id);
+    constructor(exData:Data.ITask) {
+      this.exData = exData;
       this.updateKoanData();
     }
 
