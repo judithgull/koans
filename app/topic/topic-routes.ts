@@ -13,7 +13,9 @@ module topic {
       .state('topic', {
         abstract: true,
         url: '/topic',
-        templateUrl: 'topic/topic.tpl.html'
+        templateUrl: 'topic/topic.tpl.html',
+        controller: 'TopicCtrl',
+        controllerAs: 'topic'
       }).state('topic.run', {
         // url will become '/topic/run'
         url: '/run/:id',

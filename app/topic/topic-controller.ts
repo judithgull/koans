@@ -5,6 +5,7 @@ module TopicCtrl {
   class TopicCtrl {
 
     ctrlName: string;
+    exerciseId: number = 1;
 
     // $inject annotation.
     // It provides $injector with information about dependencies to be injected into constructor
