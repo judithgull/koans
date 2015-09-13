@@ -11,7 +11,7 @@ module RunCtrl {
 
   class RunCtrl {
     taskItem = 0;
-    topicData:Data.ITopic;
+    exData:Data.ITask;
 
     language:string;
     title:string;
@@ -34,31 +34,25 @@ module RunCtrl {
     // dependencies are injected via AngularJS $injector
     constructor(private $stateParams:IRunRouteParams, private restClient:RestClient.IRestClient) {
       console.log($stateParams.id);
-      this.topicData = restClient.getTopic();
+      this.exData = restClient.getExercise($stateParams.id);
       this.updateKoanData();
     }
 
 
-    private getKoanData() {
-      return this.topicData.items[this.taskItem];
-    }
-
     private updateKoanData() {
       console.log(this.taskItem + "Task Item");
-      var koanData = this.getKoanData();
-      this.language = koanData.language;
-      this.title = koanData.title;
-      this.description = koanData.description;
+      this.language = this.exData.language;
+      this.title = this.exData.title;
+      this.description = this.exData.description;
     }
 
     private updateEditorMode(editor:AceAjax.Editor){
-      editor.getSession().setMode("ace/mode/" + this.getKoanData().language);
+      editor.getSession().setMode("ace/mode/" + this.exData.language);
     }
 
     public createExerciseDataLoader() {
       return (exerciseEditor:AceAjax.Editor) => {
-        var koanData = this.getKoanData();
-        exerciseEditor.setValue(koanData.exercise);
+        exerciseEditor.setValue(this.exData.exercise);
         this.updateEditorMode(exerciseEditor);
         this.exerciseEditor = exerciseEditor;
       };
@@ -72,13 +66,11 @@ module RunCtrl {
     }
 
     public loadExercise() {
-      var koanData = this.getKoanData();
-      this.exerciseEditor.setValue(koanData.exercise);
+      this.exerciseEditor.setValue(this.exData.exercise);
     }
 
     public loadSolution() {
-      var koanData = this.getKoanData();
-      this.solutionEditor.setValue(koanData.solution);
+      this.solutionEditor.setValue(this.exData.solution);
     }
 
     public onChange() {
