@@ -2,7 +2,9 @@
 
 module.exports = function (gulp, $, config) {
   // lint source code
-  gulp.task('lint', function () {
+  gulp.task('lint');
+
+  /*    gulp.task('lint', function () {
     return gulp.src([
       config.appScriptFiles,
       config.e2eFiles,
@@ -18,10 +20,11 @@ module.exports = function (gulp, $, config) {
 
         this.emit('end');
       }}))
-  });
+   }); */
 
   // run plato anaylysis on JavaScript (ES5) files
-  gulp.task('staticAnalysis', function (done) {
+  gulp.task('staticAnalysis');
+  /*  gulp.task('staticAnalysis', function (done) {
     $.multiGlob.glob([config.appScriptFiles, config.e2eFiles, config.unitTestFiles], function (err, matches) {
       if (err) {
         throw new Error('Couldn\'t find files.');
@@ -41,6 +44,6 @@ module.exports = function (gulp, $, config) {
       }
     });
   });
-
-  gulp.task('analyze');
+   */
+  gulp.task('analyze', ['lint', 'staticAnalysis']);
 };
