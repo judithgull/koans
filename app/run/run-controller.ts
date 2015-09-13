@@ -102,12 +102,6 @@ module RunCtrl {
       }
     }
 
-    public openNext() {
-      this.taskItem ++;
-      this.updateKoanData();
-      this.loadExercise();
-      this.loadSolution();
-    }
   }
 
   /**
