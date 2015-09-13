@@ -5,7 +5,6 @@ module RestClient {
   'use strict';
 
   export interface IRestClient {
-    getKoan(): ng.IPromise<Data.ITask>;
     getTopic(): Data.ITopic;
     loadTopic(): ng.IPromise<Data.ITopic>;
     getExercise(id:number):Data.ITask;
@@ -43,15 +42,6 @@ module RestClient {
       return this.topicData.items[id-1];
     }
 
-    getKoan():ng.IPromise<Data.ITask> {
-      var deferred = this.$q.defer();
-      this.$http.get('/data/data.json').then(response => {
-        deferred.resolve(response.data);
-      }).catch(reason => {
-        deferred.reject(reason);
-      });
-      return deferred.promise;
-    }
 
     getTopic():Data.ITopic {
       return this.topicData;
