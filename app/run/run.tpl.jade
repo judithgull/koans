@@ -12,7 +12,6 @@ div(ng-controller="TabController as tab")
         | Solution
   div(ng-show="tab.isSelected(1)")
     div(ui-ace="{\
-      mode: 'json',\
         theme: 'idle_fingers',\
         useWrapMode: true,\
         onLoad: run.createExerciseDataLoader(),\
@@ -25,7 +24,6 @@ div(ng-controller="TabController as tab")
       | Run
   div(ng-show="tab.isSelected(2)")
     div(ui-ace="{\
-      mode: 'json',\
         theme: 'idle_fingers',\
         useWrapMode: true,\
         onLoad: run.createSolutionDataLoader()\
