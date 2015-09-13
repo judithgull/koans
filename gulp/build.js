@@ -169,7 +169,7 @@ module.exports = function (gulp, $, config) {
   });
 
   // inject bower components into index.html
-  gulp.task('bowerInject', ['bowerCopy', 'copyLibs'], function () {
+  gulp.task('bowerInject', ['bowerCopy'], function () {
     if (isProd) {
       return gulp.src(config.buildDir + 'index.html')
         .pipe($.inject(gulp.src([
