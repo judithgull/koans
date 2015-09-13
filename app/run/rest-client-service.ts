@@ -5,7 +5,6 @@ module RestClient {
   'use strict';
 
   export interface IRestClient {
-    getTopic(): Data.ITopic;
     loadTopic(id:number): ng.IPromise<Data.ITopic>;
     getExercise(id:number):Data.ITask;
   }
@@ -40,11 +39,6 @@ module RestClient {
 
     getExercise(id:number):Data.ITask {
       return this.topicData.items[id-1];
-    }
-
-
-    getTopic():Data.ITopic {
-      return this.topicData;
     }
 
   }
