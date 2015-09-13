@@ -10,7 +10,6 @@ module RunCtrl {
   }
 
   class RunCtrl {
-    topicTitle:string;
     taskItem = 0;
     topicData:Data.ITopic;
 
@@ -36,7 +35,6 @@ module RunCtrl {
     constructor(private $stateParams:IRunRouteParams, private restClient:RestClient.IRestClient) {
       console.log($stateParams.id);
       this.topicData = restClient.getTopic();
-      this.topicTitle = this.topicData.title;
       this.updateKoanData();
     }
 
