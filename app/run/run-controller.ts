@@ -22,24 +22,20 @@ module RunCtrl {
     // It provides $injector with information about dependencies to be injected into constructor
     // it is better to have it close to the constructor, because the parameters must match in count and type.
     // See http://docs.angularjs.org/guide/di
-    public static $inject = ['exData'];
+    public static $inject = ['exData', 'topicData'];
 
 
     // dependencies are injected via AngularJS $injector
-    constructor(exData:Data.ITask) {
+    constructor(exData:Data.ITask, topicData:Data.ITopic) {
       this.exData = exData;
-      this.updateKoanData();
-    }
-
-
-    private updateKoanData() {
-      this.language = this.exData.language;
+      this.language = topicData.language;
       this.title = this.exData.title;
       this.description = this.exData.description;
     }
 
+
     private updateEditorMode(editor:AceAjax.Editor){
-      editor.getSession().setMode("ace/mode/" + this.exData.language);
+      editor.getSession().setMode("ace/mode/" + this.language);
     }
 
     public createExerciseDataLoader() {

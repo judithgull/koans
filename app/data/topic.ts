@@ -5,6 +5,7 @@ module Data {
   export interface ITopic {
     id: number;
     title: string;
+    language: string;
     items: Array<Data.ITask>;
   }
 }

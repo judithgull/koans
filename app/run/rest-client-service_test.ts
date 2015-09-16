@@ -18,10 +18,10 @@ describe('RestClient', function () {
       [{
         "id": 1,
         "title": "Addition",
+        "language": "typescript",
         "items": [
           {
             "id": 1,
-            "language": "typescript",
             "title": "Type Declaration",
             "description": "Typescript is strongly typed: A variable is assigned a type, that cannot be changed.",
             "exercise": "describe('Type Declaration', function () {\n\n  //Types are denoted by :\n  var name: string = \"Anna\";\n  var isEmpty:boolean = false;\n  var age: number = 16;\n\n  //TODO fix the assignment value to make the program compile:\n  isEmpty = 0;\n});",
@@ -29,7 +29,6 @@ describe('RestClient', function () {
           },
           {
             "id": 2,
-            "language": "typescript",
             "title": "Type Declaration1",
             "description": "Typescript is strongly typed: A variable is assigned a type, that cannot be changed.",
             "exercise": "describe('Type Declaration', function () {\n\n  //Types are denoted by :\n  var name: string = \"Anna\";\n  var isEmpty:boolean = false;\n  var age: number = 16;\n\n  //TODO fix the assignment value to make the program compile:\n  isEmpty = 0;\n});",
@@ -37,7 +36,6 @@ describe('RestClient', function () {
           },
           {
             "id": 3,
-            "language": "typescript",
             "title": "Type Declaration2",
             "description": "Typescript is strongly typed: A variable is assigned a type, that cannot be changed.",
             "exercise": "describe('Type Declaration', function () {\n\n  //Types are denoted by :\n  var name: string = \"Anna\";\n  var isEmpty:boolean = false;\n  var age: number = 16;\n\n  //TODO fix the assignment value to make the program compile:\n  isEmpty = 0;\n});",
