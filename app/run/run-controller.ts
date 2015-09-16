@@ -1,7 +1,6 @@
 ///<reference path='../../typings/tsd.d.ts' />
 ///<reference path='rest-client-service.ts' />
 ///<reference path='../data/task.ts' />
-///<reference path="../../typings/angular-ui-router/angular-ui-router.d.ts"/>
 module RunCtrl {
   'use strict';
 
