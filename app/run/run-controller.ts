@@ -1,11 +1,11 @@
 ///<reference path='../../typings/tsd.d.ts' />
 ///<reference path='rest-client-service.ts' />
-///<reference path='../data/task.ts' />
+///<reference path='../data/topic.ts' />
 module RunCtrl {
   'use strict';
 
   class RunCtrl {
-    exData:Data.ITask;
+    exData:Data.IExercise;
 
     language:string;
     title:string;
@@ -26,7 +26,7 @@ module RunCtrl {
 
 
     // dependencies are injected via AngularJS $injector
-    constructor(exData:Data.ITask, topicData:Data.ITopic) {
+    constructor(exData:Data.IExercise, topicData:Data.ITopic) {
       this.exData = exData;
       this.language = topicData.language;
       this.title = this.exData.title;

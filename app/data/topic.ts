@@ -1,4 +1,3 @@
-///<reference path='../data/task.ts' />
 module Data {
   'use strict';
 
@@ -6,6 +5,14 @@ module Data {
     id: number;
     title: string;
     language: string;
-    items: Array<Data.ITask>;
+    items: Array<Data.IExercise>;
+  }
+
+  export interface IExercise {
+    id: number;
+    title: string;
+    description: string;
+    exercise: string;
+    solution: string;
   }
 }

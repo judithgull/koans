@@ -1,12 +1,11 @@
 ///<reference path='../../typings/tsd.d.ts' />
-///<reference path='../data/task.ts' />
 ///<reference path='../data/topic.ts' />
 module RestClient {
   'use strict';
 
   export interface IRestClient {
     getTopic(id:number): ng.IPromise<Data.ITopic>;
-    getExercise(topicId:number, exerciseId:number):ng.IPromise<Data.ITask>;
+    getExercise(topicId:number, exerciseId:number):ng.IPromise<Data.IExercise>;
   }
 
   class RestClient implements IRestClient{
@@ -37,7 +36,7 @@ module RestClient {
       return deferred.promise;
     }
 
-    getExercise(topidId:number, exerciseId:number):ng.IPromise<Data.ITask> {
+    getExercise(topidId:number, exerciseId:number):ng.IPromise<Data.IExercise> {
       return this.getTopic(topidId).then(() => this.topicData.items[exerciseId - 1]);
     }
 
