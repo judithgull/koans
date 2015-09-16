@@ -11,8 +11,8 @@ describe('Run page', function () {
     browser.get('/#/run');
   });
 
-  it('should say RunCtrl', function () {
+  it('should say ExerciseCtrl', function () {
     expect(runPage.heading.getText()).toEqual('run');
-    expect(runPage.text.getText()).toEqual('RunCtrl');
+    expect(runPage.text.getText()).toEqual('ExerciseCtrl');
   });
 });

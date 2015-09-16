@@ -12,7 +12,7 @@ module koans {
     'ui.router',
     'ui.ace',
     'home',
-    'run',
+    'exercise',
     'topic'
   ]);
 

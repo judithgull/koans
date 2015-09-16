@@ -1,14 +1,14 @@
 ///<reference path='../../typings/tsd.d.ts' />
-module run {
+module exercise {
   'use strict';
 
   /* @ngdoc object
-  * @name run
+  * @name exercise
   * @description
   *
   */
   angular
-    .module('run', [
+    .module('exercise', [
       'ui.router'
     ]);
 }

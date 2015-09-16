@@ -1,8 +1,8 @@
 ///<reference path='../../typings/tsd.d.ts' />
 ///<reference path='rest-client-service.ts' />
-module run {
+module exercise {
   'use strict';
 
   angular
-    .module('run');
+    .module('exercise');
 }

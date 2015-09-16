@@ -3,11 +3,11 @@ p {{topic.data.language}}
 
 div(ui-view="")
 
-a(ui-sref='topic.run({exId:topic.exerciseId-1})',
+a(ui-sref='topic.exercise({exId:topic.exerciseId-1})',
 ng-show="topic.exerciseId > 1")
   | Previous
 
-a(ui-sref='topic.run({exId:topic.exerciseId+1})',
+a(ui-sref='topic.exercise({exId:topic.exerciseId+1})',
 ng-show="topic.exerciseId < topic.exerciseCount")
   | Next
 

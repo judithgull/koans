@@ -44,12 +44,12 @@ module RestClient {
 
   /**
    * @ngdoc service
-   * @name run.service:RestClient
+   * @name exercise.service:RestClient
    *
    * @description
    *
    */
   angular
-    .module('run')
+    .module('exercise')
     .service('RestClient', RestClient);
 }

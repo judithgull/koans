@@ -1,10 +1,10 @@
 ///<reference path='../../typings/tsd.d.ts' />
 ///<reference path='rest-client-service.ts' />
 ///<reference path='../data/topic.ts' />
-module RunCtrl {
+module ExerciseCtrl {
   'use strict';
 
-  class RunCtrl {
+  class ExerciseCtrl {
     exData:Data.IExercise;
 
     language:string;
@@ -83,12 +83,12 @@ module RunCtrl {
 
   /**
    * @ngdoc object
-   * @name run.controller:RunCtrl
+   * @name exercise.controller:ExerciseCtrl
    *
    * @description
    *
    */
   angular
-    .module('run')
-    .controller('RunCtrl', RunCtrl);
+    .module('exercise')
+    .controller('ExerciseCtrl', ExerciseCtrl);
 }

@@ -1,5 +1,5 @@
-h2 {{run.title}}
-p {{run.description}}
+h2 {{exercise.title}}
+p {{exercise.description}}
 
 
 div(ng-controller="TabController as tab")
@@ -8,24 +8,24 @@ div(ng-controller="TabController as tab")
       a(href='', ng-click="tab.selectTab(1)")
         | Your Code
     li(ng-class="{ active:tab.isSelected(2)}")
-      a(href='', ng-click="tab.selectTab(2);run.loadSolution()")
+      a(href='', ng-click="tab.selectTab(2);exercise.loadSolution()")
         | Solution
   div(ng-show="tab.isSelected(1)")
     div(ui-ace="{\
         theme: 'idle_fingers',\
         useWrapMode: true,\
-        onLoad: run.createExerciseDataLoader(),\
-        onChange:run.onChange()\
+        onLoad: exercise.createExerciseDataLoader(),\
+        onChange:exercise.onChange()\
         }"
     )
-    p(ng-show="!run.success") {{run.errorMessage}}
-    p(ng-show="run.success") {{run.successMessage}}
-    button.button(type='button' ng-click="run.runExercise()")
+    p(ng-show="!exercise.success") {{exercise.errorMessage}}
+    p(ng-show="exercise.success") {{exercise.successMessage}}
+    button.button(type='button' ng-click="exercise.runExercise()")
       | Run
   div(ng-show="tab.isSelected(2)")
     div(ui-ace="{\
         theme: 'idle_fingers',\
         useWrapMode: true,\
-        onLoad: run.createSolutionDataLoader()\
+        onLoad: exercise.createSolutionDataLoader()\
         }"
     )

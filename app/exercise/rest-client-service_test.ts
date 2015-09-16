@@ -8,7 +8,7 @@ describe('RestClient', function () {
   var restClient:RestClient.IRestClient;
   var $httpBackend, requestHandler;
 
-  beforeEach(module("run"));
+  beforeEach(module("exercise"));
 
   beforeEach(inject(function ($injector, RestClient) {
     restClient = RestClient;

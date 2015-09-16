@@ -1,5 +1,5 @@
 ///<reference path='../../typings/tsd.d.ts' />
-///<reference path='../run/rest-client-service.ts' />
+///<reference path='../exercise/rest-client-service.ts' />
 
 module topic {
   'use strict';
@@ -24,11 +24,11 @@ module topic {
             return RestClient.getTopic($stateParams.topicId);
           }
         }
-      }).state('topic.run', {
-        url: '/run/:exId',
-        templateUrl: 'run/run.tpl.html',
-        controller: 'RunCtrl',
-        controllerAs: 'run',
+      }).state('topic.exercise', {
+        url: '/exercise/:exId',
+        templateUrl: '../exercise/exercise.tpl.html',
+        controller: 'ExerciseCtrl',
+        controllerAs: 'exercise',
         resolve: {
           exData: function (RestClient:RestClient.IRestClient, $stateParams) {
             return RestClient.getExercise($stateParams.topicId, $stateParams.exId);
