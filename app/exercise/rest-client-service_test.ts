@@ -14,7 +14,7 @@ describe('RestClient', function () {
     restClient = RestClient;
     $httpBackend = $injector.get("$httpBackend");
 
-    requestHandler = $httpBackend.when("GET", "/data/newData.json").respond(
+    requestHandler = $httpBackend.when("GET", "/data/sampleData.json").respond(
       [{
         "id": 1,
         "title": "Addition",
