@@ -211,15 +211,6 @@ module.exports = function (gulp, $, config) {
     }
   });
 
-  // copy Bower fonts and images into build directory
-  gulp.task('bowerAssets', ['clean'], function () {
-    var assetFilter = $.filter('**/*.{eot,otf,svg,ttf,woff,gif,jpg,jpeg,png}');
-    return gulp.src($.mainBowerFiles(), {base: bowerDir})
-      .pipe(assetFilter)
-      .pipe(gulp.dest(config.extDir))
-      .pipe(assetFilter.restore());
-  });
-
   // copy custom fonts into build directory
   gulp.task('fonts', ['clean'], function () {
     var fontFilter = $.filter('**/*.{eot,otf,svg,ttf,woff}');
@@ -269,5 +260,5 @@ module.exports = function (gulp, $, config) {
       });
   });
 
-  gulp.task('build', ['deleteTemplates', 'bowerAssets', 'images', 'fonts', 'data']);
+  gulp.task('build', ['deleteTemplates', 'images', 'fonts', 'data']);
 };
