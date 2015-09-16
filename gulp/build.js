@@ -163,13 +163,13 @@ module.exports = function (gulp, $, config) {
   });
 
   // copy libs into build directory
-  gulp.task('copyLibs', function () {
+  gulp.task('copyLibs', ['clean', 'bowerCopy'], function () {
     return gulp.src(config.libFiles)
       .pipe(gulp.dest(config.extDir));
   });
 
   // inject bower components into index.html
-  gulp.task('bowerInject', ['bowerCopy'], function () {
+  gulp.task('bowerInject', ['copyLibs'], function () {
     if (isProd) {
       return gulp.src(config.buildDir + 'index.html')
         .pipe($.inject(gulp.src([
