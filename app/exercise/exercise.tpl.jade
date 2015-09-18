@@ -1,31 +1,22 @@
 h2 {{exercise.title}}
-p {{exercise.description}}
+button.button(type='button' ng-click="exercise.runExercise()")
+  | Run
 
-
-div(ng-controller="TabController as tab")
-  ul
-    li(ng-class="{ active:tab.isSelected(1)}")
-      a(href='', ng-click="tab.selectTab(1)")
-        | Your Code
-    li(ng-class="{ active:tab.isSelected(2)}")
-      a(href='', ng-click="tab.selectTab(2);exercise.loadSolution()")
-        | Solution
-  div(ng-show="tab.isSelected(1)")
+div(class="l-grid")
+  div(class="l-column")
     div(ui-ace="{\
-        theme: 'idle_fingers',\
-        useWrapMode: true,\
-        onLoad: exercise.createExerciseDataLoader(),\
-        onChange:exercise.onChange()\
-        }"
+            theme: 'idle_fingers',\
+            useWrapMode: true,\
+            onLoad: exercise.createExerciseDataLoader(),\
+            onChange:exercise.onChange()\
+            }"
     )
+
+
+  div(class="l-column")
+    h2 Description
+    p {{exercise.description}}
+
+    h2 Error
     p(ng-show="!exercise.success") {{exercise.errorMessage}}
     p(ng-show="exercise.success") {{exercise.successMessage}}
-    button.button(type='button' ng-click="exercise.runExercise()")
-      | Run
-  div(ng-show="tab.isSelected(2)")
-    div(ui-ace="{\
-        theme: 'idle_fingers',\
-        useWrapMode: true,\
-        onLoad: exercise.createSolutionDataLoader()\
-        }"
-    )
