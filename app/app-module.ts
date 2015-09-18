@@ -13,7 +13,8 @@ module koans {
     'ui.ace',
     'home',
     'exercise',
-    'topic'
+    'topic',
+    'solution'
   ]);
-  
+
 }

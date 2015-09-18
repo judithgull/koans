@@ -25,6 +25,7 @@ module topic {
           }
         }
       }).state('topic.exercise', {
+        abstract: true,
         url: '/exercise/:exId',
         templateUrl: '../exercise/exercise.tpl.html',
         controller: 'ExerciseCtrl',
@@ -34,6 +35,11 @@ module topic {
             return RestClient.getExercise($stateParams.topicId, $stateParams.exId);
           }
         }
+      }).state('topic.exercise.solution', {
+        url: '/solution',
+        templateUrl: '../solution/solution.tpl.html',
+        controller: 'SolutionCtrl',
+        controllerAs: 'solution'
       });
   }
 }
