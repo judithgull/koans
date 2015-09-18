@@ -15,7 +15,6 @@ module ExerciseCtrl {
     errorMessage:string = "";
     successMessage:string = "You are great!!!";
     success = false;
-    solutionEditor:AceAjax.Editor;
     exerciseEditor:AceAjax.Editor;
 
     // $inject annotation.
@@ -46,19 +45,8 @@ module ExerciseCtrl {
       };
     }
 
-    public createSolutionDataLoader() {
-      return (solutionEditor:AceAjax.Editor) => {
-        this.updateEditorMode(solutionEditor);
-        this.solutionEditor = solutionEditor;
-      };
-    }
-
     public loadExercise() {
       this.exerciseEditor.setValue(this.exData.exercise);
-    }
-
-    public loadSolution() {
-      this.solutionEditor.setValue(this.exData.solution);
     }
 
     public onChange() {
