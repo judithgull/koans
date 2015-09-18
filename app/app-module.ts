@@ -12,9 +12,7 @@ module koans {
     'ui.router',
     'ui.ace',
     'home',
-    'exercise',
     'topic',
-    'exercise.solution'
   ]);
 
 }
