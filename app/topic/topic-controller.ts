@@ -3,7 +3,7 @@
 module TopicCtrl {
   'use strict';
 
-  interface ITopicParams extends angular.ui.IStateParamsService {
+  export interface ITopicParams extends angular.ui.IStateParamsService {
     exId:string;
   }
 
