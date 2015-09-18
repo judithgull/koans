@@ -3,11 +3,13 @@ p {{topic.data.language}}
 
 div(ui-view="")
 
-a(ui-sref='topic.exercise.solution({exId:topic.exerciseId-1})',
-ng-show="topic.exerciseId > 1")
+a(href=""
+ng-click="topic.previousExercise()"
+ng-show="topic.hasPreviousExercise()")
   | Previous
 
-a(ui-sref='topic.exercise.solution({exId:topic.exerciseId+1})',
-ng-show="topic.exerciseId < topic.exerciseCount")
+a(href=""
+ng-click="topic.nextExercise()"
+ng-show="topic.hasNextExercise()")
   | Next
 
