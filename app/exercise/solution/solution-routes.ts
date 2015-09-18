@@ -1,9 +1,9 @@
-///<reference path='../../typings/tsd.d.ts' />
+///<reference path='../../../typings/tsd.d.ts' />
 module solution {
   'use strict';
 
   angular
-    .module('solution');
+    .module('exercise.solution');
     //.config(config);
 
   //function config($stateProvider: ng.ui.IStateProvider) {

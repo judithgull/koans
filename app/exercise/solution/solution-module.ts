@@ -1,4 +1,4 @@
-///<reference path='../../typings/tsd.d.ts' />
+///<reference path='../../../typings/tsd.d.ts' />
 module solution {
   'use strict';
 
@@ -8,7 +8,7 @@ module solution {
   *
   */
   angular
-    .module('solution', [
+    .module('exercise.solution', [
       'ui.router'
     ]);
 }

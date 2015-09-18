@@ -14,7 +14,7 @@ module koans {
     'home',
     'exercise',
     'topic',
-    'solution'
+    'exercise.solution'
   ]);
 
 }

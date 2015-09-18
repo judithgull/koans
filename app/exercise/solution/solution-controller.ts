@@ -1,4 +1,4 @@
-///<reference path='../../typings/tsd.d.ts' />
+///<reference path='../../../typings/tsd.d.ts' />
 module SolutionCtrl {
   'use strict';
 
@@ -29,6 +29,6 @@ module SolutionCtrl {
   *
   */
   angular
-    .module('solution')
+    .module('exercise.solution')
     .controller('SolutionCtrl', SolutionCtrl);
 }

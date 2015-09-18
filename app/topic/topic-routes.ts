@@ -37,7 +37,7 @@ module topic {
         }
       }).state('topic.exercise.solution', {
         url: '/solution',
-        templateUrl: '../solution/solution.tpl.html',
+        templateUrl: '../exercise/solution/solution.tpl.html',
         controller: 'SolutionCtrl',
         controllerAs: 'solution'
       });
