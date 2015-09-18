@@ -72,7 +72,7 @@ module ExerciseCtrl {
     }
 
     public giveUp() {
-      this.$state.go("topic.exercise.solution", {exId: this.exerciseId});
+      this.$state.go("topic.exercise.solution");
     }
 
     public isSolution() {
