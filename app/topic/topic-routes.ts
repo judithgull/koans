@@ -40,6 +40,11 @@ module topic {
         templateUrl: '../exercise/solution/solution.tpl.html',
         controller: 'SolutionCtrl',
         controllerAs: 'solution'
+      }).state('topic.exercise.details', {
+        url: '',
+        templateUrl: '../exercise/details/details.tpl.html',
+        controller: 'DetailsCtrl',
+        controllerAs: 'details'
       });
   }
 }

@@ -15,9 +15,4 @@ div(class="l-grid")
 
   div(class="l-column")
     div(ui-view="")
-    h2 Description
-    p {{exercise.description}}
 
-    h2 Error
-    p(ng-show="!exercise.success") {{exercise.errorMessage}}
-    p(ng-show="exercise.success") {{exercise.successMessage}}
