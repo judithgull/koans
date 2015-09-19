@@ -10,7 +10,6 @@ module SolutionCtrl {
     exData:Data.IExercise;
     solutionEditor:AceAjax.Editor;
     language:string;
-    exerciseId:number;
 
     // $inject annotation.
     // It provides $injector with information about dependencies to be injected into constructor
@@ -23,7 +22,6 @@ module SolutionCtrl {
     constructor(exData:Data.IExercise, topicData:Data.ITopic, private $state:angular.ui.IStateService) {
       this.exData = exData;
       this.language = topicData.language;
-      this.exerciseId = parseInt((<TopicCtrl.ITopicParams>$state.params).exId);
     }
 
     public createSolutionDataLoader() {

@@ -20,7 +20,6 @@ module ExerciseCtrl {
     successMessage:string = "You are great!!!";
     success = false;
     exerciseEditor:AceAjax.Editor;
-    exerciseId:number;
 
     // $inject annotation.
     // It provides $injector with information about dependencies to be injected into constructor
@@ -35,7 +34,6 @@ module ExerciseCtrl {
       this.language = topicData.language;
       this.title = this.exData.title;
       this.description = this.exData.description;
-      this.exerciseId = parseInt((<TopicCtrl.ITopicParams>$state.params).exId);
     }
 
 
