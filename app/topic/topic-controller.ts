@@ -11,11 +11,13 @@ module TopicCtrl {
     data:Data.ITopic;
     exerciseId:number;
     exerciseCount:number;
+    language:string;
 
     public static $inject = ['topicData', '$state'];
 
     constructor(topicData:Data.ITopic, private $state:angular.ui.IStateService) {
       this.data = topicData;
+      this.language = topicData.language;
       this.exerciseCount = this.data.items.length;
       this.exerciseId = parseInt((<ITopicParams>$state.params).exId);
     }

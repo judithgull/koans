@@ -7,33 +7,21 @@ module SolutionCtrl {
 
   class SolutionCtrl {
 
-    exData:Data.IExercise;
+    solutionData:string;
     solutionEditor:AceAjax.Editor;
-    language:string;
 
-    // $inject annotation.
-    // It provides $injector with information about dependencies to be injected into constructor
-    // it is better to have it close to the constructor, because the parameters must match in count and type.
-    // See http://docs.angularjs.org/guide/di
-    public static $inject = ['exData', 'topicData', '$state'];
+    public static $inject = ['exData', '$state'];
 
 
-    // dependencies are injected via AngularJS $injector
-    constructor(exData:Data.IExercise, topicData:Data.ITopic, private $state:angular.ui.IStateService) {
-      this.exData = exData;
-      this.language = topicData.language;
+    constructor(exData:Data.IExercise, private $state:angular.ui.IStateService) {
+      this.solutionData = exData.solution;
     }
 
     public createSolutionDataLoader() {
       return (solutionEditor:AceAjax.Editor) => {
-        this.updateEditorMode(solutionEditor);
         this.solutionEditor = solutionEditor;
-        this.solutionEditor.setValue(this.exData.solution);
+        this.solutionEditor.setValue(this.solutionData);
       };
-    }
-
-    private updateEditorMode(editor:AceAjax.Editor){
-      editor.getSession().setMode("ace/mode/" + this.language);
     }
 
     private showDetails(){
