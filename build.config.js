@@ -12,6 +12,9 @@ module.exports = {
   //patches for external libraries
   libDir: 'lib',
 
+  //typescript definitions for ace
+  typescriptsDir: 'typescripts',
+
   // unit test directories
   unitTestDir: 'app',
 
@@ -28,5 +31,6 @@ module.exports = {
   extDir: outDir + 'app/vendor/',
   extCss: outDir + 'app/vendor/css/',
   extFonts: outDir + 'app/vendor/fonts/',
-  extJs: outDir + 'app/vendor/js/'
+  extJs: outDir + 'app/vendor/js/',
+  extTs: outDir + 'app/typescripts/'
 };

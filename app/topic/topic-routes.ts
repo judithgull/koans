@@ -33,6 +33,9 @@ module topic {
         resolve: {
           exData: function (RestClient:RestClient.IRestClient, $stateParams) {
             return RestClient.getExercise($stateParams.topicId, $stateParams.exId);
+          },
+          tsLibData: function (RestClient:RestClient.IRestClient) {
+            return RestClient.getTSLibrary();
           }
         }
       }).state('topic.exercise.solution', {

@@ -6,6 +6,7 @@ module RestClient {
   export interface IRestClient {
     getTopic(id:number): ng.IPromise<Data.ITopic>;
     getExercise(topicId:number, exerciseId:number):ng.IPromise<Data.IExercise>;
+    getTSLibrary():ng.IPromise<any>;
   }
 
   class RestClient implements IRestClient{
@@ -38,6 +39,19 @@ module RestClient {
 
     getExercise(topidId:number, exerciseId:number):ng.IPromise<Data.IExercise> {
       return this.getTopic(topidId).then(() => this.topicData.items[exerciseId - 1]);
+    }
+
+
+    getTSLibrary():ng.IPromise<any> {
+      var deferred = this.$q.defer();
+
+      this.$http.get('/typescripts/lib.d.ts').then(response => {
+        deferred.resolve(response.data);
+      }).catch(reason => {
+        deferred.reject(reason);
+      });
+
+      return deferred.promise;
     }
 
   }

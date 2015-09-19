@@ -36,6 +36,7 @@ config.appStyleFiles = path.join(config.appDir, '**/*.scss');
 config.appDataFiles = path.join(config.appDir, 'data/**/*.json');
 
 config.libFiles = path.join(config.libDir, '**/*.js');
+config.tsFiles = path.join(config.typescriptsDir, '**/*.ts');
 
 config.buildDirectiveTemplateFiles = path.join(config.buildDir, '**/*directive.tpl.html');
 config.buildJsFiles = path.join(config.buildJs, '**/*.js');

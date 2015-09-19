@@ -25,26 +25,37 @@ module ExerciseCtrl {
     // It provides $injector with information about dependencies to be injected into constructor
     // it is better to have it close to the constructor, because the parameters must match in count and type.
     // See http://docs.angularjs.org/guide/di
-    public static $inject = ['exData', 'topicData', '$state', '$scope'];
+    public static $inject = ['exData', 'topicData', '$state', '$scope', 'tsLibData'];
 
 
     // dependencies are injected via AngularJS $injector
-    constructor(exData:Data.IExercise, topicData:Data.ITopic, private $state:angular.ui.IStateService, private $scope:ng.IScope) {
+    constructor(exData:Data.IExercise, topicData:Data.ITopic, private $state:angular.ui.IStateService, private $scope:ng.IScope, private tsLibData) {
       this.exData = exData;
       this.language = topicData.language;
       this.title = this.exData.title;
       this.description = this.exData.description;
     }
 
-
     private updateEditorMode(editor:AceAjax.Editor){
       editor.getSession().setMode("ace/mode/" + this.language);
     }
 
     public createExerciseDataLoader() {
+      var params = {
+        data: {
+          name:"typescripts/lib.d.ts",
+          content:this.tsLibData
+        }
+      };
       return (exerciseEditor:AceAjax.Editor) => {
-        exerciseEditor.setValue(this.exData.exercise);
         this.updateEditorMode(exerciseEditor);
+        if(this.language=== "typescript") {
+          var session = exerciseEditor.getSession();
+          (<any>session).$worker.emit("addLibrary", params);
+        }
+
+        exerciseEditor.setValue(this.exData.exercise);
+
         this.exerciseEditor = exerciseEditor;
         this.exerciseEditor.getSession().on("compileErrors",(e) => this.onCompileErrors(e));
       };
@@ -61,10 +72,16 @@ module ExerciseCtrl {
     }
 
     private onCompileErrors(e){
-      var lastError = e.data[e.data.length-1]; //TODO: fix other errors
-      this.errorMessage = lastError.text;
-      this.errorLine = parseInt(lastError.row) + 1;
-      this.success = false;
+      if(e.data.length>0) {
+        var lastError = e.data[e.data.length - 1]; //TODO: fix other errors
+        this.errorMessage = lastError.text;
+        this.errorLine = parseInt(lastError.row) + 1;
+        this.success = false;
+      }else{
+        this.errorMessage = "";
+        this.errorLine = -1;
+        this.success = true;
+      }
       this.$scope.$digest();
     }
 
