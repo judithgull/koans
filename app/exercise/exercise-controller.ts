@@ -6,6 +6,11 @@
 module ExerciseCtrl {
   'use strict';
 
+  interface IError{
+    message:string;
+    line:number;
+  }
+
   class ExerciseCtrl {
     exData:Data.IExercise;
 
@@ -14,6 +19,9 @@ module ExerciseCtrl {
     description:string;
 
     editorContent:string;
+
+    error:Array<IError> = [];
+
     errorMessage:string = "";
     errorLine:number;
 
