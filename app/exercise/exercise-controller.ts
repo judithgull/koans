@@ -20,10 +20,7 @@ module ExerciseCtrl {
 
     editorContent:string;
 
-    error:Array<IError> = [];
-
-    errorMessage:string = "";
-    errorLine:number;
+    errors:Array<IError> = [];
 
     successMessage:string = "You are great!!!";
     success = false;
@@ -81,13 +78,13 @@ module ExerciseCtrl {
 
     private onCompileErrors(e){
       if(e.data.length>0) {
-        var lastError = e.data[e.data.length - 1]; //TODO: fix other errors
-        this.errorMessage = lastError.text;
-        this.errorLine = parseInt(lastError.row) + 1;
+        var allErrors = e.data;
+        this.errors = [];
+        allErrors.forEach((e) =>
+          this.errors.push({message:e.text, line:parseInt(e.row) + 1})
+        );
         this.success = false;
       }else{
-        this.errorMessage = "";
-        this.errorLine = -1;
         this.success = true;
       }
       this.$scope.$digest();
@@ -96,10 +93,10 @@ module ExerciseCtrl {
     public runExercise() {
       try {
         eval(this.editorContent);
-        this.errorMessage = "";
+        this.errors = [];
         this.success = true;
       } catch (err) {
-        this.errorMessage = err.toString();
+        this.errors = [{message:err.toString(), line:-1}];
         this.success = false;
       }
     }
