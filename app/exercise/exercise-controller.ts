@@ -15,6 +15,8 @@ module ExerciseCtrl {
 
     editorContent:string;
     errorMessage:string = "";
+    errorLine:number;
+
     successMessage:string = "You are great!!!";
     success = false;
     exerciseEditor:AceAjax.Editor;
@@ -24,11 +26,11 @@ module ExerciseCtrl {
     // It provides $injector with information about dependencies to be injected into constructor
     // it is better to have it close to the constructor, because the parameters must match in count and type.
     // See http://docs.angularjs.org/guide/di
-    public static $inject = ['exData', 'topicData', '$state'];
+    public static $inject = ['exData', 'topicData', '$state', '$scope'];
 
 
     // dependencies are injected via AngularJS $injector
-    constructor(exData:Data.IExercise, topicData:Data.ITopic, private $state:angular.ui.IStateService) {
+    constructor(exData:Data.IExercise, topicData:Data.ITopic, private $state:angular.ui.IStateService, private $scope:ng.IScope) {
       this.exData = exData;
       this.language = topicData.language;
       this.title = this.exData.title;
@@ -46,6 +48,7 @@ module ExerciseCtrl {
         exerciseEditor.setValue(this.exData.exercise);
         this.updateEditorMode(exerciseEditor);
         this.exerciseEditor = exerciseEditor;
+        this.exerciseEditor.getSession().on("compileErrors",(e) => this.onCompileErrors(e));
       };
     }
 
@@ -59,6 +62,13 @@ module ExerciseCtrl {
       };
     }
 
+    private onCompileErrors(e){
+      var lastError = e.data[e.data.length-1]; //TODO: fix other errors
+      this.errorMessage = lastError.text;
+      this.errorLine = parseInt(lastError.row) + 1;
+      this.success = false;
+      this.$scope.$digest();
+    }
 
     public runExercise() {
       try {
