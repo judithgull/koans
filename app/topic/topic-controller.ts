@@ -3,32 +3,41 @@
 module TopicCtrl {
   'use strict';
 
+  interface ITopicModel{
+    language:string;
+    title:string;
+    nextExercise():void;
+    previousExercise():void;
+    hasNextExercise():boolean;
+    hasPreviousExercise():boolean;
+  }
+
   export interface ITopicParams extends angular.ui.IStateParamsService {
     exId:string;
   }
 
-  class TopicCtrl {
-    data:Data.ITopic;
-    exerciseId:number;
-    exerciseCount:number;
+  class TopicCtrl implements ITopicModel{
     language:string;
+    title:string;
+    private exerciseId:number;
+    private exerciseCount:number;
 
     public static $inject = ['topicData', '$state'];
 
     constructor(topicData:Data.ITopic, private $state:angular.ui.IStateService) {
-      this.data = topicData;
+      this.title = topicData.title;
       this.language = topicData.language;
-      this.exerciseCount = this.data.items.length;
+      this.exerciseCount = topicData.items.length;
       this.exerciseId = parseInt((<ITopicParams>$state.params).exId);
     }
 
-    public nextExercise() {
+    nextExercise() {
       if (this.hasNextExercise()) {
         this.goToExercise(this.exerciseId + 1);
       }
     }
 
-    public previousExercise() {
+    previousExercise() {
       if (this.hasPreviousExercise()) {
         this.goToExercise(this.exerciseId - 1);
       }
@@ -38,11 +47,11 @@ module TopicCtrl {
       this.$state.go("topic.exercise.details", {exId: id});
     }
 
-    public hasNextExercise():boolean {
+    hasNextExercise():boolean {
       return this.exerciseId < this.exerciseCount;
     }
 
-    public hasPreviousExercise():boolean {
+    hasPreviousExercise():boolean {
       return this.exerciseId > 1;
     }
 
