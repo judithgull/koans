@@ -1,10 +1,9 @@
-///<reference path='../../typings/tsd.d.ts' />
 module HomeCtrl {
   'use strict';
 
   class HomeCtrl {
 
-    ctrlName: string
+    ctrlName: string;
 
     // $inject annotation.
     // It provides $injector with information about dependencies to be injected into constructor

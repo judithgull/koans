@@ -1,6 +1,3 @@
-///<reference path='../../typings/tsd.d.ts' />
-///<reference path='../exercise/rest-client-service.ts' />
-
 module topic {
   'use strict';
 

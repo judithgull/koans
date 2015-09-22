@@ -1,5 +1,3 @@
-///<reference path='../../typings/tsd.d.ts' />
-///<reference path='../data/topic.ts' />
 module TopicCtrl {
   'use strict';
 

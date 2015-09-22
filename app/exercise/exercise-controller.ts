@@ -1,8 +1,3 @@
-///<reference path='../../typings/tsd.d.ts' />
-///<reference path='rest-client-service.ts' />
-///<reference path='../data/topic.ts' />
-///<reference path='../topic/topic-controller.ts' />
-
 module ExerciseCtrl {
   'use strict';
 

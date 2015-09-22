@@ -1,7 +1,3 @@
-///<reference path='../../../typings/tsd.d.ts' />
-///<reference path='../../data/topic.ts' />
-///<reference path='../../topic/topic-controller.ts' />
-
 module SolutionCtrl {
   'use strict';
 
