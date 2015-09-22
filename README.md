@@ -11,6 +11,13 @@
 1. Run `bower install` to install client-side dependencies
 1. Use [generator-ng-poly](https://github.com/dustinspecker/generator-ng-poly) to create additional components
 
+## Webstorm
+1. Install Typescript Version >= 1.6.2 in Webstorm: install with npm i -g typescript
+2. Add to Webstorm: Preferences/Languages & Frameworks/Typescript
+- Compiler version: Use path of globally installed typescript: /usr/local/lib/node_modules/typescript/lib
+- Command line options: -p .
+3. Use Webstorm 10.0.4 or higher
+
 ## Gulp tasks
 - Run `gulp build` to compile assets
 - Run `gulp dev` to run the build task and setup the development environment
