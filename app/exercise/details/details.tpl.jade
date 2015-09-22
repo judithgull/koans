@@ -1,6 +1,8 @@
 h2 Description
 p {{exercise.description}}
 
-h2 Error
-p(ng-show="!exercise.success") {{exercise.errorMessage}}
+div(ng-show="!exercise.success" ng-repeat="e in exercise.errors")
+  p Line:{{e.line}}
+  p {{e.message}}
+
 p(ng-show="exercise.success") {{exercise.successMessage}}
