@@ -1,3 +1,4 @@
+///<reference path='../typings/tsd.d.ts' />
 module koans {
   'use strict';
 
