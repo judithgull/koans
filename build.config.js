@@ -13,9 +13,6 @@ module.exports = {
   libDir: 'lib',
   nodeModules: 'node_modules',
 
-  //typescript definitions for ace
-  typescriptsDir: 'typescripts',
-
   // unit test directories
   unitTestDir: 'app',
 

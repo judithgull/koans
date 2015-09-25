@@ -35,10 +35,11 @@ config.appScriptFiles = path.join(config.appDir, '**/*.ts');
 config.appStyleFiles = path.join(config.appDir, '**/*.scss');
 config.appDataFiles = path.join(config.appDir, 'data/**/*.json');
 
-config.tsServicesFiles = path.join(config.nodeModules, "typescript/lib/typescriptServices.js");
+config.tsLibDir = path.join(config.nodeModules, "typescript/lib");
+config.tsServicesFiles = path.join(config.tsLibDir, "typescriptServices.js");
+config.tsLibDTs = path.join(config.tsLibDir, "lib.d.ts");
 
 config.libFiles = path.join(config.libDir, '**/*.js');
-config.tsFiles = path.join(config.typescriptsDir, '**/*.ts');
 
 config.buildDirectiveTemplateFiles = path.join(config.buildDir, '**/*directive.tpl.html');
 config.buildJsFiles = path.join(config.buildJs, '**/*.js');

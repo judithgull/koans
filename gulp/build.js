@@ -177,7 +177,7 @@ module.exports = function (gulp, $, config) {
 
   // copy typescripts/lib.d.ts to build directory
   gulp.task('copyTypescripts', ['clean', 'bowerCopy'], function () {
-    return gulp.src(config.tsFiles)
+    return gulp.src(config.tsLibDTs)
       .pipe(gulp.dest(config.extTs));
   });
 
