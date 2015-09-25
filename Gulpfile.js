@@ -35,6 +35,8 @@ config.appScriptFiles = path.join(config.appDir, '**/*.ts');
 config.appStyleFiles = path.join(config.appDir, '**/*.scss');
 config.appDataFiles = path.join(config.appDir, 'data/**/*.json');
 
+config.tsServicesFiles = path.join(config.nodeModules, "typescript/lib/typescriptServices.js");
+
 config.libFiles = path.join(config.libDir, '**/*.js');
 config.tsFiles = path.join(config.typescriptsDir, '**/*.ts');
 

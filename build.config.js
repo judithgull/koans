@@ -11,6 +11,7 @@ module.exports = {
 
   //patches for external libraries
   libDir: 'lib',
+  nodeModules: 'node_modules',
 
   //typescript definitions for ace
   typescriptsDir: 'typescripts',
@@ -29,6 +30,7 @@ module.exports = {
   buildJs: outDir + 'app/js/',
   buildData: outDir + 'app/data/',
   extDir: outDir + 'app/vendor/',
+  extAceDir: outDir + "app/vendor/ace-builds/src-min-noconflict",
   extCss: outDir + 'app/vendor/css/',
   extFonts: outDir + 'app/vendor/fonts/',
   extJs: outDir + 'app/vendor/js/',

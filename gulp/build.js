@@ -168,6 +168,13 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.extDir));
   });
 
+  // copy typescriptServices from node_modules into build directory
+  gulp.task('copyTsServices', ['clean', 'bowerCopy'], function () {
+    return gulp.src(config.tsServicesFiles)
+      .pipe(gulp.dest(config.extAceDir));
+  });
+
+
   // copy typescripts/lib.d.ts to build directory
   gulp.task('copyTypescripts', ['clean', 'bowerCopy'], function () {
     return gulp.src(config.tsFiles)
@@ -175,7 +182,7 @@ module.exports = function (gulp, $, config) {
   });
 
   // inject bower components into index.html
-  gulp.task('bowerInject', ['copyLibs', 'copyTypescripts'], function () {
+  gulp.task('bowerInject', ['copyLibs', 'copyTsServices', 'copyTypescripts'], function () {
     if (isProd) {
       return gulp.src(config.buildDir + 'index.html')
         .pipe($.inject(gulp.src([
