@@ -31,8 +31,8 @@ module topic {
           exData: function (RestClient:RestClient.IRestClient, $stateParams) {
             return RestClient.getExercise($stateParams.topicId, $stateParams.exId);
           },
-          tsLibData: function (RestClient:RestClient.IRestClient) {
-            return RestClient.getTSLibrary();
+          initAce: function(AceTsService: AceTsService.IAceTsService){
+            return AceTsService.getAceInitializer(["typescripts/lib.d.ts"]);
           }
         }
       }).state('topic.exercise.solution', {

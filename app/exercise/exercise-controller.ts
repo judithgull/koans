@@ -25,33 +25,22 @@ module ExerciseCtrl {
     // It provides $injector with information about dependencies to be injected into constructor
     // it is better to have it close to the constructor, because the parameters must match in count and type.
     // See http://docs.angularjs.org/guide/di
-    public static $inject = ['exData', 'topicData', '$state', '$scope', 'tsLibData'];
+    public static $inject = ['exData', 'topicData', '$state', '$scope', 'initAce'];
 
 
     // dependencies are injected via AngularJS $injector
-    constructor(exData:Data.IExercise, topicData:Data.ITopic, private $state:angular.ui.IStateService, private $scope:ng.IScope, private tsLibData) {
+    constructor(exData:Data.IExercise, topicData:Data.ITopic, private $state:angular.ui.IStateService, private $scope:ng.IScope, private initAce:Function) {
       this.exData = exData;
       this.language = topicData.language;
       this.title = this.exData.title;
       this.description = this.exData.description;
     }
 
-    private updateEditorMode(editor:AceAjax.Editor){
-      editor.getSession().setMode("ace/mode/" + this.language);
-    }
 
     public createExerciseDataLoader() {
-      var params = {
-        data: {
-          name:"typescripts/lib.d.ts",
-          content:this.tsLibData
-        }
-      };
       return (exerciseEditor:AceAjax.Editor) => {
-        this.updateEditorMode(exerciseEditor);
-        if(this.language=== "typescript") {
-          var session = exerciseEditor.getSession();
-          (<any>session).$worker.emit("addLibrary", params);
+        if(this.language === "typescript") {
+          this.initAce(exerciseEditor);
         }
 
         exerciseEditor.setValue(this.exData.exercise);
@@ -59,10 +48,6 @@ module ExerciseCtrl {
         this.exerciseEditor = exerciseEditor;
         this.exerciseEditor.getSession().on("compileErrors",(e) => this.onCompileErrors(e));
       };
-    }
-
-    public loadExercise() {
-      this.exerciseEditor.setValue(this.exData.exercise);
     }
 
     public onChange() {

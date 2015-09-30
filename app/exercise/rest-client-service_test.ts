@@ -1,15 +1,18 @@
+///<reference path='../../typings/tsd.d.ts' />
 /* global describe, beforeEach, it, expect, inject, module */
 'use strict';
 
 describe('RestClient', function () {
   var restClient:RestClient.IRestClient;
   var $httpBackend, requestHandler;
+  var tsLibName = "typescripts/lib.d.ts";
 
   beforeEach(module("exercise"));
 
   beforeEach(inject(function ($injector, RestClient) {
     restClient = RestClient;
     $httpBackend = $injector.get("$httpBackend");
+    $httpBackend.when("GET", tsLibName).respond("lib");
 
     requestHandler = $httpBackend.when("GET", "/data/sampleData.json").respond(
       [{
@@ -46,7 +49,7 @@ describe('RestClient', function () {
 
 
   it('should return a topic with the correct attributes', function () {
-    $httpBackend.expectGET("/data/newData.json");
+    $httpBackend.expectGET("/data/sampleData.json");
     var topicPromise = restClient.getTopic(0);
     topicPromise.then(
       (data) => {
@@ -57,4 +60,32 @@ describe('RestClient', function () {
     );
     $httpBackend.flush();
   });
+
+  it('should return the typescript default library ', function () {
+    $httpBackend.expectGET(tsLibName);
+    var libPromise = restClient.getLib(tsLibName);
+
+    libPromise.then(
+      (lib) => {
+        expect(lib.content).toBe("lib");
+        expect(lib.name).toBe(tsLibName);
+      }
+    );
+    $httpBackend.flush();
+  });
+
+  it('should return an Array with the typescript default library ', () => {
+    $httpBackend.expectGET(tsLibName);
+    var libsPromise = restClient.getLibs([tsLibName]);
+
+    libsPromise.then(
+      (libs) => {
+        expect(libs.length).toBe(1);
+        expect(libs[0].content).toBe("lib");
+        expect(libs[0].name).toBe(tsLibName);
+      }
+    );
+    $httpBackend.flush();
+  });
+
 });
