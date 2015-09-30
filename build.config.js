@@ -12,6 +12,7 @@ module.exports = {
   //patches for external libraries
   libDir: 'lib',
   nodeModules: 'node_modules',
+  tsTypingsDir: 'typings',
 
   // unit test directories
   unitTestDir: 'app',
