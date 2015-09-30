@@ -15,4 +15,9 @@ module Data {
     exercise: string;
     solution: string;
   }
+
+  export interface ILibrary {
+    name:string;
+    content:any;
+  }
 }
