@@ -10,8 +10,5 @@ describe('SolutionCtrl', function () {
     ctrl = $controller('SolutionCtrl');
   }));
 
-  it('should have ctrlName as SolutionCtrl', function () {
-    expect(ctrl.ctrlName).toEqual('SolutionCtrl');
-  });
 
 });
