@@ -31,6 +31,15 @@
     },
     "sinon/sinon.d.ts": {
       "commit": "32f0a90dab26f70b206407ac24d4d622d0f0f408"
+    },
+    "chai/chai.d.ts": {
+      "commit": "ebc69904eb78f94030d5d517b42db20867f679c0"
+    },
+    "assertion-error/assertion-error.d.ts": {
+      "commit": "ebc69904eb78f94030d5d517b42db20867f679c0"
+    },
+    "rx/rx-lite.d.ts": {
+      "commit": "ebc69904eb78f94030d5d517b42db20867f679c0"
     }
   }
 }

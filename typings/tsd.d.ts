@@ -7,4 +7,7 @@
 /// <reference path="jquery/jquery.d.ts" />
 /// <reference path="karma-jasmine/karma-jasmine.d.ts" />
 /// <reference path="lodash/lodash.d.ts" />
+/// <reference path="rx/rx-lite.d.ts" />
+/// <reference path="chai/chai.d.ts" />
 /// <reference path="sinon/sinon.d.ts" />
+/// <reference path="assertion-error/assertion-error.d.ts" />
