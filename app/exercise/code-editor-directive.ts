@@ -2,8 +2,14 @@
 module CodeEditor {
   'use strict';
 
-  interface ICodeEditorScope extends ng.IScope{
+  export interface ICodeEditorScope extends ng.IScope{
     language:string;
+    initValue:string;
+  }
+
+  export interface ICodeEditorAttributes extends ng.IAttributes{
+    language:string;
+    initValue:string;
   }
 
   /**
@@ -38,6 +44,7 @@ module CodeEditor {
 
         console.log(attrs);
         scope.language = attrs.language;
+        scope.initValue = attrs.initValue;
         /*jshint unused:false */
         /*eslint "no-unused-vars": [2, {"args": "none"}]*/
       }

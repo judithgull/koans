@@ -7,6 +7,7 @@ module ExerciseCtrl {
     language:string;
     title:string;
     description:string;
+    content:string;
 
     errors:Array<Data.IError> = [];
 
@@ -17,6 +18,7 @@ module ExerciseCtrl {
 
     constructor(exData:Data.IExercise, topicData:Data.ITopic, private $state:angular.ui.IStateService, private $scope:ng.IScope, private initAce:Function, private AceTsService:AceTsService.IAceTsService) {
       this.exData = exData;
+      this.content = exData.exercise;
       this.language = topicData.language;
       this.title = this.exData.title;
       this.description = this.exData.description;

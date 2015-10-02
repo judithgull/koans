@@ -4,7 +4,10 @@ button.button(type='button' ng-click="exercise.runExercise()")
 
 div(class="l-grid")
   div(class="l-column")
-    code-editor(language='{{::topic.language}}')
+    code-editor(
+      language='{{::topic.language}}',
+      init-value='{{::exercise.content}}'
+    )
     //div(ui-ace="{\
     //        mode: '{{::topic.language}}',\
     //        theme: 'idle_fingers',\
