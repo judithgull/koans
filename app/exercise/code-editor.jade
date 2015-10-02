@@ -1,0 +1,9 @@
+
+div(ui-ace="{\
+        mode: '{{::language}}',\
+        theme: 'idle_fingers',\
+        useWrapMode: true,\
+        onLoad: exercise.createExerciseDataLoader(),\
+        onChange:exercise.onChange()\
+        }"
+)

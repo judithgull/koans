@@ -4,14 +4,16 @@ button.button(type='button' ng-click="exercise.runExercise()")
 
 div(class="l-grid")
   div(class="l-column")
-    div(ui-ace="{\
-            mode: '{{::topic.language}}',\
-            theme: 'idle_fingers',\
-            useWrapMode: true,\
-            onLoad: exercise.createExerciseDataLoader(),\
-            onChange:exercise.onChange()\
-            }"
-    )
+    code-editor(language='{{::topic.language}}')
+    //div(ui-ace="{\
+    //        mode: '{{::topic.language}}',\
+    //        theme: 'idle_fingers',\
+    //        useWrapMode: true,\
+    //        onLoad: exercise.createExerciseDataLoader(),\
+    //        onChange:exercise.onChange()\
+    //        }"
+    //)
+
 
 
   div(class="l-column")
