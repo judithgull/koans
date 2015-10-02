@@ -15,6 +15,10 @@ module.exports = function (gulp, $, config) {
   gulp.task('watch', function () {
     $.browserSync.reload();
     gulp.watch([config.unitTestFiles], ['unitTest']);
-    gulp.watch([config.appFiles, '!' + config.unitTestFiles], ['build', $.browserSync.reload]);
+    gulp.watch([
+      config.appScriptFiles,
+      config.appMarkupFiles,
+      config.appStyleFiles,
+      '!' + config.unitTestFiles], ['build', $.browserSync.reload]);
   });
 };
