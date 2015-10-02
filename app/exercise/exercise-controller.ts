@@ -1,11 +1,6 @@
 module ExerciseCtrl {
   'use strict';
 
-  interface IError{
-    message:string;
-    line:number;
-  }
-
   class ExerciseCtrl {
     exData:Data.IExercise;
 
@@ -13,72 +8,56 @@ module ExerciseCtrl {
     title:string;
     description:string;
 
-    editorContent:string;
-
-    errors:Array<IError> = [];
+    errors:Array<Data.IError> = [];
 
     successMessage:string = "You are great!!!";
     success = false;
-    exerciseEditor:AceAjax.Editor;
 
-    // $inject annotation.
-    // It provides $injector with information about dependencies to be injected into constructor
-    // it is better to have it close to the constructor, because the parameters must match in count and type.
-    // See http://docs.angularjs.org/guide/di
-    public static $inject = ['exData', 'topicData', '$state', '$scope', 'initAce'];
+    public static $inject = ['exData', 'topicData', '$state', '$scope', 'initAce', 'AceTsService'];
 
-
-    // dependencies are injected via AngularJS $injector
-    constructor(exData:Data.IExercise, topicData:Data.ITopic, private $state:angular.ui.IStateService, private $scope:ng.IScope, private initAce:Function) {
+    constructor(exData:Data.IExercise, topicData:Data.ITopic, private $state:angular.ui.IStateService, private $scope:ng.IScope, private initAce:Function, private AceTsService:AceTsService.IAceTsService) {
       this.exData = exData;
       this.language = topicData.language;
       this.title = this.exData.title;
       this.description = this.exData.description;
     }
 
+    createExerciseDataLoader() {
 
-    public createExerciseDataLoader() {
-      return (exerciseEditor:AceAjax.Editor) => {
-        if(this.language === "typescript") {
-          this.initAce(exerciseEditor);
+      var selectQuestionMark = (editor:AceAjax.Editor) => {
+        var range = editor.find("?");
+        if(range && range.start.column > 0 && range.start.row > 0){
+          editor.selection.addRange(range);
+          editor.moveCursorTo(range.end.row, range.end.column);
         }
-
-        exerciseEditor.setValue(this.exData.exercise);
-
-        this.exerciseEditor = exerciseEditor;
-        this.exerciseEditor.getSession().on("compileErrors",(e) => this.onCompileErrors(e));
       };
-    }
 
-    public onChange() {
-      return (e:any) => {
-        this.editorContent = e[1].getValue();
+      var processResults = (allEvents:Rx.Observable<Data.IStatus>) => {
+        var successEvents = allEvents.filter(s => s.success);
+        var errorEvents = allEvents.filter(s => !s.success);
+
+        successEvents.forEach(s => {
+          this.success = true;
+          this.$scope.$digest();
+        });
+
+        errorEvents.forEach(s => {
+          this.success = false;
+          this.errors = s.errors;
+          this.$scope.$digest();
+        });
       };
-    }
 
-    private onCompileErrors(e){
-      if(e.data.length>0) {
-        var allErrors = e.data;
-        this.errors = [];
-        allErrors.forEach((e) =>
-          this.errors.push({message:e.text, line:parseInt(e.row) + 1})
-        );
-        this.success = false;
-      }else{
-        this.success = true;
-      }
-      this.$scope.$digest();
-    }
 
-    public runExercise() {
-      try {
-        eval(this.editorContent);
-        this.errors = [];
-        this.success = true;
-      } catch (err) {
-        this.errors = [{message:err.toString(), line:-1}];
-        this.success = false;
-      }
+      return (editor:AceAjax.Editor) => {
+        this.initAce(editor);
+        editor.setValue(this.exData.exercise);
+        editor.clearSelection();
+        editor.focus();
+        selectQuestionMark(editor);
+        var allEvents = this.AceTsService.start(editor);
+        processResults(allEvents);
+      };
     }
 
     public giveUp() {

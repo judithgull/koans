@@ -32,7 +32,7 @@ module topic {
             return RestClient.getExercise($stateParams.topicId, $stateParams.exId);
           },
           initAce: function(AceTsService: AceTsService.IAceTsService){
-            return AceTsService.getAceInitializer(["typescripts/lib.d.ts", "typescripts/jasmine/jasmine.d.ts"]);
+            return AceTsService.getAceInitializer(["typescripts/lib.d.ts", "typescripts/chai/chai.d.ts"]);
           }
         }
       }).state('topic.exercise.solution', {
