@@ -22,8 +22,8 @@
         "id": 3,
         "title": "Numbers",
         "description": "Numbers are floating point values as in Javascript.",
-        "exercise": "var height = 0.5;\nvar width = 2;\nexpect(height * width).toBe(?);//TODO replace ?",
-        "solution": "var height = 0.5;\nvar width = 2;\nexpect(height * width).toBe(1);"
+        "exercise": "var height = 0.5;\nvar width = 2;\n(height * width).should.equal(?);//TODO replace ?",
+        "solution": "var height = 0.5;\nvar width = 2;\n(height * width).should.equal(1);"
       }
     ]
   },
