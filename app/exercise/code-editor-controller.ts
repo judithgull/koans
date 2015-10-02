@@ -14,6 +14,7 @@ module CodeEditorCtrl {
       private $attrs:CodeEditor.ICodeEditorAttributes,
       private AceTsService:AceTsService.IAceTsService
       ) {
+
     }
 
     createExerciseDataLoader() {
@@ -42,14 +43,14 @@ module CodeEditorCtrl {
       };
 
       return (editor:AceAjax.Editor) => {
-       // this.initAce(editor);
+        var libs = <Function>this.$scope.libsLoader();
+        this.AceTsService.addLibs(editor, libs());
         editor.setValue(this.$attrs.initValue);
-      /*  editor.clearSelection();
+        editor.clearSelection();
         editor.focus();
         selectQuestionMark(editor);
         var allEvents = this.AceTsService.start(editor);
         processResults(allEvents);
-        */
       };
     }
   }

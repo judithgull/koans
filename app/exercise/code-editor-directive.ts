@@ -5,6 +5,7 @@ module CodeEditor {
   export interface ICodeEditorScope extends ng.IScope{
     language:string;
     initValue:string;
+    libsLoader:Function;
   }
 
   export interface ICodeEditorAttributes extends ng.IAttributes{
@@ -34,19 +35,15 @@ module CodeEditor {
 
   function codeEditor(): ng.IDirective {
     return {
-      restrict: 'EA',
-      scope: {},
+      restrict: 'E',
+      scope: {libsLoader: '&libsLoader'},
       templateUrl: 'exercise/code-editor.html',
       replace: false,
       controllerAs: 'codeEditor',
       controller: 'CodeEditorCtrl',
-      link: function (scope: ICodeEditorScope, element: JQuery, attrs: any) {
-
-        console.log(attrs);
+      link: function (scope: ICodeEditorScope, element: any, attrs: CodeEditor.ICodeEditorAttributes) {
         scope.language = attrs.language;
         scope.initValue = attrs.initValue;
-        /*jshint unused:false */
-        /*eslint "no-unused-vars": [2, {"args": "none"}]*/
       }
     };
   }

@@ -3,9 +3,9 @@ module AceTsService {
 
   export interface IAceTsService{
     /**
-     * Initialize ace with necessary libraries
+     * Add libraries to ace editor
      * */
-    getAceInitializer(libNames:string[]): ng.IPromise<Function>;
+    addLibs(editor:AceAjax.Editor, libs: Array<Data.ILibrary>)
 
     start(editor:AceAjax.Editor):Rx.Observable<Data.IStatus>;
   }
@@ -18,21 +18,18 @@ module AceTsService {
       private restClient:RestClient.IRestClient
     ) {}
 
-    getAceInitializer(libNames:string[]): ng.IPromise<Function>{
-      return this.restClient
-        .getLibs(libNames)
-        .then(libs => this.init(libs))
-    }
 
     private init(libs:Array<Data.ILibrary>):Function{
       return (editor: AceAjax.Editor) => {
-        this.addLib(editor, libs);
+        this.addLibs(editor, libs);
       };
     }
 
-    private addLib(editor:AceAjax.Editor, libs: Array<Data.ILibrary>){
+    addLibs(editor:AceAjax.Editor, libs: Array<Data.ILibrary>){
       libs.forEach(
-          lib => (<any>editor.getSession()).$worker.emit("addLibrary", { data: lib})
+          lib => {
+            (<any>editor.getSession()).$worker.emit("addLibrary", { data: lib});
+          }
       );
     }
 
