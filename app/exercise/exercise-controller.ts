@@ -14,6 +14,10 @@ module ExerciseCtrl {
     successMessage:string = "You are great!!!";
     success = false;
     libsLoader = () => this.libs;
+    onError = (errors:Array<Data.IError>) => {
+      this.errors = errors;
+      this.$scope.$digest();
+    };
 
     public static $inject = ['exData', 'topicData', '$state', '$scope', 'AceTsService', 'libs'];
 

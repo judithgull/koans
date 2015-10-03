@@ -7,7 +7,8 @@ div(class="l-grid")
     code-editor(
       language='topic.language',
       init-value='exercise.content',
-      libs-loader="exercise.libsLoader"
+      libs-loader="exercise.libsLoader",
+      on-error="exercise.onError"
     )
     //div(ui-ace="{\
     //        mode: '{{::topic.language}}',\

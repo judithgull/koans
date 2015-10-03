@@ -6,6 +6,7 @@ module CodeEditor {
     language:string;
     initValue:string;
     libsLoader:Function;
+    onError:Function;
   }
 
   export interface ICodeEditorAttributes extends ng.IAttributes{
@@ -39,7 +40,8 @@ module CodeEditor {
       scope: {
         language: "=",
         initValue: "=",
-        libsLoader: '&libsLoader'
+        libsLoader: '&libsLoader',
+        onError: '&onError'
       },
       templateUrl: 'exercise/code-editor.html',
       controllerAs: 'codeEditor',

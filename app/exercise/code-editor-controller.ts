@@ -35,7 +35,7 @@ module CodeEditorCtrl {
 
         errorEvents.forEach(s => {
           this.success = false;
-          this.errors = s.errors;
+          this.$scope.onError()(s.errors);
           this.$scope.$digest();
         });
       };
