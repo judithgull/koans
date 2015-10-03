@@ -35,6 +35,10 @@ module CodeEditorCtrl {
         });
       };
 
+      var isRun = () => {
+        return this.$scope.onSuccess() || this.$scope.onError();
+      };
+
       return (editor:AceAjax.Editor) => {
         var libs = <Function>this.$scope.libsLoader();
         this.AceTsService.addLibs(editor, libs());
@@ -42,8 +46,10 @@ module CodeEditorCtrl {
         editor.clearSelection();
         editor.focus();
         selectQuestionMark(editor);
-        var allEvents = this.AceTsService.start(editor);
-        processResults(allEvents);
+        if(isRun()) {
+          var allEvents = this.AceTsService.start(editor);
+          processResults(allEvents);
+        }
       };
     }
   }
