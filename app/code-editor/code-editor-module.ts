@@ -7,5 +7,5 @@ module codeEditor {
   *
   */
   angular
-    .module('codeEditor');
+    .module('codeEditor', []);
 }
