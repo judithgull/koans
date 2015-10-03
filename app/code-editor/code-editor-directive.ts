@@ -39,8 +39,8 @@ module CodeEditor {
     return {
       restrict: 'E',
       scope: {
-        language: "=",
-        initValue: "=",
+        language: '=',
+        initValue: '=',
         libsLoader: '&libsLoader',
         onError: '&onError',
         onSuccess: '&onSuccess'
