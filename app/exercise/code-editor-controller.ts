@@ -5,13 +5,11 @@ module CodeEditorCtrl {
   class CodeEditorCtrl {
     success = false;
     errors:Array<Data.IError> = [];
-    language = "typescript";
 
-    public static $inject = ['$scope', '$attrs', 'AceTsService'];
+    public static $inject = ['$scope', 'AceTsService'];
 
     constructor(
       private $scope:CodeEditor.ICodeEditorScope,
-      private $attrs:CodeEditor.ICodeEditorAttributes,
       private AceTsService:AceTsService.IAceTsService
       ) {
 
@@ -45,7 +43,7 @@ module CodeEditorCtrl {
       return (editor:AceAjax.Editor) => {
         var libs = <Function>this.$scope.libsLoader();
         this.AceTsService.addLibs(editor, libs());
-        editor.setValue(this.$attrs.initValue);
+        editor.setValue(this.$scope.initValue);
         editor.clearSelection();
         editor.focus();
         selectQuestionMark(editor);

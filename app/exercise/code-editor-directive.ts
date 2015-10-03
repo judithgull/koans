@@ -36,15 +36,15 @@ module CodeEditor {
   function codeEditor(): ng.IDirective {
     return {
       restrict: 'E',
-      scope: {libsLoader: '&libsLoader'},
+      scope: {
+        language: "=",
+        initValue: "=",
+        libsLoader: '&libsLoader'
+      },
       templateUrl: 'exercise/code-editor.html',
       replace: false,
       controllerAs: 'codeEditor',
-      controller: 'CodeEditorCtrl',
-      link: function (scope: ICodeEditorScope, element: any, attrs: CodeEditor.ICodeEditorAttributes) {
-        scope.language = attrs.language;
-        scope.initValue = attrs.initValue;
-      }
+      controller: 'CodeEditorCtrl'
     };
   }
 }
