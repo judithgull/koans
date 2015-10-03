@@ -15,7 +15,12 @@ module ExerciseCtrl {
     success = false;
     libsLoader = () => this.libs;
     onError = (errors:Array<Data.IError>) => {
+      this.success = false;
       this.errors = errors;
+      this.$scope.$digest();
+    };
+    onSuccess = () => {
+      this.success = true;
       this.$scope.$digest();
     };
 

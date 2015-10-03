@@ -30,6 +30,7 @@ module CodeEditorCtrl {
 
         successEvents.forEach(s => {
           this.success = true;
+          this.$scope.onSuccess()();
           this.$scope.$digest();
         });
 
