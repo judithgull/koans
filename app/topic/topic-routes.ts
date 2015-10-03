@@ -42,9 +42,7 @@ module topic {
         controllerAs: 'solution'
       }).state('topic.exercise.details', {
         url: '',
-        templateUrl: '../exercise/details/details.tpl.html',
-        controller: 'DetailsCtrl',
-        controllerAs: 'details'
+        templateUrl: '../exercise/details/details.tpl.html'
       });
   }
 }
