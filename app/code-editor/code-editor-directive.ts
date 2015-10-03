@@ -45,7 +45,7 @@ module CodeEditor {
         onError: '&onError',
         onSuccess: '&onSuccess'
       },
-      templateUrl: 'exercise/code-editor.html',
+      templateUrl: 'code-editor/code-editor.tpl.html',
       controllerAs: 'codeEditor',
       controller: 'CodeEditorCtrl'
     };
