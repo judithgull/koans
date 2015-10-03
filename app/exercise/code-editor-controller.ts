@@ -3,8 +3,6 @@ module CodeEditorCtrl {
   'use strict';
 
   class CodeEditorCtrl {
-    success = false;
-    errors:Array<Data.IError> = [];
 
     public static $inject = ['$scope', 'AceTsService'];
 
@@ -29,15 +27,11 @@ module CodeEditorCtrl {
         var errorEvents = allEvents.filter(s => !s.success);
 
         successEvents.forEach(s => {
-          this.success = true;
           this.$scope.onSuccess()();
-          this.$scope.$digest();
         });
 
         errorEvents.forEach(s => {
-          this.success = false;
           this.$scope.onError()(s.errors);
-          this.$scope.$digest();
         });
       };
 

@@ -1,6 +1,4 @@
 h2 {{::exercise.title}}
-button.button(type='button' ng-click="exercise.runExercise()")
-  | Run
 
 div(class="l-grid")
   div(class="l-column")
@@ -11,16 +9,6 @@ div(class="l-grid")
       on-error="exercise.onError",
       on-success='exercise.onSuccess'
     )
-    //div(ui-ace="{\
-    //        mode: '{{::topic.language}}',\
-    //        theme: 'idle_fingers',\
-    //        useWrapMode: true,\
-    //        onLoad: exercise.createExerciseDataLoader(),\
-    //        onChange:exercise.onChange()\
-    //        }"
-    //)
-
-
 
   div(class="l-column")
     div(ui-view="")
