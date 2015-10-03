@@ -65,6 +65,6 @@ module RestClient {
    *
    */
   angular
-    .module('exercise')
+    .module('koans')
     .service('RestClient', RestClient);
 }
