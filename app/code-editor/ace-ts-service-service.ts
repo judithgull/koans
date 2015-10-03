@@ -12,19 +12,6 @@ module AceTsService {
 
   class AceTsService implements IAceTsService{
 
-    public static $inject = ['RestClient'];
-
-    constructor(
-      private restClient:RestClient.IRestClient
-    ) {}
-
-
-    private init(libs:Array<Data.ILibrary>):Function{
-      return (editor: AceAjax.Editor) => {
-        this.addLibs(editor, libs);
-      };
-    }
-
     addLibs(editor:AceAjax.Editor, libs: Array<Data.ILibrary>){
       libs.forEach(
           lib => {
@@ -71,7 +58,7 @@ module AceTsService {
 
   /**
    * @ngdoc service
-   * @name koans.service:AceTsServiceTs
+   * @name koans.service:AceTsService
    *
    * @description
    *
