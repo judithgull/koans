@@ -3,21 +3,13 @@ module SolutionCtrl {
 
   class SolutionCtrl {
 
-    solutionData:string;
-    solutionEditor:AceAjax.Editor;
+    content:string;
 
     public static $inject = ['exData', '$state'];
 
 
     constructor(exData:Data.IExercise, private $state:angular.ui.IStateService) {
-      this.solutionData = exData.solution;
-    }
-
-    public createSolutionDataLoader() {
-      return (solutionEditor:AceAjax.Editor) => {
-        this.solutionEditor = solutionEditor;
-        this.solutionEditor.setValue(this.solutionData);
-      };
+      this.content = exData.solution;
     }
 
     private showDetails(){
