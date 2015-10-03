@@ -2,15 +2,7 @@ h2 home
 p {{home.ctrlName}}
 
 div
-  div(ng-repeat="topic in home.topics")
+  div(class="topic-item" ng-repeat="topic in home.topics")
     a(ui-sref='topic.exercise.details({topicId:topic.id})')
       h1 {{topic.title}}
       p {{topic.language}}
-      p {{topic.id}}
-
-
-  p
-    a(ui-sref='topic.exercise.details({topicId:0})') Topic 0
-  p
-    a(ui-sref='topic.exercise.details({topicId:1})') Topic 1
-
