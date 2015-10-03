@@ -12,8 +12,8 @@ module HomeCtrl {
 
     // dependencies are injected via AngularJS $injector
     constructor(RestClient:RestClient.IRestClient, private $scope:ng.IScope) {
-      RestClient.getTopic(0).then(topic => {
-        this.topics = [topic];
+      RestClient.getTopics().then(topics => {
+        this.topics = topics;
       });
     }
   }

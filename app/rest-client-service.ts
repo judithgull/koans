@@ -6,6 +6,7 @@ module RestClient {
     getExercise(topicId:number, exerciseId:number):ng.IPromise<Data.IExercise>;
     getLib(name:string):ng.IPromise<Data.ILibrary>;
     getLibs(names:string[]):ng.IPromise<Array<Data.ILibrary>>;
+    getTopics():ng.IPromise<Array<Data.ITopic>>;
   }
 
   class RestClient implements IRestClient{
@@ -20,12 +21,20 @@ module RestClient {
                 private $q:ng.IQService) {
     }
 
+    getTopics():ng.IPromise<Array<Data.ITopic>>{
+      return this.$http.get('/data/sampleData.json').then(
+        (response) => {
+          return response.data;
+        }
+      );
+    }
+
     getTopic(id:number):ng.IPromise<Data.ITopic> {
       var deferred = this.$q.defer();
 
-      if (!this.topicData) {
+      if (!this.topicData || this.topicData.id != id) {
         this.$http.get('/data/sampleData.json').then(response => {
-          this.topicData = <Data.ITopic> response.data[id];
+          this.topicData = <Data.ITopic> response.data[id-1];
           deferred.resolve(this.topicData);
         }).catch(reason => {
           deferred.reject(reason);
