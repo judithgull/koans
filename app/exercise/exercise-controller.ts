@@ -23,9 +23,9 @@ module ExerciseCtrl {
       this.$scope.$digest();
     };
 
-    public static $inject = ['exData', 'topicData', '$state', '$scope', 'AceTsService', 'libs'];
+    public static $inject = ['exData', '$state', '$scope', 'libs'];
 
-    constructor(exData:Data.IExercise, topicData:Data.ITopic, private $state:angular.ui.IStateService, private $scope:ng.IScope, private AceTsService:AceTsService.IAceTsService, private libs) {
+    constructor(exData:Data.IExercise, private $state:angular.ui.IStateService, private $scope:ng.IScope, private libs) {
       this.content = exData.exercise;
       this.title = exData.title;
       this.description = exData.description;
