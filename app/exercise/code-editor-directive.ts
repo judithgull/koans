@@ -42,7 +42,6 @@ module CodeEditor {
         libsLoader: '&libsLoader'
       },
       templateUrl: 'exercise/code-editor.html',
-      replace: false,
       controllerAs: 'codeEditor',
       controller: 'CodeEditorCtrl'
     };
