@@ -3,14 +3,18 @@
 /* global describe, beforeEach, it, expect, inject, module */
 'use strict';
 
-describe('CodeEditorCtrl', function () {
+describe('Code Editor Controller', function () {
   var ctrl;
 
-  beforeEach(angular.mock.module('exercise'));
+  beforeEach(angular.mock.module('codeEditor'));
 
   beforeEach(inject(function ($rootScope, $controller) {
-    ctrl = $controller('CodeEditorCtrl');
+    var scope = $rootScope.$new();
+    ctrl = $controller('CodeEditorCtrl', {$scope:scope});
   }));
 
+  it("should be defined", function(){
+    expect(ctrl).toBeDefined();
+  });
 
 });

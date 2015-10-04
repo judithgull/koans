@@ -7,7 +7,7 @@ describe('codeEditor', function () {
   var scope
     , element;
 
-  beforeEach(angular.mock.module('exercise'));
+  beforeEach(angular.mock.module('codeEditor'));
 
   beforeEach(inject(function ($compile, $rootScope) {
     scope = $rootScope.$new();

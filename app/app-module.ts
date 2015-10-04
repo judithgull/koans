@@ -11,9 +11,9 @@ module koans {
   var app = angular.module('koans', [
     'ui.router',
     'ui.ace',
+    'codeEditor',
     'home',
-    'topic',
-    'codeEditor'
+    'topic'
   ]);
 
   app.run(['$rootScope', '$log',function($rootScope, $log) {

@@ -41,7 +41,7 @@ module CodeEditor {
    * @description
    *
    * @example
-   <example module="exercise">
+   <example module="codeEditor">
    <file name="index.html">
    <code-editor></code-editor>
    </file>
