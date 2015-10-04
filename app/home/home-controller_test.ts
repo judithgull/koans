@@ -1,22 +1,44 @@
 /*global describe, beforeEach, it, expect, inject, module*/
 //'use strict';
-/*
-describe('HomeCtrl', function () {
-  var ctrl;
 
-  beforeEach(module('home'));
+describe('Home Controller', () =>  {
+  var topics = test.MockData.getTopics();
+  var ctrl: HomeCtrl.IHomeCtrl;
+  var rs;
 
-  beforeEach(inject(function ($rootScope, $controller) {
-   // ctrl = $controller('HomeCtrl');
+  beforeEach(()=> module('home'));
 
-  //  var mockTopics = new testing.MockData().getTopics();
-  //  console.log(mockTopics);
+  beforeEach(inject(($rootScope, $controller, $q) => {
+    rs = $rootScope;
 
+    var ds = {
+      getTopics: function(){
+        return $q.when(topics);
+      }
+    };
+
+    ctrl = $controller('HomeCtrl', {RestClient: ds});
   }));
 
-  it('should have ctrlName as HomeCtrl', function () {
-    expect(ctrl.ctrlName).toEqual('HomeCtrl');
+  it('should be defined', () => {
+    expect(ctrl).toBeDefined();
   });
 
+  it('should have an empty topics array before data is resolved', ()  => {
+    expect(ctrl.topics.length).toEqual(0);
+  });
+
+  describe("data loaded", () => {
+
+    it("should have topics after data is loaded", () => {
+      rs.$apply();
+      expect(ctrl.topics.length).toBe(topics.length);
+    });
+
+
+  })
+
+
+
 });
-*/
+

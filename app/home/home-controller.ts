@@ -1,9 +1,13 @@
 module HomeCtrl {
   'use strict';
 
-  class HomeCtrl {
-
+  export interface IHomeCtrl{
     topics: Array<Data.ITopic>;
+  }
+
+  class HomeCtrl implements IHomeCtrl{
+
+    topics: Array<Data.ITopic> = [];
 
     public static $inject = [
       'RestClient'
