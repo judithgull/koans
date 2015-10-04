@@ -55,10 +55,7 @@ config.buildUnitTestFiles = path.join(config.buildUnitTestsDir, '**/*_test.js');
 config.e2eFiles = path.join('e2e', '**/*.js');
 config.unitTestFiles = path.join(config.unitTestDir, '**/*_test.ts');
 
-config.tsProject = $.typescript.createProject({
-  declarationFiles: true,
-  noExternalResolve: false
-});
+config.tsProject = $.typescript.createProject('tsconfig.json');
 
 for (key in gulpFiles) {
   gulpFiles[key](gulp, $, config);

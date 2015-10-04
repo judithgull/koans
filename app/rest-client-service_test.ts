@@ -1,4 +1,3 @@
-///<reference path='../typings/tsd.d.ts' />
 /* global describe, beforeEach, it, expect, inject, module */
 'use strict';
 
@@ -7,7 +6,7 @@ describe('RestClient', function () {
   var $httpBackend, requestHandler;
   var tsLibName = "typescripts/lib.d.ts";
 
-  beforeEach(module("exercise"));
+  beforeEach(module("koans"));
 
   beforeEach(inject(function ($injector, RestClient) {
     restClient = RestClient;
@@ -50,7 +49,7 @@ describe('RestClient', function () {
 
   it('should return a topic with the correct attributes', function () {
     $httpBackend.expectGET("/data/sampleData.json");
-    var topicPromise = restClient.getTopic(0);
+    var topicPromise = restClient.getTopic(1);
     topicPromise.then(
       (data) => {
         expect(data.id).toBe(1);

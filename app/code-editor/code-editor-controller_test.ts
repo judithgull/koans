@@ -12,8 +12,5 @@ describe('CodeEditorCtrl', function () {
     ctrl = $controller('CodeEditorCtrl');
   }));
 
-  it('should have ctrlName as CodeEditorCtrl', function () {
-    expect(ctrl.ctrlName).toEqual('CodeEditorCtrl');
-  });
 
 });

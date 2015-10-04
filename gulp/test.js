@@ -2,6 +2,8 @@
 
 var karmaConf = require('../karma.config.js');
 
+var gulpFilter = require('gulp-filter');
+
 // karmaConf.files get populated in karmaFiles
 karmaConf.files = [
   'node_modules/karma-babel-preprocessor/node_modules/babel-core/browser-polyfill.js'
@@ -12,14 +14,16 @@ module.exports = function (gulp, $, config) {
     return $.del(config.buildTestDir, cb);
   });
 
-  gulp.task('buildTests', ['lint', 'clean:test'], function () {
-    return gulp.src([config.unitTestFiles])
+  gulp.task('buildTests', ['lint', 'clean:test', 'build'], function () {
+    var testFilter = gulpFilter('**/*_test.js');
+    return gulp.src([config.unitTestFiles, config.appScriptFiles])
       .pipe($.typescript(config.tsProject))
+      .pipe(testFilter)
       .pipe(gulp.dest(config.buildUnitTestsDir));
   });
 
   // inject scripts in karma.config.js
-  gulp.task('karmaFiles', ['build', 'buildTests'], function () {
+  gulp.task('karmaFiles', ['buildTests'], function () {
     var stream = $.streamqueue({objectMode: true});
 
     // add bower javascript

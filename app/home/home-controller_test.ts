@@ -7,7 +7,11 @@ describe('HomeCtrl', function () {
   beforeEach(module('home'));
 
   beforeEach(inject(function ($rootScope, $controller) {
-    ctrl = $controller('HomeCtrl');
+   // ctrl = $controller('HomeCtrl');
+
+  //  var mockTopics = new testing.MockData().getTopics();
+  //  console.log(mockTopics);
+
   }));
 
   it('should have ctrlName as HomeCtrl', function () {
