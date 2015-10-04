@@ -5,6 +5,9 @@
     "test": "gulp test"
   },
   "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "method-override": "^2.3.5",
     "typescript": "^1.6.2"
   },
   "devDependencies": {
