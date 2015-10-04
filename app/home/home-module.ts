@@ -8,6 +8,7 @@ module home {
   */
   angular
     .module('home', [
-      'ui.router'
+      'ui.router',
+      'core'
     ]);
 }

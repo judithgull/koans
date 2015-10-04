@@ -6,7 +6,7 @@ describe('RestClient', function () {
   var $httpBackend, requestHandler;
   var tsLibName = "typescripts/lib.d.ts";
 
-  beforeEach(module("koans"));
+  beforeEach(module("core"));
 
   beforeEach(inject(function ($injector, RestClient) {
     restClient = RestClient;

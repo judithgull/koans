@@ -74,6 +74,6 @@ module RestClient {
    *
    */
   angular
-    .module('koans')
+    .module('core')
     .service('RestClient', RestClient);
 }
