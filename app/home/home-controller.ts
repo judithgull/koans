@@ -6,12 +6,10 @@ module HomeCtrl {
     topics: Array<Data.ITopic>;
 
     public static $inject = [
-      'RestClient',
-      '$scope'
+      'RestClient'
     ];
 
-    // dependencies are injected via AngularJS $injector
-    constructor(RestClient:RestClient.IRestClient, private $scope:ng.IScope) {
+    constructor(RestClient:RestClient.IRestClient) {
       RestClient.getTopics().then(topics => {
         this.topics = topics;
       });
