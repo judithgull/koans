@@ -1,8 +1,10 @@
 var url = require("url");
+var Topic = require("./topic-model");
 
 module.exports.getTopics = function (req, res) {
   res.format({
     "application/json": function (req, res) {
+
 
       var data = [
         {
