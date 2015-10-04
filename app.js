@@ -17,6 +17,8 @@ app.use(methodOverride(function (req) {
   }
 }));
 
+app.use("/topics", require('./app-node/topic/topic-routes.js'));
+
 /**
  * Start Server
  */
