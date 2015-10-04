@@ -15,26 +15,6 @@ module CodeEditor {
     initValue:string;
   }
 
-  /**
-  * @ngdoc directive
-  * @name exercise.directive:codeEditor
-  * @restrict EA
-  * @element
-  *
-  * @description
-  *
-  * @example
-    <example module="exercise">
-      <file name="index.html">
-        <code-editor></code-editor>
-      </file>
-    </example>
-  *
-  */
-  angular
-    .module('exercise')
-    .directive('codeEditor', codeEditor);
-
   function codeEditor(): ng.IDirective {
     return {
       restrict: 'E',
@@ -50,4 +30,25 @@ module CodeEditor {
       controller: 'CodeEditorCtrl'
     };
   }
+
+
+  /**
+   * @ngdoc directive
+   * @name exercise.directive:codeEditor
+   * @restrict EA
+   * @element
+   *
+   * @description
+   *
+   * @example
+   <example module="exercise">
+   <file name="index.html">
+   <code-editor></code-editor>
+   </file>
+   </example>
+   *
+   */
+  angular
+    .module('codeEditor')
+    .directive('codeEditor', codeEditor);
 }

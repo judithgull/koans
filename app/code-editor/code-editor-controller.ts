@@ -63,6 +63,6 @@ module CodeEditorCtrl {
   *
   */
   angular
-    .module('exercise')
+    .module('codeEditor')
     .controller('CodeEditorCtrl', CodeEditorCtrl);
 }

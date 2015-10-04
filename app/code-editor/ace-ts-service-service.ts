@@ -64,6 +64,6 @@ module AceTsService {
    *
    */
   angular
-    .module('exercise')
+    .module('codeEditor')
     .service('AceTsService', AceTsService);
 }
