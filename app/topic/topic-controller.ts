@@ -1,7 +1,7 @@
 module TopicCtrl {
   'use strict';
 
-  interface ITopicModel{
+  export interface ITopicModel{
     language:string;
     title:string;
     nextExercise():void;
@@ -10,8 +10,12 @@ module TopicCtrl {
     hasPreviousExercise():boolean;
   }
 
+  export interface ITopicStateService extends angular.ui.IStateService{
+    params: ITopicParams;
+  }
+
   export interface ITopicParams extends angular.ui.IStateParamsService {
-    exId:string;
+    exId:number;
   }
 
   class TopicCtrl implements ITopicModel{
@@ -22,11 +26,11 @@ module TopicCtrl {
 
     public static $inject = ['topicData', '$state'];
 
-    constructor(topicData:Data.ITopic, private $state:angular.ui.IStateService) {
+    constructor(topicData:Data.ITopic, private $state:ITopicStateService) {
       this.title = topicData.title;
       this.language = topicData.language;
       this.exerciseCount = topicData.items.length;
-      this.exerciseId = parseInt((<ITopicParams>$state.params).exId);
+      this.exerciseId = $state.params.exId;
     }
 
     nextExercise() {

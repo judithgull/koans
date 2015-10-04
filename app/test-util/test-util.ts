@@ -2,6 +2,37 @@ module test {
 
   export class MockData {
 
+    static getTopic():Data.ITopic {
+      return {
+        "id": 1,
+        "title": "Typescript Intro - Types",
+        "language": "typescript",
+        "items": [
+          {
+            "id": 1,
+            "title": "Type Declaration",
+            "description": "Typescript is statically typed: Variables have a type assigned at compile time that does not change anymore.\nFor example: a variable of type boolean can only be assigned true or false.",
+            "exercise": "var typeScriptIsGreat:boolean = 1; //TODO fix to make the program compile",
+            "solution": "var typeScriptIsGreat:boolean = true;"
+          },
+          {
+            "id": 2,
+            "title": "Type Inference",
+            "description": "The typescript compiler infers a type, if a value is assigned and no explicit type is declared.",
+            "exercise": "var typeScriptIsGreat = true;//same as var typeScriptIsGreat:boolean = true;\ntypeScriptIsGreat = 1;//TODO fix compile error",
+            "solution": "var typeScriptIsGreat = true;//same as var typeScriptIsGreat:boolean = true;\ntypeScriptIsGreat = true;"
+          },
+          {
+            "id": 3,
+            "title": "Numbers",
+            "description": "Numbers are floating point values as in Javascript.",
+            "exercise": "var height = 0.5;\nvar width = 2;\n(height * width).should.equal(?);//TODO replace ?",
+            "solution": "var height = 0.5;\nvar width = 2;\n(height * width).should.equal(1);"
+          }
+        ]
+      };
+    }
+
     static getTopics():Array<Data.ITopic> {
       return [
         {
