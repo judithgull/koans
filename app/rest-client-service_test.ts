@@ -13,7 +13,7 @@ describe('RestClient', function () {
     $httpBackend = $injector.get("$httpBackend");
     $httpBackend.when("GET", tsLibName).respond("lib");
 
-    requestHandler = $httpBackend.when("GET", "/data/sampleData.json").respond(
+    requestHandler = $httpBackend.when("GET", "/topics").respond(
       [{
         "id": 1,
         "title": "Addition",
@@ -48,7 +48,7 @@ describe('RestClient', function () {
 
 
   it('should return a topic with the correct attributes', function () {
-    $httpBackend.expectGET("/data/sampleData.json");
+    $httpBackend.expectGET("/topics");
     var topicPromise = restClient.getTopic(1);
     topicPromise.then(
       (data) => {
