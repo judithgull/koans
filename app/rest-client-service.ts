@@ -22,7 +22,7 @@ module RestClient {
     }
 
     getTopics():ng.IPromise<Array<Data.ITopic>>{
-      return this.$http.get('/data/sampleData.json').then(
+      return this.$http.get('/topics').then(
         (response) => {
           return response.data;
         }
@@ -33,7 +33,7 @@ module RestClient {
       var deferred = this.$q.defer();
 
       if (!this.topicData || this.topicData.id != id) {
-        this.$http.get('/data/sampleData.json').then(response => {
+        this.$http.get('/topics').then(response => {
           this.topicData = <Data.ITopic> response.data[id-1];
           deferred.resolve(this.topicData);
         }).catch(reason => {
