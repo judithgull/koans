@@ -45,8 +45,8 @@ module RestClient {
       return deferred.promise;
     }
 
-    getExercise(topidId:number, exerciseId:number):ng.IPromise<Data.IExercise> {
-      return this.getTopic(topidId).then(() => this.topicData.items[exerciseId - 1]);
+    getExercise(topicId:number, exerciseId:number):ng.IPromise<Data.IExercise> {
+      return this.getTopic(topicId).then(() => this.topicData.items[exerciseId - 1]);
     }
 
     getLibs(names:string[]):ng.IPromise<Array<Data.ILibrary>>{
