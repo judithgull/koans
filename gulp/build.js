@@ -3,6 +3,7 @@
 var _ = require('underscore.string')
   , fs = require('fs')
   , path = require('path')
+  , exec = require('child_process').exec
 
   , bowerDir = JSON.parse(fs.readFileSync('.bowerrc')).directory + path.sep;
 
@@ -274,4 +275,18 @@ module.exports = function (gulp, $, config) {
   });
 
   gulp.task('build', ['deleteTemplates', 'images', 'fonts', 'data']);
+
+  gulp.task('server',['build'], function (cb) {
+    exec('node app.js', function (err, stdout, stderr) {
+      console.log(stdout);
+      console.log(stderr);
+      cb(err);
+    });
+    exec('mongod ', function (err, stdout, stderr) {
+      console.log(stdout);
+      console.log(stderr);
+      cb(err);
+    });
+  })
+
 };

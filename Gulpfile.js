@@ -61,7 +61,7 @@ for (key in gulpFiles) {
   gulpFiles[key](gulp, $, config);
 }
 
-gulp.task('dev', ['build'], function () {
+gulp.task('dev', ['server'], function () {
   gulp.start('browserSync');
   gulp.start('watch');
 });
