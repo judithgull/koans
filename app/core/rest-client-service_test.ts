@@ -5,6 +5,7 @@ describe('RestClient', function () {
   var restClient:RestClient.IRestClient;
   var $httpBackend, requestHandler;
   var tsLibName = "typescripts/lib.d.ts";
+  var topics = test.MockData.getTopics;
 
   beforeEach(module("core"));
 
@@ -12,38 +13,7 @@ describe('RestClient', function () {
     restClient = RestClient;
     $httpBackend = $injector.get("$httpBackend");
     $httpBackend.when("GET", tsLibName).respond("lib");
-
-    requestHandler = $httpBackend.when("GET", "/topics").respond(
-      [{
-        "id": 1,
-        "title": "Addition",
-        "language": "typescript",
-        "items": [
-          {
-            "id": 1,
-            "title": "Type Declaration",
-            "description": "Typescript is strongly typed: A variable is assigned a type, that cannot be changed.",
-            "exercise": "describe('Type Declaration', function () {\n\n  //Types are denoted by :\n  var name: string = \"Anna\";\n  var isEmpty:boolean = false;\n  var age: number = 16;\n\n  //TODO fix the assignment value to make the program compile:\n  isEmpty = 0;\n});",
-            "solution": "describe('Type Declaration', function () {\n\n  //Types are denoted by :\n  var name: string = \"Anna\";\n  var isEmpty:boolean = false;\n  var age: number = 16;\n\n  //TODO fix the assignment value to make the program compile:\n  isEmpty = false;\n});"
-          },
-          {
-            "id": 2,
-            "title": "Type Declaration1",
-            "description": "Typescript is strongly typed: A variable is assigned a type, that cannot be changed.",
-            "exercise": "describe('Type Declaration', function () {\n\n  //Types are denoted by :\n  var name: string = \"Anna\";\n  var isEmpty:boolean = false;\n  var age: number = 16;\n\n  //TODO fix the assignment value to make the program compile:\n  isEmpty = 0;\n});",
-            "solution": "describe('Type Declaration', function () {\n\n  //Types are denoted by :\n  var name: string = \"Anna\";\n  var isEmpty:boolean = false;\n  var age: number = 16;\n\n  //TODO fix the assignment value to make the program compile:\n  isEmpty = false;\n});"
-          },
-          {
-            "id": 3,
-            "title": "Type Declaration2",
-            "description": "Typescript is strongly typed: A variable is assigned a type, that cannot be changed.",
-            "exercise": "describe('Type Declaration', function () {\n\n  //Types are denoted by :\n  var name: string = \"Anna\";\n  var isEmpty:boolean = false;\n  var age: number = 16;\n\n  //TODO fix the assignment value to make the program compile:\n  isEmpty = 0;\n});",
-            "solution": "describe('Type Declaration', function () {\n\n  //Types are denoted by :\n  var name: string = \"Anna\";\n  var isEmpty:boolean = false;\n  var age: number = 16;\n\n  //TODO fix the assignment value to make the program compile:\n  isEmpty = false;\n});"
-          }
-        ]
-      }]
-    );
-
+    requestHandler = $httpBackend.when("GET", "/topics").respond(topics);
   }));
 
 
