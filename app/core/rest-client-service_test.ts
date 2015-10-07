@@ -35,6 +35,25 @@ module RestClient {
       });
     });
 
+    describe("getExercise", () => {
+
+      var topic = test.MockData.getTopic();
+
+      it('should return an exercise with the correct attributes', function () {
+        var expectedUrl = TOPICS_URL + topic._id;
+        var exercise = topic.items[0];
+        $httpBackend.when("GET", expectedUrl).respond(topic);
+        $httpBackend.expectGET(expectedUrl);
+        var exercisePromise = restClient.getExercise(topic._id, exercise.sortOrder);
+        exercisePromise.then(
+          (data) => {
+            expect(data).toEqual(exercise);
+          }
+        );
+        $httpBackend.flush();
+      });
+    });
+
     it('should return the typescript default library ', function () {
       $httpBackend.expectGET(tsLibName);
       var libPromise = restClient.getLib(tsLibName);
