@@ -1,6 +1,8 @@
 module RestClient {
   'use strict';
 
+  export const TOPICS_URL = '/topics';
+
   export interface IRestClient {
     getTopic(id:number): ng.IPromise<Data.ITopic>;
     getExercise(topicId:number, exerciseId:number):ng.IPromise<Data.IExercise>;
@@ -22,7 +24,7 @@ module RestClient {
     }
 
     getTopics():ng.IPromise<Array<Data.ITopic>>{
-      return this.$http.get('/topics').then(
+      return this.$http.get(TOPICS_URL).then(
         (response) => {
           return response.data;
         }
@@ -33,7 +35,7 @@ module RestClient {
       var deferred = this.$q.defer();
 
       if (!this.topicData || this.topicData._id != id) {
-        this.$http.get('/topics/' + id).then(response => {
+        this.$http.get(TOPICS_URL + id).then(response => {
           this.topicData = <Data.ITopic> response.data;
           deferred.resolve(this.topicData);
         }).catch(reason => {
