@@ -4,7 +4,8 @@ var Schema       = mongoose.Schema;
 var TopicSchema   = new Schema({
   title: String,
   language: String,
-  items: [{ id: Number,
+  items: [{
+      sortOrder: Number,
       title: String,
       description: String,
       exercise: String,

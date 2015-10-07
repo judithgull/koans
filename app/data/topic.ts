@@ -9,7 +9,8 @@ module Data {
   }
 
   export interface IExercise {
-    id: number;
+    _id: number;
+    sortOrder: number;
     title: string;
     description: string;
     exercise: string;

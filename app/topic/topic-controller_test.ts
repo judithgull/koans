@@ -9,7 +9,7 @@ describe('Topic Controller', () => {
 
   beforeEach(inject(($controller: ng.IControllerService, $state: TopicCtrl.ITopicStateService) => {
     var state = $state;
-    state.params.exId = topic.items[0].id;
+    state.params.exId = topic.items[0].sortOrder;
     ctrl = $controller('TopicCtrl', {topicData: topic, $state:state});
   }));
 
