@@ -77,3 +77,20 @@ module.exports.getTopics = function (req, res) {
     }
   });
 };
+
+module.exports.getTopic = function (req, res) {
+  res.format({
+    "application/json": function (req, res) {
+
+      Topic
+        .findOne({_id: req.params.id}, function(err, topic) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.send(topic);
+          }
+        });
+
+    }
+  });
+};

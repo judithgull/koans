@@ -4,7 +4,7 @@ module test {
 
     static getTopic():Data.ITopic {
       return {
-        "id": 1,
+        "_id": 1,
         "title": "Typescript Intro - Types",
         "language": "typescript",
         "items": [
@@ -36,7 +36,7 @@ module test {
     static getTopics():Array<Data.ITopic> {
       return [
         {
-          "id": 1,
+          "_id": 1,
           "title": "Typescript Intro - Types",
           "language": "typescript",
           "items": [
@@ -64,7 +64,7 @@ module test {
           ]
         },
         {
-          "id": 2,
+          "_id": 2,
           "title": "Substraction",
           "language": "typescript",
           "items": [

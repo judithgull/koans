@@ -2,7 +2,7 @@ module Data {
   'use strict';
 
   export interface ITopic {
-    id: number;
+    _id: number;
     title: string;
     language: string;
     items: Array<Data.IExercise>;

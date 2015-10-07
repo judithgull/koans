@@ -32,9 +32,9 @@ module RestClient {
     getTopic(id:number):ng.IPromise<Data.ITopic> {
       var deferred = this.$q.defer();
 
-      if (!this.topicData || this.topicData.id != id) {
-        this.$http.get('/topics').then(response => {
-          this.topicData = <Data.ITopic> response.data[id-1];
+      if (!this.topicData || this.topicData._id != id) {
+        this.$http.get('/topics/' + id).then(response => {
+          this.topicData = <Data.ITopic> response.data;
           deferred.resolve(this.topicData);
         }).catch(reason => {
           deferred.reject(reason);
