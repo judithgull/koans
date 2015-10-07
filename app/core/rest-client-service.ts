@@ -1,7 +1,7 @@
 module RestClient {
   'use strict';
 
-  export const TOPICS_URL = '/topics';
+  export const TOPICS_URL = '/topics/';
 
   export interface IRestClient {
     getTopic(id:number): ng.IPromise<Data.ITopic>;
