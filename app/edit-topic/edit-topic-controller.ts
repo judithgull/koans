@@ -4,7 +4,8 @@ module EditTopicCtrl {
 
   class EditTopicCtrl {
 
-    ctrlName: string
+    ctrlName: string;
+    language:string='typescript';
 
     // $inject annotation.
     // It provides $injector with information about dependencies to be injected into constructor
