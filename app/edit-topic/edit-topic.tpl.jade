@@ -5,3 +5,29 @@ form
       | Typescript
     option(value='javascript')
       | Javascript
+
+  label(for='title') Title
+  input(name='title')
+
+  label(for='description') Description
+  textarea(name='description')
+  ul
+    li
+      code-editor(
+      language='editTopic.language',
+      init-value='editTopic.initValue',
+      libs-loader="editTopic.libsLoader",
+      on-error="editTopic.onError",
+      on-success='editTopic.onSuccess'
+      )
+      code-editor(
+      language='editTopic.language',
+      init-value='editTopic.initSolution',
+      libs-loader="editTopic.libsLoader",
+      on-error="editTopic.onError",
+      on-success='editTopic.onSuccess'
+      )
+      button(name='delete') Delete
+  button(name='add') Add
+  button(type='submit') Submit
+  button(type='cancel') Cancel
