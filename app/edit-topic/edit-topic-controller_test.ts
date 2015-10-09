@@ -27,6 +27,11 @@ module editTopic {
       expect(ctrl.items.length).toBe(1);
     });
 
+    it('should add a new exercise on addExercise', ()=> {
+      ctrl.addExercise();
+      expect(ctrl.items.length).toBe(2);
+    });
+
     it('should call createTopic with the correct arguments', () => {
       const testTitle = 'testTitle';
       const testLanguage = 'javascript';

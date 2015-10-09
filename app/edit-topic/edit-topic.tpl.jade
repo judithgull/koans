@@ -28,6 +28,6 @@ form(ng-submit='editTopic.submit()')
       on-success='editTopic.onSuccess'
       )
       button(name='delete') Delete
-  button(name='add') Add
+  button(name='add' ng-click='editTopic.addExercise()') Add
   button(type='submit') Submit
   a(ui-sref='home') Cancel

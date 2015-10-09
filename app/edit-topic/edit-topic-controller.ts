@@ -5,6 +5,7 @@ module editTopic {
   export interface IEditTopicModel{
     language:string;
     submit: Function;
+    addExercise:Function;
     title:string;
     items: Array<Data.IExercise>;
   }
@@ -19,6 +20,10 @@ module editTopic {
     submit = () => {
       var topic:Data.ITopic = new Topic(this.title,this.language);
       this.RestClient.createTopic(topic);
+    };
+
+    addExercise = () => {
+      this.items.push(new Exercise());
     };
 
     public static $inject = ['RestClient'];
