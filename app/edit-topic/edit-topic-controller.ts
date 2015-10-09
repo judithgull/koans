@@ -28,8 +28,7 @@ module editTopic {
     };
 
     removeExercise = (index:number) => {
-      console.log(index);
-      this.items.splice(index);
+      this.items.splice(index,1);
     };
 
     public static $inject = ['RestClient'];

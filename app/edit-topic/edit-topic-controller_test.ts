@@ -33,8 +33,14 @@ module editTopic {
     });
 
     it('should remove an exercise on removeExercise', ()=> {
-      ctrl.removeExercise();
+      ctrl.removeExercise(0);
       expect(ctrl.items.length).toBe(0);
+    });
+
+    it('should only remove one exercise', ()=> {
+      ctrl.addExercise();
+      ctrl.removeExercise(0);
+      expect(ctrl.items.length).toBe(1);
     });
 
     it('should call createTopic with the correct arguments', () => {
