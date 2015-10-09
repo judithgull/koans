@@ -1,8 +1,14 @@
-///<reference path='../../typings/tsd.d.ts' />
-module CodeEditorCtrl {
+module codeEditor {
   'use strict';
 
-  class CodeEditorCtrl {
+  export interface  ICodeEditorModel{
+    handleChange:Function;
+    createExerciseDataLoader:Function;
+  }
+
+  class CodeEditorCtrl implements ICodeEditorModel{
+
+    editor:AceAjax.Editor;
 
     public static $inject = ['$scope', 'AceTsService'];
 
@@ -12,6 +18,10 @@ module CodeEditorCtrl {
       ) {
 
     }
+
+    handleChange = () => {
+      this.$scope.initValue = this.editor.getValue();
+    };
 
     createExerciseDataLoader() {
       var selectQuestionMark = (editor:AceAjax.Editor) => {
@@ -27,7 +37,7 @@ module CodeEditorCtrl {
         var errorEvents = allEvents.filter(s => !s.success);
 
         successEvents.forEach(s => {
-          this.$scope.onSuccess()();
+            this.$scope.onSuccess()();
         });
 
         errorEvents.forEach(s => {
@@ -36,13 +46,18 @@ module CodeEditorCtrl {
       };
 
       var isRun = () => {
-        return this.$scope.onSuccess() || this.$scope.onError();
+        return (this.$scope.onSuccess && this.$scope.onSuccess()) ||
+          (this.$scope.onError && this.$scope.onError());
       };
 
       return (editor:AceAjax.Editor) => {
+        this.editor = editor;
         var libs = <Function>this.$scope.libsLoader();
         this.AceTsService.addLibs(editor, libs());
-        editor.setValue(this.$scope.initValue);
+
+        if(this.$scope.initValue) {
+          editor.setValue(this.$scope.initValue);
+        }
         editor.clearSelection();
         editor.focus();
         selectQuestionMark(editor);

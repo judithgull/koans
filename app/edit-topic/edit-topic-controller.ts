@@ -16,6 +16,10 @@ module editTopic {
     language:string='typescript';
     title:string='';
     items: Array<Data.IExercise>=[];
+    initValue:string = 'bla';
+    initSolution:string ='bli';
+    libsLoader = () => [];
+    exercise = "test";
 
 
     submit = () => {

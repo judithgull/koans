@@ -16,18 +16,16 @@ form(ng-submit='editTopic.submit()')
       code-editor(
       language='editTopic.language',
       init-value='editTopic.initValue',
-      libs-loader="editTopic.libsLoader",
-      on-error="editTopic.onError",
-      on-success='editTopic.onSuccess'
+      libs-loader='editTopic.libsLoader'
       )
       code-editor(
       language='editTopic.language',
       init-value='editTopic.initSolution',
-      libs-loader="editTopic.libsLoader",
-      on-error="editTopic.onError",
-      on-success='editTopic.onSuccess'
+      libs-loader='editTopic.libsLoader'
       )
       button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='editTopic.items.length>1') Delete
   button(name='add' ng-click='editTopic.addExercise()') Add
   button(type='submit') Submit
   a(ui-sref='home') Cancel
+
+  p {{editTopic.initValue}}
