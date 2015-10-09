@@ -1,4 +1,4 @@
-form
+form(ng-submit='editTopic.submit()')
   label(for='language') Language
   select(name='language' ng-model="editTopic.language")
     option(value='typescript')
@@ -7,7 +7,7 @@ form
       | Javascript
 
   label(for='title') Title
-  input(name='title')
+  input(name='title' ng-model='editTopic.title')
 
   label(for='description') Description
   textarea(name='description')

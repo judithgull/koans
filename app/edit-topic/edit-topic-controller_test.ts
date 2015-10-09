@@ -1,19 +1,40 @@
 ///<reference path='../../typings/tsd.d.ts' />
+module editTopic {
+  /* global describe, beforeEach, it, expect, inject, module */
+  'use strict';
 
-/* global describe, beforeEach, it, expect, inject, module */
-'use strict';
+  describe('EditTopicCtrl', function () {
+    var ctrl: IEditTopicModel;
+    var testTopic:Data.ITopic;
 
-describe('EditTopicCtrl', function () {
-  var ctrl;
+    beforeEach(angular.mock.module('editTopic'));
 
-  beforeEach(angular.mock.module('editTopic'));
+    beforeEach(inject(function ($rootScope, $controller) {
+      var rc = {
+        createTopic: (topic:Data.ITopic) => {
+          testTopic = topic
+        }
+      };
 
-  beforeEach(inject(function ($rootScope, $controller) {
-    ctrl = $controller('EditTopicCtrl');
-  }));
+      ctrl = $controller('EditTopicCtrl', {'RestClient': rc});
+    }));
 
-  it('should have typescript as initial language', function () {
-    expect(ctrl.language).toEqual('typescript');
+    it('should have typescript as initial language', function () {
+      expect(ctrl.language).toEqual('typescript');
+    });
+
+    it('should call createTopic with the correct arguments', () => {
+      const testTitle = 'testTitle';
+      const testLanguage = 'javascript';
+
+      ctrl.title = testTitle;
+      ctrl.language = testLanguage;
+
+      ctrl.submit();
+
+      expect(testTopic.language).toEqual(testLanguage);
+      expect(testTopic.title).toEqual(testTitle);
+    });
+
   });
-
-});
+}

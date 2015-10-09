@@ -9,9 +9,11 @@ module RestClient {
     getLib(name:string):ng.IPromise<Data.ILibrary>;
     getLibs(names:string[]):ng.IPromise<Array<Data.ILibrary>>;
     getTopics():ng.IPromise<Array<Data.ITopic>>;
+    createTopic(topic: Data.ITopic);
   }
 
   class RestClient implements IRestClient{
+
     topicData: Data.ITopic;
 
     public static $inject = [
@@ -45,6 +47,10 @@ module RestClient {
         deferred.resolve(this.topicData);
       }
       return deferred.promise;
+    }
+
+    createTopic(topic: Data.ITopic) {
+      console.log('create topic');
     }
 
     getExercise(topicId:number, exerciseId:number):ng.IPromise<Data.IExercise> {
