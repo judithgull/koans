@@ -21,7 +21,8 @@ $ = require('gulp-load-plugins')({
   'streamqueue',
   'uglify-save-license',
   'wiredep',
-  'yargs'
+  'yargs',
+  'nodemon'
   ]
 });
 
@@ -61,8 +62,7 @@ for (key in gulpFiles) {
   gulpFiles[key](gulp, $, config);
 }
 
-gulp.task('dev', ['server'], function () {
-  gulp.start('browserSync');
+gulp.task('dev', function () {
   gulp.start('watch');
 });
 

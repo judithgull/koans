@@ -11,6 +11,7 @@
     "method-override": "^2.3.5",
     "mongodb": "^2.0.45",
     "mongoose": "^4.1.9",
+    "nodemon": "^1.7.1",
     "typescript": "^1.6.2"
   },
   "devDependencies": {
