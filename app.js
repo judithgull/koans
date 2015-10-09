@@ -7,7 +7,9 @@ var http = require('http'),
 var app = express();
 
 app.use(express.static(__dirname + '/build/app'));
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
 
 app.use(methodOverride(function (req) {
@@ -19,8 +21,9 @@ app.use(methodOverride(function (req) {
 }));
 
 
-// Mongoose configuration
-// Use your own configuration
+/**
+ * DB
+ */
 mongoose.connect('mongodb://localhost:27017/koans');
 
 /**
