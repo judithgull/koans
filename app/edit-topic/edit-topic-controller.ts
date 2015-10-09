@@ -6,13 +6,15 @@ module editTopic {
     language:string;
     submit: Function;
     title:string;
-
+    items: Array<Data.IExercise>;
   }
 
   class EditTopicCtrl implements IEditTopicModel{
 
     language:string='typescript';
     title:string='';
+    items: Array<Data.IExercise>=[];
+
 
     submit = () => {
       var topic:Data.ITopic = new Topic(this.title,this.language);
@@ -23,6 +25,7 @@ module editTopic {
 
     // dependencies are injected via AngularJS $injector
     constructor(private RestClient:RestClient.IRestClient) {
+      this.items.push(new Exercise());
     }
   }
 

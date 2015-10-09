@@ -23,6 +23,10 @@ module editTopic {
       expect(ctrl.language).toEqual('typescript');
     });
 
+    it('should have 1 item initially', () => {
+      expect(ctrl.items.length).toBe(1);
+    });
+
     it('should call createTopic with the correct arguments', () => {
       const testTitle = 'testTitle';
       const testLanguage = 'javascript';
