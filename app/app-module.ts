@@ -13,7 +13,8 @@ module koans {
     'ui.ace',
     'codeEditor',
     'home',
-    'topic'
+    'topic',
+    'editTopic'
   ]);
 
   app.run(['$rootScope', '$log',function($rootScope, $log) {

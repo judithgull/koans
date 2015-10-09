@@ -1,6 +1,8 @@
 h2 home
 p {{home.ctrlName}}
 
+a(ui-sref='editTopic()') New
+
 div
   div(class="topic-item" ng-repeat="topic in home.topics")
     a(ui-sref='topic.exercise.details({topicId:topic._id})')
