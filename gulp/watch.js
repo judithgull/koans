@@ -17,7 +17,7 @@ module.exports = function (gulp, $, config) {
     });
   });
 
-  gulp.task('watch', ['nodemon'], function () {
+  gulp.task('watch', ['nodemon', 'build'], function () {
     $.browserSync({
       proxy: "http://localhost:3000/",
       port: 7000

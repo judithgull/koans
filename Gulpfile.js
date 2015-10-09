@@ -64,6 +64,7 @@ for (key in gulpFiles) {
 
 gulp.task('dev', function () {
   gulp.start('watch');
+  gulp.start('mongod');
 });
 
 gulp.task('default', ['dev']);

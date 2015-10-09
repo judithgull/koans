@@ -276,12 +276,7 @@ module.exports = function (gulp, $, config) {
 
   gulp.task('build', ['deleteTemplates', 'images', 'fonts', 'data']);
 
-  gulp.task('server',['build'], function (cb) {
-    exec('node app.js', function (err, stdout, stderr) {
-      console.log(stdout);
-      console.log(stderr);
-      cb(err);
-    });
+  gulp.task('mongod', function (cb) {
     exec('mongod ', function (err, stdout, stderr) {
       console.log(stdout);
       console.log(stderr);
