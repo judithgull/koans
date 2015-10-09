@@ -1,4 +1,4 @@
-module AceTsService {
+module codeEditor.ts {
   'use strict';
 
   export interface IAceTsService{

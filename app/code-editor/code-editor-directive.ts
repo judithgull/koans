@@ -1,5 +1,4 @@
-///<reference path='../../typings/tsd.d.ts' />
-module CodeEditor {
+module codeEditor {
   'use strict';
 
   export interface ICodeEditorScope extends ng.IScope{

@@ -13,8 +13,8 @@ module codeEditor {
     public static $inject = ['$scope', 'AceTsService'];
 
     constructor(
-      private $scope:CodeEditor.ICodeEditorScope,
-      private AceTsService:AceTsService.IAceTsService
+      private $scope:ICodeEditorScope,
+      private AceTsService:ts.IAceTsService
       ) {
 
     }

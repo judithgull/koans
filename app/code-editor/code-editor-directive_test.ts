@@ -1,23 +1,23 @@
-///<reference path='../../typings/tsd.d.ts' />
+module codeEditor {
+  /* global describe, beforeEach, it, expect, inject, module */
+  'use strict';
 
-/* global describe, beforeEach, it, expect, inject, module */
-'use strict';
+  describe('codeEditor', function () {
+    var scope
+      , element;
 
-describe('codeEditor', function () {
-  var scope
-    , element;
+    beforeEach(angular.mock.module('codeEditor'));
 
-  beforeEach(angular.mock.module('codeEditor'));
+    beforeEach(inject(function ($compile, $rootScope) {
+      scope = $rootScope.$new();
+      element = $compile(angular.element('<code-editor></code-editor>'))(scope);
+    }));
 
-  beforeEach(inject(function ($compile, $rootScope) {
-    scope = $rootScope.$new();
-    element = $compile(angular.element('<code-editor></code-editor>'))(scope);
-  }));
+    /*  it('should have correct text', function () {
+     scope.$apply();
+     expect(element.isolateScope().codeEditor.name).toEqual('codeEditor');
+     });
+     */
 
-/*  it('should have correct text', function () {
-    scope.$apply();
-    expect(element.isolateScope().codeEditor.name).toEqual('codeEditor');
   });
-  */
-
-});
+}
