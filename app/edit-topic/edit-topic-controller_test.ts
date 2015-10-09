@@ -12,8 +12,8 @@ describe('EditTopicCtrl', function () {
     ctrl = $controller('EditTopicCtrl');
   }));
 
-  it('should have ctrlName as EditTopicCtrl', function () {
-    expect(ctrl.ctrlName).toEqual('EditTopicCtrl');
+  it('should have typescript as initial language', function () {
+    expect(ctrl.language).toEqual('typescript');
   });
 
 });
