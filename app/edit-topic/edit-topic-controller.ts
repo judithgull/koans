@@ -4,7 +4,6 @@ module EditTopicCtrl {
 
   class EditTopicCtrl {
 
-    ctrlName: string;
     language:string='typescript';
 
     // $inject annotation.
@@ -16,8 +15,6 @@ module EditTopicCtrl {
 
     // dependencies are injected via AngularJS $injector
     constructor() {
-      var vm = this;
-      vm.ctrlName = 'EditTopicCtrl';
     }
   }
 
