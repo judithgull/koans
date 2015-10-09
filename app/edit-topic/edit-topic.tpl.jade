@@ -9,10 +9,10 @@ form(ng-submit='editTopic.submit()')
   label(for='title') Title
   input(name='title' ng-model='editTopic.title')
 
-  label(for='description') Description
-  textarea(name='description')
   ul
-    li
+    li(ng-repeat='item in editTopic.items')
+      label(for='description') Description
+      textarea(name='description')
       code-editor(
       language='editTopic.language',
       init-value='editTopic.initValue',
