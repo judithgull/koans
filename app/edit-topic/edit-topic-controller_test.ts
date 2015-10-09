@@ -32,6 +32,11 @@ module editTopic {
       expect(ctrl.items.length).toBe(2);
     });
 
+    it('should remove an exercise on removeExercise', ()=> {
+      ctrl.removeExercise();
+      expect(ctrl.items.length).toBe(0);
+    });
+
     it('should call createTopic with the correct arguments', () => {
       const testTitle = 'testTitle';
       const testLanguage = 'javascript';

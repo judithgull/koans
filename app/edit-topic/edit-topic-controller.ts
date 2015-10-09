@@ -6,6 +6,7 @@ module editTopic {
     language:string;
     submit: Function;
     addExercise:Function;
+    removeExercise:Function;
     title:string;
     items: Array<Data.IExercise>;
   }
@@ -24,6 +25,11 @@ module editTopic {
 
     addExercise = () => {
       this.items.push(new Exercise());
+    };
+
+    removeExercise = (index:number) => {
+      console.log(index);
+      this.items.splice(index);
     };
 
     public static $inject = ['RestClient'];

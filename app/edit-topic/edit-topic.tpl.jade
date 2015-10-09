@@ -27,7 +27,7 @@ form(ng-submit='editTopic.submit()')
       on-error="editTopic.onError",
       on-success='editTopic.onSuccess'
       )
-      button(name='delete') Delete
+      button(name='delete' ng-click='editTopic.removeExercise($index)') Delete
   button(name='add' ng-click='editTopic.addExercise()') Add
   button(type='submit') Submit
   a(ui-sref='home') Cancel
