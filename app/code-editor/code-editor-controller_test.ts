@@ -35,7 +35,6 @@ module codeEditor {
       testEditor.setValue(testValue);
       ctrl.handleChange({});
       expect(scope.ngModel).toBe(testValue);
-      expect(scope.initValue).toBe(testValue);
     });
 
   });

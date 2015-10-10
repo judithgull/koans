@@ -15,13 +15,11 @@ form(ng-submit='editTopic.submit()')
       textarea(name='description')
       code-editor(
       language='editTopic.language',
-      init-value='editTopic.initValue',
       libs-loader='editTopic.libsLoader',
       ng-model='item.exercise'
       )
       code-editor(
       language='editTopic.language',
-      init-value='editTopic.initSolution',
       libs-loader='editTopic.libsLoader'
       )
       button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='editTopic.items.length>1') Delete
@@ -29,4 +27,3 @@ form(ng-submit='editTopic.submit()')
   button(type='submit') Submit
   a(ui-sref='home') Cancel
 
-  p {{editTopic.initValue}}

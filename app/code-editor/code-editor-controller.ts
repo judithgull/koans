@@ -20,7 +20,6 @@ module codeEditor {
     }
 
     handleChange = () => {
-      this.$scope.initValue = this.editor.getValue();
       this.$scope.ngModel =this.editor.getValue();
     };
 
@@ -56,8 +55,8 @@ module codeEditor {
         var libs = <Function>this.$scope.libsLoader();
         this.AceTsService.addLibs(editor, libs());
 
-        if(this.$scope.initValue) {
-          editor.setValue(this.$scope.initValue);
+        if(this.$scope.ngModel) {
+          editor.setValue(this.$scope.ngModel);
         }
         editor.clearSelection();
         editor.focus();
