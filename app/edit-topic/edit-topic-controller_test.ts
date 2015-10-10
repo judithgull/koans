@@ -6,7 +6,7 @@ module editTopic {
   describe('EditTopicCtrl', function () {
     var ctrl: IEditTopicModel;
     var testTopic: Data.ITopic;
-    var topic;
+    var topic: Data.ITopic;
 
     beforeEach(angular.mock.module('editTopic'));
 
@@ -49,14 +49,17 @@ module editTopic {
     it('should call createTopic with the correct arguments', () => {
       const testTitle = 'testTitle';
       const testLanguage = 'javascript';
+      const testExercise = 'testExercise';
 
       topic.title = testTitle;
       topic.language = testLanguage;
+      topic.items[0].exercise = testExercise;
 
       ctrl.submit();
 
       expect(testTopic.language).toEqual(testLanguage);
       expect(testTopic.title).toEqual(testTitle);
+      expect(testTopic.items[0].exercise).toEqual(testExercise);
     });
 
   });
