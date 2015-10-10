@@ -21,6 +21,7 @@ module codeEditor {
 
     handleChange = () => {
       this.$scope.initValue = this.editor.getValue();
+      this.$scope.ngModel.$modelValue = this.editor.getValue();
     };
 
     createExerciseDataLoader() {

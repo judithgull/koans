@@ -7,6 +7,7 @@ module codeEditor {
     libsLoader:Function;
     onError:Function;
     onSuccess:Function;
+    ngModel:ng.INgModelController;
   }
 
   export interface ICodeEditorAttributes extends ng.IAttributes{
@@ -22,8 +23,10 @@ module codeEditor {
         initValue: '=',
         libsLoader: '&libsLoader',
         onError: '&onError',
-        onSuccess: '&onSuccess'
+        onSuccess: '&onSuccess',
+        ngModel: '='
       },
+      require: 'ngModel',
       templateUrl: 'code-editor/code-editor.tpl.html',
       controllerAs: 'codeEditor',
       controller: 'CodeEditorCtrl'

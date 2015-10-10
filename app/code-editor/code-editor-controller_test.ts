@@ -3,15 +3,17 @@ module codeEditor {
   'use strict';
 
   describe('Code Editor Controller', function () {
-    var ctrl:codeEditor.ICodeEditorModel;
+    var ctrl:ICodeEditorModel;
     var scope;
     var testEditor: AceAjax.Editor;
 
     beforeEach(angular.mock.module('codeEditor'));
 
-    beforeEach(inject(function ($rootScope, $controller) {
+    beforeEach(inject(function ($rootScope, $controller, $compile) {
       scope = $rootScope.$new();
       scope.libsLoader = () => () => [];
+      const dummyElement = '<input ng-model="dummy">';
+      scope.ngModel = $compile(dummyElement)($rootScope.$new()).controller('ngModel');
       ctrl = $controller('CodeEditorCtrl', {$scope: scope});
       createTestEditor();
     }));
@@ -29,12 +31,12 @@ module codeEditor {
     });
 
     it('should change the initValue', () => {
-      const testValue = "asdf";
+      const testValue = "test";
       const loader = ctrl.createExerciseDataLoader();
       loader(testEditor);
       testEditor.setValue(testValue);
       ctrl.handleChange({});
-
+      expect(scope.ngModel.$modelValue).toBe(testValue);
       expect(scope.initValue).toBe(testValue);
     });
 
