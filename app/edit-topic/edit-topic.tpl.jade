@@ -11,8 +11,10 @@ form(ng-submit='editTopic.submit()')
 
   ul
     li(ng-repeat='item in editTopic.topic.items')
+      label(for='title') Title
+      input(name='title' ng-model='item.title')
       label(for='description') Description
-      textarea(name='description')
+      textarea(name='description' ng-model='item.description')
       code-editor(
       language='editTopic.topic.language',
       libs-loader='editTopic.libsLoader',
@@ -20,7 +22,8 @@ form(ng-submit='editTopic.submit()')
       )
       code-editor(
       language='editTopic.topic.language',
-      libs-loader='editTopic.libsLoader'
+      libs-loader='editTopic.libsLoader',
+      ng-model='item.solution'
       )
       button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='editTopic.topic.items.length>1') Delete
   button(name='add' ng-click='editTopic.addExercise()') Add
