@@ -7,7 +7,7 @@ module codeEditor {
     libsLoader:Function;
     onError:Function;
     onSuccess:Function;
-    ngModel:ng.INgModelController;
+    ngModel:string;
   }
 
   export interface ICodeEditorAttributes extends ng.IAttributes{
