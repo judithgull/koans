@@ -5,7 +5,8 @@ module editTopic {
 
   describe('EditTopicCtrl', function () {
     var ctrl: IEditTopicModel;
-    var testTopic:Data.ITopic;
+    var testTopic: Data.ITopic;
+    var topic;
 
     beforeEach(angular.mock.module('editTopic'));
 
@@ -17,38 +18,40 @@ module editTopic {
       };
 
       ctrl = $controller('EditTopicCtrl', {'RestClient': rc});
+      topic = ctrl.topic;
+
     }));
 
     it('should have typescript as initial language', function () {
-      expect(ctrl.language).toEqual('typescript');
+      expect(topic.language).toEqual('typescript');
     });
 
     it('should have 1 item initially', () => {
-      expect(ctrl.items.length).toBe(1);
+      expect(topic.items.length).toBe(1);
     });
 
     it('should add a new exercise on addExercise', ()=> {
       ctrl.addExercise();
-      expect(ctrl.items.length).toBe(2);
+      expect(topic.items.length).toBe(2);
     });
 
     it('should remove an exercise on removeExercise', ()=> {
       ctrl.removeExercise(0);
-      expect(ctrl.items.length).toBe(0);
+      expect(topic.items.length).toBe(0);
     });
 
     it('should only remove one exercise', ()=> {
       ctrl.addExercise();
       ctrl.removeExercise(0);
-      expect(ctrl.items.length).toBe(1);
+      expect(topic.items.length).toBe(1);
     });
 
     it('should call createTopic with the correct arguments', () => {
       const testTitle = 'testTitle';
       const testLanguage = 'javascript';
 
-      ctrl.title = testTitle;
-      ctrl.language = testLanguage;
+      topic.title = testTitle;
+      topic.language = testLanguage;
 
       ctrl.submit();
 

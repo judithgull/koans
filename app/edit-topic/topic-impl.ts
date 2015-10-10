@@ -2,10 +2,11 @@ module editTopic {
 
   export class Topic implements Data.ITopic {
     _id:number;
-    items:Array<Data.IExercise>;
+    items:Array<Data.IExercise> = [];
 
-    constructor(public title:string,
-                public language:string) {
+    constructor(public title:string = '',
+                public language:string = 'typescript') {
+      this.items.push(new Exercise());
     }
   }
 

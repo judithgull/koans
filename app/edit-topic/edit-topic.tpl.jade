@@ -1,28 +1,28 @@
 form(ng-submit='editTopic.submit()')
   label(for='language') Language
-  select(name='language' ng-model="editTopic.language")
+  select(name='language' ng-model="editTopic.topic.language")
     option(value='typescript')
       | Typescript
     option(value='javascript')
       | Javascript
 
   label(for='title') Title
-  input(name='title' ng-model='editTopic.title')
+  input(name='title' ng-model='editTopic.topic.title')
 
   ul
-    li(ng-repeat='item in editTopic.items')
+    li(ng-repeat='item in editTopic.topic.items')
       label(for='description') Description
       textarea(name='description')
       code-editor(
-      language='editTopic.language',
+      language='editTopic.topic.language',
       libs-loader='editTopic.libsLoader',
       ng-model='item.exercise'
       )
       code-editor(
-      language='editTopic.language',
+      language='editTopic.topic.language',
       libs-loader='editTopic.libsLoader'
       )
-      button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='editTopic.items.length>1') Delete
+      button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='editTopic.topic.items.length>1') Delete
   button(name='add' ng-click='editTopic.addExercise()') Add
   button(type='submit') Submit
   a(ui-sref='home') Cancel
