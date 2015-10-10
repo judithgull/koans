@@ -13,7 +13,14 @@ module editTopic {
     topic: Data.ITopic;
     libsLoader = () => [];
 
+    private updateSortOrder = () => {
+      this.topic.items.forEach((item, index) => {
+        item.sortOrder = index + 1;
+      });
+    };
+
     submit = () => {
+      this.updateSortOrder();
       this.RestClient.createTopic(this.topic);
     };
 
