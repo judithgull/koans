@@ -62,5 +62,17 @@ module editTopic {
       expect(testTopic.items[0].exercise).toEqual(testExercise);
     });
 
+    it('should have different sort order', ()=> {
+      ctrl.addExercise();
+      ctrl.addExercise();
+
+      ctrl.submit();
+
+      expect(topic.items[0].sortOrder).toBe(1);
+      expect(topic.items[1].sortOrder).toBe(2);
+      expect(topic.items[2].sortOrder).toBe(3);
+
+    });
+
   });
 }
