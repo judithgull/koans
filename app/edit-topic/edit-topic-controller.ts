@@ -11,7 +11,7 @@ module editTopic {
 
   class EditTopicCtrl implements IEditTopicModel{
     topic: Data.ITopic;
-    libsLoader = () => [];
+    libsLoader = () => this.libs;
 
     private updateSortOrder = () => {
       this.topic.items.forEach((item, index) => {
@@ -33,10 +33,12 @@ module editTopic {
       this.topic.items.splice(index,1);
     };
 
-    public static $inject = ['RestClient', '$state'];
+    public static $inject = ['RestClient', '$state', 'libs'];
 
     // dependencies are injected via AngularJS $injector
-    constructor(private RestClient:RestClient.IRestClient, private $state:angular.ui.IStateService) {
+    constructor(private RestClient:RestClient.IRestClient,
+                private $state:angular.ui.IStateService,
+                private libs: Array<Data.ILibrary>) {
       this.topic = new Topic();
     }
   }
