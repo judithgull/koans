@@ -94,3 +94,21 @@ module.exports.getTopic = function (req, res) {
     }
   });
 };
+
+module.exports.postTopic = function (req, res) {
+  res.format({
+    "application/json": function (req, res) {
+
+      var body = req.body;
+      var topic = new Topic();
+      topic.title = body.title;
+      topic.items = body.items;
+
+      topic.save(function(err){
+        if (err)
+          res.send(topic);
+      });
+
+    }
+  });
+};

@@ -22,6 +22,7 @@ module editTopic {
     submit = () => {
       this.updateSortOrder();
       this.RestClient.createTopic(this.topic);
+      this.$state.go("home");
     };
 
     addExercise = () => {
@@ -32,10 +33,10 @@ module editTopic {
       this.topic.items.splice(index,1);
     };
 
-    public static $inject = ['RestClient'];
+    public static $inject = ['RestClient', '$state'];
 
     // dependencies are injected via AngularJS $injector
-    constructor(private RestClient:RestClient.IRestClient) {
+    constructor(private RestClient:RestClient.IRestClient, private $state:angular.ui.IStateService) {
       this.topic = new Topic();
     }
   }

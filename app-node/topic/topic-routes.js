@@ -5,5 +5,6 @@ var topic = require('./topic-controller.js');
 
 router.get("/", topic.getTopics);
 router.get("/:id", topic.getTopic);
+router.post("/", topic.postTopic);
 
 module.exports = router;
