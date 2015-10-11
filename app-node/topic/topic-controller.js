@@ -102,6 +102,7 @@ module.exports.postTopic = function (req, res) {
       var body = req.body;
       var topic = new Topic();
       topic.title = body.title;
+      topic.language = body.language;
       topic.items = body.items;
 
       topic.save(function(err){
