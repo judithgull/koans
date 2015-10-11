@@ -81,6 +81,20 @@ module RestClient {
       $httpBackend.flush();
     });
 
+    describe("createTopic", () => {
+
+      var topic = test.MockData.getTopic();
+
+      it('should store a topic', () => {
+        $httpBackend.expectPOST(RestClient.TOPICS_URL);
+        $httpBackend.whenPOST().respond(200);
+        restClient.createTopic(topic);
+        $httpBackend.flush();
+      });
+    });
+
   });
+
+
 
 }

@@ -50,7 +50,8 @@ module RestClient {
     }
 
     createTopic(topic: Data.ITopic) {
-      console.log('create topic');
+      this.$http.post(TOPICS_URL,topic)
+        .error(e => console.log(e));
     }
 
     getExercise(topicId:number, exerciseId:number):ng.IPromise<Data.IExercise> {
