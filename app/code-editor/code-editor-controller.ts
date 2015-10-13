@@ -2,6 +2,7 @@ module codeEditor {
   'use strict';
 
   export interface  ICodeEditorModel{
+    editor:AceAjax.Editor;
     handleChange:Function;
     createExerciseDataLoader:Function;
   }
@@ -19,8 +20,8 @@ module codeEditor {
 
     }
 
-    handleChange = () => {
-      this.$scope.ngModel =this.editor.getValue();
+   handleChange = () => {
+      this.$scope.handleEditorChange(this.editor);
     };
 
     createExerciseDataLoader() {
@@ -54,10 +55,6 @@ module codeEditor {
         this.editor = editor;
         var libs = <Function>this.$scope.libsLoader();
         this.AceTsService.addLibs(editor, libs());
-
-        if(this.$scope.ngModel) {
-          editor.setValue(this.$scope.ngModel);
-        }
         editor.clearSelection();
         editor.focus();
         selectQuestionMark(editor);
