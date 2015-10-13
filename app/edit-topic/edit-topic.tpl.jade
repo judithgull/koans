@@ -1,4 +1,4 @@
-form(ng-submit='editTopic.submit()')
+form(ng-submit='editTopic.submit()' name='editTopicForm')
   label(for='language') Language
   select(name='language' ng-model="editTopic.topic.language")
     option(value='typescript')
@@ -7,26 +7,35 @@ form(ng-submit='editTopic.submit()')
       | Javascript
 
   label(for='title') Title
-  input(name='title' ng-model='editTopic.topic.title')
+  input(name='title' ng-model='editTopic.topic.title' required='')
+  p(ng-show='editTopicForm.title.$invalid') Title is required
 
   ul
-    li(ng-repeat='item in editTopic.topic.items')
-      label(for='title') Title
-      input(name='title' ng-model='item.title')
-      label(for='description') Description
-      textarea(name='description' ng-model='item.description')
-      code-editor(
-      language='editTopic.topic.language',
-      libs-loader='editTopic.libsLoader',
-      ng-model='item.exercise'
-      )
-      code-editor(
-      language='editTopic.topic.language',
-      libs-loader='editTopic.libsLoader',
-      ng-model='item.solution'
-      )
-      button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='editTopic.topic.items.length>1') Delete
-  button(name='add' ng-click='editTopic.addExercise()') Add
-  button(type='submit') Submit
+    li(ng-repeat='item in editTopic.topic.items' ng-form='ex')
+        label(for='title') Title
+        input(name='title' ng-model='ex.item.title')
+        label(for='description') Description
+        textarea(name='description' ng-model='ex.item.description' required='')
+        p {{ex.description.$error | json}}
+        code-editor(
+        required='',
+        noErrors='',
+        name='exercise',
+        language='editTopic.topic.language',
+        libs-loader='editTopic.libsLoader',
+        ng-model='ex.item.exercise'
+        )
+        p {{ex.exercise.$error | json}}
+        p(ng-show='ex.exercise.$invalid') Errors
+        code-editor(
+        name='solution',
+        language='editTopic.topic.language',
+        libs-loader='editTopic.libsLoader',
+        ng-model='ex.item.solution'
+        )
+        //p(ng-show='item.solution.$valid') Valid Solution
+        button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='!$first') Delete
+  button(type='button' name='add' ng-click='editTopic.addExercise()') Add
+  button(type='submit' ng-disabled='editTopicForm.$invalid') Submit
   a(ui-sref='home') Cancel
-
+  p {{editTopicForm.ex.exercise | json}}
