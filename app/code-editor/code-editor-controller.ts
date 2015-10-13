@@ -37,17 +37,23 @@ module codeEditor {
         var successEvents = allEvents.filter(s => s.success);
         var errorEvents = allEvents.filter(s => !s.success);
 
-        successEvents.forEach(s => {
+        if(isSuccessDefined()) {
+          successEvents.forEach(s => {
             this.$scope.onSuccess()();
-        });
+          });
+        }
 
         errorEvents.forEach(s => {
           this.$scope.onError()(s.errors);
         });
       };
 
+      var isSuccessDefined = () => {
+        return this.$scope.onSuccess && this.$scope.onSuccess();
+      };
+
       var isRun = () => {
-        return (this.$scope.onSuccess && this.$scope.onSuccess()) ||
+        return (isSuccessDefined()) ||
           (this.$scope.onError && this.$scope.onError());
       };
 

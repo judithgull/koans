@@ -33,11 +33,29 @@ module editTopic {
       this.topic.items.splice(index,1);
     };
 
-    public static $inject = ['RestClient', '$state', 'libs'];
+    onSolutionError = (element:ng.INgModelController) => (errors:Array<Data.IError>) => {
+      console.log("onSolutionError ");
+      if(errors.length > 0) {
+        element.$setValidity('solutionCompileAndRun', false);
+        console.log(element);
+      }else{
+        element.$setValidity('solutionCompileAndRun', true);
+      }
+      this.$scope.$digest();
+    };
+
+    onSolutionSuccess = (element:ng.INgModelController) => () => {
+      element.$setValidity('solutionCompileAndRun', true);
+      console.log(element);
+      this.$scope.$digest();
+    };
+
+    public static $inject = ['RestClient', '$state', '$scope', 'libs'];
 
     // dependencies are injected via AngularJS $injector
     constructor(private RestClient:RestClient.IRestClient,
                 private $state:angular.ui.IStateService,
+                private $scope:ng.IScope,
                 private libs: Array<Data.ILibrary>) {
       this.topic = new Topic();
     }

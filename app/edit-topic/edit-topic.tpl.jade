@@ -19,7 +19,6 @@ form(ng-submit='editTopic.submit()' name='editTopicForm')
         p {{ex.description.$error | json}}
         code-editor(
         required='',
-        noErrors='',
         name='exercise',
         language='editTopic.topic.language',
         libs-loader='editTopic.libsLoader',
@@ -28,12 +27,17 @@ form(ng-submit='editTopic.submit()' name='editTopicForm')
         p {{ex.exercise.$error | json}}
         p(ng-show='ex.exercise.$invalid') Errors
         code-editor(
+        required='',
+        on-error= 'editTopic.onSolutionError(this.ex.solution)',
+        on-success= 'editTopic.onSolutionSuccess(this.ex.solution)',
         name='solution',
         language='editTopic.topic.language',
         libs-loader='editTopic.libsLoader',
         ng-model='ex.item.solution'
         )
-        //p(ng-show='item.solution.$valid') Valid Solution
+        p {{ex.solution.$error | json}}
+        p(ng-show='ex.solution.$invalid') Errors
+
         button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='!$first') Delete
   button(type='button' name='add' ng-click='editTopic.addExercise()') Add
   button(type='submit' ng-disabled='editTopicForm.$invalid') Submit
