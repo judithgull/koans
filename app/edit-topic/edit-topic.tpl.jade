@@ -19,6 +19,8 @@ form(ng-submit='editTopic.submit()' name='editTopicForm')
         p {{ex.description.$error | json}}
         code-editor(
         required='',
+        on-error= 'editTopic.onExerciseError(this.ex.exercise)',
+        on-success= 'editTopic.onExerciseSuccess(this.ex.exercise)',
         name='exercise',
         language='editTopic.topic.language',
         libs-loader='editTopic.libsLoader',

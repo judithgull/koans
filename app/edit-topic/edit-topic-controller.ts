@@ -33,6 +33,20 @@ module editTopic {
       this.topic.items.splice(index,1);
     };
 
+    onExerciseError = (element:ng.INgModelController) => (errors:Array<Data.IError>) => {
+      if(errors.length > 0) {
+        element.$setValidity('exerciseCompileAndRun', true);
+      }else{
+        element.$setValidity('exerciseCompileAndRun', false);
+      }
+      this.$scope.$digest();
+    };
+
+    onExerciseSuccess = (element:ng.INgModelController) => () => {
+      element.$setValidity('exerciseCompileAndRun', false);
+      this.$scope.$digest();
+    };
+
     onSolutionError = (element:ng.INgModelController) => (errors:Array<Data.IError>) => {
       console.log("onSolutionError ");
       if(errors.length > 0) {
