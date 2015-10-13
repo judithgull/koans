@@ -48,10 +48,8 @@ module editTopic {
     };
 
     onSolutionError = (element:ng.INgModelController) => (errors:Array<Data.IError>) => {
-      console.log("onSolutionError ");
       if(errors.length > 0) {
         element.$setValidity('solutionCompileAndRun', false);
-        console.log(element);
       }else{
         element.$setValidity('solutionCompileAndRun', true);
       }
@@ -60,7 +58,6 @@ module editTopic {
 
     onSolutionSuccess = (element:ng.INgModelController) => () => {
       element.$setValidity('solutionCompileAndRun', true);
-      console.log(element);
       this.$scope.$digest();
     };
 
