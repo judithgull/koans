@@ -8,27 +8,30 @@ form(ng-submit='editTopic.submit()' name='editTopicForm')
 
   label(for='title') Title
   input(name='title' ng-model='editTopic.topic.title' required='')
-  p(ng-show='editTopicForm.title.$invalid') Title is required
+  div(ng-messages="editTopicForm.title.$error")
+    p(ng-message="required") Please enter a title!
 
   ul
     li(ng-repeat='item in editTopic.topic.items' ng-form='ex')
-        label(for='title') Title
-        input(name='title' ng-model='ex.item.title')
-        label(for='description') Description
-        textarea(name='description' ng-model='ex.item.description' required='')
-        p {{ex.description.$error | json}}
-        code-editor(
+      label(for='title') Title
+      input(name='title' ng-model='ex.item.title')
+      label(for='description') Description
+      textarea(name='description' ng-model='ex.item.description' required='')
+      div(ng-messages="ex.description.$error")
+        p(ng-message="required") Please enter a description!
+      code-editor(
         required='',
         on-error= 'editTopic.onExerciseError(this.ex.exercise)',
         on-success= 'editTopic.onExerciseSuccess(this.ex.exercise)',
         name='exercise',
         language='editTopic.topic.language',
         libs-loader='editTopic.libsLoader',
-        ng-model='ex.item.exercise'
-        )
-        p {{ex.exercise.$error | json}}
-        p(ng-show='ex.exercise.$invalid') Errors
-        code-editor(
+        ng-model='ex.item.exercise')
+      div(ng-messages="ex.exercise.$error")
+        p(ng-message="required") Please enter an exercise!
+        p(ng-message="exerciseCompileAndRun") Your exercise must have an error to be fixed by the user!
+
+      code-editor(
         required='',
         on-error= 'editTopic.onSolutionError(this.ex.solution)',
         on-success= 'editTopic.onSolutionSuccess(this.ex.solution)',
@@ -37,11 +40,12 @@ form(ng-submit='editTopic.submit()' name='editTopicForm')
         libs-loader='editTopic.libsLoader',
         ng-model='ex.item.solution'
         )
-        p {{ex.solution.$error | json}}
-        p(ng-show='ex.solution.$invalid') Errors
+      div(ng-messages="ex.solution.$error")
+        p(ng-message="required") Please enter a solution!
+        p(ng-message="solutionCompileAndRun") Your solution must have no errors!
 
         button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='!$first') Delete
   button(type='button' name='add' ng-click='editTopic.addExercise()') Add
   button(type='submit' ng-disabled='editTopicForm.$invalid') Submit
   a(ui-sref='home') Cancel
-  p {{editTopicForm.ex.exercise | json}}
+x
