@@ -1,7 +1,7 @@
 h2 {{::exercise.title}}
 
-div(class="l-grid")
-  div(class="l-column")
+.l-grid
+  .l-grid-cell.l-one-half.l-mobile-one-whole
     code-editor(
       language='topic.language',
       ng-model='exercise.content',
@@ -10,7 +10,7 @@ div(class="l-grid")
       on-success='exercise.onSuccess'
     )
 
-  div(class="l-column")
+  .l-grid-cell.l-one-half.l-mobile-one-whole
     div(ui-view="")
 
 button.button(ng-hide='exercise.isSolution()' type='button' ng-click="exercise.giveUp()")
