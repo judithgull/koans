@@ -6,7 +6,8 @@ module codeEditor {
     libsLoader:Function;
     onError:Function;
     onSuccess:Function;
-    ngModel:string;
+    codeEditor:ICodeEditorModel;
+    handleEditorChange:Function;
   }
 
   export interface ICodeEditorAttributes extends ng.IAttributes{
@@ -21,13 +22,22 @@ module codeEditor {
         language: '=',
         libsLoader: '&libsLoader',
         onError: '&onError',
-        onSuccess: '&onSuccess',
-        ngModel: '='
+        onSuccess: '&onSuccess'
       },
       require: 'ngModel',
       templateUrl: 'code-editor/code-editor.tpl.html',
       controllerAs: 'codeEditor',
-      controller: 'CodeEditorCtrl'
+      controller: 'CodeEditorCtrl',
+     link: function(scope: ICodeEditorScope, el, attrs, ngModel) {
+        ngModel.$render = () => {
+          var editor:AceAjax.Editor = scope.codeEditor.editor;
+          editor.setValue(ngModel.$viewValue || '');
+        };
+
+        scope.handleEditorChange = (editor:AceAjax.Editor) => {
+         ngModel.$setViewValue(editor.getValue());
+        };
+     }
     };
   }
 

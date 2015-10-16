@@ -33,11 +33,41 @@ module editTopic {
       this.topic.items.splice(index,1);
     };
 
-    public static $inject = ['RestClient', '$state', 'libs'];
+    onExerciseError = (element:ng.INgModelController) => (errors:Array<Data.IError>) => {
+      if(errors.length > 0) {
+        this.setValidity(element, 'exerciseCompileAndRun', true);
+      }else{
+        this.setValidity(element, 'exerciseCompileAndRun', false);
+      }
+    };
+
+    onExerciseSuccess = (element:ng.INgModelController) => () => {
+      this.setValidity(element, 'exerciseCompileAndRun', false);
+    };
+
+    onSolutionError = (element:ng.INgModelController) => (errors:Array<Data.IError>) => {
+      if(errors.length > 0) {
+        this.setValidity(element, 'solutionCompileAndRun', false);
+      }else{
+        this.setValidity(element, 'solutionCompileAndRun', true);
+      }
+    };
+
+    onSolutionSuccess = (element:ng.INgModelController) => () => {
+      this.setValidity(element, 'solutionCompileAndRun', true);
+    };
+
+    private setValidity(element:ng.INgModelController, validationErrorKey: string, isValid: boolean) {
+      element.$setValidity(validationErrorKey, isValid);
+      this.$scope.$digest();
+    }
+
+    public static $inject = ['RestClient', '$state', '$scope', 'libs'];
 
     // dependencies are injected via AngularJS $injector
     constructor(private RestClient:RestClient.IRestClient,
                 private $state:angular.ui.IStateService,
+                private $scope:ng.IScope,
                 private libs: Array<Data.ILibrary>) {
       this.topic = new Topic();
     }

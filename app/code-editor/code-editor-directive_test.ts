@@ -14,9 +14,9 @@ module codeEditor {
       element = $compile(angular.element('<code-editor></code-editor>'))(scope);
     }));
 
-    /*  it('should have correct text', function () {
+ /*  it('should have correct text', function () {
      scope.$apply();
-     expect(element.isolateScope().codeEditor.name).toEqual('codeEditor');
+     expect(element.scope().handleEditorChange).toBeDefined();
      });
      */
 
