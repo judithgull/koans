@@ -44,7 +44,7 @@ form(ng-submit='editTopic.submit()' name='editTopicForm')
         p(ng-message="required") Please enter a solution!
         p(ng-message="solutionCompileAndRun") Your solution must have no errors!
 
-        button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='!$first') Delete
+        button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='editTopic.topic.items.length>1') Delete
   button(type='button' name='add' ng-click='editTopic.addExercise()') Add
   button(type='submit' ng-disabled='editTopicForm.$invalid') Submit
   a(ui-sref='home') Cancel
