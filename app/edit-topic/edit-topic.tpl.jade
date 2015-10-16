@@ -14,9 +14,9 @@ form(ng-submit='editTopic.submit()' name='editTopicForm')
   ul
     li(ng-repeat='item in editTopic.topic.items' ng-form='ex')
       label(for='title') Title
-      input(name='title' ng-model='ex.item.title')
+      input(name='title' ng-model='item.title')
       label(for='description') Description
-      textarea(name='description' ng-model='ex.item.description' required='')
+      textarea(name='description' ng-model='item.description' required='')
       div(ng-messages="ex.description.$error")
         p(ng-message="required") Please enter a description!
       code-editor(
@@ -26,7 +26,7 @@ form(ng-submit='editTopic.submit()' name='editTopicForm')
         name='exercise',
         language='editTopic.topic.language',
         libs-loader='editTopic.libsLoader',
-        ng-model='ex.item.exercise')
+        ng-model='item.exercise')
       div(ng-messages="ex.exercise.$error")
         p(ng-message="required") Please enter an exercise!
         p(ng-message="exerciseCompileAndRun") Your exercise must have an error to be fixed by the user!
@@ -38,7 +38,7 @@ form(ng-submit='editTopic.submit()' name='editTopicForm')
         name='solution',
         language='editTopic.topic.language',
         libs-loader='editTopic.libsLoader',
-        ng-model='ex.item.solution'
+        ng-model='item.solution'
         )
       div(ng-messages="ex.solution.$error")
         p(ng-message="required") Please enter a solution!
