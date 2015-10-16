@@ -9,6 +9,7 @@ module editTopic {
   */
   angular
     .module('editTopic', [
-      'ui.router'
+      'ui.router',
+      'ngMessages'
     ]);
 }
