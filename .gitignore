@@ -35,3 +35,7 @@ pids
 # Generated js files
 app/**/*.js
 app/**/*.js.map
+
+# Generated css files
+app/**/*.css
+app/**/*.css.map
