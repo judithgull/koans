@@ -35,31 +35,32 @@ module editTopic {
 
     onExerciseError = (element:ng.INgModelController) => (errors:Array<Data.IError>) => {
       if(errors.length > 0) {
-        element.$setValidity('exerciseCompileAndRun', true);
+        this.setValidity(element, 'exerciseCompileAndRun', true);
       }else{
-        element.$setValidity('exerciseCompileAndRun', false);
+        this.setValidity(element, 'exerciseCompileAndRun', false);
       }
-      this.$scope.$digest();
     };
 
     onExerciseSuccess = (element:ng.INgModelController) => () => {
-      element.$setValidity('exerciseCompileAndRun', false);
-      this.$scope.$digest();
+      this.setValidity(element, 'exerciseCompileAndRun', false);
     };
 
     onSolutionError = (element:ng.INgModelController) => (errors:Array<Data.IError>) => {
       if(errors.length > 0) {
-        element.$setValidity('solutionCompileAndRun', false);
+        this.setValidity(element, 'solutionCompileAndRun', false);
       }else{
-        element.$setValidity('solutionCompileAndRun', true);
+        this.setValidity(element, 'solutionCompileAndRun', true);
       }
-      this.$scope.$digest();
     };
 
     onSolutionSuccess = (element:ng.INgModelController) => () => {
-      element.$setValidity('solutionCompileAndRun', true);
-      this.$scope.$digest();
+      this.setValidity(element, 'solutionCompileAndRun', true);
     };
+
+    private setValidity(element:ng.INgModelController, validationErrorKey: string, isValid: boolean) {
+      element.$setValidity(validationErrorKey, isValid);
+      this.$scope.$digest();
+    }
 
     public static $inject = ['RestClient', '$state', '$scope', 'libs'];
 
