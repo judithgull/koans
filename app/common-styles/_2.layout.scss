@@ -1,0 +1,5 @@
+@import 'mixins';
+@import '../../bower_components/bonescss/2.layout';
+
+// Consider adding sensible grid for grid and responsiveness
+@include sensibleGrid();

@@ -1,0 +1,53 @@
+html {
+  min-height:100%;
+  font: $t-default-font-family/#{$t-default-line-height} $t-default-font-family;
+  color: c(black);
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  overflow-y:scroll;
+}
+html, body, .l-body {
+  min-height:100%;
+}
+strong {
+  font-weight: 400;
+}
+
+
+// Remove text-shadow in selection highlight: h5bp.com/i
+// These selection rule sets have to be separate.
+// Customize the background color to match your design.
+::-moz-selection {
+  background: c(blue-light);
+  text-shadow: none;
+}
+
+::selection {
+  background: c(blue-light);
+  text-shadow: none;
+}
+
+// Remove the gap between audio, canvas, iframes,
+// images, videos and the bottom of their containers:
+// https://github.com/h5bp/html5-boilerplate/issues/440
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+
+// Remove default fieldset styles.
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+// Allow only vertical resizing of textareas.
+textarea {
+  resize: vertical;
+}

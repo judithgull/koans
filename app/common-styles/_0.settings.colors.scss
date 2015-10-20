@@ -1,0 +1,28 @@
+@import '../../bower_components/bonescss/0.settings.colors';
+
+// Color variables
+$colors: (
+  white           : #C00,
+  grey            : #999,
+  black           : #16161d,
+  blue            : #2200cc,
+  blue-light      : #b3d4fc
+);
+
+$gradients: (
+  light: (
+    from: white,
+    to: grey,
+    angle: 135deg
+  ),
+  normal: (
+    from: grey,
+    to: #ddd,
+    angle: 135deg
+  ),
+  dark: (
+    from: black,
+    to: #000,
+    angle: 135deg
+  )
+);

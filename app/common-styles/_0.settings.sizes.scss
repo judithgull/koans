@@ -1,0 +1,23 @@
+@import '../../bower_components/bonescss/0.settings.sizes';
+
+
+// sizes & metrics
+
+$s-design-width: 1024px !default;
+$s-golden: 1.61803398875;
+$s-base: 1rem !default;
+
+$breakpoints: (
+  "mobile"              : "only screen and (max-width:740px)",
+  "tablet"              : "only screen and (max-width:1050px)",
+  "desktop"             : "only screen and (min-width:1051px)",
+  "print"               : "print"
+) !default;
+
+$sizes: (
+  huge        : $s-base * 3,
+  large       : $s-base * 1.5,
+  medium      : $s-base,
+  small       : $s-base * .5
+)  !default;
+
