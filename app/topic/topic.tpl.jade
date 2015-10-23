@@ -1,10 +1,9 @@
-.l-site-width
-  h1 {{::topic.title}}
-  p {{::topic.language}}
+h1 {{::topic.title}}
+p {{::topic.language}}
 
 div(ui-view="")
 
-.l-site-width.ex-nav
+.ex-nav
   a.ex-nav--prev(href=""
   ng-click="topic.previousExercise()"
   ng-show="topic.hasPreviousExercise()")
