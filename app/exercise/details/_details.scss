@@ -1,0 +1,16 @@
+.feedback{
+  line-height: 1.25;
+  margin-bottom: s(small);
+  &-line{
+    @include t(label);
+    margin-right: s(small);
+  }
+  &-error{
+    background-color: red;
+    display: inline;
+  }
+  &-success{
+    background-color: green;
+    display: inline;
+  }
+}

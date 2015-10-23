@@ -1,8 +1,10 @@
 h2 Description
 p {{exercise.description}}
 
-div(ng-show="!exercise.success" ng-repeat="e in exercise.errors")
-  p Line:{{e.line}}
-  p {{e.message}}
+div(ng-show="!exercise.success" ng-repeat="e in exercise.errors").feedback
+  p.feedback-error
+    span.feedback-line Line {{e.line}}
+    span {{e.message}}
 
-p(ng-show="exercise.success") {{exercise.successMessage}}
+div(ng-show="exercise.success").feedback
+  p.feedback-success {{exercise.successMessage}}
