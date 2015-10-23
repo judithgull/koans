@@ -1,3 +1,5 @@
+@import 'mixins';
+
 html {
   min-height:100%;
   font: $t-default-font-size/#{$t-default-line-height} $t-default-font-family;
@@ -51,4 +53,15 @@ fieldset {
 // Allow only vertical resizing of textareas.
 textarea {
   resize: vertical;
+}
+
+// buttons
+.button {
+  border: 1px solid c(blue);
+  border-radius: s(small);
+  background-image: gradient(normal);
+  padding: s(small) s(medium);
+  @include t(default);
+  color: c(black);
+  text-decoration: none;
 }
