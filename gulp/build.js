@@ -276,12 +276,29 @@ module.exports = function (gulp, $, config) {
 
   gulp.task('build', ['deleteTemplates', 'images', 'fonts', 'data']);
 
-  gulp.task('mongod', function (cb) {
-    exec('mongod ', function (err, stdout, stderr) {
-      console.log(stdout);
-      console.log(stderr);
-      cb(err);
+  gulp.task('mongod', function(){
+    var f = runCommand('mongod');
+    f(function(err){
+      if(err){
+        console.log("Error in mongod");
+        console.log(err);
+        gulp.start('stop-mongo');
+        gulp.start();
+      }
     });
-  })
+  });
+
+  function runCommand(command) {
+    return function (cb) {
+      exec(command, function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+      });
+    }
+  }
+
+  gulp.task('stop-mongo', runCommand('mongo --eval "db.getSiblingDB(\'admin\').shutdownServer()"'));
+
 
 };
