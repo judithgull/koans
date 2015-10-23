@@ -25,6 +25,7 @@
 - Run `gulp webdriverUpdate` to download Selenium server standalone and Chrome driver for e2e testing
 - Run `gulp e2eTest` to run e2e tests via Protractor
  - **A localhost must be running** - `gulp dev`
+- Run 'gulp --stage prod' to build files for production 
 
 ## MongoDB
 - Install MongoDB
