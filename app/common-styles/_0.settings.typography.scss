@@ -1,13 +1,13 @@
+@import url(https://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700);
 @import '../../bower_components/bonescss/0.settings.typography';
 
 // Typography settings
 
-$t-light   : 300;
 $t-regular : 400;
-$t-bold    : 600;
+$t-bold    : 700;
 
 $t-default-font-size   : $s-base;
-$t-default-font-family : 'Source Sans Pro', sans-serif;
+$t-default-font-family : 'Quattrocento Sans', sans-serif;
 $t-default-font-weight : $t-regular;
 $t-default-font-style  : normal;
 $t-default-line-height : 1.5;
@@ -20,28 +20,22 @@ $types: (
     font-style    : normal,
     line-height   : 1.375
   ),
-  header-title: (
-    font-weight   : $t-bold,
-    font-size     : 2.625rem,
-    line-height   : 1.19
-  ),
   title: (
     font-weight   : $t-bold,
     font-size     : 2.25rem,
     line-height   : 1.667
   ),
-  subtitle: (
+  title-small: (
     font-weight   : $t-bold,
     font-size     : 1.75rem,
     line-height   : 1.143
   ),
+  label: (
+    font-weight   : $t-bold,
+    font-size     : 0.75rem,
+  ),
   paragraph: (
     font-size     : 1rem,
     line-height   : 1.375
-  ),
-  small: (
-    font-weight   : $t-light,
-    font-size     : .874rem,
-    line-height   : 1.285
   )
-) !default;
+);
