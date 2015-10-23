@@ -10,7 +10,7 @@ $t-default-font-size   : $s-base;
 $t-default-font-family : 'Quattrocento Sans', sans-serif;
 $t-default-font-weight : $t-regular;
 $t-default-font-style  : normal;
-$t-default-line-height : 1.5;
+$t-default-line-height : 1.375;
 
 $types: (
   default: (
@@ -18,7 +18,7 @@ $types: (
     font-family   : $t-default-font-family,
     font-weight   : $t-regular,
     font-style    : normal,
-    line-height   : 1.375
+    line-height   : $t-default-line-height
   ),
   title: (
     font-weight   : $t-bold,
