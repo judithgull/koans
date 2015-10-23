@@ -1,5 +1,24 @@
 @import '../../bower_components/bonescss/0.settings.colors';
 
+
+@function gradient($name) {
+  $gradient: map-get($gradients, $name);
+  $from: map-get($gradient, 'from');
+  $to: map-get($gradient, 'to');
+  $angle: map-get($gradient, 'angle');
+
+  @if (map-has-key($colors, $from)) {
+    $from: c($from);
+  }
+
+  @if (map-has-key($colors, $to)) {
+    $to: c($to);
+  }
+
+  @return linear-gradient(#{$angle}, #{$from}, #{$to})
+}
+
+
 // Color variables
 $colors: (
   white           : #FFF,
@@ -14,7 +33,7 @@ $colors: (
 $gradients: (
   normal: (
     from: blue,
-    to: purple,
+    to: green,
     angle: 135deg
   )
 );
