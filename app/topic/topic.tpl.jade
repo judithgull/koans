@@ -1,15 +1,17 @@
-h1 {{::topic.title}}
-p {{::topic.language}}
+.l-site-width
+  h1 {{::topic.title}}
+  p {{::topic.language}}
 
 div(ui-view="")
 
-a(href=""
-ng-click="topic.previousExercise()"
-ng-show="topic.hasPreviousExercise()")
-  | Previous
+.l-site-width
+  a(href=""
+  ng-click="topic.previousExercise()"
+  ng-show="topic.hasPreviousExercise()")
+    | Previous
 
-a(href=""
-ng-click="topic.nextExercise()"
-ng-show="topic.hasNextExercise()")
-  | Next
+  a(href=""
+  ng-click="topic.nextExercise()"
+  ng-show="topic.hasNextExercise()")
+    | Next
 
