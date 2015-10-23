@@ -2,27 +2,19 @@
 
 // Color variables
 $colors: (
-  white           : #C00,
-  grey            : #999,
-  black           : #16161d,
-  blue            : #2200cc,
-  blue-light      : #b3d4fc
+  white           : #FFF,
+  grey            : #969896,
+  black           : #1a1a1a,
+  blue            : #7AA6DA,
+  green           : #B9CA4A,
+  purple          : #C397D8,
+  error           : #E64424
 );
 
 $gradients: (
-  light: (
-    from: white,
-    to: grey,
-    angle: 135deg
-  ),
   normal: (
-    from: grey,
-    to: #ddd,
-    angle: 135deg
-  ),
-  dark: (
-    from: black,
-    to: #000,
+    from: blue,
+    to: purple,
     angle: 135deg
   )
 );
