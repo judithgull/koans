@@ -61,7 +61,8 @@ textarea {
   border-radius: s(small);
   background-image: gradient(normal);
   padding: s(small) s(medium);
-  @include t(default);
+  font-family: $t-default-font-family;
+  font-size: 1rem;
   color: c(black);
   text-decoration: none;
 }
