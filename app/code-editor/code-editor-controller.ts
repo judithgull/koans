@@ -59,6 +59,11 @@ module codeEditor {
 
       return (editor:AceAjax.Editor) => {
         this.editor = editor;
+
+        editor.setOptions({
+          maxLines: Infinity,
+        });
+
         var libs = <Function>this.$scope.libsLoader();
         this.AceTsService.addLibs(editor, libs());
         editor.clearSelection();
