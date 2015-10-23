@@ -1,7 +1,7 @@
 $arrow-size: 30;
 $arrow-line-width: 3px;
 
-$margin-top: sqrt(2 * ($arrow-size/2)*($arrow-size/2)) - ($arrow-size/2);
+$arrow-space: sqrt(2 * ($arrow-size/2)*($arrow-size/2)) - ($arrow-size/2);
 
 
 .ex-nav{
@@ -12,7 +12,7 @@ $margin-top: sqrt(2 * ($arrow-size/2)*($arrow-size/2)) - ($arrow-size/2);
     transform: rotate(-45deg);
     display: inline-block;
     transition: border-color 200ms;
-    margin-top: $margin-top+px;
+    margin-top: $arrow-space+px;
     &:hover{
       border-color: c(green);
     }
@@ -20,11 +20,15 @@ $margin-top: sqrt(2 * ($arrow-size/2)*($arrow-size/2)) - ($arrow-size/2);
   &--next {
     border-right: $arrow-line-width solid c(black);
     border-bottom: $arrow-line-width solid c(black);
-
+    margin-right: $arrow-space+px;
+    float:right;
   }
   &--prev {
     border-left: $arrow-line-width solid c(black);
     border-top: $arrow-line-width solid c(black);
+    margin-left: $arrow-space+px;
   }
+  @include clearfix;
 
 }
+
