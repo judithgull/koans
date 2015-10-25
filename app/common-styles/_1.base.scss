@@ -57,12 +57,12 @@ textarea {
 
 // buttons
 .button {
-  border: 1px solid c(blue);
-  border-radius: s(small);
-  background-image: gradient(normal);
+  border: 1px solid c(white);
+  border-radius: s(large);
+  background-color: transparent;
   padding: s(small) s(medium);
   font-family: $t-default-font-family;
   font-size: 1rem;
-  color: c(black);
+  color: c(white);
   text-decoration: none;
 }
