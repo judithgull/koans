@@ -1,12 +1,18 @@
+$spacing: s(medium);
+
 .home-wrap {
   background-image: gradient(green-orange);
   padding: s(huge) s(medium);
 }
 
+.topic-list {
+  margin-top: -$spacing;
+  margin-bottom: -$spacing;
+}
 .topic-item{
   background-color: c(light-grey);
   height: 200px;
   padding: s(small);
-  margin-top: s(medium);
-  margin-botton: s(medium);
+  margin-top: $spacing;
+  margin-bottom: $spacing;
 }
