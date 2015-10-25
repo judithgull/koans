@@ -130,7 +130,8 @@ module.exports = function (gulp, $, config) {
   // copy bower components into build directory
   gulp.task('bowerCopy', ['inject'], function () {
     var cssFilter = $.filter('**/*.css')
-      , jsFilter = $.filter('**/*.js');
+      , jsAceFilter = $.filter('**/ace-builds/**/*.js')
+      , jsNoAceFilter = $.filter('**/*.js', '!ace-builds');
 
     return gulp.src($.mainBowerFiles(), {base: bowerDir})
       .pipe(cssFilter)
@@ -151,14 +152,17 @@ module.exports = function (gulp, $, config) {
       .pipe($.if(isProd, $.rev()))
       .pipe(gulp.dest(config.extDir))
       .pipe(cssFilter.restore())
-      .pipe(jsFilter)
+      .pipe(jsAceFilter)
+      .pipe(gulp.dest(config.extDir))
+      .pipe(jsAceFilter.restore())
+      .pipe(jsNoAceFilter)
       .pipe($.if(isProd, $.concat('vendor.js')))
       .pipe($.if(isProd, $.uglify({
         preserveComments: $.uglifySaveLicense
       })))
       .pipe($.if(isProd, $.rev()))
       .pipe(gulp.dest(config.extDir))
-      .pipe(jsFilter.restore());
+      .pipe(jsNoAceFilter.restore())
   });
 
   // copy libs into build directory
@@ -186,7 +190,9 @@ module.exports = function (gulp, $, config) {
       return gulp.src(config.buildDir + 'index.html')
         .pipe($.inject(gulp.src([
           config.extDir + 'vendor*.css',
-          config.extDir + 'vendor*.js'
+          config.extDir + '**/ace-builds/**/*ace.js',
+          config.extDir + 'vendor*.js',
+          config.extDir + '**/ace-builds/**/mode-**.js'
         ], {
           read: false
         }), {
