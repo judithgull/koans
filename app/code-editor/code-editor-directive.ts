@@ -10,11 +10,6 @@ module codeEditor {
     handleEditorChange:Function;
   }
 
-  export interface ICodeEditorAttributes extends ng.IAttributes{
-    language:string;
-    initValue:string;
-  }
-
   function codeEditor(): ng.IDirective {
     return {
       restrict: 'E',
@@ -28,14 +23,14 @@ module codeEditor {
       templateUrl: 'code-editor/code-editor.tpl.html',
       controllerAs: 'codeEditor',
       controller: 'CodeEditorCtrl',
-     link: function(scope: ICodeEditorScope, el, attrs, ngModel) {
-        ngModel.$render = () => {
+     link: function(scope: ICodeEditorScope, el, attrs, ngModelCtrl: ng.INgModelController) {
+       ngModelCtrl.$render = () => {
           var editor:AceAjax.Editor = scope.codeEditor.editor;
-          editor.setValue(ngModel.$viewValue || '');
+          editor.setValue(ngModelCtrl.$viewValue || '');
         };
 
         scope.handleEditorChange = (editor:AceAjax.Editor) => {
-         ngModel.$setViewValue(editor.getValue());
+          ngModelCtrl.$setViewValue(editor.getValue());
         };
      }
     };
