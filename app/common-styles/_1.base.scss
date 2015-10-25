@@ -118,6 +118,16 @@ textarea {
   height: 150px;
 }
 
+.label {
+  width: 100%;
+  display: block;
+}
+
+
+.inline-label{
+  margin-right: s(small);
+}
+
 
 // general typography styles
 
@@ -149,3 +159,4 @@ textarea {
     color: c(green);
   }
 }
+

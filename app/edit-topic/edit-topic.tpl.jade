@@ -1,23 +1,25 @@
 .edit-topic-wrap
   .l-site-width
     form(ng-submit='editTopic.submit()' name='editTopicForm')
-      label(for='language').t-label.custom-select Language
+      label(for='language').custom-select.t-label
+        span.inline-label
+          | Language
         select.select(name='language' ng-model="editTopic.topic.language")
           option(value='typescript')
             | Typescript
           option(value='javascript')
             | Javascript
 
-      label(for='title').t-label Title
+      label(for='title').label.t-label Title
       input.input(name='title' ng-model='editTopic.topic.title' required='')
       div(ng-messages="editTopicForm.title.$error")
         p(ng-message="required").t-paragraph Please enter a title!
 
       ul.l-list-reset
         li(ng-repeat='item in editTopic.topic.items' ng-form='ex')
-          label(for='title').t-label Title
+          label(for='title').label.t-label Title
           input.input(name='title' ng-model='item.title')
-          label(for='description').t-label Description
+          label(for='description').label.t-label Description
           textarea.textarea(name='description' ng-model='item.description' required='')
           div(ng-messages="ex.description.$error")
             p(ng-message="required").t-paragraph Please enter a description!
