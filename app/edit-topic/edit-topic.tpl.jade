@@ -1,12 +1,12 @@
 .edit-topic-wrap
   .l-site-width
     form(ng-submit='editTopic.submit()' name='editTopicForm')
-      label(for='language').t-label Language
-      select(name='language' ng-model="editTopic.topic.language")
-        option(value='typescript')
-          | Typescript
-        option(value='javascript')
-          | Javascript
+      label(for='language').t-label.custom-select Language
+        select.select(name='language' ng-model="editTopic.topic.language")
+          option(value='typescript')
+            | Typescript
+          option(value='javascript')
+            | Javascript
 
       label(for='title').t-label Title
       input.input(name='title' ng-model='editTopic.topic.title' required='')

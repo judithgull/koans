@@ -70,19 +70,48 @@ textarea {
 
 //input fields
 .input,
-.textarea{
+.textarea,
+.select {
   @include t(paragraph);
   border:  1px solid c(black);
   border-radius: s(large);
   background-color: transparent;
   padding: s(small) s(medium);
   transition: border-color 200ms;
-  box-sizing: border-box;
-  width: 100%;
   &:focus {
     outline:none;
     border-color: c(white);
   }
+}
+
+.input,
+.textarea {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.custom-select{
+  position: relative;
+  display: inline-block;
+
+  &:after{
+    content:'';
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid c(black);
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events:none;
+  }
+}
+
+.select {
+  width: 200px;
+  -webkit-appearance: none;
 }
 
 .textarea {
