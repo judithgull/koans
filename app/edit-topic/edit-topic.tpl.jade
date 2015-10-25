@@ -1,26 +1,26 @@
 .edit-topic-bg
   .l-site-width
     form(ng-submit='editTopic.submit()' name='editTopicForm')
-      label(for='language') Language
+      label(for='language').t-label Language
       select(name='language' ng-model="editTopic.topic.language")
         option(value='typescript')
           | Typescript
         option(value='javascript')
           | Javascript
 
-      label(for='title') Title
+      label(for='title').t-label Title
       input(name='title' ng-model='editTopic.topic.title' required='')
       div(ng-messages="editTopicForm.title.$error")
-        p(ng-message="required") Please enter a title!
+        p(ng-message="required").t-paragraph Please enter a title!
 
       ul
         li(ng-repeat='item in editTopic.topic.items' ng-form='ex')
-          label(for='title') Title
+          label(for='title').t-label Title
           input(name='title' ng-model='item.title')
-          label(for='description') Description
+          label(for='description').t-label Description
           textarea(name='description' ng-model='item.description' required='')
           div(ng-messages="ex.description.$error")
-            p(ng-message="required") Please enter a description!
+            p(ng-message="required").t-paragraph Please enter a description!
           .l-grid
             .l-grid-cell.l-one-half.l-mobile-one-whole
               code-editor(
@@ -32,8 +32,8 @@
                 libs-loader='editTopic.libsLoader',
                 ng-model='item.exercise')
               div(ng-messages="ex.exercise.$error")
-                p(ng-message="required") Please enter an exercise!
-                p(ng-message="exerciseCompileAndRun") Your exercise must have an error to be fixed by the user!
+                p(ng-message="required").t-paragraph Please enter an exercise!
+                p(ng-message="exerciseCompileAndRun").t-paragraph Your exercise must have an error to be fixed by the user!
             .l-grid-cell.l-one-half.l-mobile-one-whole
               code-editor(
                 required='',
@@ -45,8 +45,8 @@
                 ng-model='item.solution'
                 )
               div(ng-messages="ex.solution.$error")
-                p(ng-message="required") Please enter a solution!
-                p(ng-message="solutionCompileAndRun") Your solution must have no errors!
+                p(ng-message="required").t-paragraph Please enter a solution!
+                p(ng-message="solutionCompileAndRun").t-paragraph Your solution must have no errors!
 
             button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='editTopic.topic.items.length>1') Delete
       button.button(type='button' name='add' ng-click='editTopic.addExercise()') Add

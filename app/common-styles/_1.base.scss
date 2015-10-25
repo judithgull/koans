@@ -66,3 +66,26 @@ textarea {
   color: c(white);
   text-decoration: none;
 }
+
+// general typography styles
+
+.t-title {
+  @include t(title);
+  margin: 0 0 s(large);
+}
+
+.t-title-small {
+  @include t(title-small);
+  margin: 0 0 s(medium);
+}
+
+.t-label {
+  @include t(label);
+  margin: 0 0 s(small);
+}
+
+.t-paragraph {
+  @include t(paragraph);
+  margin: 0 0 s(small);
+}
+
