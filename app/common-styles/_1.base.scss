@@ -69,23 +69,26 @@ textarea {
 }
 
 //input fields
-.input{
+.input,
+.textarea{
   @include t(paragraph);
   border:  1px solid c(black);
   border-radius: s(large);
   background-color: transparent;
-  padding: s(small);
+  padding: s(small) s(medium);
   transition: border-color 200ms;
+  box-sizing: border-box;
+  width: 100%;
   &:focus {
     outline:none;
     border-color: c(white);
   }
 }
 
-
-.t-label + .input {
-  margin-left: s(small);
+.textarea {
+  height: 150px;
 }
+
 
 // general typography styles
 

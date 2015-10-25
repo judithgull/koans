@@ -13,12 +13,12 @@
       div(ng-messages="editTopicForm.title.$error")
         p(ng-message="required").t-paragraph Please enter a title!
 
-      ul
+      ul.l-list-reset
         li(ng-repeat='item in editTopic.topic.items' ng-form='ex')
           label(for='title').t-label Title
           input.input(name='title' ng-model='item.title')
           label(for='description').t-label Description
-          textarea(name='description' ng-model='item.description' required='')
+          textarea.textarea(name='description' ng-model='item.description' required='')
           div(ng-messages="ex.description.$error")
             p(ng-message="required").t-paragraph Please enter a description!
           .l-grid
