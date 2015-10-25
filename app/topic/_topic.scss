@@ -3,6 +3,9 @@ $arrow-line-width: 3px;
 
 $arrow-space: sqrt(2 * ($arrow-size/2)*($arrow-size/2)) - ($arrow-size/2);
 
+.topic-bg {
+  background-image: gradient(normal);
+}
 
 .ex-nav{
   &--prev,
