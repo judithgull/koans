@@ -27,13 +27,26 @@ $colors: (
   blue            : #7AA6DA,
   green           : #B9CA4A,
   purple          : #C397D8,
+  orange          : #E78C45,
   error           : #E64424
 );
 
+$gradient-angle: 135deg;
+
 $gradients: (
-  normal: (
+  blue-green: (
     from: blue,
     to: green,
-    angle: 135deg
+    angle: $gradient-angle
+  ),
+  green-orange: (
+    from: green,
+    to: orange,
+    angle: $gradient-angle
+  ),
+  purple-blue: (
+    from: purple,
+    to: blue,
+    angle: $gradient-angle
   )
 );
