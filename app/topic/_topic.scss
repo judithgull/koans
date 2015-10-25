@@ -1,11 +1,8 @@
-$arrow-size: 30;
-$arrow-line-width: 3;
+$arrow-size-nr: 30;
+$arrow-size: $arrow-size-nr + px;
+$arrow-space: (sqrt(2 * ($arrow-size-nr/2)*($arrow-size-nr/2)) - ($arrow-size-nr/2)) + px;
 
-$border-space: (sqrt(2*$arrow-line-width*$arrow-line-width))*0.5;
-$arrow-space: (sqrt(2 * $arrow-size*$arrow-size) - $arrow-size)*0.5;
-
-$arrow-margin: $border-space + $arrow-space + px;
-
+$arrow-line-width: 3px;
 
 .topic-bg {
   background-image: gradient(blue-green);
@@ -14,24 +11,23 @@ $arrow-margin: $border-space + $arrow-space + px;
 .ex-nav{
   &--prev,
   &--next {
-    width: $arrow-size+px;
-    height: $arrow-size+px;
-    transform: rotate(-45deg);
+    width: $arrow-size;
+    height: $arrow-size;
     display: inline-block;
     transition: border-color 200ms;
-    margin: $arrow-margin;
+    margin: $arrow-space;
+    box-shadow: inset $arrow-line-width $arrow-line-width 0px c(black);
     &:hover{
       border-color: c(green);
     }
   }
   &--next {
-    border-right: $arrow-line-width+px solid c(black);
-    border-bottom: $arrow-line-width+px solid c(black);;
+    transform: rotate(135deg);
     float:right;
   }
   &--prev {
-    border-left: $arrow-line-width+px solid c(black);
-    border-top: $arrow-line-width+px solid c(black);
+    transform: rotate(-45deg);
+    float: left;
   }
   @include clearfix;
 
