@@ -82,6 +82,11 @@ textarea {
   }
 }
 
+
+.t-label + .input {
+  margin-left: s(small);
+}
+
 // general typography styles
 
 .t-title {
