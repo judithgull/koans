@@ -16,7 +16,7 @@
         p(ng-message="required").t-paragraph Please enter a title!
 
       ul.l-list-reset
-        li(ng-repeat='item in editTopic.topic.items' ng-form='ex')
+        li.ex-card(ng-repeat='item in editTopic.topic.items' ng-form='ex')
           label(for='title').label.t-label Title
           input.input(name='title' ng-model='item.title')
           label(for='description').label.t-label Description
@@ -50,7 +50,7 @@
                 p(ng-message="required").t-paragraph Please enter a solution!
                 p(ng-message="solutionCompileAndRun").t-paragraph Your solution must have no errors!
 
-            button.button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='editTopic.topic.items.length>1') Delete
-      button.button(type='button' name='add' ng-click='editTopic.addExercise()') Add
+          button.button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='editTopic.topic.items.length>1') Delete
+          button.button(type='button' name='add' ng-click='editTopic.addExercise()' ng-show='$last') Add another exercise
       button.button(type='submit' ng-disabled='editTopicForm.$invalid') Submit
       a.button(ui-sref='home') Cancel
