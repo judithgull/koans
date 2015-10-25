@@ -1,18 +1,19 @@
 h2 {{::exercise.title}}
 p {{exercise.description}}
 
-.l-grid.code-editor-wrap
-  .l-grid-cell.l-one-half.l-mobile-one-whole
-    code-editor(
-      language='topic.language',
-      ng-model='exercise.content',
-      libs-loader="exercise.libsLoader",
-      on-error="exercise.onError",
-      on-success='exercise.onSuccess'
-    )
+.l-grid-wrap
+  .l-grid.code-editor-wrap
+    .l-grid-cell.l-one-half.l-mobile-one-whole
+      code-editor(
+        language='topic.language',
+        ng-model='exercise.content',
+        libs-loader="exercise.libsLoader",
+        on-error="exercise.onError",
+        on-success='exercise.onSuccess'
+      )
 
-  .l-grid-cell.l-one-half.l-mobile-one-whole
-    div(ui-view="")
+    .l-grid-cell.l-one-half.l-mobile-one-whole
+      div(ui-view="")
 
 button.button(ng-hide='exercise.isSolution()' type='button' ng-click="exercise.giveUp()")
   | Give up

@@ -4,3 +4,7 @@
 
 // Consider adding sensible grid for grid and responsiveness
 @include sensibleGrid();
+
+.l-grid-wrap {
+  overflow: hidden;
+}
