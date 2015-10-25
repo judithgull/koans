@@ -68,6 +68,20 @@ textarea {
   text-decoration: none;
 }
 
+//input fields
+.input{
+  @include t(paragraph);
+  border:  1px solid c(black);
+  border-radius: s(large);
+  background-color: transparent;
+  padding: s(small);
+  transition: border-color 200ms;
+  &:focus {
+    outline:none;
+    border-color: c(white);
+  }
+}
+
 // general typography styles
 
 .t-title {
