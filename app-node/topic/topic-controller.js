@@ -72,7 +72,7 @@ module.exports.getTopics = function (req, res) {
           }
           res.send(topics);
         }
-      });
+      }).sort( { _id: -1 } );
 
     }
   });
