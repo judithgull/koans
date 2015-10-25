@@ -90,3 +90,11 @@ textarea {
   margin: 0 0 s(small);
 }
 
+.t-link {
+  text-decoration: none;
+  color: c(blue);
+  transition: color 200ms;
+  &:hover {
+    color: c(green);
+  }
+}

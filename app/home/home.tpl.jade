@@ -4,6 +4,6 @@
 
     div
       div(class="topic-item" ng-repeat="topic in home.topics")
-        a(ui-sref='topic.exercise.details({topicId:topic._id})')
-          h1 {{topic.title}}
-          p {{topic.language}}
+        a(ui-sref='topic.exercise.details({topicId:topic._id})').t-link
+          h1.t-title {{topic.title}}
+          p.t-paragraph {{topic.language}}
