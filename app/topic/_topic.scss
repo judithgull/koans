@@ -1,7 +1,11 @@
 $arrow-size: 30;
-$arrow-line-width: 3px;
+$arrow-line-width: 3;
 
-$arrow-space: sqrt(2 * ($arrow-size/2)*($arrow-size/2)) - ($arrow-size/2);
+$border-space: (sqrt(2*$arrow-line-width*$arrow-line-width))*0.5;
+$arrow-space: (sqrt(2 * $arrow-size*$arrow-size) - $arrow-size)*0.5;
+
+$arrow-margin: $border-space + $arrow-space + px;
+
 
 .topic-bg {
   background-image: gradient(blue-green);
@@ -15,21 +19,19 @@ $arrow-space: sqrt(2 * ($arrow-size/2)*($arrow-size/2)) - ($arrow-size/2);
     transform: rotate(-45deg);
     display: inline-block;
     transition: border-color 200ms;
-    margin-top: $arrow-space+px;
+    margin: $arrow-margin;
     &:hover{
       border-color: c(green);
     }
   }
   &--next {
-    border-right: $arrow-line-width solid c(black);
-    border-bottom: $arrow-line-width solid c(black);
-    margin-right: $arrow-space+px;
+    border-right: $arrow-line-width+px solid c(black);
+    border-bottom: $arrow-line-width+px solid c(black);;
     float:right;
   }
   &--prev {
-    border-left: $arrow-line-width solid c(black);
-    border-top: $arrow-line-width solid c(black);
-    margin-left: $arrow-space+px;
+    border-left: $arrow-line-width+px solid c(black);
+    border-top: $arrow-line-width+px solid c(black);
   }
   @include clearfix;
 
