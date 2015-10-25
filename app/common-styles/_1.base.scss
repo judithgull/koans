@@ -160,3 +160,10 @@ textarea {
   }
 }
 
+// general card styles
+
+.card {
+  background-color: c(light-grey);
+  padding: s(medium);
+  margin-bottom: s(large);
+}

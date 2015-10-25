@@ -16,7 +16,7 @@
         p(ng-message="required").t-paragraph Please enter a title!
 
       ul.l-list-reset
-        li.ex-card(ng-repeat='item in editTopic.topic.items' ng-form='ex')
+        li.card(ng-repeat='item in editTopic.topic.items' ng-form='ex')
           label(for='title').label.t-label Title
           input.input(name='title' ng-model='item.title')
           label(for='description').label.t-label Description
