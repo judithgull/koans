@@ -48,7 +48,7 @@
                 p(ng-message="required").t-paragraph Please enter a solution!
                 p(ng-message="solutionCompileAndRun").t-paragraph Your solution must have no errors!
 
-            button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='editTopic.topic.items.length>1') Delete
+            button.button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='editTopic.topic.items.length>1') Delete
       button.button(type='button' name='add' ng-click='editTopic.addExercise()') Add
       button.button(type='submit' ng-disabled='editTopicForm.$invalid') Submit
       a.button(ui-sref='home') Cancel
