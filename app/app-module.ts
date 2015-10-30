@@ -14,7 +14,8 @@ module koans {
     'codeEditor',
     'home',
     'topic',
-    'editTopic'
+    'editTopic',
+    'auth'
   ]);
 
   app.run(['$rootScope', '$log',function($rootScope, $log) {
