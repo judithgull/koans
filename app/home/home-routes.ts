@@ -7,7 +7,7 @@ module home {
 
   function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider
-      .state('home', {
+      .state('main.home', {
         url: '/home',
         templateUrl: 'home/home.tpl.html',
         controller: 'HomeCtrl',
