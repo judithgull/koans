@@ -1,6 +1,6 @@
-h2 header
-p {{header.ctrlName}}
+.home-wrap
+  .l-site-width
+    a(ui-sref='auth').button Sign up
+    a(ui-sref='editTopic()').button New
 
-.l-site-width
-  a(ui-sref='auth').button Sign up
-  a(ui-sref='editTopic()').button New
+    div(ui-view="")

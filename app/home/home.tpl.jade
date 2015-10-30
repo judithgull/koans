@@ -1,12 +1,6 @@
-.home-wrap
-  .l-site-width
-    a(ui-sref='auth').button Sign up
-
-    a(ui-sref='editTopic()').button New
-
-    .l-grid.topic-list
-      .l-grid-cell.l-one-third.l-tablet-one-half.l-mobile-one-whole(ng-repeat="topic in home.topics")
-        .topic-item
-          a(ui-sref='topic.exercise.details({topicId:topic._id})').t-link
-            h1.t-title {{topic.title}}
-            p.t-paragraph {{topic.language}}
+.l-grid.topic-list
+  .l-grid-cell.l-one-third.l-tablet-one-half.l-mobile-one-whole(ng-repeat="topic in home.topics")
+    .topic-item
+      a(ui-sref='topic.exercise.details({topicId:topic._id})').t-link
+        h1.t-title {{topic.title}}
+        p.t-paragraph {{topic.language}}
