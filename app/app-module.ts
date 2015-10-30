@@ -15,7 +15,8 @@ module koans {
     'home',
     'topic',
     'editTopic',
-    'auth'
+    'auth',
+    'header'
   ]);
 
   app.run(['$rootScope', '$log',function($rootScope, $log) {
