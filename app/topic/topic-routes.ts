@@ -7,7 +7,7 @@ module topic {
 
   function config($stateProvider:ng.ui.IStateProvider) {
     $stateProvider
-      .state('topic', {
+      .state('main.topic', {
         abstract: true,
         url: '/topic/:topicId',
         params: {
@@ -21,7 +21,7 @@ module topic {
             return RestClient.getTopic($stateParams.topicId);
           }
         }
-      }).state('topic.exercise', {
+      }).state('main.topic.exercise', {
         abstract: true,
         url: '/exercise/:exId',
         templateUrl: '../exercise/exercise.tpl.html',
@@ -35,12 +35,12 @@ module topic {
             return RestClient.getLibs(["typescripts/lib.d.ts", "typescripts/chai/chai.d.ts"]);
           }
         }
-      }).state('topic.exercise.solution', {
+      }).state('main.topic.exercise.solution', {
         url: '/solution',
         templateUrl: '../exercise/solution/solution.tpl.html',
         controller: 'SolutionCtrl',
         controllerAs: 'solution'
-      }).state('topic.exercise.details', {
+      }).state('main.topic.exercise.details', {
         url: '',
         templateUrl: '../exercise/details/details.tpl.html'
       });

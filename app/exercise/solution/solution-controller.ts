@@ -13,7 +13,7 @@ module SolutionCtrl {
     }
 
     private showDetails(){
-      this.$state.go("topic.exercise.details");
+      this.$state.go("main.topic.exercise.details");
     }
   }
 

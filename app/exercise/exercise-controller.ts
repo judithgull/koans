@@ -33,11 +33,11 @@ module ExerciseCtrl {
 
 
     public giveUp() {
-      this.$state.go("topic.exercise.solution");
+      this.$state.go("main.topic.exercise.solution");
     }
 
     public isSolution() {
-      return this.$state.is("topic.exercise.solution");
+      return this.$state.is("main.topic.exercise.solution");
     }
   }
 

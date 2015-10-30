@@ -46,7 +46,7 @@ module TopicCtrl {
     }
 
     private goToExercise(id:number) {
-      this.$state.go("topic.exercise.details", {exId: id});
+      this.$state.go("main.topic.exercise.details", {exId: id});
     }
 
     hasNextExercise():boolean {
