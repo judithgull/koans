@@ -66,6 +66,10 @@ textarea {
   font-size: 1rem;
   color: c(white);
   text-decoration: none;
+  &:disabled {
+    border-color: rgba(c(white), 0.4);
+    color: rgba(c(white), 0.4);
+  }
   &:hover {
     &:not([disabled]) {
       cursor: pointer;
