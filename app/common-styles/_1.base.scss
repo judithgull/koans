@@ -66,6 +66,12 @@ textarea {
   font-size: 1rem;
   color: c(white);
   text-decoration: none;
+  &:hover {
+    &:not([disabled]) {
+      cursor: pointer;
+      background-color: rgba(c(white), 0.2);
+    }
+  }
 }
 
 //input fields
