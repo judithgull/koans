@@ -22,7 +22,7 @@ module editTopic {
     submit = () => {
       this.updateSortOrder();
       this.RestClient.createTopic(this.topic);
-      this.$state.go("home");
+      this.$state.go("main.home");
     };
 
     addExercise = () => {

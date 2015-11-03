@@ -8,7 +8,7 @@ module editTopic {
 
   function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider
-      .state('editTopic', {
+      .state('main.editTopic', {
         url: '/edit-topic',
         templateUrl: 'edit-topic/edit-topic.tpl.html',
         controller: 'EditTopicCtrl',
