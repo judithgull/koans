@@ -1,16 +1,14 @@
-.topic-wrap
-  .l-site-width
-    h1.t-title {{::topic.title}}
-    p.t-paragraph {{::topic.language}}
+h1.t-title {{::topic.title}}
+p.t-paragraph {{::topic.language}}
 
-    div(ui-view="")
+div(ui-view="")
 
-    .ex-nav
-      a.ex-nav--prev(href=""
-      ng-click="topic.previousExercise()"
-      ng-show="topic.hasPreviousExercise()")
+.ex-nav
+  a.ex-nav--prev(href=""
+  ng-click="topic.previousExercise()"
+  ng-show="topic.hasPreviousExercise()")
 
-      a.ex-nav--next(href=""
-      ng-click="topic.nextExercise()"
-      ng-show="topic.hasNextExercise()")
+  a.ex-nav--next(href=""
+  ng-click="topic.nextExercise()"
+  ng-show="topic.hasNextExercise()")
 
