@@ -3,6 +3,8 @@ $spacing: s(medium);
 .home-wrap {
   background-image: gradient(green-orange);
   padding: s(huge) s(medium);
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .topic-list {
