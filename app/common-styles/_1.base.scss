@@ -161,6 +161,10 @@ textarea {
   text-decoration: none;
   color: c(blue);
   transition: color 200ms;
+  display: block;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
   &:hover {
     color: c(green);
   }

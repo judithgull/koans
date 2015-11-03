@@ -1,6 +1,5 @@
 .l-grid.topic-list
   .l-grid-cell.l-one-third.l-tablet-one-half.l-mobile-one-whole(ng-repeat="topic in home.topics")
-    .topic-item
-      a(ui-sref='main.topic.exercise.details({topicId:topic._id})').t-link
-        h1.t-title {{topic.title}}
-        p.t-paragraph {{topic.language}}
+    a(ui-sref='main.topic.exercise.details({topicId:topic._id})').topic-item.t-link
+      h1.t-title {{topic.title}}
+      p.t-paragraph {{topic.language}}
