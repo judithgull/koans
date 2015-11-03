@@ -74,6 +74,10 @@ textarea {
   }
 }
 
+.button + .button {
+  margin-left: s(medium);
+}
+
 //input fields
 .input,
 .textarea,
