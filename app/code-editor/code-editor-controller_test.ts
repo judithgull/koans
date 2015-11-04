@@ -9,7 +9,7 @@ module codeEditor {
 
     beforeEach(angular.mock.module('codeEditor'));
 
-    beforeEach(inject(function ($rootScope, $controller, $compile) {
+    beforeEach(inject(function ($rootScope, $controller) {
       scope = $rootScope.$new();
       scope.libsLoader = () => () => [];
       ctrl = $controller('CodeEditorCtrl', {$scope: scope});
@@ -18,9 +18,9 @@ module codeEditor {
 
     var createTestEditor = () => {
       var doc = angular.element(document);
-      doc.find('body').append('<div id="testId"></div>');
-      var element = doc.find("#testId");
-      testEditor =  ace.edit(element.html());
+      doc.find('body').append('<div  id="#test"></div>');
+      var element = doc.find("#test");
+      testEditor =  ace.edit(element.get(0));
     };
 
 
@@ -28,7 +28,7 @@ module codeEditor {
       expect(ctrl).toBeDefined();
     });
 
-    it('should change the initValue', () => {
+/*    it('should change the initValue', () => {
       const testValue = "test";
       const loader = ctrl.createExerciseDataLoader();
       loader(testEditor);
@@ -36,7 +36,9 @@ module codeEditor {
       //ctrl.handleChange({});
       //expect(scope.ngModel).toBe(testValue);
     });
-
+*/
   });
+
+
 
 }
