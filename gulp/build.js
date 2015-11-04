@@ -260,16 +260,10 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest('tmp/' + config.buildDir))
       .on('end', function () {
         $.del([
-          config.buildDir + '*',
-          '!' + config.buildCss,
-          '!' + config.buildFonts,
-          '!' + config.buildData,
-          '!' + config.buildImages,
-          '!' + config.buildJs,
-          '!' + config.extDir,
-          '!' + config.buildDir + 'index.html'
+          config.buildDir + '*.tpl.html'
         ], {mark: true}, cb);
       });
+
   });
 
   gulp.task('build', ['deleteTemplates', 'images', 'fonts', 'data']);
