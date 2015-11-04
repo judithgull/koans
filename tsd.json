@@ -9,10 +9,10 @@
       "commit": "32f0a90dab26f70b206407ac24d4d622d0f0f408"
     },
     "angularjs/angular.d.ts": {
-      "commit": "32f0a90dab26f70b206407ac24d4d622d0f0f408"
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
     },
     "angularjs/angular-mocks.d.ts": {
-      "commit": "32f0a90dab26f70b206407ac24d4d622d0f0f408"
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
     },
     "angularjs/angular-sanitize.d.ts": {
       "commit": "32f0a90dab26f70b206407ac24d4d622d0f0f408"
@@ -21,7 +21,7 @@
       "commit": "32f0a90dab26f70b206407ac24d4d622d0f0f408"
     },
     "jquery/jquery.d.ts": {
-      "commit": "32f0a90dab26f70b206407ac24d4d622d0f0f408"
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
     },
     "karma-jasmine/karma-jasmine.d.ts": {
       "commit": "32f0a90dab26f70b206407ac24d4d622d0f0f408"
@@ -51,6 +51,9 @@
       "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
     },
     "ace/ace.d.ts": {
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
+    },
+    "node/node.d.ts": {
       "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
     }
   }
