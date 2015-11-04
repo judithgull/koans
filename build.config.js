@@ -8,6 +8,8 @@ module.exports = {
 
   // app directories
   appDir: 'app',
+  //node app file
+  server: 'app-node/app.js',
 
   //patches for external libraries
   libDir: 'lib',

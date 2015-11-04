@@ -6,7 +6,7 @@ module.exports = function (gulp, $, config) {
     var started = false;
 
     return $.nodemon({
-      script: 'app.js'
+      script: config.server
     }).on('start', function () {
       // to avoid nodemon being started multiple times
       // thanks @matthisk

@@ -2,11 +2,12 @@ var http = require('http'),
     express = require('express'),
     bodyParser = require('body-parser'),
     methodOverride = require("method-override"),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    path = require('path');
 
 var app = express();
 
-app.use(express.static(__dirname + '/build/app'));
+app.use(express.static(path.join(__dirname,'../build/app')));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -30,7 +31,7 @@ mongoose.connect('mongodb://localhost:27017/koans');
  * Routes
  */
 
-app.use("/topics", require('./app-node/topic/topic-routes.js'));
+app.use("/topics", require('./topic/topic-routes.js'));
 
 /**
  * Start Server
