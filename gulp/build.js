@@ -249,23 +249,6 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildTestDirectiveTemplatesDir));
   });
 
-  gulp.task('deleteTemplates', ['copyTemplates'], function (cb) {
-    // only delete templates in production
-    // the templates are injected into the app during prod build
-    if (!isProd) {
-      return cb();
-    }
-
-    gulp.src([config.buildDir + '**/*.html'])
-      .pipe(gulp.dest('tmp/' + config.buildDir))
-      .on('end', function () {
-        $.del([
-          config.buildDir + '*.tpl.html'
-        ], {mark: true}, cb);
-      });
-
-  });
-
-  gulp.task('build', ['deleteTemplates', 'images', 'fonts', 'data']);
+  gulp.task('build', ['copyTemplates', 'images', 'fonts', 'data']);
 
 };
