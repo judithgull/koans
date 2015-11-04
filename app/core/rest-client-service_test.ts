@@ -8,7 +8,7 @@ module RestClient {
     var tsLibName = "typescripts/lib.d.ts";
 
 
-    beforeEach(module("core"));
+    beforeEach(angular.mock.module("core"));
 
     beforeEach(inject(function ($injector, RestClient) {
       restClient = RestClient;

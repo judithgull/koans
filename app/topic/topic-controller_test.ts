@@ -5,12 +5,12 @@ describe('Topic Controller', () => {
   var ctrl: TopicCtrl.ITopicModel;
   var topic = test.MockData.getTopic();
 
-  beforeEach(module('topic'));
+  beforeEach(angular.mock.module('topic'));
 
   beforeEach(inject(($controller: ng.IControllerService, $state: TopicCtrl.ITopicStateService) => {
     var state = $state;
     state.params.exId = topic.items[0].sortOrder;
-    ctrl = $controller('TopicCtrl', {topicData: topic, $state:state});
+    ctrl = <TopicCtrl.ITopicModel>$controller('TopicCtrl', {topicData: topic, $state:state});
   }));
 
   it('should be defined', () => {

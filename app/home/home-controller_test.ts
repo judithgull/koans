@@ -6,7 +6,7 @@ describe('Home Controller', () =>  {
   var ctrl: HomeCtrl.IHomeCtrl;
   var rs;
 
-  beforeEach(()=> module('home'));
+  beforeEach(()=> angular.mock.module('home'));
 
   beforeEach(inject(($rootScope, $controller, $q) => {
     rs = $rootScope;
