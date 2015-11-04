@@ -26,6 +26,9 @@ http://docs.mongodb.org/manual/installation/
 - Command line options: -p .
 3. Use Webstorm 10.0.4 or higher
 
+## Type Definition
+- Run `tsd install` to install type definition files
+
 ## Gulp tasks
 - Run `gulp` to run the build task and setup the development environment
 - Run `gulp --resetdb=true` to reset the database with example data and start the dev environment
