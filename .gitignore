@@ -39,3 +39,6 @@ app/**/*.js.map
 # Generated css files
 app/**/*.css
 app/**/*.css.map
+
+# Typedefinition files
+typings/**/*.ts
