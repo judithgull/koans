@@ -17,9 +17,10 @@ module editTopic {
         }
       };
       const libs = [];
-      //sinon spy
-      //$state.transitionTo()
-      ctrl = $controller('EditTopicCtrl', {'RestClient': rc, 'libs' : libs});
+      ctrl = $controller('EditTopicCtrl',
+        {'RestClient': rc,
+          'libs' : libs,
+          '$scope': $rootScope});
       topic = ctrl.topic;
 
     }));
