@@ -1,10 +1,5 @@
-///<reference path='../../typings/tsd.d.ts' />
 module auth {
   'use strict';
-
-  interface IValidators extends ng.IModelValidators {
-    email: (modelValue:any, viewValue:any) => boolean;
-  }
 
   /**
    * @ngdoc directive
@@ -31,12 +26,10 @@ module auth {
       require: 'ngModel',
       restrict: 'A',
       link: function (scope, elm, attrs, ctrl:ng.INgModelController) {
-        // only apply the validator if ngModel is present and Angular has added the email validator
-        if (ctrl && (<IValidators>ctrl.$validators).email) {
-          // overwrite the default Angular email validator
-          (<IValidators>ctrl.$validators).email = function (modelValue) {
-            return ctrl.$isEmpty(modelValue) || EMAIL_REGEXP.test(modelValue);
-          };
+        // overwrite the default Angular email validator
+        if (ctrl && ctrl.$validators['email']) {
+          ctrl.$validators['email'] =
+          (modelValue) => ctrl.$isEmpty(modelValue) || EMAIL_REGEXP.test(modelValue);
         }
       }
     };
