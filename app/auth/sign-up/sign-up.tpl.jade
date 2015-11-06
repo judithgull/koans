@@ -18,7 +18,7 @@ form(ng-submit='signUp.submit()' name='signUpForm')
     p(ng-message="pattern").t-paragraph Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)
 
   label(for='passwordRepeated').label.t-label  Confirm Password
-  input.input(id='passwordRepeated' name='passwordRepeated' type='password' ng-model='signUp.passwordRepeated' required='' same-as='password')
+  input.input(id='passwordRepeated' name='passwordRepeated' type='password' ng-model='signUp.passwordRepeated' required='' same-as='signUp.password')
   div(ng-messages="signUpForm.passwordRepeated.$error")
     p(ng-message="required").t-paragraph Please confirm your Password!
     p(ng-message="same-as").t-paragraph Passwords do not match.

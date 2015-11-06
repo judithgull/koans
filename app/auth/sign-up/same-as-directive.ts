@@ -1,4 +1,3 @@
-///<reference path='../../../typings/tsd.d.ts' />
 module auth.signUp {
   'use strict';
 
@@ -22,24 +21,18 @@ module auth.signUp {
     .module('auth.signUp')
     .directive('sameAs', sameAs);
 
-  function sameAs():ng.IDirective {
-    return {
-      restrict: 'A',
-      require: 'ngModel',
-      link: function (scope, elm, attrs, ctrl:ng.INgModelController) {
-        ctrl.$parsers.unshift(validate);
+    function sameAs():ng.IDirective {
+      return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: (scope, elm, attrs, ngModel:ng.INgModelController) => {
+          const otherModel = attrs.sameAs;
+          ngModel.$validators['same-as'] = (value) => scope.$eval(otherModel) == value;
 
-        function validate(viewValue) {
-          var noMatch = viewValue != scope.signUpForm.password.$viewValue;
-          ctrl.$setValidity('same-as', !noMatch);
-          return true;
+          //trigger validation when other model value specified in attrs.sameAs is changed
+          scope.$watch(otherModel, ngModel.$validate);
+
         }
-
-        scope.$watch(attrs.sameAs, function(){
-          ctrl.$setViewValue(ctrl.$viewValue);
-        });
-
       }
     }
-  };
 }
