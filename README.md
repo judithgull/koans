@@ -27,6 +27,7 @@ http://docs.mongodb.org/manual/installation/
 3. Use Webstorm 10.0.4 or higher
 
 ## Type Definition
+– Run `npm install -g tsd` to install tsd globally
 - Run `tsd install` to install type definition files
 
 ## Gulp tasks
