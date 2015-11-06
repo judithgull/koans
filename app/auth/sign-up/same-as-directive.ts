@@ -27,10 +27,18 @@ module auth.signUp {
       restrict: 'A',
       require: 'ngModel',
       link: function (scope, elm, attrs, ctrl:ng.INgModelController) {
-        ctrl.$parsers.unshift(function (viewValue) {
+        ctrl.$parsers.unshift(validate);
+
+        function validate(viewValue) {
           var noMatch = viewValue != scope.signUpForm.password.$viewValue;
-          ctrl.$setValidity('same-as', !noMatch)
+          ctrl.$setValidity('same-as', !noMatch);
+          return true;
+        }
+
+        scope.$watch(attrs.sameAs, function(){
+          ctrl.$setViewValue(ctrl.$viewValue);
         });
+
       }
     }
   };
