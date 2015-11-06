@@ -1,22 +1,22 @@
 form(ng-submit='signUp.submit()' name='signUpForm')
   label(for='name').label.t-label  Name
-  input.input(name='name' type='text' ng-model='signUp.name' required='')
+  input.input(id='name' name='name' type='text' ng-model='signUp.name' required='')
   div(ng-messages="signUpForm.name.$error")
     p(ng-message="required").t-paragraph Please enter a name!
 
   label(for='email').label.t-label  E-mail
-  input.input(name='email' type='email' ng-model='signUp.email' required='' validate-email='')
+  input.input(id='email' name='email' type='email' ng-model='signUp.email' required='' validate-email='')
   div(ng-messages="signUpForm.email.$error")
     p(ng-message="required").t-paragraph Please enter an E-mail!
     p(ng-message="email").t-paragraph Please enter a valid E-mail!
 
   label(for='password').label.t-label  Password
-  input.input(name='password' type='password' ng-model='signUp.password' required='')
+  input.input(id='password' name='password' type='password' ng-model='signUp.password' required='')
   div(ng-messages="signUpForm.password.$error")
     p(ng-message="required").t-paragraph Please enter a Password!
 
   label(for='passwordRepeated').label.t-label  Confirm Password
-  input.input(name='passwordRepeated' type='password' ng-model='signUp.passwordRepeated' required='')
+  input.input(id='passwordRepeated' name='passwordRepeated' type='password' ng-model='signUp.passwordRepeated' required='')
   div(ng-messages="signUpForm.passwordRepeated.$error")
     p(ng-message="required").t-paragraph Please confirm your Password!
 
