@@ -16,7 +16,8 @@ module koans {
     'topic',
     'editTopic',
     'auth',
-    'header'
+    'header',
+    'auth.signUp'
   ]);
 
   app.run(['$rootScope', '$log',function($rootScope, $log) {
