@@ -23,5 +23,5 @@ form(ng-submit='signUp.submit()' name='signUpForm')
     p(ng-message="required").t-paragraph Please confirm your Password!
     p(ng-message="same-as").t-paragraph Passwords do not match.
 
-button.button(type='submit' ng-disabled='signUpForm.$invalid') Submit
-a.button(ui-sref='main.home') Cancel
+  button.button(type='submit' ng-disabled='signUpForm.$invalid') Submit
+  a.button(ui-sref='main.home') Cancel
