@@ -1,22 +1,32 @@
 ///<reference path='../../typings/tsd.d.ts' />
+module auth {
+  /* global describe, beforeEach, it, expect, inject, module */
+  'use strict';
 
-/* global describe, beforeEach, it, expect, inject, module */
-'use strict';
+  describe('validateEmail', function () {
+    var scope, form;
 
-describe('validateEmail', function () {
-  var scope
-    , element;
+    beforeEach(angular.mock.module('auth'));
 
-  beforeEach(angular.mock.module('auth'));
+    beforeEach(inject(function ($compile, $rootScope) {
+      scope = $rootScope;
+      var element = angular.element(
+        '<form name="form">' +
+        '<input name="text" ng-model="model.text" validate-email />' +
+        '</form>'
+      );
+      scope.model = {text: null};
+      $compile(element)(scope);
+      form = scope.form;
+    }));
 
-  beforeEach(inject(function ($compile, $rootScope) {
-    scope = $rootScope.$new();
-    element = $compile(angular.element('<validate-email></validate-email>'))(scope);
-  }));
+    it('should have correct text', function () {
+      form.text.$setViewValue('dg');
+      scope.$digest();
+      expect(scope.model.text).toEqual('dg');
+      expect(form.text.$valid).toBe(false);
+    });
 
-  it('should have correct text', function () {
-    scope.$apply();
-    expect(element.isolateScope().validateEmail.name).toEqual('validateEmail');
   });
 
-});
+}
