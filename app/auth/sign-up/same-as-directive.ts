@@ -12,7 +12,10 @@ module auth.signUp {
    * @example
    <example module="auth.signUp">
    <file name="index.html">
-   <same-as></same-as>
+   <form name="form">
+   <input name="password" ng-model="model.password" type="password">
+   <input name="passwordRepeated" ng-model="model.passwordRepeated" type="password" same-as="model.password">
+   </form>
    </file>
    </example>
    *
