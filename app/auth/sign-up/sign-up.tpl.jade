@@ -5,9 +5,10 @@ form(ng-submit='signUp.submit()' name='signUpForm')
     p(ng-message="required").t-paragraph Please enter a name!
 
   label(for='email').label.t-label  E-mail
-  input.input(name='email' type='text' ng-model='signUp.email' required='')
+  input.input(name='email' type='email' ng-model='signUp.email' required='' validate-email='')
   div(ng-messages="signUpForm.email.$error")
     p(ng-message="required").t-paragraph Please enter an E-mail!
+    p(ng-message="email").t-paragraph Please enter a valid E-mail!
 
   label(for='password').label.t-label  Password
   input.input(name='password' type='password' ng-model='signUp.password' required='')

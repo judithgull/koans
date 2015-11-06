@@ -9,6 +9,7 @@ module signUp {
   */
   angular
     .module('auth.signUp', [
-      'ui.router'
+      'ui.router',
+      'auth'
     ]);
 }
