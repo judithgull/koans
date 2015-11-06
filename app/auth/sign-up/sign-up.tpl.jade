@@ -11,9 +11,11 @@ form(ng-submit='signUp.submit()' name='signUpForm')
     p(ng-message="email").t-paragraph Please enter a valid E-mail!
 
   label(for='password').label.t-label  Password
-  input.input(id='password' name='password' type='password' ng-model='signUp.password' required='')
+  input.input(id='password' name='password' type='password' ng-model='signUp.password' ng-minlength='6' ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" required='')
   div(ng-messages="signUpForm.password.$error")
     p(ng-message="required").t-paragraph Please enter a Password!
+    p(ng-message="minlength").t-paragraph Your password should have at least 6 characters!
+    p(ng-message="pattern").t-paragraph Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)
 
   label(for='passwordRepeated').label.t-label  Confirm Password
   input.input(id='passwordRepeated' name='passwordRepeated' type='password' ng-model='signUp.passwordRepeated' required='')
