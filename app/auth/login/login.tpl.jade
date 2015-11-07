@@ -1,0 +1,15 @@
+form(ng-submit='login.submit()' name='loginForm')
+
+  label(for='loginForm.email').label.t-label  E-mail
+  input.input(id='loginForm.email' name='email' type='email' ng-model='login.email' required='' validate-email='')
+  div(ng-messages="loginForm.email.$error")
+    p(ng-message="required").t-paragraph Please enter an E-mail!
+    p(ng-message="email").t-paragraph Please enter a valid E-mail!
+
+  label(for='loginForm.password').label.t-label  Password
+  input.input(id='loginForm.password' name='password' type='password' ng-model='login.password' required='')
+  div(ng-messages="loginForm.password.$error")
+    p(ng-message="required").t-paragraph Please enter a Password!
+
+  button.button(type='submit' ng-disabled='loginForm.$invalid') Submit
+  a.button(ui-sref='main.home') Cancel
