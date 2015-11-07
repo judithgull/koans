@@ -57,6 +57,7 @@ config.buildUnitTestFiles = path.join(config.buildUnitTestsDir, '**/*_test.js');
 
 config.e2eFiles = path.join('e2e', '**/*.js');
 config.unitTestFiles = path.join(config.unitTestDir, '**/*_test.ts');
+config.nodeUnitTestFiles = path.join(config.appNodeDir, '**/*_test.ts');
 
 config.tsProject = $.typescript.createProject('tsconfig.json');
 
