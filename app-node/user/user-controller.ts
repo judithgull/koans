@@ -1,7 +1,7 @@
-var url = require("url");
-var Topic = require("./user-model.js");
+import url = require("url");
+var userModel = require("./user-model.js");
 
-module.exports.postUser = function (req, res) {
+export var postUser = (req, res) => {
   res.format({
     "application/json": function (req, res) {
 

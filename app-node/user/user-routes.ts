@@ -1,10 +1,10 @@
+import express = require('express');
+
 module server {
-  var express = require('express');
   var router = express.Router();
+  var userCtrl = require('./user-controller.js');
 
-  var topic = require('./user-controller.js');
-
-  router.post("/", topic.postUser);
+  router.post("/", userCtrl.postUser);
 
   module.exports = router;
 }
