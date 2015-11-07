@@ -2,24 +2,26 @@
 module auth {
   'use strict';
 
-  export interface IAuthService{
+  export const USERS_URL = '/users/';
+
+  export interface IAuthService {
     submitUser(user:app.IUser):ng.IPromise<string>;
   }
 
   class AuthService implements IAuthService {
+
     public static $inject = [
+      '$http'
     ];
 
-    constructor() {
-    }
-
-    get(): string {
-      return 'Auth';
+    constructor(private $http:ng.IHttpService) {
     }
 
     submitUser = (user:app.IUser):ng.IPromise<string> => {
-      return null;
+      return this.$http.post(USERS_URL, user)
+        .error(e => console.log(e));
     }
+
   }
 
   /**
