@@ -1,6 +1,8 @@
 import url = require("url");
 var bcrypt = require("bcrypt-nodejs");
+var jwt = require("jwt-simple");
 var User = require("./user-model.js");
+var secret = 'veryBigSecret...';
 
 export var postUser = (req, res) => {
   res.format({
@@ -16,10 +18,17 @@ export var postUser = (req, res) => {
         user.password = hash;
 
         user.save(function(err){
-          if (err)
+          if (err) {
+            console.log(err);
             res.send(err);
-          else
-            console.log('user saved');
+          }else {
+            var payload = {
+              iss: req.hostname,
+              sub: user._id
+            };
+            var token = jwt.encode(payload, secret);
+            res.status(200).send({token:token});
+          }
         });
 
       });
