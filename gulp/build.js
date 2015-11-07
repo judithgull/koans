@@ -74,8 +74,24 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildCss));
   });
 
+  gulp.task('node-scripts', function () {
+    var jsFilter = $.filter('**/*.js')
+      , tsFilter = $.filter('**/*.ts');
+
+    return gulp.src([
+        config.appNodeScriptFiles
+      ])
+      .pipe($.sourcemaps.init())
+      .pipe(tsFilter)
+      .pipe($.typescript(config.tsProject))
+      .pipe(tsFilter.restore())
+      .pipe($.sourcemaps.write('.'))
+      .pipe(gulp.dest(config.buildNodeJs))
+      .pipe(jsFilter.restore());
+  });
+
   // compile scripts and copy into build directory
-  gulp.task('scripts', ['clean', 'analyze', 'markup'], function () {
+  gulp.task('scripts', ['clean', 'analyze', 'markup', 'node-scripts'], function () {
     var htmlFilter = $.filter('**/*.html')
       , jsFilter = $.filter('**/*.js')
       , tsFilter = $.filter('**/*.ts');
