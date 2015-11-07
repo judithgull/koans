@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (gulp, $, config) {
-  gulp.task('nodemon', function (cb) {
+  gulp.task('nodemon', ['build'],function (cb) {
 
     var started = false;
 
