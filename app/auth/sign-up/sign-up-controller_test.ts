@@ -29,7 +29,21 @@ module signUp.SignUpCtrl {
     it('should call submit user once', ()  => {
       ctrl.submit();
       sinon.assert.calledOnce(submitUserSpy);
+      sinon.assert.calledWith(submitUserSpy, new app.User());
     });
+
+    it('should call submit user once with correct values', ()  => {
+      const testUser = new app.User();
+      testUser.name = 'testName';
+      testUser.email = 'testEmail';
+      testUser.password = 'testPwd';
+      ctrl.user = testUser;
+
+      ctrl.submit();
+      sinon.assert.calledOnce(submitUserSpy);
+      sinon.assert.calledWith(submitUserSpy, testUser);
+    });
+
 
   });
 }
