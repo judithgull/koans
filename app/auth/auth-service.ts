@@ -3,7 +3,7 @@ module auth {
   'use strict';
 
   export interface IAuthService{
-
+    submitUser(user:app.IUser):ng.IPromise<string>;
   }
 
   class AuthService implements IAuthService {
@@ -15,6 +15,10 @@ module auth {
 
     get(): string {
       return 'Auth';
+    }
+
+    submitUser = (user:app.IUser):ng.IPromise<string> => {
+      return null;
     }
   }
 

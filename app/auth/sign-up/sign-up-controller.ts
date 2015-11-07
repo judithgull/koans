@@ -6,11 +6,12 @@ module signUp.SignUpCtrl {
 
     public static $inject = ['AuthService'];
 
-    constructor(authService:auth.IAuthService, public user:app.IUser) {
+    constructor(private authService:auth.IAuthService, public user:app.IUser) {
       this.user = new app.User();
     }
 
     submit = () => {
+      this.authService.submitUser(this.user);
       console.log(this.user);
     }
   }
