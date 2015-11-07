@@ -12,7 +12,6 @@ module signUp.SignUpCtrl {
 
     submit = () => {
       this.authService.submitUser(this.user);
-      console.log(this.user);
     }
   }
 
