@@ -5,7 +5,7 @@
     "test": "gulp test"
   },
   "dependencies": {
-    "bcrypt": "^0.8.5",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "gulp-exec": "^2.1.2",
