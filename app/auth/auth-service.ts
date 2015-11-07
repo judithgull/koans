@@ -19,8 +19,8 @@ module auth {
     }
 
     submitUser = (user:app.IUser):ng.IPromise<string> => {
-      return this.$q.resolve(this.$http.post(USERS_URL, user).then(
-        (response) => response.data));
+      return this.$q.when(this.$http.post(USERS_URL, user).then(
+        (response) => response.data['token']));
     }
 
   }

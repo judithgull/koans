@@ -22,7 +22,7 @@ module auth {
 
       it('should store a user', () => {
         $httpBackend.expectPOST(auth.USERS_URL);
-        $httpBackend.whenPOST(auth.USERS_URL).respond(testToken);
+        $httpBackend.whenPOST(auth.USERS_URL).respond({token: testToken});
         var result:ng.IPromise<string> = service.submitUser(user);
         result.then((token) => {
           expect(token).toEqual(testToken);
