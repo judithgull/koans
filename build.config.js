@@ -10,7 +10,6 @@ module.exports = {
   appDir: 'app',
   //node app file
   appNodeDir:'app-node',
-  server: 'app-node/app.js',
 
   //patches for external libraries
   libDir: 'lib',
@@ -25,16 +24,18 @@ module.exports = {
 
   // build directories
   buildDir: outDir + 'app/',
+  buildNodeDir: outDir + 'app-node/',
   buildCss: outDir + 'app/css/',
   buildFonts: outDir + 'app/fonts/',
   buildImages: outDir + 'app/images/',
   buildJs: outDir + 'app/js/',
-  buildNodeJs: outDir + 'app-node/js/',
+  buildNodeJs: outDir + 'app-node/',
   buildData: outDir + 'app/data/',
   extDir: outDir + 'app/vendor/',
   extAceDir: outDir + "app/vendor/ace-builds/src-min-noconflict",
   extCss: outDir + 'app/vendor/css/',
   extFonts: outDir + 'app/vendor/fonts/',
   extJs: outDir + 'app/vendor/js/',
-  extTs: outDir + 'app/typescripts/'
+  extTs: outDir + 'app/typescripts/',
+  server: outDir + 'app-node/app.js'
 };
