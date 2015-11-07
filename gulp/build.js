@@ -9,8 +9,12 @@ module.exports = function (gulp, $, config) {
   var isProd = $.yargs.argv.stage === 'prod';
 
   // delete build directory
-  gulp.task('clean', function (cb) {
+  gulp.task('clean', ['clean-node'], function (cb) {
     return $.del(config.buildDir, cb);
+  });
+
+  gulp.task('clean-node', function (cb) {
+    return $.del(config.buildNodeDir, cb);
   });
 
   // compile markup files and copy into build directory
@@ -75,8 +79,7 @@ module.exports = function (gulp, $, config) {
   });
 
   gulp.task('node-scripts', function () {
-    var jsFilter = $.filter('**/*.js')
-      , tsFilter = $.filter('**/*.ts');
+    var tsFilter = $.filter('**/*.ts');
 
     return gulp.src([
         config.appNodeScriptFiles
@@ -87,7 +90,6 @@ module.exports = function (gulp, $, config) {
       .pipe(tsFilter.restore())
       .pipe($.sourcemaps.write('.'))
       .pipe(gulp.dest(config.buildNodeJs))
-      .pipe(jsFilter.restore());
   });
 
   // compile scripts and copy into build directory
