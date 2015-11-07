@@ -11,15 +11,16 @@ module auth {
   class AuthService implements IAuthService {
 
     public static $inject = [
-      '$http'
+      '$http',
+      '$q'
     ];
 
-    constructor(private $http:ng.IHttpService) {
+    constructor(private $http:ng.IHttpService, private $q:ng.IQService) {
     }
 
     submitUser = (user:app.IUser):ng.IPromise<string> => {
-      return this.$http.post(USERS_URL, user)
-        .error(e => console.log(e));
+      return this.$q.resolve(this.$http.post(USERS_URL, user).then(
+        (response) => response.data));
     }
 
   }
