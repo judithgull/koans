@@ -10,6 +10,7 @@
     "express": "^4.13.3",
     "gulp-exec": "^2.1.2",
     "gulp-run": "^1.6.11",
+    "jwt-simple": "^0.3.1",
     "method-override": "^2.3.5",
     "mongodb": "^2.0.45",
     "mongoose": "^4.1.9",
