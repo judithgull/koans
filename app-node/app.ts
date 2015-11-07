@@ -35,6 +35,7 @@ module server {
    */
 
   app.use("/topics", require('./topic/topic-routes.js'));
+  app.use("/users", require('./user/user-routes.js'));
 
   /**
    * Start Server
