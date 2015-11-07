@@ -17,7 +17,12 @@ module.exports = function (gulp, $, config) {
 
   gulp.task('buildTests', ['lint', 'clean:test', 'build'], function () {
     var testFilter = gulpFilter('**/*_test.js');
-    return gulp.src([config.unitTestFiles, config.appScriptFiles])
+    return gulp.src([
+      config.unitTestFiles,
+      config.appScriptFiles,
+      config.appNodeScriptFiles,
+      config.nodeUnitTestFiles
+    ])
       .pipe($.typescript(config.tsProject))
       .pipe(testFilter)
       .pipe(gulp.dest(config.buildUnitTestsDir));
