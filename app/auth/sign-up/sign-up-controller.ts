@@ -4,12 +4,14 @@ module signUp.SignUpCtrl {
 
   export class SignUpCtrl {
 
-    public static $inject = [
-    ];
+    public static $inject = ['AuthService'];
 
-    // dependencies are injected via AngularJS $injector
-    constructor(public user:app.IUser) {
+    constructor(authService:auth.IAuthService, public user:app.IUser) {
       this.user = new app.User();
+    }
+
+    submit = () => {
+      console.log(this.user);
     }
   }
 
