@@ -14,7 +14,6 @@ module signUp.SignUpCtrl {
 
       var mockAuthService:auth.IAuthService = {
         submitUser: submitUserSpy,
-        setToken: () => {},
         getToken: () => '',
         logout: () => {}
       };

@@ -5,7 +5,7 @@ module auth {
   'use strict';
 
   describe('AuthService', () => {
-    var service:IAuthService;
+    var service:AuthService;
     var $httpBackend:ng.IHttpBackendService;
     var testToken = 'testToken';
 

@@ -6,12 +6,11 @@ module auth {
 
   export interface IAuthService {
     submitUser(user:app.IUser):ng.IPromise<void>;
-    setToken(token:string):void;
     getToken():string;
     logout():void;
   }
 
-  class AuthService implements IAuthService {
+  export class AuthService implements IAuthService {
     private authTokenKey = 'authToken';
     public static $inject = [
       '$http',
