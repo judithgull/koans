@@ -9,9 +9,11 @@ module auth {
     getToken():string;
     logout():void;
     isLoggedIn():boolean;
+    login(email:string, password:string):ng.IPromise<void>;
   }
 
   export class AuthService implements IAuthService {
+
     private authTokenKey = 'authToken';
     public static $inject = [
       '$http',
@@ -43,6 +45,10 @@ module auth {
     logout = () => localStorage.removeItem(this.authTokenKey);
 
     isLoggedIn = () => !!this.getToken();
+
+    login = (email:string, password:string):angular.IPromise<void> => {
+       return null;
+    }
   }
 
   /**
