@@ -16,28 +16,28 @@ module auth {
       $httpBackend = $injector.get('$httpBackend');
     }));
 
+    it('should set a token', () => {
+      service.setToken(testToken);
+      var savedToken = service.getToken();
+      expect(savedToken).toEqual(testToken);
+    });
+
     describe("createUser", () => {
 
       var user = new app.User('testName', 'testEmail', 'testPwd');
 
       it('should store a user', () => {
         $httpBackend.expectPOST(auth.USERS_URL);
-        $httpBackend.whenPOST(auth.USERS_URL).respond({token: testToken});
-        var result:ng.IPromise<string> = service.submitUser(user);
-        result.then((token) => {
-          expect(token).toEqual(testToken);
-        });
+        $httpBackend.whenPOST(auth.USERS_URL).respond({token: 'testToken'});
+        service.submitUser(user);
 
         $httpBackend.flush();
+        var savedToken = service.getToken();
+        expect(savedToken).toEqual(testToken);
 
       });
     });
 
-    it('should set a token', () => {
-      service.setToken(testToken);
-      var savedToken = service.getToken();
-      expect(savedToken).toEqual(testToken);
-    });
 
   });
 }

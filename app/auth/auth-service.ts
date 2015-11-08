@@ -5,7 +5,7 @@ module auth {
   export const USERS_URL = '/users/';
 
   export interface IAuthService {
-    submitUser(user:app.IUser):ng.IPromise<string>;
+    submitUser(user:app.IUser):ng.IPromise<void>;
     setToken(token:string):void;
     getToken():string;
   }
@@ -20,9 +20,19 @@ module auth {
     constructor(private $http:ng.IHttpService, private $q:ng.IQService) {
     }
 
-    submitUser = (user:app.IUser):ng.IPromise<string> => {
+    submitUser = (user:app.IUser):ng.IPromise<void> => {
       return this.$q.when(this.$http.post(USERS_URL, user).then(
-        (response) => response.data['token']));
+          (response) => {
+            var token = response.data['token'];
+            if (token) {
+              this.setToken(token);
+            } else {
+              console.log('no token received');
+            }
+          }
+        )
+      );
+
     };
 
     setToken = (token:string) => localStorage.setItem(this.authTokenKey, token);
