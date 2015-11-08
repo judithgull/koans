@@ -3,7 +3,7 @@
     .header
       a(ng-hide='header.isLoggedIn' ui-sref='main.login').button Login
       a(ng-hide='header.isLoggedIn' ui-sref='main.signUp').button Sign up
-      a(ng-show='header.isLoggedIn' ui-sref='main.home').button Logout
+      a(ng-show='header.isLoggedIn' ng-click='header.logout()').button Logout
       a(ui-sref='main.editTopic()').button New
 
     div(ui-view="")

@@ -28,5 +28,17 @@ describe('HeaderCtrl', function () {
     expect(ctrl.isLoggedIn).toBe(true);
   });
 
+  it('should be logged out, if user is logged out', () => {
+    var logoutSpy = sinon.spy();
+    var authService = {
+      isLoggedIn: () => true,
+      logout: logoutSpy
+    };
+    var ctrl = $ctrl('HeaderCtrl', {AuthService: authService});
+    ctrl.logout();
+    expect(ctrl.isLoggedIn).toBe(false);
+    sinon.assert.calledOnce(logoutSpy);
+  });
+
 
 });

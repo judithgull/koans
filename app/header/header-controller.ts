@@ -8,8 +8,13 @@ module HeaderCtrl {
 
     public static $inject = ['AuthService'];
 
-    constructor(authService: IAuthService) {
+    constructor(private authService: IAuthService) {
       this.isLoggedIn = authService.isLoggedIn();
+    }
+
+    logout = () => {
+      this.authService.logout();
+      this.isLoggedIn = false;
     }
   }
 
