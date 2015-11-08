@@ -1,19 +1,23 @@
 ///<reference path='../../../typings/tsd.d.ts' />
 
-/* global describe, beforeEach, it, expect, inject, module */
-'use strict';
+module auth.login {
 
-describe('LoginCtrl', function () {
-  var ctrl;
+  /* global describe, beforeEach, it, expect, inject, module */
+  'use strict';
 
-  beforeEach(angular.mock.module('auth.login'));
+  describe('LoginCtrl', function () {
+    var ctrl:LoginCtrl;
 
-  beforeEach(inject(function ($rootScope, $controller) {
-    ctrl = $controller('LoginCtrl');
-  }));
+    beforeEach(angular.mock.module('auth.login'));
 
-  it('should have ctrlName as LoginCtrl', function () {
-    expect(ctrl.ctrlName).toEqual('LoginCtrl');
+    beforeEach(inject(function ($rootScope, $controller) {
+      ctrl = $controller('LoginCtrl');
+    }));
+
+    it('should have an empty email and empty password initially', ()  => {
+      expect(ctrl.email).toBe(null);
+      expect(ctrl.password).toBe(null);
+    });
+
   });
-
-});
+}
