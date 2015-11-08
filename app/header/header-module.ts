@@ -9,6 +9,7 @@ module header {
   */
   angular
     .module('header', [
-      'ui.router'
+      'ui.router',
+      'auth'
     ]);
 }
