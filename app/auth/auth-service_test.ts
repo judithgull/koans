@@ -35,10 +35,10 @@ module auth {
       it('should store a user', () => {
         $httpBackend.expectPOST(auth.USERS_URL);
         $httpBackend.whenPOST(auth.USERS_URL).respond({token: 'testToken'});
-        service.signUp(user);
-
+        var res = service.signUp(user);
         $httpBackend.flush();
         var savedToken = service.getToken();
+        expect(res).toBeDefined();
         expect(savedToken).toEqual(testToken);
         expect(service.isLoggedIn()).toBe(true);
       });
