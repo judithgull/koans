@@ -8,9 +8,14 @@ module auth.login {
     password: string = null;
 
     public static $inject = [
+      'AuthService'
     ];
 
-    constructor() {
+    constructor(private authService: IAuthService) {
+    }
+
+    submit = () => {
+      this.authService.login(this.email, this.password);
     }
   }
 
