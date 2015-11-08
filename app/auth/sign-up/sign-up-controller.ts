@@ -3,15 +3,16 @@ module signUp.SignUpCtrl {
   'use strict';
 
   export class SignUpCtrl {
+    public static $inject = ['AuthService', '$state' ];
 
-    public static $inject = ['AuthService'];
-
-    constructor(private authService:auth.IAuthService, public user:app.IUser) {
+    constructor(private authService:auth.IAuthService, private $state:angular.ui.IStateService, public user: app.IUser) {
       this.user = new app.User();
     }
 
     submit = () => {
-      this.authService.signUp(this.user);
+      this.authService.signUp(this.user).then(
+        ()=> this.$state.go('main.home', {}, { reload: true })
+      );
     }
   }
 

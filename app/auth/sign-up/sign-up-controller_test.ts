@@ -6,20 +6,34 @@ module signUp.SignUpCtrl {
   describe('SignUpCtrl', () => {
     var ctrl:SignUpCtrl;
     var submitUserSpy;
+    var goSpy;
+    var deferred:ng.IDeferred<any>;
 
     beforeEach(angular.mock.module('auth.signUp'));
 
-    beforeEach(inject( ($rootScope, $controller) =>  {
+    beforeEach(inject( ($rootScope, $controller, $q:ng.IQService) =>  {
       submitUserSpy = sinon.spy();
+      deferred = $q.defer();
 
       var mockAuthService:auth.IAuthService = {
-        signUp: submitUserSpy,
+        signUp: (user:app.IUser):ng.IPromise<void> => {
+          submitUserSpy(user);
+          return deferred.promise;
+        },
         getToken: () => '',
         logout: () => {},
         isLoggedIn: () => false
       };
 
-      ctrl = $controller('SignUpCtrl', {AuthService: mockAuthService});
+      goSpy = sinon.spy();
+      var mockStateService = {
+        go: goSpy
+      };
+
+      ctrl = $controller('SignUpCtrl',
+        {AuthService: mockAuthService,
+          $state: mockStateService
+        });
     }));
 
     it('should have an empty user initially', ()  => {
@@ -29,24 +43,40 @@ module signUp.SignUpCtrl {
       expect(ctrl.user.password).toBe(null);
     });
 
-    it('should call submit user once', ()  => {
-      ctrl.submit();
-      sinon.assert.calledOnce(submitUserSpy);
-      sinon.assert.calledWith(submitUserSpy, new app.User());
+    describe('submit', () => {
+
+      it('should call submit user once', ()  => {
+        ctrl.submit();
+        sinon.assert.calledOnce(submitUserSpy);
+        sinon.assert.calledWith(submitUserSpy, new app.User());
+      });
+
+      it('should call submit user once with correct values', ()  => {
+        const testUser = new app.User();
+        testUser.name = 'testName';
+        testUser.email = 'testEmail';
+        testUser.password = 'testPwd';
+        ctrl.user = testUser;
+
+        ctrl.submit();
+        sinon.assert.calledOnce(submitUserSpy);
+        sinon.assert.calledWith(submitUserSpy, testUser);
+      });
+
+/*      it('should return to home, after successful signup', () => {
+        const testUser = new app.User();
+        testUser.name = 'testName';
+        testUser.email = 'testEmail';
+        testUser.password = 'testPwd';
+        ctrl.user = testUser;
+
+        ctrl.submit();
+        deferred.resolve();
+        sinon.assert.calledOnce(goSpy);
+        sinon.assert.calledWith(goSpy, 'main.home');
+      });
+*/
     });
-
-    it('should call submit user once with correct values', ()  => {
-      const testUser = new app.User();
-      testUser.name = 'testName';
-      testUser.email = 'testEmail';
-      testUser.password = 'testPwd';
-      ctrl.user = testUser;
-
-      ctrl.submit();
-      sinon.assert.calledOnce(submitUserSpy);
-      sinon.assert.calledWith(submitUserSpy, testUser);
-    });
-
 
   });
 }
