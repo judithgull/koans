@@ -1,8 +1,10 @@
 import express = require('express');
 
 module server {
+  var bcrypt = require("bcrypt-nodejs");
   var router = express.Router();
-  var userCtrl = require('./user-controller.js');
+  var userCtrlModule = require('./user-controller.js');
+  var userCtrl = new userCtrlModule.UserController(bcrypt);
 
   router.post("/", userCtrl.postUser);
 

@@ -1,38 +1,46 @@
-import url = require("url");
-var bcrypt = require("bcrypt-nodejs");
 var jwt = require("jwt-simple");
 var User = require("./user-model.js");
 var secret = 'veryBigSecret...';
 
-export var postUser = (req, res) => {
-  res.format({
-    "application/json": function (req, res) {
+export class UserController {
 
-      var body = req.body;
-      console.log(body);
+  constructor(private bcrypt){
+  }
 
-      bcrypt.hash(body.password, null, null, function(err, hash) {
-        var user = new User();
-        user.name = body.name;
-        user.email = body.email;
-        user.password = hash;
+  saveUser = (name:string, email:string, pwd:string, user, error:Function, success:Function) => {
+    this.bcrypt.hash(pwd, null, null, function (err, hash) {
 
-        user.save(function(err){
-          if (err) {
+      user.name = name;
+      user.email = email;
+      user.password = hash;
+
+      user.save(function (err) {
+        if (err) {
+          error(err);
+        } else {
+          var payload = {
+            sub: user._id
+          };
+          var token = jwt.encode(payload, secret);
+          success(token);
+        }
+      });
+    });
+  };
+
+  postUser = (req, res) => {
+    res.format({
+      "application/json":  (req, res) => {
+        var body = req.body;
+        this.saveUser(body.name, body.email, body.password, new User(),
+          (err) => {
             console.log(err);
             res.send(err);
-          }else {
-            var payload = {
-              iss: req.hostname,
-              sub: user._id
-            };
-            var token = jwt.encode(payload, secret);
-            res.status(200).send({token:token});
-          }
-        });
+          }, (token) => {
+            res.status(200).send({token: token})
+          });
 
-      });
-
-    }
-  });
-};
+      }
+    });
+  };
+}
