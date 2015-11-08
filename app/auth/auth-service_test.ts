@@ -4,9 +4,10 @@ module auth {
   /* global describe, beforeEach, it, expect, inject, module */
   'use strict';
 
-  describe('Auth', () => {
+  describe('AuthService', () => {
     var service:IAuthService;
     var $httpBackend:ng.IHttpBackendService;
+    var testToken = 'testToken';
 
     beforeEach(angular.mock.module('auth'));
 
@@ -17,7 +18,6 @@ module auth {
 
     describe("createUser", () => {
 
-      var testToken = 'testToken';
       var user = new app.User('testName', 'testEmail', 'testPwd');
 
       it('should store a user', () => {
@@ -33,6 +33,11 @@ module auth {
       });
     });
 
+    it('should set a token', () => {
+      service.setToken(testToken);
+      var savedToken = service.getToken();
+      expect(savedToken).toEqual(testToken);
+    });
 
   });
 }

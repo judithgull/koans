@@ -13,7 +13,9 @@ module signUp.SignUpCtrl {
       submitUserSpy = sinon.spy();
 
       var mockAuthService:auth.IAuthService = {
-        submitUser: submitUserSpy
+        submitUser: submitUserSpy,
+        setToken: () => {},
+        getToken: () => ''
       };
 
       ctrl = $controller('SignUpCtrl', {AuthService: mockAuthService});
