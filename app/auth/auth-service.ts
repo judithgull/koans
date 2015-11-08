@@ -8,6 +8,7 @@ module auth {
     submitUser(user:app.IUser):ng.IPromise<void>;
     setToken(token:string):void;
     getToken():string;
+    removeToken():void;
   }
 
   class AuthService implements IAuthService {
@@ -38,6 +39,8 @@ module auth {
     setToken = (token:string) => localStorage.setItem(this.authTokenKey, token);
 
     getToken = () => localStorage.getItem(this.authTokenKey);
+
+    removeToken = () => localStorage.removeItem(this.authTokenKey);
   }
 
   /**

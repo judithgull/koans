@@ -16,10 +16,21 @@ module auth {
       $httpBackend = $injector.get('$httpBackend');
     }));
 
+    afterEach(() => {
+      service.removeToken();
+    });
+
     it('should set a token', () => {
       service.setToken(testToken);
       var savedToken = service.getToken();
       expect(savedToken).toEqual(testToken);
+    });
+
+    it('should remove a token', () => {
+      service.setToken(testToken);
+      service.removeToken();
+      var token = service.getToken();
+      expect(token).toBeNull();
     });
 
     describe("createUser", () => {
