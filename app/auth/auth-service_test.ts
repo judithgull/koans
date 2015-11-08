@@ -17,18 +17,12 @@ module auth {
     }));
 
     afterEach(() => {
-      service.removeToken();
+      service.logout();
     });
 
-    it('should set a token', () => {
+    it('should logout', () => {
       service.setToken(testToken);
-      var savedToken = service.getToken();
-      expect(savedToken).toEqual(testToken);
-    });
-
-    it('should remove a token', () => {
-      service.setToken(testToken);
-      service.removeToken();
+      service.logout();
       var token = service.getToken();
       expect(token).toBeNull();
     });

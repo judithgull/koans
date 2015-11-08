@@ -16,7 +16,7 @@ module signUp.SignUpCtrl {
         submitUser: submitUserSpy,
         setToken: () => {},
         getToken: () => '',
-        removeToken: () => {}
+        logout: () => {}
       };
 
       ctrl = $controller('SignUpCtrl', {AuthService: mockAuthService});
