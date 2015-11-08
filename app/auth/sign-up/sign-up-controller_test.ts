@@ -13,7 +13,7 @@ module signUp.SignUpCtrl {
       submitUserSpy = sinon.spy();
 
       var mockAuthService:auth.IAuthService = {
-        submitUser: submitUserSpy,
+        signUp: submitUserSpy,
         getToken: () => '',
         logout: () => {}
       };

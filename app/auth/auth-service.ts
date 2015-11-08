@@ -5,7 +5,7 @@ module auth {
   export const USERS_URL = '/users/';
 
   export interface IAuthService {
-    submitUser(user:app.IUser):ng.IPromise<void>;
+    signUp(user:app.IUser):ng.IPromise<void>;
     getToken():string;
     logout():void;
   }
@@ -20,7 +20,7 @@ module auth {
     constructor(private $http:ng.IHttpService, private $q:ng.IQService) {
     }
 
-    submitUser = (user:app.IUser):ng.IPromise<void> => {
+    signUp = (user:app.IUser):ng.IPromise<void> => {
       return this.$q.when(this.$http.post(USERS_URL, user).then(
           (response) => {
             var token = response.data['token'];

@@ -11,7 +11,7 @@ module signUp.SignUpCtrl {
     }
 
     submit = () => {
-      this.authService.submitUser(this.user);
+      this.authService.signUp(this.user);
     }
   }
 

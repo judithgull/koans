@@ -34,7 +34,7 @@ module auth {
       it('should store a user', () => {
         $httpBackend.expectPOST(auth.USERS_URL);
         $httpBackend.whenPOST(auth.USERS_URL).respond({token: 'testToken'});
-        service.submitUser(user);
+        service.signUp(user);
 
         $httpBackend.flush();
         var savedToken = service.getToken();
