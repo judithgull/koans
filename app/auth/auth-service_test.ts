@@ -25,6 +25,7 @@ module auth {
       service.logout();
       var token = service.getToken();
       expect(token).toBeNull();
+      expect(service.isLoggedIn()).toBe(false);
     });
 
     describe("createUser", () => {
@@ -39,7 +40,7 @@ module auth {
         $httpBackend.flush();
         var savedToken = service.getToken();
         expect(savedToken).toEqual(testToken);
-
+        expect(service.isLoggedIn()).toBe(true);
       });
     });
 

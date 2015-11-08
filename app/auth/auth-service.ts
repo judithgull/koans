@@ -8,6 +8,7 @@ module auth {
     signUp(user:app.IUser):ng.IPromise<void>;
     getToken():string;
     logout():void;
+    isLoggedIn():boolean;
   }
 
   export class AuthService implements IAuthService {
@@ -40,6 +41,8 @@ module auth {
     getToken = () => localStorage.getItem(this.authTokenKey);
 
     logout = () => localStorage.removeItem(this.authTokenKey);
+
+    isLoggedIn = () => !!this.getToken();
   }
 
   /**
