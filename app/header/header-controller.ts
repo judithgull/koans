@@ -1,13 +1,15 @@
 module HeaderCtrl {
+  import IAuthService = auth.IAuthService;
   'use strict';
 
   class HeaderCtrl {
 
-    public static $inject = [
-    ];
+    private isLoggedIn:boolean;
 
-    // dependencies are injected via AngularJS $injector
-    constructor() {
+    public static $inject = ['AuthService'];
+
+    constructor(authService: IAuthService) {
+      this.isLoggedIn = authService.isLoggedIn();
     }
   }
 
