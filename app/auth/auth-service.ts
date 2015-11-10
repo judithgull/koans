@@ -3,6 +3,7 @@ module auth {
   'use strict';
 
   export const USERS_URL = '/users/';
+  export const LOGIN_URL = '/login/';
 
   export interface IAuthService {
     signUp(user:app.IUser):ng.IPromise<void>;
@@ -24,16 +25,8 @@ module auth {
     }
 
     signUp = (user:app.IUser):ng.IPromise<void> => {
-      return this.$q.when(this.$http.post(USERS_URL, user).then(
-          (response) => {
-            var token = response.data['token'];
-            if (token) {
-              this.setToken(token);
-            } else {
-              console.log('no token received');
-            }
-          }
-        )
+      return this.$q.when(this.$http.post(USERS_URL, user)
+        .then(this.saveToken)
       );
 
     };
@@ -47,7 +40,19 @@ module auth {
     isLoggedIn = () => !!this.getToken();
 
     login = (email:string, password:string):angular.IPromise<void> => {
-       return null;
+      return this.$q.when(this.$http.post(LOGIN_URL,
+        {email: email, password: password})
+        .then(this.saveToken)
+      );
+    };
+
+    private saveToken = (response) => {
+      var token = response.data['token'];
+      if (token) {
+        this.setToken(token);
+      } else {
+        console.log('no token received');
+      }
     }
   }
 

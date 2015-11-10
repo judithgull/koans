@@ -8,6 +8,7 @@ module auth {
     var service:AuthService;
     var $httpBackend:ng.IHttpBackendService;
     var testToken = 'testToken';
+    var user = new app.User('testName', 'testEmail', 'testPwd');
 
     beforeEach(angular.mock.module('auth'));
 
@@ -28,20 +29,37 @@ module auth {
       expect(service.isLoggedIn()).toBe(false);
     });
 
-    describe("createUser", () => {
 
-      var user = new app.User('testName', 'testEmail', 'testPwd');
+    describe("successful signUp and login", () => {
 
-      it('should store a user', () => {
-        $httpBackend.expectPOST(auth.USERS_URL);
-        $httpBackend.whenPOST(auth.USERS_URL).respond({token: 'testToken'});
-        var res = service.signUp(user);
-        $httpBackend.flush();
+      var respondTokenWhenPost = (url:string) =>{
+        $httpBackend.expectPOST(url);
+        $httpBackend.whenPOST(url).respond({token: testToken});
+      };
+
+      var expectLoggedIn = () => {
         var savedToken = service.getToken();
-        expect(res).toBeDefined();
         expect(savedToken).toEqual(testToken);
         expect(service.isLoggedIn()).toBe(true);
+      };
+
+      it('should store a user and receive a token', () => {
+        respondTokenWhenPost(auth.USERS_URL);
+        var res = service.signUp(user);
+        $httpBackend.flush();
+        expect(res).toBeDefined();
+        expectLoggedIn();
       });
+
+      it('successful login should receive and store a token', () => {
+        respondTokenWhenPost(auth.LOGIN_URL);
+        var res = service.login(user.email, user.password);
+        $httpBackend.flush();
+        expect(res).toBeDefined();
+        expectLoggedIn();
+      });
+
+
     });
 
 
