@@ -7,7 +7,6 @@ module auth {
 
   export interface IAuthService {
     signUp(user:app.IUser):ng.IPromise<void>;
-    getToken():string;
     logout():void;
     isLoggedIn():boolean;
     login(email:string, password:string):ng.IPromise<void>;
@@ -15,13 +14,16 @@ module auth {
 
   export class AuthService implements IAuthService {
 
-    private authTokenKey = 'authToken';
     public static $inject = [
       '$http',
-      '$q'
+      '$q',
+      'TokenStorageService'
     ];
 
-    constructor(private $http:ng.IHttpService, private $q:ng.IQService) {
+    constructor(
+      private $http:ng.IHttpService,
+      private $q:ng.IQService,
+      private tokenStorage:token.TokenStorage) {
     }
 
     signUp = (user:app.IUser):ng.IPromise<void> => {
@@ -31,13 +33,9 @@ module auth {
 
     };
 
-    setToken = (token:string) => localStorage.setItem(this.authTokenKey, token);
+    logout = () => this.tokenStorage.clear();
 
-    getToken = () => localStorage.getItem(this.authTokenKey);
-
-    logout = () => localStorage.removeItem(this.authTokenKey);
-
-    isLoggedIn = () => !!this.getToken();
+    isLoggedIn = () => !!this.tokenStorage.get();
 
     login = (email:string, password:string):angular.IPromise<void> => {
       return this.$q.when(this.$http.post(LOGIN_URL,
@@ -49,7 +47,7 @@ module auth {
     private saveToken = (response) => {
       var token = response.data['token'];
       if (token) {
-        this.setToken(token);
+        this.tokenStorage.set(token);
       } else {
         console.log('no token received');
       }
