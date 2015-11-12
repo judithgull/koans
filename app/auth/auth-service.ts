@@ -17,7 +17,7 @@ module auth {
     public static $inject = [
       '$http',
       '$q',
-      'TokenStorageService'
+      'TokenStorage'
     ];
 
     constructor(

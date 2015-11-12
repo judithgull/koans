@@ -18,7 +18,6 @@ module auth.login {
 
       var mockAuthService:auth.IAuthService = {
         signUp: (user:app.IUser):ng.IPromise<void> => { return null;},
-        getToken: () => '',
         logout: () => {},
         isLoggedIn: () => false,
         login: loginSpy

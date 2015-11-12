@@ -20,7 +20,6 @@ module signUp.SignUpCtrl {
           submitUserSpy(user);
           return deferred.promise;
         },
-        getToken: () => '',
         logout: () => {},
         isLoggedIn: () => false,
         login: (email, password) => {return null;}

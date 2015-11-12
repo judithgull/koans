@@ -20,5 +20,5 @@ module auth.token {
    */
   angular
     .module('auth')
-    .service('TokenStorageService', TokenStorage);
+    .service('TokenStorage', TokenStorage);
 }

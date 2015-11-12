@@ -2,14 +2,14 @@ module auth.token {
   /* global describe, beforeEach, it, expect, inject, module */
   'use strict';
 
-  describe('TokenStorageService', () => {
+  describe('TokenStorage', () => {
     var service:TokenStorage;
     var testToken = 'blubbr';
 
     beforeEach(angular.mock.module('auth'));
 
-    beforeEach(inject((TokenStorageService) => {
-      service = TokenStorageService;
+    beforeEach(inject((TokenStorage) => {
+      service = TokenStorage;
     }));
 
     afterEach(()=>{
