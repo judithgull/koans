@@ -34,6 +34,13 @@ module.exports.getTopic = function (req, res) {
 };
 
 module.exports.postTopic = function (req, res) {
+  if(!req.header || !req.header.authorization){
+    res.status(401).send({message: 'Login Required!'});
+  }
+  var token = req.headers.authorization.split(' ')[1];
+
+
+
   res.format({
     "application/json": function (req, res) {
 
