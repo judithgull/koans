@@ -34,6 +34,7 @@ mongoose.connect('mongodb://localhost:27017/koans');
 
 serverApp.use("/topics", require('./topic/topic-routes.js'));
 serverApp.use("/users", require('./user/user-routes.js'));
+serverApp.use("/login", require('./login/login-routes.js'));
 
 /**
  * Start Server
