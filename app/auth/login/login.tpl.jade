@@ -11,5 +11,7 @@ form(ng-submit='login.submit()' name='loginForm')
   div(ng-messages="loginForm.password.$error")
     p(ng-message="required").t-paragraph Please enter a Password!
 
+  p {{login.error}}
+
   button.button(type='submit' ng-disabled='loginForm.$invalid') Submit
   a.button(ui-sref='main.home') Cancel

@@ -38,10 +38,17 @@ module auth {
     isLoggedIn = () => !!this.tokenStorage.get();
 
     login = (email:string, password:string):angular.IPromise<void> => {
-      return this.$q.when(this.$http.post(LOGIN_URL,
-        {email: email, password: password})
-        .then(this.saveToken)
+      var deferred:ng.IDeferred<void> = <ng.IDeferred<any>>this.$q.defer();
+      this.$q.when(this.$http.post(LOGIN_URL,
+          {email: email, password: password})
+          .then((response) => {
+            this.saveToken(response);
+            deferred.resolve();
+          }, (response) => {
+            deferred.reject(response.data.message);
+          })
       );
+      return deferred.promise;
     };
 
     private saveToken = (response) => {

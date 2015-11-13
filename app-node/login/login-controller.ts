@@ -8,14 +8,14 @@ export class LoginController {
   }
 
   login = (email:string, pwd:string, error:Function, success:Function) => {
-    console.log(pwd);
+    var loginError = 'The email and password do not match.';
 
     User.findOne({email: email}, (err, user) => {
       if (err) {
         console.log(err);
         error(err);
       } else if (!user) {
-        error('Login failed');
+        error(loginError);
       }
       else {
         this.bcrypt.compare(pwd, user.password, function (err, isValid) {
@@ -27,7 +27,7 @@ export class LoginController {
             var token = jwt.encode(payload, secret);
             success(token);
           } else {
-            error('Login failed');
+            error(loginError);
           }
         });
       }
@@ -41,7 +41,7 @@ export class LoginController {
         this.login(body.email, body.password,
           (err) => {
             console.log(err);
-            res.send(err);
+            res.status(401).send({message:err});
           }, (token) => {
             res.status(200).send({token: token})
           });
