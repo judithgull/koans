@@ -10,6 +10,11 @@ module auth {
     var testToken = 'testToken';
     var user = new app.User('testName', 'testEmail', 'testPwd');
 
+    var respondTokenWhenPost = (url:string) => {
+      $httpBackend.expectPOST(url);
+      $httpBackend.whenPOST(url).respond({token: testToken});
+    };
+
     beforeEach(angular.mock.module('auth'));
 
     beforeEach(inject((AuthService, $injector) => {
@@ -21,47 +26,29 @@ module auth {
       service.logout();
     });
 
+    it('successful signup should login', () => {
+      respondTokenWhenPost(auth.USERS_URL);
+      var res = service.signUp(user);
+      $httpBackend.flush();
+      expect(res).toBeDefined();
+      expect(service.isLoggedIn()).toBe(true);
+    });
+
+    it('successful login should login', () => {
+      respondTokenWhenPost(auth.LOGIN_URL);
+      var res = service.login(user.email, user.password);
+      $httpBackend.flush();
+      expect(res).toBeDefined();
+      expect(service.isLoggedIn()).toBe(true);
+    });
+
     it('should logout', () => {
-      service.setToken(testToken);
+      respondTokenWhenPost(auth.LOGIN_URL);
+      service.login(user.email, user.password);
+      $httpBackend.flush();
       service.logout();
-      var token = service.getToken();
-      expect(token).toBeNull();
       expect(service.isLoggedIn()).toBe(false);
     });
-
-
-    describe("successful signUp and login", () => {
-
-      var respondTokenWhenPost = (url:string) =>{
-        $httpBackend.expectPOST(url);
-        $httpBackend.whenPOST(url).respond({token: testToken});
-      };
-
-      var expectLoggedIn = () => {
-        var savedToken = service.getToken();
-        expect(savedToken).toEqual(testToken);
-        expect(service.isLoggedIn()).toBe(true);
-      };
-
-      it('should store a user and receive a token', () => {
-        respondTokenWhenPost(auth.USERS_URL);
-        var res = service.signUp(user);
-        $httpBackend.flush();
-        expect(res).toBeDefined();
-        expectLoggedIn();
-      });
-
-      it('successful login should receive and store a token', () => {
-        respondTokenWhenPost(auth.LOGIN_URL);
-        var res = service.login(user.email, user.password);
-        $httpBackend.flush();
-        expect(res).toBeDefined();
-        expectLoggedIn();
-      });
-
-
-    });
-
 
   });
 }
