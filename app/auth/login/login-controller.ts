@@ -8,14 +8,17 @@ module auth.login {
     password: string = null;
 
     public static $inject = [
-      'AuthService'
+      'AuthService',
+      '$state'
     ];
 
-    constructor(private authService: IAuthService) {
+    constructor(private authService: IAuthService, private $state:angular.ui.IStateService) {
     }
 
     submit = () => {
-      this.authService.login(this.email, this.password);
+      this.authService.login(this.email, this.password).then(
+        ()=> this.$state.go('main.home', {}, { reload: true })
+      );
     }
   }
 
