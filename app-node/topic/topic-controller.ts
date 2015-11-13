@@ -1,5 +1,7 @@
 var url = require("url");
 var Topic = require("./topic-model.js");
+var jwt = require("jwt-simple");
+var secret = 'veryBigSecret...';
 
 module.exports.getTopics = function (req, res) {
   res.format({
@@ -33,28 +35,33 @@ module.exports.getTopic = function (req, res) {
   });
 };
 
-module.exports.postTopic = function (req, res) {
-  if(!req.header || !req.header.authorization){
-    res.status(401).send({message: 'Login Required!'});
+var hasValidTocken = (req) => {
+  if(!req.headers || !req.headers.authorization){
+    return false;
   }
   var token = req.headers.authorization.split(' ')[1];
+  var decoded = jwt.decode(token, secret);
+  console.log(decoded);
+  return true;
+};
 
-
-
+module.exports.postTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
+      if(!hasValidTocken(req)){
+        res.status(401).send({message: 'Login Required!'});
+      }else {
+        var body = req.body;
+        var topic = new Topic();
+        topic.title = body.title;
+        topic.language = body.language;
+        topic.items = body.items;
 
-      var body = req.body;
-      var topic = new Topic();
-      topic.title = body.title;
-      topic.language = body.language;
-      topic.items = body.items;
-
-      topic.save(function(err){
-        if (err)
-          res.send(topic);
-      });
-
+        topic.save(function (err) {
+          if (err)
+            res.send(topic);
+        });
+      }
     }
   });
 };
