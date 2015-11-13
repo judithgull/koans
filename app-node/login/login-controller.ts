@@ -41,7 +41,7 @@ export class LoginController {
         this.login(body.email, body.password,
           (err) => {
             console.log(err);
-            res.send(err);
+            res.status(401).send({message:err});
           }, (token) => {
             res.status(200).send({token: token})
           });
