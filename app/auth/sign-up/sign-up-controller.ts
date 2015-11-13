@@ -4,6 +4,7 @@ module signUp.SignUpCtrl {
 
   export class SignUpCtrl {
     public static $inject = ['AuthService', '$state' ];
+    duplicatedEmailError = null;
 
     constructor(private authService:auth.IAuthService, private $state:angular.ui.IStateService, public user: app.IUser) {
       this.user = new app.User();
@@ -11,7 +12,8 @@ module signUp.SignUpCtrl {
 
     submit = () => {
       this.authService.signUp(this.user).then(
-        ()=> this.$state.go('main.home', {}, { reload: true })
+        ()=> this.$state.go('main.home', {}, { reload: true }),
+        (error) => {this.duplicatedEmailError=error;}
       );
     }
   }

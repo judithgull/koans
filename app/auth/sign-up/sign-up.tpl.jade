@@ -10,6 +10,7 @@ form(ng-submit='signUp.submit()' name='signUpForm')
     p(ng-message="required").t-paragraph Please enter an E-mail!
     p(ng-message="email").t-paragraph Please enter a valid E-mail!
 
+  p {{signUp.duplicatedEmailError}}
   label(for='password').label.t-label  Password
   input.input(id='password' name='password' type='password' ng-model='signUp.user.password' ng-minlength='6' ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" required='')
   div(ng-messages="signUpForm.password.$error")

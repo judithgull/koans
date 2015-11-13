@@ -27,9 +27,19 @@ module auth {
     }
 
     signUp = (user:app.IUser):ng.IPromise<void> => {
-      return this.$q.when(this.$http.post(USERS_URL, user)
-        .then(this.saveToken)
+
+      var deferred:ng.IDeferred<void> = <ng.IDeferred<any>>this.$q.defer();
+      this.$q.when(this.$http.post(USERS_URL, user)
+          .then((response) => {
+            this.saveToken(response);
+            deferred.resolve();
+          }, (response) => {
+            console.log('reject');
+            console.log(response.data.message);
+            deferred.reject(response.data.message);
+          })
       );
+      return deferred.promise;
 
     };
 
