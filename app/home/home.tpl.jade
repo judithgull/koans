@@ -4,3 +4,4 @@
       h1.t-title {{topic.title}}
       p.t-paragraph {{topic.language}}
     button(name='delete' ng-click='home.deleteTopic(topic._id, $index)' ng-show='home.equalsUser(topic.authorId)').button Delete
+    button(name='edit' ui-sref='main.editTopic({id:topic._id})' ng-show='home.equalsUser(topic.authorId)').button Edit
