@@ -3,3 +3,4 @@
     a(ui-sref='main.topic.exercise.details({topicId:topic._id})').topic-item.t-link
       h1.t-title {{topic.title}}
       p.t-paragraph {{topic.language}}
+    button(name='delete' ng-click='home.deleteTopic(topic._id, $index)' ng-show='header.isLoggedIn').button Delete

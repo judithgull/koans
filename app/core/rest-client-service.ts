@@ -10,6 +10,7 @@ module RestClient {
     getLibs(names:string[]):ng.IPromise<Array<Data.ILibrary>>;
     getTopics():ng.IPromise<Array<Data.ITopic>>;
     createTopic(topic: Data.ITopic);
+    deleteTopic(id:number): ng.IPromise<Data.ITopic>;
   }
 
   class RestClient implements IRestClient{
@@ -52,6 +53,22 @@ module RestClient {
     createTopic(topic: Data.ITopic) {
       this.$http.post(TOPICS_URL,topic)
         .error(e => console.log(e));
+    }
+
+    deleteTopic(id:number):ng.IPromise<Data.ITopic> {
+      var deferred = this.$q.defer();
+
+      if (!this.topicData || this.topicData._id != id) {
+        this.$http.delete(TOPICS_URL + id).then(response => {
+          this.topicData = <Data.ITopic> response.data;
+          deferred.resolve(this.topicData);
+        }).catch(reason => {
+          deferred.reject(reason);
+        });
+      } else {
+        deferred.resolve(this.topicData);
+      }
+      return deferred.promise;
     }
 
     getExercise(topicId:number, exerciseId:number):ng.IPromise<Data.IExercise> {
