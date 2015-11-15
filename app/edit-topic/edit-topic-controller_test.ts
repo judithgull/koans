@@ -20,6 +20,7 @@ module editTopic {
       ctrl = $controller('EditTopicCtrl',
         {'RestClient': rc,
           'libs' : libs,
+           topic : new Topic(),
           '$scope': $rootScope});
       topic = ctrl.topic;
 

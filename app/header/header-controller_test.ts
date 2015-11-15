@@ -22,7 +22,8 @@ describe('HeaderCtrl', function () {
 
   it('should be logged in, if user is logged in', () => {
     var authService = {
-      isLoggedIn: () => true
+      isLoggedIn: () => true,
+      getLoggedInUser: () => {return {name:'testname'}}
     };
     var ctrl = $ctrl('HeaderCtrl', {AuthService: authService});
     expect(ctrl.isLoggedIn).toBe(true);
@@ -32,8 +33,10 @@ describe('HeaderCtrl', function () {
     var logoutSpy = sinon.spy();
     var authService = {
       isLoggedIn: () => true,
-      logout: logoutSpy
+      logout: logoutSpy,
+      getLoggedInUser: () => {return {name:'testname'}}
     };
+
     var ctrl = $ctrl('HeaderCtrl', {AuthService: authService});
     ctrl.logout();
     expect(ctrl.isLoggedIn).toBe(false);

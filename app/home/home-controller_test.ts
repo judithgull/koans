@@ -17,7 +17,14 @@ describe('Home Controller', () =>  {
       }
     };
 
-    ctrl = $controller('HomeCtrl', {RestClient: ds});
+    var authService = {
+      getLoggedInUser: () => {}
+    };
+
+    ctrl = $controller('HomeCtrl',
+      {RestClient: ds,
+       AuthService:authService
+      });
   }));
 
   it('should be defined', () => {
