@@ -9,10 +9,12 @@ module auth {
     signUp(user:app.IUser):ng.IPromise<void>;
     logout():void;
     isLoggedIn():boolean;
+    getLoggedInUser():app.IUser;
     login(email:string, password:string):ng.IPromise<void>;
   }
 
   export class AuthService implements IAuthService {
+    userKey = 'user';
 
     public static $inject = [
       '$http',
@@ -26,9 +28,14 @@ module auth {
       private tokenStorage:token.TokenStorage) {
     }
 
-    logout = () => this.tokenStorage.clear();
+    logout = () => {
+      this.tokenStorage.clear();
+      localStorage.removeItem(this.userKey);
+    };
 
     isLoggedIn = () => !!this.tokenStorage.get();
+
+    getLoggedInUser = () => JSON.parse(localStorage.getItem(this.userKey));
 
     login = (email:string, password:string):angular.IPromise<void> => {
       return this.handleTokenRequest(
@@ -47,7 +54,7 @@ module auth {
       this.$q.when(
         request
           .then((response) => {
-            this.saveToken(response);
+            this.saveLoginData(response);
             deferred.resolve();
           }, (response) => {
             deferred.reject(response.data.message);
@@ -57,12 +64,14 @@ module auth {
     };
 
 
-    private saveToken = (response) => {
+    private saveLoginData = (response) => {
       var token = response.data['token'];
-      if (token) {
+      var user = response.data['user'];
+      if (token && user) {
         this.tokenStorage.set(token);
+        localStorage.setItem(this.userKey, JSON.stringify(user));
       } else {
-        console.log('no token received');
+        console.log('incomplete login information received');
       }
     }
   }

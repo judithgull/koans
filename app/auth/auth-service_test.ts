@@ -9,10 +9,18 @@ module auth {
     var $httpBackend:ng.IHttpBackendService;
     var testToken = 'testToken';
     var user = new app.User('testName', 'testEmail', 'testPwd');
+    var testUserResponse = {
+      _id: 'id',
+      name: user.name,
+      email: user.email
+    };
 
     var respondTokenWhenPost = (url:string) => {
       $httpBackend.expectPOST(url);
-      $httpBackend.whenPOST(url).respond({token: testToken});
+      $httpBackend.whenPOST(url).respond({
+        token: testToken,
+        user: testUserResponse
+      });
     };
 
     beforeEach(angular.mock.module('auth'));
@@ -32,6 +40,7 @@ module auth {
       $httpBackend.flush();
       expect(res).toBeDefined();
       expect(service.isLoggedIn()).toBe(true);
+      expect(service.getLoggedInUser()).toEqual(testUserResponse);
     });
 
     it('successful login should login', () => {

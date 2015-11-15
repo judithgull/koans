@@ -22,7 +22,8 @@ module signUp.SignUpCtrl {
         },
         logout: () => {},
         isLoggedIn: () => false,
-        login: (email, password) => {return null;}
+        getLoggedInUser:()=>null,
+        login: (email, password) => null
       };
 
       goSpy = sinon.spy();

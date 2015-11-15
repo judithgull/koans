@@ -18,9 +18,10 @@ module auth.login {
       deferred = $q.defer();
 
       var mockAuthService:auth.IAuthService = {
-        signUp: ():ng.IPromise<void> => { return null;},
+        signUp: () => null,
         logout: () => {},
         isLoggedIn: () => false,
+        getLoggedInUser:()=>null,
         login: (email:string, password:string):ng.IPromise<void> => {
           loginSpy(email, password);
           deferred.reject();
