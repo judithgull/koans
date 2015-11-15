@@ -20,7 +20,11 @@ module editTopic {
 
     submit = () => {
       this.updateSortOrder();
-      this.RestClient.createTopic(this.topic);
+      if (!this.topic._id) {
+        this.RestClient.createTopic(this.topic);
+      } else {
+        this.RestClient.updateTopic(this.topic);
+      }
       this.$state.go("main.home");
     };
 
