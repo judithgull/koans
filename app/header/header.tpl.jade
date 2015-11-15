@@ -3,7 +3,7 @@
     .header
       a(ng-hide='header.isLoggedIn' ui-sref='main.login').button Login
       a(ng-hide='header.isLoggedIn' ui-sref='main.signUp').button Sign up
-      p(ng-show='header.isLoggedIn') {{header.loginName}}
+      p(ng-show='header.isLoggedIn').login-name {{header.loginName}}
       a(ng-show='header.isLoggedIn' ng-click='header.logout()').button Logout
       button(ui-sref='main.editTopic()' ng-disabled='!header.isLoggedIn').button New
 
