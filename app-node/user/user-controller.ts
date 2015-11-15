@@ -25,13 +25,13 @@ export class UserController {
 
   saveUser = (name:string, email:string, pwd:string, user, error:Function, success:Function) => {
     this.checkEmail(email, error, () => {
-      this.bcrypt.hash(pwd, null, null, function (err, hash) {
+      this.bcrypt.hash(pwd, null, null, (err, hash) =>{
 
         user.name = name;
         user.email = email;
         user.password = hash;
 
-        user.save(function (err) {
+        user.save((err) => {
           if (err) {
             error(err);
           } else {
@@ -39,11 +39,19 @@ export class UserController {
               sub: user._id
             };
             var token = jwt.encode(payload, secret);
-            success(token);
+            success(token, this.getNonSensitiveUser(user));
           }
         });
       });
     });
+  };
+
+  getNonSensitiveUser = (user) => {
+    return {
+      _id: user._id,
+      email: user.email,
+      name: user.name
+    };
   };
 
   postUser = (req, res) => {
@@ -54,8 +62,12 @@ export class UserController {
           (err) => {
             console.log(err);
             res.status(400).send({message:err});
-          }, (token) => {
-            res.status(200).send({token: token})
+          }, (token, user) => {
+            res.status(200).send(
+              {
+                token: token,
+                user: user
+              })
           });
 
       }
