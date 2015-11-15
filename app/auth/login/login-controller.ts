@@ -10,13 +10,11 @@ module auth.login {
 
     public static $inject = [
       'AuthService',
-      '$state',
-      '$scope'
+      '$state'
     ];
 
     constructor(private authService: IAuthService,
-                private $state:angular.ui.IStateService,
-                private $scope:ng.IScope
+                private $state:angular.ui.IStateService
     ) {
     }
 

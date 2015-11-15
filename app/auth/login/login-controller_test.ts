@@ -12,12 +12,13 @@ module auth.login {
 
     beforeEach(angular.mock.module('auth.login'));
 
-    beforeEach(inject(($rootScope, $controller, $q:ng.IQService) => {
+    beforeEach(inject(($controller, $q:ng.IQService) => {
+
       loginSpy = sinon.spy();
       deferred = $q.defer();
 
       var mockAuthService:auth.IAuthService = {
-        signUp: (user:app.IUser):ng.IPromise<void> => { return null;},
+        signUp: ():ng.IPromise<void> => { return null;},
         logout: () => {},
         isLoggedIn: () => false,
         login: loginSpy
