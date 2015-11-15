@@ -21,7 +21,10 @@ module auth.login {
         signUp: ():ng.IPromise<void> => { return null;},
         logout: () => {},
         isLoggedIn: () => false,
-        login: loginSpy
+        login: (email:string, password:string):ng.IPromise<void> => {
+          loginSpy(email, password);
+          deferred.reject();
+          return deferred.promise;}
       };
 
       ctrl = $controller('LoginCtrl',
