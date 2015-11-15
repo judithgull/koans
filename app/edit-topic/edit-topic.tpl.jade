@@ -1,24 +1,24 @@
 form(ng-submit='editTopic.submit()' name='editTopicForm')
-  label(for='language').custom-select.t-label
+  label(for='editTopicForm.language').custom-select.t-label
     span.inline-label
       | Language
-    select.select(name='language' ng-model="editTopic.topic.language")
+    select.select(id='editTopicForm.language' name='language' ng-model="editTopic.topic.language")
       option(value='typescript')
         | Typescript
       option(value='javascript')
         | Javascript
 
-  label(for='title').label.t-label Title
-  input.input(name='title' ng-model='editTopic.topic.title' required='')
+  label(for='editTopicForm.title').label.t-label Title
+  input.input(id='editTopicForm.title' name='title' ng-model='editTopic.topic.title' required='')
   div(ng-messages="editTopicForm.title.$error")
     p(ng-message="required").t-paragraph Please enter a title!
 
   ul.l-list-reset
     li.card(ng-repeat='item in editTopic.topic.items' ng-form='ex')
-      label(for='title').label.t-label Title
-      input.input(name='title' ng-model='item.title')
-      label(for='description').label.t-label Description
-      textarea.textarea(name='description' ng-model='item.description' required='')
+      label(for='editTopicForm.$index.title').label.t-label Title
+      input.input(id='editTopicForm.$index.title' name='title' ng-model='item.title')
+      label(for='editTopicForm.$index.description').label.t-label Description
+      textarea.textarea(id='editTopicForm.$index.description' name='description' ng-model='item.description' required='')
       div(ng-messages="ex.description.$error")
         p(ng-message="required").t-paragraph Please enter a description!
       .l-grid
