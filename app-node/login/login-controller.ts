@@ -25,7 +25,7 @@ export class LoginController {
               sub: user._id
             };
             var token = jwt.encode(payload, secret);
-            success(token);
+            success(token, User.getNonSensitiveUser(user));
           } else {
             error(loginError);
           }
@@ -42,8 +42,8 @@ export class LoginController {
           (err) => {
             console.log(err);
             res.status(401).send({message:err});
-          }, (token) => {
-            res.status(200).send({token: token})
+          }, (token, user) => {
+            res.status(200).send({token: token, user: user})
           });
 
       }
