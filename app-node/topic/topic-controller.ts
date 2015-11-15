@@ -58,16 +58,19 @@ var hasValidTocken = (req) => {
   if(!req.headers || !req.headers.authorization){
     return false;
   }
-  var token = req.headers.authorization.split(' ')[1];
-  var decoded = jwt.decode(token, secret);
-  console.log(decoded);
+  var payload = decodeToken(req);
+  console.log(payload);
   return true;
 };
 
 var getUserId = (req):string => {
-  var token = req.headers.authorization.split(' ')[1];
-  var payload = jwt.decode(token, secret);
+  var payload = decodeToken(req);
   return payload.sub;
+};
+
+var decodeToken = (req) => {
+  var token = req.headers.authorization.split(' ')[1];
+  return jwt.decode(token, secret);
 };
 
 module.exports.postTopic = function (req, res) {
