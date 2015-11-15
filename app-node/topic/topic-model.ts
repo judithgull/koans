@@ -1,9 +1,12 @@
 var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+var Schema       = mongoose.Schema,
+    ObjectId     = Schema.ObjectId;
+
 
 var TopicSchema   = new Schema({
   title: String,
   language: String,
+  authorId: ObjectId,
   items: [{
       sortOrder: Number,
       title: String,

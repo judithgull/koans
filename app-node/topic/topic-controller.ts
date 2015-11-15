@@ -64,6 +64,12 @@ var hasValidTocken = (req) => {
   return true;
 };
 
+var getUserId = (req):string => {
+  var token = req.headers.authorization.split(' ')[1];
+  var payload = jwt.decode(token, secret);
+  return payload.sub;
+};
+
 module.exports.postTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
@@ -75,6 +81,7 @@ module.exports.postTopic = function (req, res) {
         topic.title = body.title;
         topic.language = body.language;
         topic.items = body.items;
+        topic.authorId = getUserId(req);
 
         topic.save(function (err) {
           if (err)
