@@ -5,11 +5,15 @@ module HeaderCtrl {
   class HeaderCtrl {
 
     private isLoggedIn:boolean;
+    private loginName:string;
 
     public static $inject = ['AuthService'];
 
     constructor(private authService: IAuthService) {
       this.isLoggedIn = authService.isLoggedIn();
+      if(this.isLoggedIn){
+        this.loginName = authService.getLoggedInUser().name;
+      }
     }
 
     logout = () => {
