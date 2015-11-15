@@ -39,19 +39,11 @@ export class UserController {
               sub: user._id
             };
             var token = jwt.encode(payload, secret);
-            success(token, this.getNonSensitiveUser(user));
+            success(token, User.getNonSensitiveUser(user));
           }
         });
       });
     });
-  };
-
-  getNonSensitiveUser = (user) => {
-    return {
-      _id: user._id,
-      email: user.email,
-      name: user.name
-    };
   };
 
   postUser = (req, res) => {

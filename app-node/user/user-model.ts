@@ -8,3 +8,11 @@ var UserSchema   = new Schema({
 });
 
 module.exports = mongoose.model('User', UserSchema);
+module.exports.getNonSensitiveUser = (user) => {
+  return {
+    _id: user._id,
+    email: user.email,
+    name: user.name
+  };
+};
+
