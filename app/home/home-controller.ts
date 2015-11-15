@@ -4,6 +4,7 @@ module HomeCtrl {
   export interface IHomeCtrl{
     topics: Array<Data.ITopic>;
     deleteTopic: Function;
+    equalsUser: Function;
   }
 
   class HomeCtrl implements IHomeCtrl{
@@ -11,10 +12,11 @@ module HomeCtrl {
     topics: Array<Data.ITopic> = [];
 
     public static $inject = [
-      'RestClient'
+      'RestClient',
+      'AuthService'
     ];
 
-    constructor(private RestClient:RestClient.IRestClient) {
+    constructor(private RestClient:RestClient.IRestClient, private authService:auth.IAuthService) {
       this.RestClient.getTopics().then(topics => {
         this.topics = topics;
       });
@@ -25,6 +27,16 @@ module HomeCtrl {
       this.RestClient.deleteTopic(id);
     };
 
+    equalsUser = (authorId: string) => {
+      var user = this.authService.getLoggedInUser();
+
+      if(user) {
+        return authorId === user._id;
+      } else {
+        return false;
+      }
+
+    }
   }
 
 
