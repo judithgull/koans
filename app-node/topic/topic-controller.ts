@@ -53,6 +53,25 @@ module.exports.deleteTopic = function (req, res) {
   });
 };
 
+module.exports.updateTopic = function (req, res) {
+  res.format({
+    "application/json": function (req, res) {
+      var body = req.body;
+
+      Topic
+        .update(
+          {_id: req.params.id},
+          {$set: {'title': body.title, 'language': body.language, 'items':body.items }},
+        function(err) {
+          if (err) {
+            res.status(401).send({message: 'Error updating Topic ' + req.params.id});
+          } else {
+            res.status(200).send({message: 'ok'});
+          }
+        });
+    }
+  });
+};
 
 var hasValidTocken = (req) => {
   if(!req.headers || !req.headers.authorization){

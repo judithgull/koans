@@ -8,6 +8,7 @@ module server {
   router.get("/:id", topic.getTopic);
   router.post("/", topic.postTopic);
   router.delete("/:id", topic.deleteTopic);
+  router.put("/:id", topic.updateTopic);
 
   module.exports = router;
 }
