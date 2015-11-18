@@ -9,6 +9,7 @@ module topic {
   angular
     .module('topic', [
       'ui.router',
-      'exercise'
+      'exercise',
+      'core'
     ]);
 }

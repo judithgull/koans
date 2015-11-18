@@ -15,13 +15,12 @@ module TopicCtrl {
   }
 
   export interface ITopicParams extends angular.ui.IStateParamsService {
-    exId:number;
+    exerciseId:number;
   }
 
   class TopicCtrl implements ITopicModel{
     language:string;
     title:string;
-    private exerciseId:number;
     private exerciseCount:number;
 
     public static $inject = ['topicData', '$state'];
@@ -30,31 +29,30 @@ module TopicCtrl {
       this.title = topicData.title;
       this.language = topicData.language;
       this.exerciseCount = topicData.items.length;
-      this.exerciseId = $state.params.exId;
     }
 
     nextExercise() {
       if (this.hasNextExercise()) {
-        this.goToExercise(this.exerciseId + 1);
+        this.goToExercise(this.$state.params.exerciseId + 1);
       }
     }
 
     previousExercise() {
       if (this.hasPreviousExercise()) {
-        this.goToExercise(this.exerciseId - 1);
+        this.goToExercise(this.$state.params.exerciseId - 1);
       }
     }
 
     private goToExercise(id:number) {
-      this.$state.go("main.topic.exercise.details", {exId: id});
+      this.$state.go("main.topic.exercise.details", {exerciseId: id});
     }
 
     hasNextExercise():boolean {
-      return this.exerciseId < this.exerciseCount;
+      return this.$state.params.exerciseId  < this.exerciseCount;
     }
 
     hasPreviousExercise():boolean {
-      return this.exerciseId > 1;
+      return this.$state.params.exerciseId > 1;
     }
 
   }
