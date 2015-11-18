@@ -1,7 +1,7 @@
 module TopicCtrl {
   'use strict';
 
-  export interface ITopicModel{
+  export interface ITopicCtrl{
     language:string;
     title:string;
     nextExercise():void;
@@ -18,7 +18,7 @@ module TopicCtrl {
     exerciseId:number;
   }
 
-  class TopicCtrl implements ITopicModel{
+  class TopicCtrl implements ITopicCtrl{
     language:string;
     title:string;
     private exerciseCount:number;
@@ -33,13 +33,13 @@ module TopicCtrl {
 
     nextExercise() {
       if (this.hasNextExercise()) {
-        this.goToExercise(this.$state.params.exerciseId + 1);
+        this.goToExercise(this.getExerciseId() + 1);
       }
     }
 
     previousExercise() {
       if (this.hasPreviousExercise()) {
-        this.goToExercise(this.$state.params.exerciseId - 1);
+        this.goToExercise(this.getExerciseId() - 1);
       }
     }
 
@@ -47,13 +47,11 @@ module TopicCtrl {
       this.$state.go("main.topic.exercise.details", {exerciseId: id});
     }
 
-    hasNextExercise():boolean {
-      return this.$state.params.exerciseId  < this.exerciseCount;
-    }
+    hasNextExercise = ():boolean => this.getExerciseId()  < this.exerciseCount;
 
-    hasPreviousExercise():boolean {
-      return this.$state.params.exerciseId > 1;
-    }
+    hasPreviousExercise = ():boolean => this.getExerciseId() > 1;
+
+    getExerciseId = () => this.$state.params.exerciseId;
 
   }
 
