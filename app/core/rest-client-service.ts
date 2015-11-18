@@ -6,6 +6,7 @@ module RestClient {
   export interface IRestClient {
     getTopic(id:number): ng.IPromise<Data.ITopic>;
     getExercise(topicId:number, exerciseId:number):ng.IPromise<Data.IExercise>;
+    getDefaultLibs():ng.IPromise<Array<Data.ILibrary>>;
     getLib(name:string):ng.IPromise<Data.ILibrary>;
     getLibs(names:string[]):ng.IPromise<Array<Data.ILibrary>>;
     getTopics():ng.IPromise<Array<Data.ITopic>>;
@@ -79,6 +80,13 @@ module RestClient {
 
     getExercise(topicId:number, exerciseId:number):ng.IPromise<Data.IExercise> {
       return this.getTopic(topicId).then(() => this.topicData.items[exerciseId - 1]);
+    }
+
+    /**
+     * return the default libraries
+     * */
+    getDefaultLibs():ng.IPromise<Array<Data.ILibrary>>{
+      return this.getLibs(["typescripts/lib.d.ts", "typescripts/chai/chai.d.ts", "typescripts/angularjs/angular.d.ts"]);
     }
 
     getLibs(names:string[]):ng.IPromise<Array<Data.ILibrary>>{

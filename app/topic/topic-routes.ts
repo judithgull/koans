@@ -19,6 +19,9 @@ module topic {
         resolve: {
           topicData: function (RestClient:RestClient.IRestClient, $stateParams) {
             return RestClient.getTopic($stateParams.topicId);
+          },
+          libs: function (RestClient:RestClient.IRestClient) {
+            return RestClient.getDefaultLibs();
           }
         }
       }).state('main.topic.exercise', {
@@ -30,9 +33,6 @@ module topic {
         resolve: {
           exData: function (RestClient:RestClient.IRestClient, $stateParams) {
             return RestClient.getExercise($stateParams.topicId, $stateParams.exId);
-          },
-          libs: function (RestClient:RestClient.IRestClient, $stateParams) {
-            return RestClient.getLibs(["typescripts/lib.d.ts", "typescripts/chai/chai.d.ts"]);
           }
         }
       }).state('main.topic.exercise.solution', {

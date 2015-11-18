@@ -15,7 +15,7 @@ module editTopic {
         controllerAs: 'editTopic',
         resolve: {
           libs: function (RestClient:RestClient.IRestClient) {
-            return RestClient.getLibs(["typescripts/lib.d.ts", "typescripts/chai/chai.d.ts"]);
+            return RestClient.getDefaultLibs();
           },
           topic: (RestClient:RestClient.IRestClient, $stateParams, $q: ng.IQService) => {
             if ($stateParams.id) {
