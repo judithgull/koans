@@ -7,8 +7,9 @@ module core {
   *
   */
   angular
-    .module('core', [])
-    .config(($urlMatcherFactoryProvider:angular.ui.IUrlMatcherFactory) => {
+    .module('core',
+      ['ui.router']
+    ).config(($urlMatcherFactoryProvider:angular.ui.IUrlMatcherFactory) => {
       $urlMatcherFactoryProvider.caseInsensitive(true);
       $urlMatcherFactoryProvider.strictMode(false);
     });
