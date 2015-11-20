@@ -23,18 +23,16 @@ module editTopic {
 
     submit = () => {
       this.updateSortOrder();
-      if (!this.topic._id) {
-        this.RestClient.createTopic(this.topic);
-      } else {
-        this.RestClient.updateTopic(this.topic).then(
-          ()=> {
-            this.$state.go("main.home");
-          },
-          (error)=> {
-            this.errorMessage = error.data.message;
-          }
-        );
-      }
+
+      var submitFunction = (!this.topic._id)?(t)=>this.RestClient.createTopic(t):(t)=>this.RestClient.updateTopic(t);
+      submitFunction(this.topic).then(
+        ()=> {
+          this.$state.go("main.home");
+        },
+        (error)=> {
+          this.errorMessage = error.data.message;
+        }
+      );
     };
 
     addExercise = () => {

@@ -10,7 +10,7 @@ module RestClient {
     getLib(name:string):ng.IPromise<Data.ILibrary>;
     getLibs(names:string[]):ng.IPromise<Array<Data.ILibrary>>;
     getTopics():ng.IPromise<Array<Data.ITopic>>;
-    createTopic(topic: Data.ITopic);
+    createTopic(topic: Data.ITopic):ng.IPromise<any>;
     updateTopic(topic: Data.ITopic):ng.IPromise<any>;
     deleteTopic(id:number): ng.IPromise<Data.ITopic>;
   }
@@ -52,9 +52,8 @@ module RestClient {
       return deferred.promise;
     }
 
-    createTopic(topic: Data.ITopic) {
-      this.$http.post(TOPICS_URL,topic)
-        .error(e => console.log(e));
+    createTopic(topic: Data.ITopic):ng.IPromise<any> {
+      return this.$http.post(TOPICS_URL,topic);
     }
 
     updateTopic(topic: Data.ITopic):ng.IPromise<any> {
