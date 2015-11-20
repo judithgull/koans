@@ -52,7 +52,7 @@ module.exports.deleteTopic = function (req, res) {
                 res.status(200).send({message: 'ok'});
               }
             });
-        }
+        });
     }
   });
 };
@@ -105,10 +105,7 @@ var checkAuthorOfOwnTopic = (req, error:Function, success:Function) => {
 };
 
 var hasValidTocken = (req) => {
-  if (decodeToken(req)) {
-    return true;
-  }
-  return false;
+  return !!decodeToken(req);
 };
 
 var getUserId = (req):string => {
