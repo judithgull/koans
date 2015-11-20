@@ -7,13 +7,13 @@ module.exports.getTopics = function (req, res) {
   res.format({
     "application/json": function (req, res) {
       Topic
-        .find({}, function(err, topics) {
-        if (err) {
-          console.log(err);
-        } else {
-          res.send(topics);
-        }
-      }).sort( { _id: -1 } );
+        .find({}, function (err, topics) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.send(topics);
+          }
+        }).sort({_id: -1});
 
     }
   });
@@ -23,7 +23,7 @@ module.exports.getTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
       Topic
-        .findOne({_id: req.params.id}, function(err, topic) {
+        .findOne({_id: req.params.id}, function (err, topic) {
           if (err) {
             console.log(err);
           } else {
@@ -41,7 +41,7 @@ module.exports.deleteTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
       Topic
-        .remove({_id: req.params.id}, function(err) {
+        .remove({_id: req.params.id}, function (err) {
           if (err) {
             res.status(401).send({message: 'Error removing item' + req.params.id});
           } else {
@@ -56,30 +56,55 @@ module.exports.deleteTopic = function (req, res) {
 module.exports.updateTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
-      var body = req.body;
+      checkAuthorOfOwnTopic(req,
+        (err) => {
+          res.status(401).send({message: err});
+        },
+        () => {
+          var body = req.body;
 
-      Topic
-        .update(
-          {_id: req.params.id},
-          {$set: {'title': body.title, 'language': body.language, 'items':body.items }},
-        function(err) {
-          if (err) {
-            res.status(401).send({message: 'Error updating Topic ' + req.params.id});
-          } else {
-            res.status(200).send({message: 'ok'});
-          }
+          Topic
+            .update(
+            {_id: req.params.id},
+            {$set: {'title': body.title, 'language': body.language, 'items': body.items}},
+            function (err) {
+              if (err) {
+                res.status(401).send({message: 'Error updating Topic ' + req.params.id});
+              } else {
+                res.status(200).send({message: 'ok'});
+              }
+            });
         });
     }
   });
 };
 
-var hasValidTocken = (req) => {
-  if(!req.headers || !req.headers.authorization){
-    return false;
-  }
+
+var checkAuthorOfOwnTopic = (req, error:Function, success:Function) => {
   var payload = decodeToken(req);
-  console.log(payload);
-  return true;
+  if(!payload){
+    error('You are not authorized');
+  }else {
+    var userId = payload.sub;
+
+    Topic
+      .findOne({_id: req.params.id}, function (err, topic) {
+        if (err) {
+          error(err);
+        } else if (topic.authorId === userId) {
+          success();
+        } else {
+          error('You are only allowed to modify your own topic!');
+        }
+      });
+  }
+};
+
+var hasValidTocken = (req) => {
+  if (decodeToken(req)) {
+    return true;
+  }
+  return false;
 };
 
 var getUserId = (req):string => {
@@ -88,6 +113,9 @@ var getUserId = (req):string => {
 };
 
 var decodeToken = (req) => {
+  if (!req.headers || !req.headers.authorization) {
+    return null;
+  }
   var token = req.headers.authorization.split(' ')[1];
   return jwt.decode(token, secret);
 };
@@ -95,9 +123,9 @@ var decodeToken = (req) => {
 module.exports.postTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
-      if(!hasValidTocken(req)){
+      if (!hasValidTocken(req)) {
         res.status(401).send({message: 'Login Required!'});
-      }else {
+      } else {
         var body = req.body;
         var topic = new Topic();
         topic.title = body.title;
