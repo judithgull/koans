@@ -37,18 +37,22 @@ module.exports.getTopic = function (req, res) {
 
 
 module.exports.deleteTopic = function (req, res) {
-  console.log('delete topic');
   res.format({
     "application/json": function (req, res) {
-      Topic
-        .remove({_id: req.params.id}, function (err) {
-          if (err) {
-            res.status(401).send({message: 'Error removing item' + req.params.id});
-          } else {
-            res.status(200).send({message: 'ok'});
-          }
-        });
-
+      checkAuthorOfOwnTopic(req,
+        (err) => {
+          res.status(401).send({message: err});
+        },
+        () => {
+          Topic
+            .remove({_id: req.params.id}, function (err) {
+              if (err) {
+                res.status(401).send({message: 'Error removing item' + req.params.id});
+              } else {
+                res.status(200).send({message: 'ok'});
+              }
+            });
+        }
     }
   });
 };
