@@ -10,6 +10,7 @@ module HomeCtrl {
   class HomeCtrl implements IHomeCtrl{
 
     topics: Array<Data.ITopic> = [];
+    errorMessage:string = null;
 
     public static $inject = [
       'RestClient',
@@ -23,8 +24,14 @@ module HomeCtrl {
     }
 
     deleteTopic = (id:number, index:number) => {
-      this.topics.splice(index,1);
-      this.RestClient.deleteTopic(id);
+      this.RestClient.deleteTopic(id).then(
+        ()=> {
+          this.topics.splice(index,1);
+        },
+        (error)=> {
+          this.errorMessage = error.data.message;
+        }
+      );
     };
 
     equalsUser = (authorId: string) => {
