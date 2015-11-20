@@ -11,7 +11,7 @@ module RestClient {
     getLibs(names:string[]):ng.IPromise<Array<Data.ILibrary>>;
     getTopics():ng.IPromise<Array<Data.ITopic>>;
     createTopic(topic: Data.ITopic);
-    updateTopic(topic: Data.ITopic);
+    updateTopic(topic: Data.ITopic):ng.IPromise<any>;
     deleteTopic(id:number): ng.IPromise<Data.ITopic>;
   }
 
@@ -57,9 +57,8 @@ module RestClient {
         .error(e => console.log(e));
     }
 
-    updateTopic(topic: Data.ITopic) {
-      this.$http.put(TOPICS_URL + topic._id,topic)
-        .error(e => console.log(e));
+    updateTopic(topic: Data.ITopic):ng.IPromise<any> {
+      return this.$http.put(TOPICS_URL + topic._id,topic);
     }
 
     deleteTopic(id:number):ng.IPromise<Data.ITopic> {

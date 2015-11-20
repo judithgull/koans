@@ -10,6 +10,9 @@ module editTopic {
   }
 
   class EditTopicCtrl implements IEditTopicModel{
+
+    errorMessage:string = null;
+
     libsLoader = () => this.libs;
 
     private updateSortOrder = () => {
@@ -23,9 +26,15 @@ module editTopic {
       if (!this.topic._id) {
         this.RestClient.createTopic(this.topic);
       } else {
-        this.RestClient.updateTopic(this.topic);
+        this.RestClient.updateTopic(this.topic).then(
+          ()=> {
+            this.$state.go("main.home");
+          },
+          (error)=> {
+            this.errorMessage = error.data.message;
+          }
+        );
       }
-      this.$state.go("main.home");
     };
 
     addExercise = () => {
