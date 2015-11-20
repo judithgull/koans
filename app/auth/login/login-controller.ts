@@ -20,7 +20,7 @@ module auth.login {
 
     submit = () => {
       this.authService.login(this.email, this.password).then(
-        ()=> this.$state.go('main.topic-list', {}, { reload: true }),
+        ()=> this.$state.go('main.topicList', {}, { reload: true }),
         (error) => {this.error=error}
       );
     }
