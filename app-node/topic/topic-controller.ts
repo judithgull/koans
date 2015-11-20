@@ -95,7 +95,7 @@ var checkAuthorOfOwnTopic = (req, error:Function, success:Function) => {
       .findOne({_id: req.params.id}, function (err, topic) {
         if (err) {
           error(err);
-        } else if (topic.authorId === userId) {
+        } else if (topic.authorId.toString() === userId) {
           success();
         } else {
           error('You are only allowed to modify your own topic!');
@@ -137,6 +137,9 @@ module.exports.postTopic = function (req, res) {
         topic.save(function (err) {
           if (err)
             res.send(topic);
+          else{
+            res.status(200).send({message: 'ok'});
+          }
         });
       }
     }
