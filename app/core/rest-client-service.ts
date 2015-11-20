@@ -9,7 +9,7 @@ module RestClient {
     getDefaultLibs():ng.IPromise<Array<Data.ILibrary>>;
     getLib(name:string):ng.IPromise<Data.ILibrary>;
     getLibs(names:string[]):ng.IPromise<Array<Data.ILibrary>>;
-    getTopics():ng.IPromise<Array<Data.ITopic>>;
+    getTopics(queryParams?):ng.IPromise<Array<Data.ITopic>>;
     createTopic(topic: Data.ITopic):ng.IPromise<any>;
     updateTopic(topic: Data.ITopic):ng.IPromise<any>;
     deleteTopic(id:number): ng.IPromise<Data.ITopic>;
@@ -28,8 +28,12 @@ module RestClient {
                 private $q:ng.IQService) {
     }
 
-    getTopics():ng.IPromise<Array<Data.ITopic>>{
-      return this.$http.get(TOPICS_URL).then(
+    getTopics(queryParams?):ng.IPromise<Array<Data.ITopic>>{
+      return this.$http({
+          url: TOPICS_URL,
+          method: "GET",
+          params: queryParams
+        }).then(
         (response) => {
           return response.data;
         }

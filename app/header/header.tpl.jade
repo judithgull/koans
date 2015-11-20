@@ -6,5 +6,5 @@
       p(ng-show='header.isLoggedIn').login-name {{header.loginName}}
       a(ng-show='header.isLoggedIn' ng-click='header.logout()').button Logout
       button(ui-sref='main.editTopic()' ng-disabled='!header.isLoggedIn').button New
-      button(ng-show='header.isLoggedIn').button My Koans
+      a(ng-show='header.isLoggedIn' ng-click='header.loadOwnTopics()').button My Koans
     div(ui-view="")

@@ -8,7 +8,7 @@ module topicList {
   function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider
       .state('main.topicList', {
-        url: '/topic-list',
+        url: '/topic-list?authorId',
         templateUrl: 'topic-list/topic-list.tpl.html',
         controller: 'TopicListCtrl',
         controllerAs: 'topicList'

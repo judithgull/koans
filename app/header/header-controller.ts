@@ -6,15 +6,23 @@ module HeaderCtrl {
 
     private isLoggedIn:boolean;
     private loginName:string;
+    private user:app.IUser;
 
-    public static $inject = ['AuthService'];
+    public static $inject = ['AuthService', '$state'];
 
-    constructor(private authService: IAuthService) {
+    constructor(private authService: IAuthService,
+                private $state:ng.ui.IStateService
+    ) {
       this.isLoggedIn = authService.isLoggedIn();
       if(this.isLoggedIn){
-        this.loginName = authService.getLoggedInUser().name;
+        this.user = authService.getLoggedInUser();
+        this.loginName = this.user.name;
       }
     }
+
+    loadOwnTopics = () => {
+      this.$state.go('main.topicList',{authorId: this.user._id}, {reload:true});
+    };
 
     logout = () => {
       this.authService.logout();
