@@ -7,6 +7,7 @@ module HeaderCtrl {
     private isLoggedIn:boolean;
     private loginName:string;
     private user:app.IUser;
+    private isShowAll = true;
 
     public static $inject = ['AuthService', '$state'];
 
@@ -20,8 +21,15 @@ module HeaderCtrl {
       }
     }
 
+    loadAllTopics = () => {
+      this.$state.go('main.topicList',{authorId:null});
+      this.isShowAll = true;
+
+    };
+
     loadOwnTopics = () => {
-      this.$state.go('main.topicList',{authorId: this.user._id}, {reload:true});
+      this.$state.go('main.topicList',{authorId: this.user._id});
+      this.isShowAll = false;
     };
 
     logout = () => {
