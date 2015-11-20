@@ -1,7 +1,0 @@
-.l-grid.topic-list
-  .l-grid-cell.l-one-third.l-tablet-one-half.l-mobile-one-whole(ng-repeat="topic in home.topics")
-    a(ui-sref='main.topic.exercise.details({topicId:topic._id})').topic-item.t-link
-      h1.t-title {{topic.title}}
-      p.t-paragraph {{topic.language}}
-    button(name='delete' ng-click='home.deleteTopic(topic._id, $index)' ng-show='home.equalsUser(topic.authorId)').button Delete
-    button(name='edit' ui-sref='main.editTopic({id:topic._id})' ng-show='home.equalsUser(topic.authorId)').button Edit

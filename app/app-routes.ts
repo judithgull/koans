@@ -7,7 +7,7 @@ module koans {
 
 
   function config($urlRouterProvider: ng.ui.IUrlRouterProvider, $stateProvider: ng.ui.IStateProvider) {
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/topic-list');
     $stateProvider
       .state('main', {
         url: '',

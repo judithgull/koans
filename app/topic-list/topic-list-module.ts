@@ -1,13 +1,13 @@
-module home {
+module topicList {
   'use strict';
 
   /* @ngdoc object
-  * @name home
+  * @name topic-list
   * @description
   *
   */
   angular
-    .module('home', [
+    .module('topicList', [
       'ui.router',
       'core'
     ]);

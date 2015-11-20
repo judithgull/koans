@@ -64,7 +64,7 @@ module signUp.SignUpCtrl {
         sinon.assert.calledWith(submitUserSpy, testUser);
       });
 
-/*      it('should return to home, after successful signup', () => {
+/*      it('should return to topic-list, after successful signup', () => {
         const testUser = new app.User();
         testUser.name = 'testName';
         testUser.email = 'testEmail';
@@ -74,7 +74,7 @@ module signUp.SignUpCtrl {
         ctrl.submit();
         deferred.resolve();
         sinon.assert.calledOnce(goSpy);
-        sinon.assert.calledWith(goSpy, 'main.home');
+        sinon.assert.calledWith(goSpy, 'main.topic-list');
       });
 */
     });

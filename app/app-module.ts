@@ -12,7 +12,7 @@ module koans {
     'ui.router',
     'ui.ace',
     'codeEditor',
-    'home',
+    'topicList',
     'topic',
     'editTopic',
     'auth',

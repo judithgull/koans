@@ -1,13 +1,14 @@
-module HomeCtrl {
+module topicList {
   'use strict';
 
-  export interface IHomeCtrl{
+  export interface ITopicListCtrl{
     topics: Array<Data.ITopic>;
     deleteTopic: Function;
     equalsUser: Function;
   }
 
-  class HomeCtrl implements IHomeCtrl{
+
+  class TopicListCtrl implements ITopicListCtrl{
 
     topics: Array<Data.ITopic> = [];
     errorMessage:string = null;
@@ -49,12 +50,12 @@ module HomeCtrl {
 
   /**
   * @ngdoc object
-  * @name home.controller:HomeCtrl
+  * @name topic-list.controller:TopicListCtrl
   *
   * @description
   *
   */
   angular
-    .module('home')
-    .controller('HomeCtrl', HomeCtrl);
+    .module('topicList')
+    .controller('TopicListCtrl', TopicListCtrl);
 }

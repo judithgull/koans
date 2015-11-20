@@ -27,7 +27,7 @@ module editTopic {
       var submitFunction = (!this.topic._id)?(t)=>this.RestClient.createTopic(t):(t)=>this.RestClient.updateTopic(t);
       submitFunction(this.topic).then(
         ()=> {
-          this.$state.go("main.home");
+          this.$state.go("main.topicList");
         },
         (error)=> {
           this.errorMessage = error.data.message;
