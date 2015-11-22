@@ -18,7 +18,8 @@ module koans {
     'auth',
     'header',
     'auth.signUp',
-    'auth.login'
+    'auth.login',
+    'auth.account'
   ]);
 
   app.run(['$rootScope', '$log',function($rootScope, $log) {

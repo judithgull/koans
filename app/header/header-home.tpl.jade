@@ -1,0 +1,5 @@
+
+account
+
+button(ui-sref='main.editTopic()' ng-disabled='!header.isLoggedIn').button New
+a(ng-show='header.isLoggedIn' ng-click='header.loadOwnTopics()').button My Koansdiv(ui-view="")

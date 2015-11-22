@@ -1,0 +1,8 @@
+.topic-list-wrap
+  .l-site-width
+    .header
+      p logo
+
+      button(ui-sref='main.editTopic()' ng-disabled='!header.isLoggedIn').button New
+      a(ng-show='header.isLoggedIn' ng-click='header.loadOwnTopics()').button My Koans
+    div(ui-view="")
