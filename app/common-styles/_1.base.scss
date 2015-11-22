@@ -167,6 +167,7 @@ textarea {
 
 .t-link {
   text-decoration: none;
+  cursor: pointer;
   color: c(blue);
   transition: color 200ms;
   &:hover {
