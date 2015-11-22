@@ -29,3 +29,25 @@
   margin-left: s(medium);
 }
 
+.filter-tabs {
+  margin-bottom: 0;
+  padding: 0;
+  &--item {
+    display: inline-block;
+    text-decoration: none;
+    margin-bottom: s(medium);
+    &-link {
+      display: block;
+      padding: s(small) s(medium);
+    }
+    &.active {
+      background-color: c(black);
+    }
+  }
+}
+
+.filter-wrap {
+  background-color: c(black);
+  padding-right: s(medium);
+  padding-left: s(medium);
+}

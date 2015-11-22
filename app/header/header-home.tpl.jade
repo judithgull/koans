@@ -8,6 +8,14 @@ p description about app
   input.input(id='search' name='search' type='text' ng-model='header.search')
   button(ng-click='header.loadAllTopics()').button.button-search Search
 
-a(ng-show='header.isLoggedIn && header.isShowAll' ng-click='header.loadOwnTopics()').button My Koans
-a(ng-show='header.isLoggedIn && !header.isShowAll' ng-click='header.loadAllTopics()').button All Koans
-div(ui-view="")
+ul(ng-init="tab = 1" ng-show='header.isLoggedIn').filter-tabs
+  li(ng-class="{ active:tab === 1 }").filter-tabs--item
+    a(href='', ng-click = "tab = 1;header.loadAllTopics()").filter-tabs--item-link.t-link
+      | All Koans
+  li(ng-class="{ active:tab === 2 }").filter-tabs--item
+    a(href='', ng-click = "tab = 2;header.loadOwnTopics()").filter-tabs--item-link.t-link
+      | My Koans
+
+.filter-wrap(ng-show="tab === 1 || tab === 2")
+  div(ui-view="")
+
