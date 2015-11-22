@@ -1,7 +1,12 @@
-
+button(ui-sref='main.editTopic()' ng-disabled='!header.isLoggedIn').button New
 account
 
-button(ui-sref='main.editTopic()' ng-disabled='!header.isLoggedIn').button New
+p description about app
+
+label(for='search').label.t-label  Search
+input.input(id='search' name='search' type='text' ng-model='header.search')
+
+
 a(ng-show='header.isLoggedIn && header.isShowAll' ng-click='header.loadOwnTopics()').button My Koans
 a(ng-show='header.isLoggedIn && !header.isShowAll' ng-click='header.loadAllTopics()').button All Koans
 div(ui-view="")
