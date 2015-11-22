@@ -7,7 +7,7 @@ module topicList {
     var ctrl:ITopicListCtrl;
     var rs;
 
-    beforeEach(()=> angular.mock.module('topic-list'));
+    beforeEach(()=> angular.mock.module('topicList'));
 
     beforeEach(inject(($rootScope, $controller, $q) => {
       rs = $rootScope;

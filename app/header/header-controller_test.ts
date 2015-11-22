@@ -12,36 +12,5 @@ describe('HeaderCtrl', function () {
     $ctrl = $controller;
   }));
 
-  it('should inititially not be logged in', () => {
-    var authService = {
-      isLoggedIn: () => false
-    };
-    var ctrl = $ctrl('HeaderCtrl', {AuthService: authService});
-    expect(ctrl.isLoggedIn).toBe(false);
-  });
-
-  it('should be logged in, if user is logged in', () => {
-    var authService = {
-      isLoggedIn: () => true,
-      getLoggedInUser: () => {return {name:'testname'}}
-    };
-    var ctrl = $ctrl('HeaderCtrl', {AuthService: authService});
-    expect(ctrl.isLoggedIn).toBe(true);
-  });
-
-  it('should be logged out, if user is logged out', () => {
-    var logoutSpy = sinon.spy();
-    var authService = {
-      isLoggedIn: () => true,
-      logout: logoutSpy,
-      getLoggedInUser: () => {return {name:'testname'}}
-    };
-
-    var ctrl = $ctrl('HeaderCtrl', {AuthService: authService});
-    ctrl.logout();
-    expect(ctrl.isLoggedIn).toBe(false);
-    sinon.assert.calledOnce(logoutSpy);
-  });
-
 
 });
