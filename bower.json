@@ -10,7 +10,8 @@
     "chai": "~3.3.0",
     "rxjs": "~4.0.0",
     "bonescss": "~0.7.3",
-    "sensible": "~0.5.4"
+    "sensible": "~0.5.4",
+    "angular-truncate": "*"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.*"
