@@ -1,5 +1,5 @@
 div
-  a(ng-hide='header.isLoggedIn' ui-sref='main.login').button Login
-  a(ng-hide='header.isLoggedIn' ui-sref='main.signUp').button Sign up
-  p(ng-show='header.isLoggedIn').login-name {{header.loginName}}
-  a(ng-show='header.isLoggedIn' ng-click='header.logout()').button Logout
+  a(ng-hide='account.isLoggedIn' ui-sref='main.login').button Login
+  a(ng-hide='account.isLoggedIn' ui-sref='main.signUp').button Sign up
+  p(ng-show='account.isLoggedIn').login-name {{account.loginName}}
+  a(ng-show='account.isLoggedIn' ng-click='account.logout()').button Logout

@@ -4,8 +4,6 @@ module HeaderCtrl {
 
   class HeaderCtrl {
 
-    private isLoggedIn:boolean;
-    private loginName:string;
     private user:app.IUser;
 
     public static $inject = ['AuthService', '$state'];
@@ -13,10 +11,9 @@ module HeaderCtrl {
     constructor(private authService: IAuthService,
                 private $state:ng.ui.IStateService
     ) {
-      this.isLoggedIn = authService.isLoggedIn();
-      if(this.isLoggedIn){
+      var isLoggedIn = authService.isLoggedIn();
+      if(isLoggedIn){
         this.user = authService.getLoggedInUser();
-        this.loginName = this.user.name;
       }
     }
 
@@ -24,10 +21,7 @@ module HeaderCtrl {
       this.$state.go('main.topicList',{authorId: this.user._id}, {reload:true});
     };
 
-    logout = () => {
-      this.authService.logout();
-      this.isLoggedIn = false;
-    }
+
   }
 
 

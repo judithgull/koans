@@ -1,22 +1,25 @@
 ///<reference path='../../../typings/tsd.d.ts' />
-module AccountCtrl {
+module auth.AccountCtrl {
   'use strict';
 
   class AccountCtrl {
 
-    ctrlName: string;
+    private isLoggedIn:boolean;
+    private loginName:string;
 
-    // $inject annotation.
-    // It provides $injector with information about dependencies to be injected into constructor
-    // it is better to have it close to the constructor, because the parameters must match in count and type.
-    // See http://docs.angularjs.org/guide/di
-    public static $inject = [
-    ];
+    public static $inject = ['AuthService'];
 
-    // dependencies are injected via AngularJS $injector
-    constructor() {
-      var vm = this;
-      vm.ctrlName = 'AccountCtrl';
+    constructor(private authService: IAuthService
+    ) {
+      this.isLoggedIn = authService.isLoggedIn();
+      if(this.isLoggedIn){
+        this.loginName = authService.getLoggedInUser().name;
+      }
+    }
+
+    logout = () => {
+      this.authService.logout();
+      this.isLoggedIn = false;
     }
   }
 
