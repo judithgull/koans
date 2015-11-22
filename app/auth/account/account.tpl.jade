@@ -1,4 +1,4 @@
-div
+.account
   a(ng-hide='account.isLoggedIn' ui-sref='main.login').button Login
   a(ng-hide='account.isLoggedIn' ui-sref='main.signUp').button Sign up
   p(ng-show='account.isLoggedIn').login-name {{account.loginName}}

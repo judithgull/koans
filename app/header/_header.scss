@@ -4,10 +4,20 @@
   min-height: 100vh;
   box-sizing: border-box;
 }
+
 .header {
   margin-bottom: s(huge);
+  position: relative;
 }
-.login-name {
-  display: inline-block;
-  margin-right: s(medium);
+
+.logo {
+ display: inline-block;
 }
+
+.header-chunk{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+
