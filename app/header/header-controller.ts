@@ -6,26 +6,27 @@ module HeaderCtrl {
 
     private user:app.IUser;
     private isShowAll = true;
+    private isLoggedIn:boolean;
 
     public static $inject = ['AuthService', '$state'];
 
     constructor(private authService: IAuthService,
                 private $state:ng.ui.IStateService
     ) {
-      var isLoggedIn = authService.isLoggedIn();
-      if(isLoggedIn){
+      this.isLoggedIn = authService.isLoggedIn();
+      if(this.isLoggedIn){
         this.user = authService.getLoggedInUser();
       }
     }
 
     loadAllTopics = () => {
-      this.$state.go('main.topicList',{authorId:null});
+      this.$state.go('main.home.topicList',{authorId:null});
       this.isShowAll = true;
 
     };
 
     loadOwnTopics = () => {
-      this.$state.go('main.topicList',{authorId: this.user._id});
+      this.$state.go('main.home.topicList',{authorId: this.user._id});
       this.isShowAll = false;
     };
 

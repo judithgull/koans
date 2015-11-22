@@ -12,7 +12,7 @@ module signUp.SignUpCtrl {
 
     submit = () => {
       this.authService.signUp(this.user).then(
-        ()=> this.$state.go('main.topicList', {}, { reload: true }),
+        ()=> this.$state.go('main.home.topicList', {}, { reload: true }),
         (error) => {this.duplicatedEmailError=error;}
       );
     }

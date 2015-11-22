@@ -2,4 +2,6 @@
 account
 
 button(ui-sref='main.editTopic()' ng-disabled='!header.isLoggedIn').button New
-a(ng-show='header.isLoggedIn' ng-click='header.loadOwnTopics()').button My Koansdiv(ui-view="")
+a(ng-show='header.isLoggedIn && header.isShowAll' ng-click='header.loadOwnTopics()').button My Koans
+a(ng-show='header.isLoggedIn && !header.isShowAll' ng-click='header.loadAllTopics()').button All Koans
+div(ui-view="")

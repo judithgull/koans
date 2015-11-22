@@ -7,18 +7,18 @@ module koans {
 
 
   function config($urlRouterProvider: ng.ui.IUrlRouterProvider, $stateProvider: ng.ui.IStateProvider) {
-    $urlRouterProvider.otherwise('/topic-list');
+    $urlRouterProvider.otherwise('topic-list');
     $stateProvider
       .state('main', {
         url: '',
         abstract: true,
-        templateUrl: 'header/header-detail.tpl.html',
+        templateUrl: 'header/header.tpl.html',
         controller: 'HeaderCtrl',
         controllerAs: 'header'
       });
     $stateProvider
       .state('main.home', {
-        url: '/home',
+        url: '',
         abstract: true,
         templateUrl: 'header/header-home.tpl.html',
         controller: 'HeaderCtrl',
