@@ -43,6 +43,7 @@ module.exports = function (gulp, $) {
     if(isResetDb) {
       gulp.start('drop-mongo');
       run('mongoimport --db koans --collection topics app-node/sample-data/topics.bson').exec();
+      run('mongo -eval "db.topics.createIndex({title: \'text\'},{name: \'TextIndex\',\'default_language\': \'en\', \'language_override\': \'lang\'})"').exec();
     }
   });
 
