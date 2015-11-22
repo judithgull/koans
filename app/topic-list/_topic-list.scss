@@ -1,14 +1,12 @@
 $spacing: s(medium);
 
-
-
 .topic-list {
   margin-top: -$spacing;
   margin-bottom: -$spacing;
 }
 .topic-item {
   background-color: c(light-grey);
-  height: 200px;
+  min-height: 226px;
   padding: s(small);
   margin-top: $spacing;
   margin-bottom: $spacing;
@@ -18,4 +16,8 @@ $spacing: s(medium);
   height: 100%;
   width: 100%;
   box-sizing: border-box;
+}
+
+.topic-title {
+  word-break: break-word;
 }

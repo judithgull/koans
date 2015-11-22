@@ -9,6 +9,7 @@ module topicList {
   angular
     .module('topicList', [
       'ui.router',
-      'core'
+      'core',
+      'truncate'
     ]);
 }
