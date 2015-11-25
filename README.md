@@ -19,6 +19,13 @@ brew install mongodb
 ###Instructions:
 http://docs.mongodb.org/manual/installation/
 
+###Setup Database: Add sample data and text
+```
+mongod 
+mongoimport --db koans --collection topics app-node/sample-data/topics.bson
+mongo --eval "db.getSiblingDB('koans').topics.createIndex({title: 'text', 'items.title': 'text','items.description': 'text'},{name: 'TextIndex','default_language': 'en', 'language_override': 'lang'})"
+```
+
 ## Webstorm
 1. Install Typescript Version >= 1.6.2 in Webstorm: install with npm i -g typescript
 2. Add to Webstorm: Preferences/Languages & Frameworks/Typescript
