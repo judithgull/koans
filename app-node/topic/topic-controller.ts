@@ -7,7 +7,14 @@ module.exports.getTopics = function (req, res) {
   res.format({
     "application/json": function (req, res) {
       var authorId = url.parse(req.url, true).query.authorId;
-      var query = (authorId)?{authorId:authorId}:{};
+      var searchText = url.parse(req.url, true).query.search;
+      var query:any = {};
+      if(authorId){
+        query.authorId =authorId;
+      }
+      if(searchText){
+        query.$text = { $search: searchText};
+      }
 
       Topic
         .find(query, function (err, topics) {
