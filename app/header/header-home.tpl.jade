@@ -16,6 +16,6 @@ ul(ng-init="tab = 1" ng-show='header.isLoggedIn').filter-tabs
     a(href='', ng-click = "tab = 2;header.loadOwnTopics()").filter-tabs--item-link.t-link
       | My Koans
 
-.filter-wrap(ng-show="tab === 1 || tab === 2")
+.filter-wrap
   div(ui-view="")
 
