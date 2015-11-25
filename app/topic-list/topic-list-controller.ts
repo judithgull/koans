@@ -9,26 +9,25 @@ module topicList {
 
 
   class TopicListCtrl implements ITopicListCtrl {
-
-    topics:Array<Data.ITopic> = [];
     errorMessage:string = null;
+    user:app.IUser;
+    isShowAll:boolean;
+    isLoggedIn:boolean;
+    topics:Array<Data.ITopic> = [];
 
     public static $inject = [
       'RestClient',
       'AuthService',
-      '$state'
+      'SearchParamsService'
     ];
 
     constructor(private RestClient:RestClient.IRestClient,
                 private authService:auth.IAuthService,
-                private $state:ng.ui.IStateService) {
+                private searchParamsService:core.SearchParamsService) {
 
-      var authorId = $state.params['authorId'];
-
-      var queryParams = (authorId)?{authorId: $state.params['authorId']}:{};
-      this.RestClient.getTopics(queryParams).then(topics => {
-        this.topics = topics;
-      });
+      this.isLoggedIn = authService.isLoggedIn();
+      this.user = this.authService.getLoggedInUser();
+      this.reload();
     }
 
     deleteTopic = (id:number, index:number) => {
@@ -43,14 +42,29 @@ module topicList {
     };
 
     equalsUser = (authorId:string) => {
-      var user = this.authService.getLoggedInUser();
-
-      if (user) {
-        return authorId === user._id;
+      if (this.user) {
+        return authorId === this.user._id;
       } else {
         return false;
       }
+    };
 
+    loadAllTopics = () => {
+      this.searchParamsService.removeAuthorId();
+      this.reload();
+    };
+
+    loadOwnTopics = () => {
+      this.searchParamsService.setAuthorId(this.user._id);
+      this.reload();
+    };
+
+    reload = () => {
+      this.isShowAll = !!this.searchParamsService.getAuthorId();
+      var queryParams = this.searchParamsService.getSearchParam();
+      this.RestClient.getTopics(queryParams).then(topics => {
+        this.topics = topics;
+      });
     }
   }
 

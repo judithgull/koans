@@ -4,32 +4,14 @@ module HeaderCtrl {
 
   class HeaderCtrl {
 
-    private user:app.IUser;
-    private isShowAll = true;
     private isLoggedIn:boolean;
 
-    public static $inject = ['AuthService', '$state'];
+    public static $inject = ['AuthService'];
 
-    constructor(private authService: IAuthService,
-                private $state:ng.ui.IStateService
+    constructor(private authService: IAuthService
     ) {
       this.isLoggedIn = authService.isLoggedIn();
-      if(this.isLoggedIn){
-        this.user = authService.getLoggedInUser();
-      }
     }
-
-    loadAllTopics = () => {
-      this.$state.go('main.home.topicList',{authorId:null});
-      this.isShowAll = true;
-
-    };
-
-    loadOwnTopics = () => {
-      this.$state.go('main.home.topicList',{authorId: this.user._id});
-      this.isShowAll = false;
-    };
-
 
   }
 
