@@ -20,8 +20,16 @@ module core {
       return localStorage.getItem(this.AUTHOR_ID_KEY);
     };
 
+    removeAuthorId = () => {
+      localStorage.removeItem(this.AUTHOR_ID_KEY);
+    };
+
     setSearchText = (searchText:string) => {
       localStorage.setItem(this.SEARCH_TEXT_KEY,searchText);
+    };
+
+    removeSearchText = () => {
+      localStorage.removeItem(this.SEARCH_TEXT_KEY);
     };
 
     getSearchText = ():string => {
@@ -29,8 +37,8 @@ module core {
     };
 
     clear = () => {
-      localStorage.removeItem(this.AUTHOR_ID_KEY);
-      localStorage.removeItem(this.SEARCH_TEXT_KEY);
+      this.removeAuthorId();
+      this.removeSearchText();
     };
 
     getSearchParam = ():ISearchParam => {
