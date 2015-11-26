@@ -19,8 +19,8 @@ module topicList {
       };
 
       var authService = {
-        getLoggedInUser: () => {
-        }
+        getLoggedInUser: () => {},
+        isLoggedIn: () => true
       };
 
       ctrl = $controller('TopicListCtrl',
@@ -39,12 +39,10 @@ module topicList {
     });
 
     describe("data loaded", () => {
-
       it("should have topics after data is loaded", () => {
         rs.$apply();
         expect(ctrl.topics.length).toBe(topics.length);
       });
-
 
     })
 
