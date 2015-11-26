@@ -9,7 +9,6 @@ module exercise {
   angular
     .module('exercise', [
       'ui.router',
-      'exercise.details',
       'exercise.solution'
     ]);
 }
