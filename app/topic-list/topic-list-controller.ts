@@ -14,6 +14,7 @@ module topicList {
     isShowAll:boolean;
     isLoggedIn:boolean;
     topics:Array<Data.ITopic> = [];
+    searchText:string;
 
     public static $inject = [
       'RestClient',
@@ -27,6 +28,7 @@ module topicList {
 
       this.isLoggedIn = authService.isLoggedIn();
       this.user = this.authService.getLoggedInUser();
+      this.searchText = this.searchParamsService.getSearchText();
       this.reload();
     }
 
@@ -49,18 +51,23 @@ module topicList {
       }
     };
 
-    loadAllTopics = () => {
+    search = () => {
+      this.searchParamsService.setSearchText(this.searchText);
+      this.reload();
+    };
+
+    loadAll = () => {
       this.searchParamsService.removeAuthorId();
       this.reload();
     };
 
-    loadOwnTopics = () => {
+    loadOwn = () => {
       this.searchParamsService.setAuthorId(this.user._id);
       this.reload();
     };
 
-    reload = () => {
-      this.isShowAll = !!this.searchParamsService.getAuthorId();
+    private reload = () => {
+      this.isShowAll = !this.searchParamsService.getAuthorId();
       var queryParams = this.searchParamsService.getSearchParam();
       this.RestClient.getTopics(queryParams).then(topics => {
         this.topics = topics;

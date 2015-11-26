@@ -1,13 +1,13 @@
 .search-field
-  input.input(id='search' name='search' type='text' ng-model='header.search')
-  button(ng-click='topicList.loadAllTopics()').button.button-search Search
+  input.input(id='search' name='search' type='text' ng-model='topicList.searchText')
+  button(ng-click='topicList.search()').button.button-search Search
 
 ul(ng-show='topicList.isLoggedIn').filter-tabs
   li(ng-class="{ active: topicList.isShowAll}").filter-tabs--item
-    a(href='', ng-click = "topicList.loadAllTopics()").filter-tabs--item-link.t-link
+    a(href='', ng-click = "topicList.loadAll()").filter-tabs--item-link.t-link
       | All Koans
   li(ng-class="{ active: !topicList.isShowAll}").filter-tabs--item
-    a(href='', ng-click = "topicList.loadOwnTopics()").filter-tabs--item-link.t-link
+    a(href='', ng-click = "topicList.loadOwn()").filter-tabs--item-link.t-link
       | My Koans
 
 .filter-wrap
