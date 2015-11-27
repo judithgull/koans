@@ -24,9 +24,13 @@ module editTopic {
     submit = () => {
       this.updateSortOrder();
 
-      var submitFunction = (!this.topic._id)?(t)=>this.RestClient.createTopic(t):(t)=>this.RestClient.updateTopic(t);
+      var isNew = !this.topic._id;
+      var submitFunction = (isNew)?(t)=>this.RestClient.createTopic(t):(t)=>this.RestClient.updateTopic(t);
       submitFunction(this.topic).then(
         ()=> {
+          if(isNew) {
+            this.searchParamsService.removeSearchText();
+          }
           this.$state.go("main.home.topicList");
         },
         (error)=> {
@@ -72,13 +76,14 @@ module editTopic {
       this.$scope.$digest();
     }
 
-    public static $inject = ['RestClient', '$state', '$scope', 'libs', 'topic'];
+    public static $inject = ['RestClient', '$state', '$scope', 'libs', 'SearchParamsService', 'topic'];
 
     // dependencies are injected via AngularJS $injector
     constructor(private RestClient:RestClient.IRestClient,
                 private $state:angular.ui.IStateService,
                 private $scope:ng.IScope,
                 private libs: Array<Data.ILibrary>,
+                private searchParamsService:core.SearchParamsService,
                 public topic:Data.ITopic
     ) {
     }
