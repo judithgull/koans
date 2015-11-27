@@ -1,6 +1,5 @@
 .search-field
-  input.input(id='search' name='search' type='text' ng-model='topicList.searchText')
-  button(ng-click='topicList.search()').button.button-search Search
+  input.input(id='search' name='search' type='text' ng-change='topicList.search()' ng-model='topicList.searchText')
 
 ul(ng-show='topicList.isLoggedIn').filter-tabs
   li(ng-class="{ active: topicList.isShowAll}").filter-tabs--item
