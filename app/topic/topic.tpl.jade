@@ -4,8 +4,9 @@ h1.t-title {{::topic.title}}
 p.t-paragraph {{::topic.language}}
 
 .status-bar
-  .status-bar-item(ng-repeat='exercise in topic.topicData.items')
-    a(ui-sref='#').button {{$index +1}}
+  .status-bar-item(ng-repeat='ex in topic.topicData.items')
+    a(ui-sref='main.topic.exercise.details({ exerciseId:$index + 1 })'
+    ng-class="{ active: $index + 1 === topic.getExerciseId() }").button.status-bar-item--link {{ $index + 1 }}
 
 
 div(ui-view="")
