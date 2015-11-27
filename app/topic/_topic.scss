@@ -34,3 +34,10 @@ $arrow-line-width: 3px;
 
 }
 
+
+.status-bar {
+  &-item {
+    display: inline-block;
+  }
+}
+

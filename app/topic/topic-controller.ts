@@ -25,7 +25,7 @@ module TopicCtrl {
 
     public static $inject = ['topicData', '$state'];
 
-    constructor(topicData:Data.ITopic, private $state:ITopicStateService) {
+    constructor(public topicData:Data.ITopic, private $state:ITopicStateService) {
       this.title = topicData.title;
       this.language = topicData.language;
       this.exerciseCount = topicData.items.length;
