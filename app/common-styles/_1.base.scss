@@ -58,22 +58,24 @@ textarea {
 // buttons
 .button {
   display: inline-block;
-  border: 1px solid c(white);
+  border: 1px solid c(blue);
   border-radius: s(large);
   background-color: transparent;
+  transition: border-color 200ms, color 200ms;
   padding: s(small) s(medium);
   font-family: $t-default-font-family;
   font-size: 1rem;
-  color: c(white);
+  color: c(blue);
   text-decoration: none;
   &:disabled {
-    border-color: rgba(c(white), 0.4);
-    color: rgba(c(white), 0.4);
+    border-color: rgba(c(blue), 0.4);
+    color: rgba(c(blue), 0.4);
   }
   &:hover {
     &:not([disabled]) {
       cursor: pointer;
-      background-color: rgba(c(white), 0.2);
+      border-color: c(green);
+      color: c(green);
     }
   }
 }
