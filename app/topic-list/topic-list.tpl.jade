@@ -1,7 +1,8 @@
 .search-field
   input.input(id='search' name='search' type='text' ng-change='topicList.search()' ng-model='topicList.searchText')
 
-ul(ng-show='topicList.isLoggedIn').filter-tabs
+
+ul(ng-show='topicList.isLoggedIn').l-list-reset.filter-tabs
   li(ng-class="{ active: topicList.isShowAll}").filter-tabs--item
     a(href='', ng-click = "topicList.loadAll()").filter-tabs--item-link.t-link
       | All Koans
@@ -10,6 +11,7 @@ ul(ng-show='topicList.isLoggedIn').filter-tabs
       | My Koans
 
 .filter-wrap
+  p.t-paragraph.topic-list-message(ng-show='topicList.topics.length==0') message
   .l-grid.topic-list
     .l-grid-cell.l-one-third.l-tablet-one-half.l-mobile-one-whole(ng-repeat="topic in topicList.topics")
       .topic-item

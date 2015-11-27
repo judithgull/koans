@@ -1,15 +1,39 @@
-$spacing: s(medium);
 
-.topic-list {
-  margin-top: -$spacing;
-  margin-bottom: -$spacing;
+.search-field{
+  display: flex;
+  margin-bottom: s(huge);
 }
+
+.button-search{
+  margin-left: s(medium);
+}
+
+.filter-tabs {
+  margin-bottom: 0;
+  padding: 0;
+  &--item {
+    display: inline-block;
+    text-decoration: none;
+    &-link {
+      display: block;
+      padding: s(small) s(medium);
+    }
+    &.active {
+      background-color: c(black);
+    }
+  }
+}
+
+.filter-wrap {
+  background-color: c(black);
+  padding: s(medium);
+}
+
 .topic-item {
   background-color: c(light-grey);
   min-height: 234px;
   padding: s(small);
-  margin-top: $spacing;
-  margin-bottom: $spacing;
+  margin-bottom: s(large);
 
 
   display: block;
@@ -25,4 +49,8 @@ $spacing: s(medium);
 
 .topic-title {
   word-wrap: break-word;
+}
+
+.topic-list-message {
+  color: c(white);
 }
