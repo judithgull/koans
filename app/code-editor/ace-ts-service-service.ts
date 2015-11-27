@@ -24,7 +24,6 @@ module codeEditor.ts {
       var subject = new Rx.Subject<Data.IStatus>();
       subject.onNext(new Data.PendingStatus(Data.taskType.compile));
       editor.getSession().on("compileErrors",(e) => this.emitCompileError(subject,e));
-      editor.getSession().on("compiled",(e) => this.startRun(subject,e.data));
       return subject;
     }
 
@@ -37,6 +36,8 @@ module codeEditor.ts {
           }
         });
         subject.onNext(new Data.ErrorStatus(Data.taskType.compile, errors));
+      }else{
+        this.startRun(subject,e.data);
       }
     }
 
@@ -44,7 +45,6 @@ module codeEditor.ts {
       var preparedScript = "chai.should();var expect = chai.expect;var assert = chai.assert;\n" + script;
       var taskType = Data.taskType.run;
       try {
-        subject.onNext(new Data.PendingStatus(taskType));
         eval(preparedScript);
         subject.onNext(new Data.SuccessStatus(taskType));
       } catch (e) {
