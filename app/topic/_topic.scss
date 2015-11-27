@@ -38,9 +38,17 @@ $arrow-line-width: 3px;
 .status-bar {
   &-item {
     display: inline-block;
-    &--link.active{
-      background-color: c(grey);
+    &--link {
+      border: 1px solid transparent;
+      &.active {
+        border: 1px solid c(white);
+      }
+      &.solved {
+        background-color: c(success);
+      }
     }
   }
 }
+
+
 
