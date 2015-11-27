@@ -20,12 +20,19 @@ module ExerciseCtrl {
     };
     onSuccess = () => {
       this.success = true;
-      this.$scope.$digest();
+      this.exData.solved = true;
+      var currentExercise = this.topicData.items[this.exData.sortOrder -1];
+      currentExercise.solved = true;
+      this.$scope.$apply();
     };
 
-    public static $inject = ['exData', '$state', '$scope', 'libs'];
+    public static $inject = ['topicData','exData', '$state', '$scope', 'libs'];
 
-    constructor(exData:Data.IExercise, private $state:angular.ui.IStateService, private $scope:ng.IScope, private libs) {
+    constructor(private topicData:Data.ITopic,
+                private exData:Data.IExercise,
+                private $state:angular.ui.IStateService,
+                private $scope:ng.IScope,
+                private libs) {
       this.content = exData.exercise;
       this.title = exData.title;
       this.description = exData.description;

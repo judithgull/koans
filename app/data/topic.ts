@@ -15,6 +15,7 @@ module Data {
     description: string;
     exercise: string;
     solution: string;
+    solved?:boolean;
   }
 
   export interface ILibrary {
