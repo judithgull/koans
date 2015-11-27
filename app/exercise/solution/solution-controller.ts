@@ -5,16 +5,12 @@ module SolutionCtrl {
 
     content:string;
 
-    public static $inject = ['exData', '$state'];
+    public static $inject = ['exData'];
 
-
-    constructor(exData:Data.IExercise, private $state:angular.ui.IStateService) {
+    constructor(exData:Data.IExercise) {
       this.content = exData.solution;
     }
 
-    private showDetails(){
-      this.$state.go("main.topic.exercise.details");
-    }
   }
 
 
