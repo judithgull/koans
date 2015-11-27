@@ -12,7 +12,7 @@
       display: block;
       padding: s(small) s(medium);
     }
-    &.active {
+    &.isActive {
       background-color: c(black);
     }
   }

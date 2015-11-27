@@ -3,10 +3,10 @@
 
 
 ul(ng-show='topicList.isLoggedIn').l-list-reset.filter-tabs
-  li(ng-class="{ active: topicList.isShowAll}").filter-tabs--item
+  li(ng-class="{ isActive: topicList.isShowAll}").filter-tabs--item
     a(href='', ng-click = "topicList.loadAll()").filter-tabs--item-link.t-link
       | All Koans
-  li(ng-class="{ active: !topicList.isShowAll}").filter-tabs--item
+  li(ng-class="{ isActive: !topicList.isShowAll}").filter-tabs--item
     a(href='', ng-click = "topicList.loadOwn()").filter-tabs--item-link.t-link
       | My Koans
 
