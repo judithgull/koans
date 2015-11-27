@@ -5,11 +5,11 @@
     margin-right: s(small);
   }
   &-error{
-    background-color: red;
+    background-color: c(error);
     display: inline;
   }
   &-success{
-    background-color: green;
+    background-color: c(success);
     display: inline;
   }
 }
