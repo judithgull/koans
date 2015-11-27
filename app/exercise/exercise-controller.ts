@@ -8,7 +8,7 @@ module ExerciseCtrl {
     content:string;
 
     errors:Array<Data.IError> = [];
-    successMessage:string = "You are great!!!";
+    successMessage:string = "Great job!!!";
     success = false;
 
     libsLoader = () => this.libs;
