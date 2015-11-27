@@ -46,6 +46,9 @@ $arrow-line-width: 3px;
       &.solved {
         background-color: c(success);
       }
+      &.isNotSolved {
+        background-color: c(error);
+      }
     }
   }
 }

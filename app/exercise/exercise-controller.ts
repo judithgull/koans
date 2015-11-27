@@ -38,8 +38,10 @@ module ExerciseCtrl {
       this.description = exData.description;
     }
 
-
     public giveUp() {
+      this.exData.solutionRequested = true;
+      var currentExercise = this.topicData.items[this.exData.sortOrder -1];
+      currentExercise.solutionRequested = true;
       this.$state.go("main.topic.exercise.solution");
     }
 
