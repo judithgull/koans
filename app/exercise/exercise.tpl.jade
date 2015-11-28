@@ -1,6 +1,7 @@
-.card
-  h2.t-title-small {{::exercise.title}}
-  p.t-paragraph {{exercise.description}}
+.exercise-card
+  .exercise-card-info
+    h2.t-title-small.exercise-title {{::exercise.title}}
+    p.t-paragraph.exercise-description {{exercise.description}}
 
   .l-grid-wrap
     .l-grid.code-editor-wrap

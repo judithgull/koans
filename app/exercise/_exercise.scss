@@ -1,3 +1,23 @@
-.code-editor-wrap{
+.exercise-card {
   background-color: c(black);
+  padding: s(huge) s(small);
+  margin-bottom: s(large);
+  &-info {
+    margin-bottom: s(huge);
+    text-align: center;
+  }
+}
+
+.exercise-title,
+.exercise-description {
+  color: c(light-grey);
+}
+
+.exercise-description{
+  max-width: 500px;
+  display: inline-block;
+}
+
+.code-editor-wrap{
+  margin-bottom: s(medium);
 }
