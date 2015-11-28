@@ -257,10 +257,10 @@ module.exports = function (gulp, $, config) {
   });
 
   // copy and optimize images into build directory
-  gulp.task('images', ['clean'], function () {
-    return gulp.src(config.appImageFiles)
+  gulp.task('assets', ['clean'], function () {
+    return gulp.src(config.appAssetsFiles)
       .pipe($.if(isProd, $.imagemin()))
-      .pipe(gulp.dest(config.buildImages));
+      .pipe(gulp.dest(config.buildAssets));
   });
 
   gulp.task('copyTemplates', ['bowerInject'], function () {
@@ -273,6 +273,6 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildTestDirectiveTemplatesDir));
   });
 
-  gulp.task('build', ['copyTemplates', 'images', 'fonts', 'data']);
+  gulp.task('build', ['copyTemplates', 'assets', 'fonts', 'data']);
 
 };
