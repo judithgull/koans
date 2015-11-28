@@ -4,11 +4,6 @@ $arrow-space: (sqrt(2 * ($arrow-size-nr/2)*($arrow-size-nr/2)) - ($arrow-size-nr
 
 $arrow-line-width: 3px;
 
-.topic-wrap {
-  background-image: gradient(blue-green);
-  padding: s(huge) s(medium);
-}
-
 .ex-nav{
   &--prev,
   &--next {
