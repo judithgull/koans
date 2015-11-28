@@ -1,0 +1,27 @@
+.edit-topic-form {
+  &.input {
+    margin-bottom: s(medium);
+  }
+}
+
+.topic-info {
+  margin-bottom: s(medium);
+}
+
+.exercise-card-form {
+  background-color: c(black);
+  padding: s(huge) s(small);
+  margin-bottom: s(large);
+  .label, .input, .textarea, .t-paragraph {
+    color: c(light-grey);
+  }
+  .input, .textarea {
+    border-color: c(light-grey);
+  }
+  .input, .textarea, .t-paragraph, .code-editor-wrap, .code-editor {
+    margin-bottom: s(large);
+  }
+  .code-editor {
+    display: block;
+  }
+}

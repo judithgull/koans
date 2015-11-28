@@ -1,27 +1,28 @@
-form(ng-submit='editTopic.submit()' name='editTopicForm')
-  label(for='editTopicForm.language').custom-select.t-label
-    span.inline-label
-      | Language
-    select.select(id='editTopicForm.language' name='language' ng-model="editTopic.topic.language")
-      option(value='typescript')
-        | Typescript
-      option(value='javascript')
-        | Javascript
+form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
+  .topic-info
+    label(for='editTopicForm.language').custom-select.t-label
+      span.inline-label
+        | Language
+      select.select(id='editTopicForm.language' name='language' ng-model="editTopic.topic.language")
+        option(value='typescript')
+          | Typescript
+        option(value='javascript')
+          | Javascript
 
-  label(for='editTopicForm.title').label.t-label Title
-  input.input(id='editTopicForm.title' name='title' ng-model='editTopic.topic.title' required='')
-  div(ng-messages="editTopicForm.title.$error")
-    p(ng-message="required").t-paragraph Please enter a title!
+    label(for='editTopicForm.title').label.t-label Title
+    input.input(id='editTopicForm.title' name='title' ng-model='editTopic.topic.title' required='')
+    div(ng-messages="editTopicForm.title.$error")
+      p(ng-message="required").t-paragraph Please enter a title!
 
   ul.l-list-reset
-    li.card(ng-repeat='item in editTopic.topic.items' ng-form='ex')
+    li.exercise-card-form(ng-repeat='item in editTopic.topic.items' ng-form='ex')
       label(for='editTopicForm.$index.title').label.t-label Title
       input.input(id='editTopicForm.$index.title' name='title' ng-model='item.title')
       label(for='editTopicForm.$index.description').label.t-label Description
       textarea.textarea(id='editTopicForm.$index.description' name='description' ng-model='item.description' required='')
       div(ng-messages="ex.description.$error")
         p(ng-message="required").t-paragraph Please enter a description!
-      .l-grid
+      .l-grid.code-editor-wrap
         .l-grid-cell.l-one-half.l-mobile-one-whole
           code-editor(
           required='',
@@ -30,7 +31,7 @@ form(ng-submit='editTopic.submit()' name='editTopicForm')
           name='exercise',
           language='editTopic.topic.language',
           libs-loader='editTopic.libsLoader',
-          ng-model='item.exercise')
+          ng-model='item.exercise').code-editor
           div(ng-messages="ex.exercise.$error")
             p(ng-message="required").t-paragraph Please enter an exercise!
             p(ng-message="exerciseCompileAndRun").t-paragraph Your exercise must have an error to be fixed by the user!
@@ -43,7 +44,7 @@ form(ng-submit='editTopic.submit()' name='editTopicForm')
           language='editTopic.topic.language',
           libs-loader='editTopic.libsLoader',
           ng-model='item.solution'
-          )
+          ).code-editor
           div(ng-messages="ex.solution.$error")
             p(ng-message="required").t-paragraph Please enter a solution!
             p(ng-message="solutionCompileAndRun").t-paragraph Your solution must have no errors!
