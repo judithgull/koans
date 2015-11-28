@@ -10,8 +10,14 @@
   position: relative;
 }
 
-.logo {
- display: inline-block;
+.logo a {
+  display: inline-block;
+  width: 250px;
+  height: 98px;
+  background: url(/assets/learnasyouteach-logo.png) no-repeat left top;
+  & span {
+    display: none;
+  }
 }
 
 .header-chunk{
