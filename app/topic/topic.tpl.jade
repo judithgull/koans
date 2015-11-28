@@ -6,7 +6,8 @@ p.t-paragraph {{::topic.language}}
 .status-bar
   .status-bar-item(ng-repeat='ex in topic.topicData.items')
     a(ui-sref='main.topic.exercise.details({ exerciseId:$index + 1 })'
-    ng-class="{ isActive: $index + 1 === topic.getExerciseId(), isSolved: ex.solved, isNotSolved: ex.solutionRequested}").button.status-bar-item--link {{ $index + 1 }}
+    ng-class="{ isActive: $index + 1 === topic.getExerciseId(), isSolved: ex.solved, isNotSolved: ex.solutionRequested}").status-bar-item--link
+      span.l-centred {{ $index + 1 }}
 p(ng-show="topic.allExercisesSolved()") Congratulations! You solved all exercises.
 
 div(ui-view="")
