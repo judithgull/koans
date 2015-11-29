@@ -24,7 +24,9 @@ form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
         p(ng-message="required").t-paragraph Please enter a description!
       .l-grid.code-editor-wrap
         .l-grid-cell.l-one-half.l-mobile-one-whole
+          label(for='editTopicForm.$index.exercise').label.t-label Exercise
           code-editor(
+          id='editTopicForm.$index.exercise',
           required='',
           on-error= 'editTopic.onExerciseError(this.ex.exercise)',
           on-success= 'editTopic.onExerciseSuccess(this.ex.exercise)',
@@ -36,7 +38,9 @@ form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
             p(ng-message="required").t-paragraph Please enter an exercise!
             p(ng-message="exerciseCompileAndRun").t-paragraph Your exercise must have an error to be fixed by the user!
         .l-grid-cell.l-one-half.l-mobile-one-whole
+          label(for='editTopicForm.$index.solution').label.t-label Solution
           code-editor(
+          id='editTopicForm.$index.solution',
           required='',
           on-error= 'editTopic.onSolutionError(this.ex.solution)',
           on-success= 'editTopic.onSolutionSuccess(this.ex.solution)',
