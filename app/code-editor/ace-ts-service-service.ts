@@ -12,6 +12,14 @@ module codeEditor.ts {
 
   class AceTsService implements IAceTsService{
 
+    public static $inject = ['EditMarker'];
+    private markerValid = false;
+
+    constructor(
+      private editMarker:EditMarker
+    ) {
+    }
+
     addLibs(editor:AceAjax.Editor, libs: Array<Data.ILibrary>){
       libs.forEach(
           lib => {
@@ -23,21 +31,37 @@ module codeEditor.ts {
     start(editor:AceAjax.Editor):Rx.Observable<Data.IStatus> {
       var subject = new Rx.Subject<Data.IStatus>();
       subject.onNext(new Data.PendingStatus(Data.taskType.compile));
+      editor.getSession().on('change', (event) => {
+        this.checkMarkAvailable(subject, editor.getSession().getValue());
+      });
       editor.getSession().on("compileErrors",(e) => this.emitCompileError(subject,e));
       return subject;
     }
 
-    private emitCompileError(subject:Rx.Subject<Data.IStatus>,e) {
-      if (e.data.length > 0) {
-        var errors = e.data.map((e) => {
-          return {
-            message: e.text,
-            line: parseInt(e.row) + 1
-          }
-        });
-        subject.onNext(new Data.ErrorStatus(Data.taskType.compile, errors));
+    checkMarkAvailable = (subject:Rx.Subject<Data.IStatus>, text) => {
+      if(this.editMarker.containsMark(text)){
+        var err = {message: 'Please replace ??? with the correct answer!',
+                  line: -1};
+        subject.onNext(new Data.ErrorStatus(Data.taskType.validate,[err]));
+        this.markerValid = false;
       }else{
-        this.startRun(subject,e.data);
+        this.markerValid = true;
+      }
+    };
+
+    private emitCompileError(subject:Rx.Subject<Data.IStatus>,e) {
+      if(this.markerValid) {
+        if (e.data.length > 0) {
+          var errors = e.data.map((e) => {
+            return {
+              message: e.text,
+              line: parseInt(e.row) + 1
+            }
+          });
+          subject.onNext(new Data.ErrorStatus(Data.taskType.compile, errors));
+        } else {
+          this.startRun(subject, e.data);
+        }
       }
     }
 

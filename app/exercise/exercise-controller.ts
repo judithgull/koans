@@ -16,22 +16,24 @@ module ExerciseCtrl {
     onError = (errors:Array<Data.IError>) => {
       this.success = false;
       this.errors = errors;
-      this.$scope.$digest();
+      this.$timeout(() => {this.$scope.$digest();});
     };
     onSuccess = () => {
       this.success = true;
       this.exData.solved = true;
       this.getCurrentExercise().solved = true;
-      this.$scope.$apply();
+      this.$timeout(() => {this.$scope.$apply();});
     };
 
-    public static $inject = ['topicData','exData', '$state', '$scope', 'libs'];
+    public static $inject = ['topicData','exData', '$state', '$scope', 'libs', '$timeout'];
 
     constructor(private topicData:Data.ITopic,
                 private exData:Data.IExercise,
                 private $state:angular.ui.IStateService,
                 private $scope:ng.IScope,
-                private libs) {
+                private libs,
+                private $timeout:ng.ITimeoutService
+    ) {
       this.content = exData.exercise;
       this.title = exData.title;
       this.description = exData.description;

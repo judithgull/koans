@@ -25,6 +25,7 @@ module Data {
   }
 
   export enum taskType {
+    validate = 2,
     compile = 0,
     run = 1
   }
