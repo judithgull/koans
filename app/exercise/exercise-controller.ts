@@ -21,8 +21,7 @@ module ExerciseCtrl {
     onSuccess = () => {
       this.success = true;
       this.exData.solved = true;
-      var currentExercise = this.topicData.items[this.exData.sortOrder -1];
-      currentExercise.solved = true;
+      this.getCurrentExercise().solved = true;
       this.$scope.$apply();
     };
 
@@ -40,10 +39,11 @@ module ExerciseCtrl {
 
     public giveUp() {
       this.exData.solutionRequested = true;
-      var currentExercise = this.topicData.items[this.exData.sortOrder -1];
-      currentExercise.solutionRequested = true;
+      this.getCurrentExercise().solutionRequested = true;
       this.$state.go("main.topic.exercise.solution");
     }
+
+    private getCurrentExercise = () => this.topicData.items[this.exData.sortOrder -1];
 
     public isSolution() {
       return this.$state.is("main.topic.exercise.solution");
