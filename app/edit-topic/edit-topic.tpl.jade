@@ -22,6 +22,7 @@ form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
       textarea.textarea(id='editTopicForm.$index.description' name='description' ng-model='item.description' required='')
       div(ng-messages="ex.description.$error")
         p(ng-message="required").t-paragraph Please enter a description!
+      p.t-paragraph You exercise must contain the marker '???'. This marker must be replaced in the solution with the correct answer.
       .l-grid.code-editor-wrap
         .l-grid-cell.l-one-half.l-mobile-one-whole
           label(for='editTopicForm.$index.exercise').label.t-label Exercise
