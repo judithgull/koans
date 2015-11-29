@@ -34,10 +34,12 @@ form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
           name='exercise',
           language='editTopic.topic.language',
           libs-loader='editTopic.libsLoader',
+          mark-required='',
           ng-model='item.exercise').code-editor
           div(ng-messages="ex.exercise.$error")
             p(ng-message="required").t-paragraph Please enter an exercise!
             p(ng-message="exerciseCompileAndRun").t-paragraph Your exercise must have an error to be fixed by the user!
+            p(ng-message="markRequired").t-paragraph The exercise should contain '???' to be edited by the user!
         .l-grid-cell.l-one-half.l-mobile-one-whole
           label(for='editTopicForm.$index.solution').label.t-label Solution
           code-editor(

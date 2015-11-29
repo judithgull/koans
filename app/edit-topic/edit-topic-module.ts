@@ -11,6 +11,7 @@ module editTopic {
     .module('editTopic', [
       'ui.router',
       'ngMessages',
-      'core'
+      'core',
+      'codeEditor'
     ]);
 }
