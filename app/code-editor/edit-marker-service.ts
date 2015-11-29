@@ -11,7 +11,27 @@ module codeEditor {
       }else {
         return false;
       }
-    }
+    };
+
+    /*
+    * Only mark is allowed to change.
+    * Returns true, if no other text than the mark changes
+    * */
+    hasOnlyMarkChanged = (origText:string, changedText:string) => {
+      var splitedOrigText = origText.split(this.mark);
+      var changedTextbefore = changedText.substring(0, splitedOrigText[0].length);
+
+      if(changedTextbefore !==  splitedOrigText[0]) {
+        return false;
+      }else {
+        var startAfterIndex = changedText.indexOf(splitedOrigText[1]);
+        if(startAfterIndex < 0){
+          return false;
+        }
+        var changedTextafter = changedText.substring(startAfterIndex, startAfterIndex + splitedOrigText[1].length);
+        return changedTextafter === splitedOrigText[1];
+      }
+    };
   }
 
   /**
