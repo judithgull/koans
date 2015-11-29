@@ -48,11 +48,7 @@ module editTopic {
     };
 
     onExerciseError = (element:ng.INgModelController) => (errors:Array<Data.IError>) => {
-      if(errors.length > 0) {
-        this.setValidity(element, 'exerciseCompileAndRun', true);
-      }else{
-        this.setValidity(element, 'exerciseCompileAndRun', false);
-      }
+      this.setValidity(element, 'exerciseCompileAndRun', true);
     };
 
     onExerciseSuccess = (element:ng.INgModelController) => () => {
@@ -60,11 +56,7 @@ module editTopic {
     };
 
     onSolutionError = (element:ng.INgModelController) => (errors:Array<Data.IError>) => {
-      if(errors.length > 0) {
-        this.setValidity(element, 'solutionCompileAndRun', false);
-      }else{
-        this.setValidity(element, 'solutionCompileAndRun', true);
-      }
+      this.setValidity(element, 'solutionCompileAndRun', false);
     };
 
     onSolutionSuccess = (element:ng.INgModelController) => () => {
