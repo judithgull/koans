@@ -25,19 +25,20 @@ module codeEditor {
       expect(service.containsMark(null)).toBe(false);
     });
 
-    describe('Has only mark changed', () => {
+    describe('Has only mark changed:', () => {
 
       it('it should return true, if nothing has changed', () => {
         expect(service.hasOnlyMarkChanged("???", "???")).toBe(true);
       });
 
-      it('it should return true when mark changed', () => {
+      it('should return true when mark changed', () => {
        expect(service.hasOnlyMarkChanged("???", "??")).toBe(true);
        expect(service.hasOnlyMarkChanged("code ???", "code ??")).toBe(true);
        expect(service.hasOnlyMarkChanged("code ??? aaa", "code ?? aaa")).toBe(true);
+       expect(service.hasOnlyMarkChanged("code ??? aa\na", "code ?\n? aa\na")).toBe(true);
       });
 
-      it('it should return false when original text changed', () => {
+      it('should return false when original text changed', () => {
         expect(service.hasOnlyMarkChanged("code ???", "codxe ??")).toBe(false);
         expect(service.hasOnlyMarkChanged("code ??? code", "codxe ??? code")).toBe(false);
         expect(service.hasOnlyMarkChanged("code ??? code", "code ??? codxe")).toBe(false);
@@ -46,12 +47,12 @@ module codeEditor {
       });
 
 
-      it('it should return true for multiple marks when only marks have changed', () => {
+      it('should return true for multiple marks when only marks have changed', () => {
         expect(service.hasOnlyMarkChanged("??? a ???", ". a xx")).toBe(true);
       });
 
 
-      it('it should return false when original text changed for multiple marks', () => {
+      it('should return false when original text changed for multiple marks', () => {
         expect(service.hasOnlyMarkChanged("a ??? a ???", "a b")).toBe(false);
       });
 
