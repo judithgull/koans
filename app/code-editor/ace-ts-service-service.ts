@@ -7,13 +7,14 @@ module codeEditor.ts {
      * */
     addLibs(editor:AceAjax.Editor, libs: Array<Data.ILibrary>)
 
-    start(editor:AceAjax.Editor):Rx.Observable<Data.IStatus>;
+    start(editor:AceAjax.Editor, origValue:string):Rx.Observable<Data.IStatus>;
   }
 
   class AceTsService implements IAceTsService{
 
     public static $inject = ['EditMarker'];
     private markerValid = false;
+    private origValue:string = null;
 
     constructor(
       private editMarker:EditMarker
@@ -28,7 +29,8 @@ module codeEditor.ts {
       );
     }
 
-    start(editor:AceAjax.Editor):Rx.Observable<Data.IStatus> {
+    start(editor:AceAjax.Editor, origValue:string):Rx.Observable<Data.IStatus> {
+      this.origValue = origValue;
       var subject = new Rx.Subject<Data.IStatus>();
       subject.onNext(new Data.PendingStatus(Data.taskType.compile));
       editor.getSession().on('change', (event) => {
@@ -40,10 +42,19 @@ module codeEditor.ts {
 
     checkMarkAvailable = (subject:Rx.Subject<Data.IStatus>, text) => {
       if(this.editMarker.containsMark(text)){
-        var err = {message: 'Please replace ??? with the correct answer!',
-                  line: -1};
-        subject.onNext(new Data.ErrorStatus(Data.taskType.validate,[err]));
         this.markerValid = false;
+        var err = {
+          message: 'Please replace ' + this.editMarker.mark + ' with the correct answer!',
+          line: -1
+        };
+        subject.onNext(new Data.ErrorStatus(Data.taskType.validate,[err]));
+      }else if(!this.editMarker.hasOnlyMarkChanged(this.origValue, text)){
+        this.markerValid = false;
+        var err = {
+          message: 'Do not change anything other than ' + this.editMarker.mark+ '!',
+          line: -1
+        };
+        subject.onNext(new Data.ErrorStatus(Data.taskType.validate,[err]));
       }else{
         this.markerValid = true;
       }

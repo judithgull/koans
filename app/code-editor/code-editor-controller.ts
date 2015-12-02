@@ -70,7 +70,7 @@ module codeEditor {
         editor.focus();
         selectQuestionMark(editor);
         if(isRun()) {
-          var allEvents = this.AceTsService.start(editor);
+          var allEvents = this.AceTsService.start(editor, this.$scope.origModel);
           processResults(allEvents);
         }
       };
