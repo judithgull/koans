@@ -39,6 +39,21 @@ module codeEditor {
       }
     };
 
+    initProperties = (editor:AceAjax.Editor) => {
+      editor.$blockScrolling = Infinity;
+      editor.setOptions({
+        maxLines: Infinity,
+      });
+
+      editor.commands.addCommands([{
+        name: "blur",
+        bindKey: "Escape",
+        exec: (editor) => {
+          editor.blur();
+        }
+      }]);
+    };
+
     createExerciseDataLoader() {
       var processResults = (allEvents:Rx.Observable<Data.IStatus>) => {
         var successEvents = allEvents.filter(s => s.success);
@@ -66,12 +81,7 @@ module codeEditor {
 
       return (editor:AceAjax.Editor) => {
         this.editor = editor;
-        editor.$blockScrolling = Infinity;
-
-        editor.setOptions({
-          maxLines: Infinity,
-        });
-
+        this.initProperties(editor);
         var libs = <Function>this.$scope.libsLoader();
         this.AceTsService.addLibs(editor, libs());
         if (isRun()) {
