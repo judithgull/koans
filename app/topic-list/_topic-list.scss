@@ -1,5 +1,29 @@
+$icon-loupe-size: s(large);
+$icon-space-left: s(medium);
+
 .search-field{
+  position: relative;
   margin-bottom: s(huge);
+
+  .icon-loupe {
+    position: absolute;
+    top: 50%;
+    left: $icon-space-left;
+    transform: translate(0, -50%);
+
+    height: $icon-loupe-size;
+    width: $icon-loupe-size;
+
+    background-image: url(/assets/icon-loupe.svg);
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: 100%;
+    transition: background-image 200ms;
+  }
+
+  .input {
+    padding-left: s(small) + $icon-loupe-size + $icon-space-left;
+  }
 }
 
 .filter-tabs {
