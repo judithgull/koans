@@ -14,7 +14,8 @@
   display: inline-block;
   width: 250px;
   height: 98px;
-  background: url(/assets/learnasyouteach-logo.png) no-repeat left top;
+  background: url(/assets/learnasyouteach-logo.svg) no-repeat left top;
+  background-size: 100%;
   & span {
     display: none;
   }
