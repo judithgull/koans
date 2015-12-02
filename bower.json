@@ -11,7 +11,8 @@
     "rxjs": "~4.0.0",
     "bonescss": "~0.7.3",
     "sensible": "~0.5.4",
-    "angular-truncate": "*"
+    "angular-truncate": "*",
+    "angular-aria": "~1.4.8"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.*"

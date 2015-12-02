@@ -10,6 +10,7 @@ module koans {
 
   var app = angular.module('koans', [
     'ui.router',
+    'ngAria',
     'ui.ace',
     'codeEditor',
     'topicList',
@@ -19,7 +20,7 @@ module koans {
     'header',
     'auth.signUp',
     'auth.login',
-    'auth.account'
+    'auth.account',
   ]);
 
   app.run(['$rootScope', '$log',function($rootScope, $log) {
