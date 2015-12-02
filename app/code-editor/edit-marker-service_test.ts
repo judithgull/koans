@@ -27,7 +27,12 @@ module codeEditor {
 
     describe('Has only mark changed:', () => {
 
-      it('it should return true, if nothing has changed', () => {
+      it('should be valid, if no mark is available', () => {
+        expect(service.hasOnlyMarkChanged("", "")).toBe(true);
+      });
+
+
+      it('should return true, if nothing has changed', () => {
         expect(service.hasOnlyMarkChanged("???", "???")).toBe(true);
       });
 

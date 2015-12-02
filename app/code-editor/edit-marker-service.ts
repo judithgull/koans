@@ -18,6 +18,9 @@ module codeEditor {
     * Returns true, if no other text than the mark changes
     * */
     hasOnlyMarkChanged = (origText:string, changedText:string):boolean => {
+      if(!this.containsMark(origText)){
+        return true;
+      }
       var splits = origText.split(this.mark);
       var rs = splits
         .map(this.escape)
