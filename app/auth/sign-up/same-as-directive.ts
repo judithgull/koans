@@ -28,7 +28,7 @@ module auth.signUp {
         require: 'ngModel',
         link: (scope:ng.IScope, elm:JQuery, attrs:ng.IAttributes, ngModel:ng.INgModelController) => {
           const otherModel = attrs['sameAs'];
-          ngModel.$validators['same-as'] = (value) => scope.$eval(otherModel) == value;
+          ngModel.$validators['same-as'] = (value) => scope.$eval(otherModel) === value;
 
           //trigger validation when other model value specified in attrs.sameAs is changed
           scope.$watch(otherModel, ngModel.$validate);
