@@ -33,9 +33,14 @@ module codeEditor.ts {
       this.origValue = origValue;
       var subject = new Rx.Subject<Data.IStatus>();
       subject.onNext(new Data.PendingStatus(Data.taskType.compile));
-      editor.getSession().on('change', (event) => {
-        this.checkMarkAvailable(subject, editor.getSession().getValue());
-      });
+
+      if(this.origValue) {
+        editor.getSession().on('change', (event) => {
+          this.checkMarkAvailable(subject, editor.getSession().getValue());
+        });
+      }else{
+        this.markerValid = true;
+      }
       editor.getSession().on("compileErrors",(e) => this.emitCompileError(subject,e));
       return subject;
     }
