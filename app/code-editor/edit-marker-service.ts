@@ -19,7 +19,10 @@ module codeEditor {
     * */
     hasOnlyMarkChanged = (origText:string, changedText:string):boolean => {
       var splits = origText.split(this.mark);
-      var rs = splits.join('[\\s\\S]+');
+      var rs = splits
+        .map(this.escape)
+        .join('[\\s\\S]+');
+
       var r = RegExp(rs);
       var matches = r.test(changedText);
       if(matches){
@@ -28,6 +31,8 @@ module codeEditor {
       }
       return false;
     };
+
+    private escape = (s) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
   }
 
   /**

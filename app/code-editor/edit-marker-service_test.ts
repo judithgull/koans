@@ -56,6 +56,10 @@ module codeEditor {
         expect(service.hasOnlyMarkChanged("a ??? a ???", "a b")).toBe(false);
       });
 
+      it('should be valid for special characters as well', () => {
+        expect(service.hasOnlyMarkChanged("(1 * 1).should.equal(???);", "(1 * 1).should.equal(1);")).toBe(true);
+      });
+
     });
   });
 
