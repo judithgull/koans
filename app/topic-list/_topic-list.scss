@@ -14,9 +14,7 @@ $icon-space-left: s(medium);
     height: $icon-loupe-size;
     width: $icon-loupe-size;
 
-    background-image: url(/assets/icon-loupe.svg);
-    background-repeat: no-repeat;
-    background-position: left top;
+    background: url(/assets/icon-loupe.svg) no-repeat left top;
     background-size: 100%;
     transition: background-image 200ms;
   }
