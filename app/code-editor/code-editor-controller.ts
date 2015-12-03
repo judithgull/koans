@@ -21,7 +21,6 @@ module codeEditor {
 
     handleChange = () => {
       this.$scope.handleEditorChange(this.editor);
-      this.selectEditMark();
     };
 
     selectEditMark = () => {
@@ -72,6 +71,7 @@ module codeEditor {
     load = (editor:AceAjax.Editor) => {
         this.editor = editor;
         this.initProperties();
+        this.selectEditMark();
         var libs = this.$scope.libsLoader();
         this.AceTsService.addLibs(editor, libs());
         if (this.isRun()) {
