@@ -84,6 +84,18 @@ textarea {
   margin-left: s(medium);
 }
 
+.button-plus {
+  display: block;
+  width: s(huge);
+  height: s(huge);
+  padding: 0;
+  margin: 0 auto s(medium);
+
+  &:after {
+    content: '╋';
+  }
+}
+
 //input fields
 .input,
 .textarea,
