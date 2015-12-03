@@ -21,11 +21,11 @@ module codeEditor {
 
     handleChange = () => {
       this.$scope.handleEditorChange(this.editor);
-      this.selectEditMark(this.editor);
+      this.selectEditMark();
     };
 
-    selectEditMark = (editor:AceAjax.Editor) => {
-      var range = editor.find(this.editMarker.mark, {
+    selectEditMark = () => {
+      var range = this.editor.find(this.editMarker.mark, {
         backwards: false,
         wrap: true,
         caseSensitive: false,
@@ -33,60 +33,53 @@ module codeEditor {
         regExp: false
       });
       if (range && range.start.column > 0 && range.start.row > 0) {
-        editor.selection.addRange(range);
-        editor.moveCursorTo(range.end.row, range.end.column);
-        editor.focus();
+        this.editor.selection.addRange(range);
+        this.editor.moveCursorTo(range.end.row, range.end.column);
+        this.editor.focus();
       }
     };
 
-    initProperties = (editor:AceAjax.Editor) => {
-      editor.$blockScrolling = Infinity;
-      editor.setOptions({
+    initProperties = () => {
+      this.editor.$blockScrolling = Infinity;
+      this.editor.setOptions({
         maxLines: Infinity,
       });
 
-      editor.commands.addCommands([{
+      this.editor.commands.addCommands([{
         name: "blur",
         bindKey: "Escape",
-        exec: (editor) => {
-          editor.blur();
-        }
+        exec: () => {this.editor.blur();}
       }]);
     };
 
-    createExerciseDataLoader() {
-      var processResults = (allEvents:Rx.Observable<Data.IStatus>) => {
-        var successEvents = allEvents.filter(s => s.success);
-        var errorEvents = allEvents.filter(s => !s.success);
+    processResults = (allEvents:Rx.Observable<Data.IStatus>) => {
+      var successEvents = allEvents.filter(s => s.success);
+      var errorEvents = allEvents.filter(s => !s.success);
 
-        if (isSuccessDefined()) {
-          successEvents.forEach(s => {
-            this.$scope.onSuccess()();
-          });
-        }
-
-        errorEvents.forEach(s => {
-          this.$scope.onError()(s.errors);
+      if (this.isSuccessDefined()) {
+        successEvents.forEach(s => {
+          this.$scope.onSuccess()();
         });
-      };
+      }
 
-      var isSuccessDefined = () => {
-        return this.$scope.onSuccess && this.$scope.onSuccess();
-      };
+      errorEvents.forEach(s => {
+        this.$scope.onError()(s.errors);
+      });
+    };
 
-      var isRun = () => {
-        return (isSuccessDefined()) ||
-          (this.$scope.onError && this.$scope.onError());
-      };
+    isSuccessDefined = () => this.$scope.onSuccess && this.$scope.onSuccess();
 
+    isRun = () => this.isSuccessDefined() || (this.$scope.onError && this.$scope.onError());
+
+    createExerciseDataLoader() {
       return (editor:AceAjax.Editor) => {
         this.editor = editor;
-        this.initProperties(editor);
+        this.initProperties();
         var libs = <Function>this.$scope.libsLoader();
         this.AceTsService.addLibs(editor, libs());
-        if (isRun()) {
+        if (this.isRun()) {
           var allEvents = this.AceTsService.start(editor, this.$scope.origModel);
-          processResults(allEvents);
+          this.processResults(allEvents);
         }
       };
     }
