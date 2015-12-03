@@ -9,14 +9,14 @@ form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
         option(value='javascript')
           | Javascript
 
-    label(for='editTopicForm.title').label.t-label Title
+    label(for='editTopicForm.title').label.t-label Series Title
     input.input(id='editTopicForm.title' name='title' ng-model='editTopic.topic.title' required='')
     div(ng-messages="editTopicForm.title.$error")
       p(ng-message="required").t-paragraph Please enter a title!
 
   ul.l-list-reset
     li.exercise-card-form(ng-repeat='item in editTopic.topic.items' ng-form='ex')
-      label(for='editTopicForm.$index.title').label.t-label Title
+      label(for='editTopicForm.$index.title').label.t-label Exercise Title
       input.input(id='editTopicForm.$index.title' name='title' ng-model='item.title')
       label(for='editTopicForm.$index.description').label.t-label Description
       textarea.textarea(id='editTopicForm.$index.description' name='description' ng-model='item.description' required='')
