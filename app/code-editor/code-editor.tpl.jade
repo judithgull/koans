@@ -3,7 +3,7 @@ div(ui-ace="{\
         mode: '{{::language}}',\
         theme: 'tomorrow_night_bright',\
         useWrapMode: true,\
-        onLoad: codeEditor.createExerciseDataLoader(),\
+        onLoad: codeEditor.load,\
         onChange: codeEditor.handleChange\
         }"
 )

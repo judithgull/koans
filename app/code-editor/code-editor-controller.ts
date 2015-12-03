@@ -4,7 +4,7 @@ module codeEditor {
   export interface  ICodeEditorModel {
     editor:AceAjax.Editor;
     handleChange:Function;
-    createExerciseDataLoader:Function;
+    load:Function;
   }
 
   class CodeEditorCtrl implements ICodeEditorModel {
@@ -39,7 +39,7 @@ module codeEditor {
       }
     };
 
-    initProperties = () => {
+    private initProperties = () => {
       this.editor.$blockScrolling = Infinity;
       this.editor.setOptions({
         maxLines: Infinity,
@@ -52,14 +52,12 @@ module codeEditor {
       }]);
     };
 
-    processResults = (allEvents:Rx.Observable<Data.IStatus>) => {
+    private processResults = (allEvents:Rx.Observable<Data.IStatus>) => {
       var successEvents = allEvents.filter(s => s.success);
       var errorEvents = allEvents.filter(s => !s.success);
 
       if (this.isSuccessDefined()) {
-        successEvents.forEach(s => {
-          this.$scope.onSuccess()();
-        });
+        successEvents.forEach(() => {this.$scope.onSuccess()();});
       }
 
       errorEvents.forEach(s => {
@@ -67,22 +65,20 @@ module codeEditor {
       });
     };
 
-    isSuccessDefined = () => this.$scope.onSuccess && this.$scope.onSuccess();
+    private isSuccessDefined = () => this.$scope.onSuccess && this.$scope.onSuccess();
 
-    isRun = () => this.isSuccessDefined() || (this.$scope.onError && this.$scope.onError());
+    private isRun = () => this.isSuccessDefined() || (this.$scope.onError && this.$scope.onError());
 
-    createExerciseDataLoader() {
-      return (editor:AceAjax.Editor) => {
+    load = (editor:AceAjax.Editor) => {
         this.editor = editor;
         this.initProperties();
-        var libs = <Function>this.$scope.libsLoader();
+        var libs = this.$scope.libsLoader();
         this.AceTsService.addLibs(editor, libs());
         if (this.isRun()) {
           var allEvents = this.AceTsService.start(editor, this.$scope.origModel);
           this.processResults(allEvents);
         }
       };
-    }
   }
 
 
