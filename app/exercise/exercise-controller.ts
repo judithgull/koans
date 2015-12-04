@@ -10,6 +10,7 @@ module ExerciseCtrl {
     successMessage:string = "Great job!!!";
     success = false;
     id:number;
+    exerciseCount:number;
 
     libsLoader = () => this.libs;
 
@@ -21,8 +22,23 @@ module ExerciseCtrl {
     onSuccess = () => {
       this.success = true;
       this.getCurrentExercise().solved = true;
+      this.nextExercise();
       this.$timeout(() => {this.$scope.$apply();});
     };
+
+    getExerciseId = () => this.id +1;
+
+    nextExercise() {
+      if (this.hasNextExercise()) {
+        this.goToExercise(this.getExerciseId() + 1);
+      }
+    }
+
+    hasNextExercise = ():boolean => this.getExerciseId()  < this.exerciseCount;
+
+    private goToExercise(id:number) {
+      this.$state.go("main.topic.exercise.details", {exerciseId: id});
+    }
 
     public static $inject = ['topicData', '$state', '$scope', 'libs', '$timeout'];
 
@@ -34,6 +50,7 @@ module ExerciseCtrl {
     ) {
       this.id = this.$state.params['exerciseId'] - 1;
       this.currentExercise = this.getCurrentExercise();
+      this.exerciseCount = topicData.items.length;
       this.content = this.currentExercise.exercise;
       if(!this.currentExercise.userSolution){
         this.currentExercise.userSolution = this.currentExercise.exercise;
