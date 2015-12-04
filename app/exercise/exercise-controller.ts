@@ -1,15 +1,15 @@
 module ExerciseCtrl {
+  import IExercise = Data.IExercise;
   'use strict';
 
   class ExerciseCtrl {
-
-    title:string;
-    description:string;
+    currentExercise:IExercise;
     content:string;
 
     errors:Array<Data.IError> = [];
     successMessage:string = "Great job!!!";
     success = false;
+    id:number;
 
     libsLoader = () => this.libs;
 
@@ -20,35 +20,32 @@ module ExerciseCtrl {
     };
     onSuccess = () => {
       this.success = true;
-      this.exData.solved = true;
       this.getCurrentExercise().solved = true;
       this.$timeout(() => {this.$scope.$apply();});
     };
 
-    public static $inject = ['topicData','exData', '$state', '$scope', 'libs', '$timeout'];
+    public static $inject = ['topicData', '$state', '$scope', 'libs', '$timeout'];
 
     constructor(private topicData:Data.ITopic,
-                private exData:Data.IExercise,
                 private $state:angular.ui.IStateService,
                 private $scope:ng.IScope,
                 private libs,
                 private $timeout:ng.ITimeoutService
     ) {
-      this.content = exData.exercise;
-      this.title = exData.title;
-      this.description = exData.description;
-      if(!this.topicData.items[this.exData.sortOrder -1].userSolution){
-        this.topicData.items[this.exData.sortOrder -1].userSolution = exData.exercise;
+      this.id = this.$state.params['exerciseId'] - 1;
+      this.currentExercise = this.getCurrentExercise();
+      this.content = this.currentExercise.exercise;
+      if(!this.currentExercise.userSolution){
+        this.currentExercise.userSolution = this.currentExercise.exercise;
       }
     }
 
     public giveUp() {
-      this.exData.solutionRequested = true;
       this.getCurrentExercise().solutionRequested = true;
       this.$state.go("main.topic.exercise.solution");
     }
 
-    private getCurrentExercise = () => this.topicData.items[this.exData.sortOrder -1];
+    private getCurrentExercise = () => this.topicData.items[this.id];
 
     public isSolution() {
       return this.$state.is("main.topic.exercise.solution");

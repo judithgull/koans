@@ -1,14 +1,14 @@
 .exercise-card
   .exercise-card-info
-    h2.t-title-small.exercise-title {{::exercise.title}}
-    p.t-paragraph.exercise-description {{exercise.description}}
+    h2.t-title-small.exercise-title {{::exercise.currentExercise.title}}
+    p.t-paragraph.exercise-description {{exercise.currentExercise.description}}
 
   .l-grid-wrap
     .l-grid.code-editor-wrap
       .l-grid-cell.l-one-half.l-mobile-one-whole
         code-editor(
           language='topic.language',
-          ng-model= 'exercise.topicData.items[exercise.exData.sortOrder -1].userSolution',
+          ng-model= 'exercise.currentExercise.userSolution',
           orig-model='::exercise.content',
           libs-loader="exercise.libsLoader",
           on-error="exercise.onError",
