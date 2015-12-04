@@ -37,6 +37,9 @@ module ExerciseCtrl {
       this.content = exData.exercise;
       this.title = exData.title;
       this.description = exData.description;
+      if(!this.topicData.items[this.exData.sortOrder -1].userSolution){
+        this.topicData.items[this.exData.sortOrder -1].userSolution = exData.exercise;
+      }
     }
 
     public giveUp() {

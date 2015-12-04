@@ -14,6 +14,7 @@ module Data {
     title: string;
     description: string;
     exercise: string;
+    userSolution?:string;
     solution: string;
     solved?:boolean;
     solutionRequested?:boolean;

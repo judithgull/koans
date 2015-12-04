@@ -8,7 +8,7 @@
       .l-grid-cell.l-one-half.l-mobile-one-whole
         code-editor(
           language='topic.language',
-          ng-model= 'exercise.content',
+          ng-model= 'exercise.topicData.items[exercise.exData.sortOrder -1].userSolution',
           orig-model='::exercise.content',
           libs-loader="exercise.libsLoader",
           on-error="exercise.onError",
