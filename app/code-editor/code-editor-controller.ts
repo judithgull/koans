@@ -12,6 +12,7 @@ module codeEditor {
     editor:AceAjax.Editor;
     private selectionProcessed = false;
     private markerValid = false;
+    private compileValid = false;
 
     public static $inject = ['$scope', 'AceTsService', 'EditMarker'];
 
@@ -99,6 +100,7 @@ module codeEditor {
         this.markerValid = true;
       }
       this.editor.getSession().on("compileErrors",(e) => this.emitCompileError(subject,e));
+      this.editor.getSession().on("compiled",(e) => this.startRun(subject,e.data));
       return subject;
     };
 
@@ -124,9 +126,9 @@ module codeEditor {
     };
 
     emitCompileError = (subject:Rx.Subject<Data.IStatus>,e) => {
-      console.log('emitCompileError');
       if(this.markerValid) {
         if (e.data.length > 0) {
+          this.compileValid = false;
           var errors = e.data.map((e) => {
             return {
               message: e.text,
@@ -134,21 +136,23 @@ module codeEditor {
             }
           });
           subject.onNext(new Data.ErrorStatus(Data.taskType.compile, errors));
-        } else {
-          this.startRun(subject, e.data);
+        }else{
+          this.compileValid = true;
         }
       }
     };
 
     private startRun = (subject:Rx.Subject<Data.IStatus>,script:string) => {
-      var preparedScript = "chai.should();var expect = chai.expect;var assert = chai.assert;\n" + script;
-      var taskType = Data.taskType.run;
-      try {
-        eval(preparedScript);
-        subject.onNext(new Data.SuccessStatus(taskType));
-      } catch (e) {
-        var err = {message: e.message, line: -1};
-        subject.onNext(new Data.ErrorStatus(taskType, [err]));
+      if (this.markerValid && this.compileValid) {
+        var preparedScript = "chai.should();var expect = chai.expect;var assert = chai.assert;\n" + script;
+        var taskType = Data.taskType.run;
+        try {
+          eval(preparedScript);
+          subject.onNext(new Data.SuccessStatus(taskType));
+        } catch (e) {
+          var err = {message: e.message, line: -1};
+          subject.onNext(new Data.ErrorStatus(taskType, [err]));
+        }
       }
     }
 
