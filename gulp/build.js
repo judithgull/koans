@@ -4,7 +4,8 @@ var _ = require('underscore.string')
   , fs = require('fs')
   , path = require('path')
   , bowerDir = JSON.parse(fs.readFileSync('.bowerrc')).directory + path.sep
-  , tsd = require('gulp-tsd');
+  , tsd = require('gulp-tsd')
+  , bower = require('gulp-bower');
 
 module.exports = function (gulp, $, config) {
   var isProd = $.yargs.argv.stage === 'prod';
@@ -26,8 +27,13 @@ module.exports = function (gulp, $, config) {
     }, callback);
   });
 
+  // install bower dependencies
+  gulp.task('bower', function() {
+    return bower();
+  });
+
   // compile markup files and copy into build directory
-  gulp.task('markup', ['clean'], function () {
+  gulp.task('markup', ['clean', 'bower'], function () {
     return gulp.src([
       config.appMarkupFiles
     ])
@@ -44,7 +50,7 @@ module.exports = function (gulp, $, config) {
       });
 
   // compile styles and copy into build directory
-  gulp.task('styles', ['clean'], function () {
+  gulp.task('styles', ['clean', 'bower'], function () {
     return gulp.src([
       config.appStyleFiles
     ])
