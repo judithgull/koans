@@ -10,11 +10,11 @@ module.exports.getTopics = function (req, res) {
       var authorId = url.parse(req.url, true).query.authorId;
       var searchText = url.parse(req.url, true).query.search;
       var query:any = {};
-      if(authorId){
-        query.authorId =authorId;
+      if (authorId) {
+        query.authorId = authorId;
       }
-      if(searchText){
-        query.$text = { $search: searchText};
+      if (searchText) {
+        query.$text = {$search: searchText};
       }
 
       Topic
@@ -52,29 +52,27 @@ module.exports.deleteTopic = function (req, res) {
     "application/json": function (req, res) {
       findById(req)
         .then(
-          (topic) => {
-            if (!topic) {
-              res.status(404).send({message: 'Not found'});
-            } else {
-              checkAuthorOfOwnTopic(req,
-                (err) => {
-                  res.status(401).send({message: err});
-                },
-                () => {
-                  Topic
-                    .remove({_id: req.params.id}, function (err) {
-                      if (err) {
-                        res.status(401).send({message: 'Error removing item' + req.params.id});
-                      } else {
-                        res.status(200).send({message: 'ok'});
-                      }
-                    });
-                });
-            }
-          },
-          (error) => {
-            res.status(500).send({message: error});
-          });
+        (topic) => {
+          if (!topic) {
+            res.status(404).send({message: 'Not found'});
+          } else if (!isAuthorOfOwnTopic(topic, req)) {
+            res.status(401).send({message: 'Not authorized'});
+          }
+          else {
+            Topic
+              .remove({_id: req.params.id}, function (err) {
+                if (err) {
+                  res.status(401).send({message: 'Error removing item' + req.params.id});
+                } else {
+                  res.status(200).send({message: 'ok'});
+                }
+              });
+          }
+        },
+        (error) => {
+          res.status(500).send({message: error});
+        }
+      );
     }
   });
 };
@@ -82,25 +80,33 @@ module.exports.deleteTopic = function (req, res) {
 module.exports.updateTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
-      checkAuthorOfOwnTopic(req,
-        (err) => {
-          res.status(401).send({message: err});
+      findById(req)
+        .then(
+        (topic) => {
+          if (!topic) {
+            res.status(404).send({message: 'Not found'});
+          } else if (!isAuthorOfOwnTopic(topic, req)) {
+            res.status(401).send({message: 'Not authorized'});
+          }
+          else {
+            var body = req.body;
+            Topic
+              .update(
+              {_id: req.params.id},
+              {$set: {'title': body.title, 'language': body.language, 'items': body.items}},
+              function (err) {
+                if (err) {
+                  res.status(401).send({message: 'Error updating Topic ' + req.params.id});
+                } else {
+                  res.status(200).send({message: 'ok'});
+                }
+              });
+          }
         },
-        () => {
-          var body = req.body;
-
-          Topic
-            .update(
-            {_id: req.params.id},
-            {$set: {'title': body.title, 'language': body.language, 'items': body.items}},
-            function (err) {
-              if (err) {
-                res.status(401).send({message: 'Error updating Topic ' + req.params.id});
-              } else {
-                res.status(200).send({message: 'ok'});
-              }
-            });
-        });
+        (error) => {
+          res.status(500).send({message: error});
+        }
+      );
     }
   });
 };
@@ -111,24 +117,9 @@ var findById = function (req):mongoose.Promise<any> {
 };
 
 
-var checkAuthorOfOwnTopic = (req, error:Function, success:Function) => {
+var isAuthorOfOwnTopic = (topic, req):boolean => {
   var payload = decodeToken(req);
-  if(!payload){
-    error('You are not authorized');
-  }else {
-    var userId = payload.sub;
-
-    Topic
-      .findOne({_id: req.params.id}, function (err, topic) {
-        if (err) {
-          error(err);
-        } else if (topic.authorId.toString() === userId) {
-          success();
-        } else {
-          error('You are only allowed to modify your own topic!');
-        }
-      });
-  }
+  return payload ? topic.authorId.toString() === payload.sub : false;
 };
 
 var hasValidTocken = (req) => {
@@ -164,7 +155,7 @@ module.exports.postTopic = function (req, res) {
         topic.save(function (err) {
           if (err)
             res.send(topic);
-          else{
+          else {
             res.status(200).send({message: 'ok'});
           }
         });
