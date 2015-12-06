@@ -7,9 +7,10 @@ module auth.AccountCtrl {
     private isLoggedIn:boolean;
     private loginName:string;
 
-    public static $inject = ['AuthService'];
+    public static $inject = ['AuthService', '$state'];
 
-    constructor(private authService: IAuthService
+    constructor(private authService: IAuthService,
+                private $state: angular.ui.IStateService
     ) {
       this.isLoggedIn = authService.isLoggedIn();
       if(this.isLoggedIn){
@@ -20,6 +21,7 @@ module auth.AccountCtrl {
     logout = () => {
       this.authService.logout();
       this.isLoggedIn = false;
+      this.$state.go('main.home.topicList', {}, { reload: true });
     }
   }
 
