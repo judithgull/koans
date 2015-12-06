@@ -54,7 +54,7 @@
       "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
     },
     "node/node.d.ts": {
-      "commit": "c2c22c3b953fe9730d4802022d5e0d18d083909e"
+      "commit": "e5a27ea95e47b95333784f1f0d590127b4e39a89"
     },
     "jwt-simple/jwt-simple.d.ts": {
       "commit": "421d6610bdb09e1015b71f5991d7a68d079eca21"
@@ -64,6 +64,9 @@
     },
     "superagent/superagent.d.ts": {
       "commit": "c2c22c3b953fe9730d4802022d5e0d18d083909e"
+    },
+    "mongoose/mongoose.d.ts": {
+      "commit": "e5a27ea95e47b95333784f1f0d590127b4e39a89"
     }
   }
 }
