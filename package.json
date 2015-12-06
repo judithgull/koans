@@ -2,7 +2,8 @@
   "name": "koans",
   "version": "0.0.0",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "start": "gulp --stage prod"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
