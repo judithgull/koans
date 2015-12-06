@@ -5,7 +5,7 @@ var Schema       = mongoose.Schema,
 
 var TopicSchema   = new Schema({
   title: String,
-  language: String,
+  programmingLanguage: String,
   authorId: ObjectId,
   items: [{
       sortOrder: Number,

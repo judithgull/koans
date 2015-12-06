@@ -94,7 +94,7 @@ module.exports.updateTopic = function (req, res) {
             Topic
               .update(
               {_id: req.params.id},
-              {$set: {'title': body.title, 'language': body.language, 'items': body.items}},
+              {$set: {'title': body.title, 'programmingLanguage': body.language, 'items': body.items}},
               function (err) {
                 if (err) {
                   res.status(401).send({message: 'Error updating Topic ' + req.params.id});
@@ -149,7 +149,7 @@ module.exports.postTopic = function (req, res) {
         var body = req.body;
         var topic = new Topic();
         topic.title = body.title;
-        topic.language = body.language;
+        topic.programmingLanguage = body.language;
         topic.items = body.items;
         topic.authorId = getUserId(req);
 

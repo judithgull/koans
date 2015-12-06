@@ -12,7 +12,7 @@ http://docs.mongodb.org/manual/installation/
 ```
 mongod 
 mongoimport --db koans --collection topics app-node/sample-data/topics.bson
-mongo --eval "db.getSiblingDB('koans').topics.createIndex({title: 'text', 'items.title': 'text','items.description': 'text'},{name: 'TextIndex','default_language': 'en', 'language_override': 'lang'})"
+mongo --eval "db.getSiblingDB('koans').topics.createIndex({title: 'text', 'items.title': 'text','items.description': 'text'})"
 ```
 
 
