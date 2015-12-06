@@ -3,7 +3,8 @@
 var _ = require('underscore.string')
   , fs = require('fs')
   , path = require('path')
-  , bowerDir = JSON.parse(fs.readFileSync('.bowerrc')).directory + path.sep;
+  , bowerDir = JSON.parse(fs.readFileSync('.bowerrc')).directory + path.sep
+  , tsd = require('gulp-tsd');
 
 module.exports = function (gulp, $, config) {
   var isProd = $.yargs.argv.stage === 'prod';
@@ -15,6 +16,14 @@ module.exports = function (gulp, $, config) {
 
   gulp.task('clean-node', function (cb) {
     return $.del(config.buildNodeDir, cb);
+  });
+
+  // install type definitions
+  gulp.task('tsd', function (callback) {
+    tsd({
+      command: 'reinstall',
+      config: './tsd.json'
+    }, callback);
   });
 
   // compile markup files and copy into build directory
@@ -78,7 +87,7 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildCss));
   });
 
-  gulp.task('node-scripts', function () {
+  gulp.task('node-scripts', ['tsd'],function () {
     var tsFilter = $.filter('**/*.ts');
 
     return gulp.src([
