@@ -53,7 +53,8 @@
     "mongoose": "^4.1.9",
     "nodemon": "^1.7.1",
     "require-dir": "^0.3.0",
-    "typescript": "^1.6.2"
+    "typescript": "^1.6.2",
+    "main-bower-files": "^2.0.0"
   },
   "devDependencies": {
     "browser-sync": "^2.2.3",
@@ -72,7 +73,6 @@
     "karma-ng-html2js-preprocessor": "^0.1.0",
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-sinon": "^1.0.3",
-    "main-bower-files": "^2.0.0",
     "mocha": "^2.3.3",
     "multi-glob": "^0.4.0",
     "phantomjs": "^1.9.18",
