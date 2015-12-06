@@ -2,6 +2,7 @@ var url = require("url");
 var Topic = require("./topic-model.js");
 var jwt = require("jwt-simple");
 var secret = 'veryBigSecret...';
+import mongoose = require('mongoose');
 
 module.exports.getTopics = function (req, res) {
   res.format({
@@ -49,20 +50,31 @@ module.exports.getTopic = function (req, res) {
 module.exports.deleteTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
-      checkAuthorOfOwnTopic(req,
-        (err) => {
-          res.status(401).send({message: err});
-        },
-        () => {
-          Topic
-            .remove({_id: req.params.id}, function (err) {
-              if (err) {
-                res.status(401).send({message: 'Error removing item' + req.params.id});
-              } else {
-                res.status(200).send({message: 'ok'});
-              }
-            });
-        });
+      findById(req)
+        .then(
+          (topic) => {
+            if (!topic) {
+              res.status(404).send({message: 'Not found'});
+            } else {
+              checkAuthorOfOwnTopic(req,
+                (err) => {
+                  res.status(401).send({message: err});
+                },
+                () => {
+                  Topic
+                    .remove({_id: req.params.id}, function (err) {
+                      if (err) {
+                        res.status(401).send({message: 'Error removing item' + req.params.id});
+                      } else {
+                        res.status(200).send({message: 'ok'});
+                      }
+                    });
+                });
+            }
+          },
+          (error) => {
+            res.status(500).send({message: error});
+          });
     }
   });
 };
@@ -91,6 +103,11 @@ module.exports.updateTopic = function (req, res) {
         });
     }
   });
+};
+
+
+var findById = function (req):mongoose.Promise<any> {
+  return Topic.findOne({_id: req.params.id}).exec();
 };
 
 

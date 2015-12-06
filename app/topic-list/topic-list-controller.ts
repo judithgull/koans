@@ -38,7 +38,11 @@ module topicList {
           this.topics.splice(index, 1);
         },
         (error)=> {
-          this.errorMessage = error.data.message;
+          if(error.status && error.status === 404){
+            this.reload();
+          }else {
+            this.errorMessage = error.data.message;
+          }
         }
       );
     };
