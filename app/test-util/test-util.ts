@@ -6,7 +6,7 @@ module test {
       return {
         "_id": 1,
         "title": "Typescript Intro - Types",
-        "language": "typescript",
+        "programmingLanguage": "typescript",
         "items": [
           {
             "_id": 1,
@@ -41,7 +41,7 @@ module test {
         {
           "_id": 1,
           "title": "Typescript Intro - Types",
-          "language": "typescript",
+          "programmingLanguage": "typescript",
           "items": [
             {
               "_id": 1,
@@ -72,7 +72,7 @@ module test {
         {
           "_id": 2,
           "title": "Substraction",
-          "language": "typescript",
+          "programmingLanguage": "typescript",
           "items": [
             {
               "_id": 1,

@@ -5,7 +5,7 @@ module editTopic {
     items:Array<Data.IExercise> = [];
 
     constructor(public title:string = '',
-                public language:string = 'typescript') {
+                public programmingLanguage:string = 'typescript') {
       this.items.push(new Exercise());
     }
   }

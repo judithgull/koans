@@ -19,7 +19,7 @@ module TopicCtrl {
     });
 
     it('should have a language and title', () => {
-      expect(ctrl.language).toBe(topic.language);
+      expect(ctrl.language).toBe(topic.programmingLanguage);
       expect(ctrl.title).toBe(topic.title);
     });
 

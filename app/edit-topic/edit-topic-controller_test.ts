@@ -27,7 +27,7 @@ module editTopic {
     }));
 
     it('should have typescript as initial language', function () {
-      expect(topic.language).toEqual('typescript');
+      expect(topic.programmingLanguage).toEqual('typescript');
     });
 
     it('should have 1 item initially', () => {

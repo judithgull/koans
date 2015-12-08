@@ -3,7 +3,7 @@ form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
     label(for='editTopicForm.language').custom-select.t-label
       span.inline-label
         | Language
-      select.select(id='editTopicForm.language' name='language' ng-model="editTopic.topic.language")
+      select.select(id='editTopicForm.language' name='language' ng-model="editTopic.topic.programmingLanguage")
         option(value='typescript')
           | Typescript
         option(value='javascript')

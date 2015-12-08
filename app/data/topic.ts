@@ -4,7 +4,7 @@ module Data {
   export interface ITopic {
     _id: number;
     title: string;
-    language: string;
+    programmingLanguage: string;
     items: Array<Data.IExercise>;
   }
 

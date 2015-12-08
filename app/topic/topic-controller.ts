@@ -27,7 +27,7 @@ module TopicCtrl {
 
     constructor(public topicData:Data.ITopic, private $state:ITopicStateService) {
       this.title = topicData.title;
-      this.language = topicData.language;
+      this.language = topicData.programmingLanguage;
       this.exerciseCount = topicData.items.length;
     }
 
