@@ -1,6 +1,7 @@
 var jwt = require("jwt-simple");
 var User = require("./user-model.js");
-var secret = 'veryBigSecret...';
+var devSecret = 'veryBigSecret...';
+var secret = process.env.SECRET || devSecret;
 
 export class UserController {
 
