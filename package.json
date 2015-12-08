@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "build/app-node/app.js",
   "scripts": {
-    "postinstall": "bower install; tsd install",
+    "postinstall": "bower install; tsd install; gulp patchLibs",
     "test": "gulp test",
     "start": "gulp build --stage prod;node build/app-node/app.js"
   },

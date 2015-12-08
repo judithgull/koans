@@ -8,8 +8,15 @@ var _ = require('underscore.string')
 module.exports = function (gulp, $, config) {
   var isProd = $.yargs.argv.stage === 'prod';
 
+  // copy patched libraries into bower_components dir
+  gulp.task('patchLibs', function () {
+    return gulp.src(config.libFiles)
+      .pipe($.filter('**/*.js'))
+      .pipe(gulp.dest(bowerDir));
+  });
+
   // delete build directory
-  gulp.task('clean', ['clean-node'], function (cb) {
+  gulp.task('clean', function (cb) {
     return $.del(config.buildDir, cb);
   });
 
@@ -17,28 +24,33 @@ module.exports = function (gulp, $, config) {
     return $.del(config.buildNodeDir, cb);
   });
 
+  gulp.task('node-scripts', ['clean-node'],  function () {
+    var tsFilter = $.filter('**/*.ts');
+    return gulp.src(config.appNodeScriptFiles)
+      .pipe($.if(!isProd,$.sourcemaps.init()))
+      .pipe(tsFilter)
+      .pipe($.typescript(config.tsProject))
+      .pipe(tsFilter.restore())
+      .pipe($.if(!isProd,$.sourcemaps.write('.')))
+      .pipe(gulp.dest(config.buildNodeJs))
+  });
+
   // compile markup files and copy into build directory
   gulp.task('markup', ['clean'], function () {
-    return gulp.src([
-      config.appMarkupFiles
-    ])
+    return gulp.src(config.appMarkupFiles)
       .pipe($.jade())
       .pipe(gulp.dest(config.buildDir));
   });
 
   // copy data files into build directory
   gulp.task('data', ['clean'], function () {
-        return gulp.src([
-              config.appDataFiles
-            ])
+        return gulp.src(config.appDataFiles)
           .pipe(gulp.dest(config.buildData));
       });
 
   // compile styles and copy into build directory
   gulp.task('styles', ['clean'], function () {
-    return gulp.src([
-      config.appStyleFiles
-    ])
+    return gulp.src(config.appStyleFiles)
       .pipe($.plumber({errorHandler: function (err) {
         $.notify.onError({
           title: 'Error linting at ' + err.plugin,
@@ -78,16 +90,6 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildCss));
   });
 
-  gulp.task('node-scripts', function () {
-    var tsFilter = $.filter('**/*.ts');
-    return gulp.src(config.appNodeScriptFiles)
-      .pipe($.if(!isProd,$.sourcemaps.init()))
-      .pipe(tsFilter)
-      .pipe($.typescript(config.tsProject))
-      .pipe(tsFilter.restore())
-      .pipe($.if(!isProd,$.sourcemaps.write('.')))
-      .pipe(gulp.dest(config.buildNodeJs))
-  });
 
   // compile scripts and copy into build directory
   gulp.task('scripts', ['clean', 'analyze', 'markup'], function () {
@@ -164,18 +166,9 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.extDir))
   });
 
-  gulp.task('bowerCopyAce',['inject'], function(){
-    var jsAceFilter = $.filter('**/ace-builds/**/*.js');
-
-    return gulp.src($.mainBowerFiles(), {base: bowerDir})
-      .pipe(jsAceFilter)
-      .pipe(gulp.dest(config.extDir));
-  });
-
   // copy bower components into build directory
-  gulp.task('bowerCopy', ['inject', 'bowerCopyCss', 'bowerCopyAce'], function () {
+  gulp.task('bowerCopy', ['inject', 'bowerCopyCss'], function () {
     var jsNoAceFilter = $.filter('**/*.js', '!ace-builds');
-
     return gulp.src($.mainBowerFiles(), {base: bowerDir})
       .pipe(jsNoAceFilter)
       .pipe($.if(isProd, $.concat('vendor.js')))
@@ -183,12 +176,6 @@ module.exports = function (gulp, $, config) {
         preserveComments: $.uglifySaveLicense
       })))
       .pipe($.if(isProd, $.rev()))
-      .pipe(gulp.dest(config.extDir));
-  });
-
-  // copy libs into build directory
-  gulp.task('copyLibs', ['clean', 'bowerCopy'], function () {
-    return gulp.src(config.libFiles)
       .pipe(gulp.dest(config.extDir));
   });
 
@@ -200,13 +187,13 @@ module.exports = function (gulp, $, config) {
 
 
   // copy typescripts/lib.d.ts to build directory
-  gulp.task('copyTypescripts', ['clean', 'bowerCopy'], function () {
+  gulp.task('copyTypeDefinitions', ['clean', 'bowerCopy'], function () {
     return gulp.src([config.tsLibDTs, config.tsTypings])
       .pipe(gulp.dest(config.extTs));
   });
 
   // inject bower components into index.html
-  gulp.task('bowerInject', ['copyLibs', 'copyTsServices', 'copyTypescripts'], function () {
+  gulp.task('bowerInject', ['copyTsServices', 'copyTypeDefinitions'], function () {
     if (isProd) {
       return gulp.src(config.buildDir + 'index.html')
         .pipe($.inject(gulp.src([

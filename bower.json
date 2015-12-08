@@ -18,6 +18,11 @@
     "angular-mocks": "~1.4.*"
   },
   "overrides": {
+    "rxjs":{
+      "main": [
+        "dist/rx.lite.js"
+      ]
+    },
     "ace-builds": {
       "main": [
         "src-min-noconflict/ace.js",
