@@ -24,7 +24,6 @@ module.exports = function (gulp, $) {
         console.log("Error in mongod");
         console.log(err);
         gulp.start('stop-mongo');
-        gulp.start();
       }
     });
   });

@@ -33,7 +33,7 @@ module.exports = function (gulp, $, config) {
 
   });
 
-  gulp.task('browserSync', ['build'], function () {
+  gulp.task('browserSync', ['build-frontend'], function () {
     $.browserSync.reload();
   });
 };

@@ -145,9 +145,16 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.extDir))
   });
 
+  gulp.task('bowerCopyAce', ['inject'], function(){
+    var aceFilter = $.filter('ace-builds/**/*.js');
+    return gulp.src($.mainBowerFiles(), {base: bowerDir})
+      .pipe(aceFilter)
+      .pipe(gulp.dest(config.extDir));
+  });
+
   // copy bower components into build directory
-  gulp.task('bowerCopy', ['inject', 'bowerCopyCss'], function () {
-    var jsNoAceFilter = $.filter('**/*.js', '!ace-builds');
+  gulp.task('bowerCopy', ['inject', 'bowerCopyCss', 'bowerCopyAce'], function () {
+    var jsNoAceFilter = $.filter(['**/*.js','!ace-builds/**']);
     return gulp.src($.mainBowerFiles(), {base: bowerDir})
       .pipe(jsNoAceFilter)
       .pipe($.if(isProd, $.concat('vendor.js')))
@@ -242,6 +249,8 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildTestDirectiveTemplatesDir));
   });
 
-  gulp.task('build', ['node-scripts','copyTemplates', 'assets', 'fonts', 'data']);
+  gulp.task('build-frontend', ['copyTemplates', 'assets', 'fonts', 'data']);
+
+  gulp.task('build', ['node-scripts','build-frontend']);
 
 };
