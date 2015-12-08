@@ -26,7 +26,7 @@ serverApp.use(methodOverride(function (req) {
 /**
  * DB
  */
-mongoose.connect('mongodb://localhost:27017/koans');
+mongoose.connect(process.env.DB_URI || 'mongodb://localhost:27017/koans');
 
 /**
  * Routes
@@ -40,4 +40,4 @@ serverApp.use("/login", require('./login/login-routes.js'));
  * Start Server
  */
 
-http.createServer(serverApp).listen(3000);
+http.createServer(serverApp).listen(process.env.PORT || 3000);
