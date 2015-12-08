@@ -45,5 +45,5 @@ module.exports = function (gulp, $, config) {
     });
   });
    */
-  gulp.task('analyze', ['lint', 'staticAnalysis', 'tsd', 'bower']);
+  gulp.task('analyze', ['lint', 'staticAnalysis']);
 };

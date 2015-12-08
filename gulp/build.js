@@ -4,8 +4,7 @@ var _ = require('underscore.string')
   , fs = require('fs')
   , path = require('path')
   , bowerDir = JSON.parse(fs.readFileSync('.bowerrc')).directory + path.sep
-  , tsd = require('gulp-tsd')
-  , bower = require('gulp-bower');
+  , tsd = require('gulp-tsd');
 
 module.exports = function (gulp, $, config) {
   var isProd = $.yargs.argv.stage === 'prod';
@@ -27,13 +26,8 @@ module.exports = function (gulp, $, config) {
     }, callback);
   });
 
-  // install bower dependencies
-  gulp.task('bower', function() {
-    return bower();
-  });
-
   // compile markup files and copy into build directory
-  gulp.task('markup', ['clean', 'bower'], function () {
+  gulp.task('markup', ['clean'], function () {
     return gulp.src([
       config.appMarkupFiles
     ])
@@ -50,7 +44,7 @@ module.exports = function (gulp, $, config) {
       });
 
   // compile styles and copy into build directory
-  gulp.task('styles', ['clean', 'bower'], function () {
+  gulp.task('styles', ['clean'], function () {
     return gulp.src([
       config.appStyleFiles
     ])
@@ -93,22 +87,19 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildCss));
   });
 
-  gulp.task('node-scripts', ['tsd'],function () {
+  gulp.task('node-scripts', function () {
     var tsFilter = $.filter('**/*.ts');
-
-    return gulp.src([
-        config.appNodeScriptFiles
-      ])
-      .pipe($.sourcemaps.init())
+    return gulp.src(config.appNodeScriptFiles)
+      .pipe($.if(!isProd,$.sourcemaps.init()))
       .pipe(tsFilter)
       .pipe($.typescript(config.tsProject))
       .pipe(tsFilter.restore())
-      .pipe($.sourcemaps.write('.'))
+      .pipe($.if(!isProd,$.sourcemaps.write('.')))
       .pipe(gulp.dest(config.buildNodeJs))
   });
 
   // compile scripts and copy into build directory
-  gulp.task('scripts', ['clean', 'analyze', 'markup', 'node-scripts'], function () {
+  gulp.task('scripts', ['clean', 'analyze', 'markup'], function () {
     var htmlFilter = $.filter('**/*.html')
       , jsFilter = $.filter('**/*.js')
       , tsFilter = $.filter('**/*.ts');
@@ -160,12 +151,8 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildDir));
   });
 
-  // copy bower components into build directory
-  gulp.task('bowerCopy', ['inject'], function () {
-    var cssFilter = $.filter('**/*.css')
-      , jsAceFilter = $.filter('**/ace-builds/**/*.js')
-      , jsNoAceFilter = $.filter('**/*.js', '!ace-builds');
-
+  gulp.task('bowerCopyCss',['inject'], function(){
+    var cssFilter = $.filter('**/*.css');
     return gulp.src($.mainBowerFiles(), {base: bowerDir})
       .pipe(cssFilter)
       .pipe($.if(isProd, $.modifyCssUrls({
@@ -184,18 +171,28 @@ module.exports = function (gulp, $, config) {
       .pipe($.if(isProd, $.cssmin()))
       .pipe($.if(isProd, $.rev()))
       .pipe(gulp.dest(config.extDir))
-      .pipe(cssFilter.restore())
+  });
+
+  gulp.task('bowerCopyAce',['inject'], function(){
+    var jsAceFilter = $.filter('**/ace-builds/**/*.js');
+
+    return gulp.src($.mainBowerFiles(), {base: bowerDir})
       .pipe(jsAceFilter)
-      .pipe(gulp.dest(config.extDir))
-      .pipe(jsAceFilter.restore())
+      .pipe(gulp.dest(config.extDir));
+  });
+
+  // copy bower components into build directory
+  gulp.task('bowerCopy', ['inject', 'bowerCopyCss', 'bowerCopyAce'], function () {
+    var jsNoAceFilter = $.filter('**/*.js', '!ace-builds');
+
+    return gulp.src($.mainBowerFiles(), {base: bowerDir})
       .pipe(jsNoAceFilter)
       .pipe($.if(isProd, $.concat('vendor.js')))
       .pipe($.if(isProd, $.uglify({
         preserveComments: $.uglifySaveLicense
       })))
       .pipe($.if(isProd, $.rev()))
-      .pipe(gulp.dest(config.extDir))
-      .pipe(jsNoAceFilter.restore())
+      .pipe(gulp.dest(config.extDir));
   });
 
   // copy libs into build directory
@@ -288,6 +285,6 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildTestDirectiveTemplatesDir));
   });
 
-  gulp.task('build', ['copyTemplates', 'assets', 'fonts', 'data']);
+  gulp.task('build', ['node-scripts','copyTemplates', 'assets', 'fonts', 'data']);
 
 };
