@@ -11,6 +11,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
     "bower": "^1.7.0",
+    "compression": "^1.6.0",
     "del": "^1.1.1",
     "express": "^4.13.3",
     "gulp": "^3.8.7",

@@ -4,11 +4,17 @@ var http = require('http'),
   bodyParser = require('body-parser'),
   methodOverride = require("method-override"),
   mongoose = require('mongoose'),
-  path = require('path');
+  path = require('path'),
+  compression = require('compression');
 
 export var serverApp = express();
 
-serverApp.use(express.static(path.join(__dirname, '../app')));
+serverApp.use(compression());
+
+var oneDay = 86400000;
+serverApp.use(express.static(path.join(__dirname, '../app'), { maxAge: oneDay }));
+
+
 serverApp.use(bodyParser.urlencoded({
   extended: true
 }));
