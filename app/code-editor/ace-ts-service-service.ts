@@ -1,20 +1,20 @@
 module codeEditor.ts {
   'use strict';
 
-  export interface IAceTsService{
+  export interface IAceTsService {
     /**
      * Add libraries to ace editor
      * */
-    addLibs(editor:AceAjax.Editor, libs: Array<Data.ILibrary>)
+    addLibs(editor:AceAjax.Editor, libs:Array<Data.ILibrary>)
   }
 
-  class AceTsService implements IAceTsService{
+  class AceTsService implements IAceTsService {
 
-    addLibs(editor:AceAjax.Editor, libs: Array<Data.ILibrary>){
+    addLibs(editor:AceAjax.Editor, libs:Array<Data.ILibrary>) {
       libs.forEach(
-          lib => {
-            (<any>editor.getSession()).$worker.emit("addLibrary", { data: lib});
-          }
+        lib => {
+          (<any>editor.getSession()).$worker.emit('addLibrary', {data: lib});
+        }
       );
     }
 

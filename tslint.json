@@ -11,7 +11,6 @@
     "max-line-length": [true, 140],
     "member-access": true,
     "member-ordering": [true,
-      "public-before-private",
       "static-before-instance",
       "variables-before-functions"
     ],
@@ -32,7 +31,6 @@
     "no-eval": true,
     "no-inferrable-types": true,
     "no-shadowed-variable": true,
-    "no-string-literal": true,
     "no-switch-case-fall-through": true,
     "no-trailing-comma": true,
     "no-trailing-whitespace": true,

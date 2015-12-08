@@ -24,7 +24,7 @@ module codeEditor {
 
     handleChange = () => {
       this.$scope.handleEditorChange(this.editor);
-      if(!this.selectionProcessed){
+      if (!this.selectionProcessed) {
         this.selectEditMark();
       }
 
@@ -49,13 +49,15 @@ module codeEditor {
     private initProperties = () => {
       this.editor.$blockScrolling = Infinity;
       this.editor.setOptions({
-        maxLines: Infinity,
+        maxLines: Infinity
       });
 
       this.editor.commands.addCommands([{
         name: "blur",
         bindKey: "Escape",
-        exec: () => {this.editor.blur();}
+        exec: () => {
+          this.editor.blur();
+        }
       }]);
     };
 
@@ -64,7 +66,9 @@ module codeEditor {
       var errorEvents = allEvents.filter(s => !s.success);
 
       if (this.isSuccessDefined()) {
-        successEvents.forEach(() => {this.$scope.onSuccess()();});
+        successEvents.forEach(() => {
+          this.$scope.onSuccess()();
+        });
       }
 
       errorEvents.forEach(s => {
@@ -77,56 +81,56 @@ module codeEditor {
     private isRun = () => this.isSuccessDefined() || (this.$scope.onError && this.$scope.onError());
 
     load = (editor:AceAjax.Editor) => {
-        this.editor = editor;
-        this.initProperties();
-        var libs = this.$scope.libsLoader();
-        this.AceTsService.addLibs(editor, libs());
-        if (this.isRun()) {
-          this.processResults(this.start());
-        }
-      };
+      this.editor = editor;
+      this.initProperties();
+      var libs = this.$scope.libsLoader();
+      this.AceTsService.addLibs(editor, libs());
+      if (this.isRun()) {
+        this.processResults(this.start());
+      }
+    };
 
     start = ():Rx.Observable<Data.IStatus> => {
       var subject = new Rx.Subject<Data.IStatus>();
       subject.onNext(new Data.PendingStatus(Data.taskType.compile));
 
-      if(this.$scope.origModel) {
+      if (this.$scope.origModel) {
         console.log('handle change...');
         this.editor.getSession().on('change', (event) => {
           this.checkMarkAvailable(subject, this.editor.getSession().getValue());
         });
-      }else{
+      } else {
         console.log('no origModel');
         this.markerValid = true;
       }
-      this.editor.getSession().on("compileErrors",(e) => this.emitCompileError(subject,e));
-      this.editor.getSession().on("compiled",(e) => this.startRun(subject,e.data));
+      this.editor.getSession().on("compileErrors", (e) => this.emitCompileError(subject, e));
+      this.editor.getSession().on("compiled", (e) => this.startRun(subject, e.data));
       return subject;
     };
 
     checkMarkAvailable = (subject:Rx.Subject<Data.IStatus>, text) => {
-      if(this.editMarker.containsMark(text)){
+      if (this.editMarker.containsMark(text)) {
         this.markerValid = false;
         var err = {
           message: 'Please replace ' + this.editMarker.mark + ' with the correct answer!',
           line: -1
         };
-        subject.onNext(new Data.ErrorStatus(Data.taskType.validate,[err]));
-      }else if(!this.editMarker.hasOnlyMarkChanged(this.$scope.origModel, text)){
+        subject.onNext(new Data.ErrorStatus(Data.taskType.validate, [err]));
+      } else if (!this.editMarker.hasOnlyMarkChanged(this.$scope.origModel, text)) {
         this.markerValid = false;
         var err = {
-          message: 'Do not change anything other than ' + this.editMarker.mark+ '!',
+          message: 'Do not change anything other than ' + this.editMarker.mark + '!',
           line: -1
         };
-        subject.onNext(new Data.ErrorStatus(Data.taskType.validate,[err]));
-      }else{
+        subject.onNext(new Data.ErrorStatus(Data.taskType.validate, [err]));
+      } else {
         console.log(this.$scope.origModel);
         this.markerValid = true;
       }
     };
 
-    emitCompileError = (subject:Rx.Subject<Data.IStatus>,e) => {
-      if(this.markerValid) {
+    emitCompileError = (subject:Rx.Subject<Data.IStatus>, e) => {
+      if (this.markerValid) {
         if (e.data.length > 0) {
           this.compileValid = false;
           var errors = e.data.map((e) => {
@@ -136,13 +140,13 @@ module codeEditor {
             }
           });
           subject.onNext(new Data.ErrorStatus(Data.taskType.compile, errors));
-        }else{
+        } else {
           this.compileValid = true;
         }
       }
     };
 
-    private startRun = (subject:Rx.Subject<Data.IStatus>,script:string) => {
+    private startRun = (subject:Rx.Subject<Data.IStatus>, script:string) => {
       if (this.markerValid && this.compileValid) {
         var preparedScript = "chai.should();var expect = chai.expect;var assert = chai.assert;\n" + script;
         var taskType = Data.taskType.run;
