@@ -10,6 +10,7 @@ module topicList {
     .module('topicList', [
       'ui.router',
       'core',
-      'truncate'
+      'truncate',
+      'dibari.angular-ellipsis'
     ]);
 }

@@ -1,6 +1,10 @@
 $icon-loupe-size: s(large);
 $icon-space-left: s(medium);
 
+// Defines the visible lines until ellipsis is shown.
+$lines            : 2;
+$title-wrap-height: $lines * ($t-title-font-size * $t-title-line-height);
+
 .search-field{
   position: relative;
   margin-bottom: s(huge);
@@ -65,6 +69,10 @@ $icon-space-left: s(medium);
 
 .topic-title {
   word-wrap: break-word;
+  &-wrap {
+    height: $title-wrap-height;
+    overflow: hidden;
+  }
 }
 
 .topic-list-message {

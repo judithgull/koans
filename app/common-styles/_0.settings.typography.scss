@@ -12,6 +12,9 @@ $t-default-font-weight : $t-regular;
 $t-default-font-style  : normal;
 $t-default-line-height : 1.375;
 
+$t-title-font-size     : 2.25rem;
+$t-title-line-height   : 1.667;
+
 $types: (
   default: (
     font-size     : 1rem,
@@ -22,8 +25,8 @@ $types: (
   ),
   title: (
     font-weight   : $t-bold,
-    font-size     : 2.25rem,
-    line-height   : 1.667
+    font-size     : $t-title-font-size,
+    line-height   : $t-title-line-height
   ),
   title-small: (
     font-weight   : $t-bold,
