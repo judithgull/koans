@@ -19,6 +19,6 @@ ul(ng-show='topicList.isLoggedIn').l-list-reset.filter-tabs
       .topic-item
         a(ui-sref='main.topic.exercise.details({topicId:topic._id})').t-link.topic-item--text
           h1.t-title.topic-title {{topic.title | characters: 35}}
-          p.t-paragraph {{topic.language}}
+          p.t-paragraph {{topic.programmingLanguage}}
         button(name='delete' ng-click='topicList.deleteTopic(topic._id, $index)' ng-show='topicList.equalsUser(topic.authorId)').button Delete
         button(name='edit' ui-sref='main.editTopic({id:topic._id})' ng-show='topicList.equalsUser(topic.authorId)').button Edit
