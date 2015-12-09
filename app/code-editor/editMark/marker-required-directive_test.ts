@@ -1,5 +1,3 @@
-///<reference path='../../typings/tsd.d.ts' />
-
 /* global describe, beforeEach, it, expect, inject, module */
 'use strict';
 
@@ -7,7 +5,7 @@ describe('markerRequired', function () {
   var scope,
     form;
 
-  beforeEach(angular.mock.module('editTopic'));
+  beforeEach(angular.mock.module('codeEditor'));
 
   beforeEach(inject(function ($compile, $rootScope) {
     scope = $rootScope.$new();

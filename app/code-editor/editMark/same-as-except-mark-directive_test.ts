@@ -1,4 +1,3 @@
-///<reference path='../../typings/tsd.d.ts' />
 module codeEditor {
 /* global describe, beforeEach, it, expect, inject, module */
 'use strict';
