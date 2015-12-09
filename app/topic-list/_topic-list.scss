@@ -60,11 +60,6 @@ $title-wrap-height: $lines * ($t-title-font-size * $t-title-line-height);
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-
-  &--text {
-    display: block;
-    min-height: 174px;
-  }
 }
 
 .topic-title {

@@ -17,7 +17,7 @@ ul(ng-show='topicList.isLoggedIn').l-list-reset.filter-tabs
   .l-grid.topic-list
     .l-grid-cell.l-one-third.l-tablet-one-half.l-mobile-one-whole(ng-repeat="topic in topicList.topics")
       .topic-item
-        a(ui-sref='main.topic.exercise.details({topicId:topic._id})').t-link.topic-item--text
+        a(ui-sref='main.topic.exercise.details({topicId:topic._id})').t-link
           h1(ng-bind="topic.title" data-ellipsis="").topic-title-wrap.t-title.topic-title
           p.t-paragraph {{topic.programmingLanguage}}
 
