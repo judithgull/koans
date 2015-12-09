@@ -1,7 +1,7 @@
 var url = require("url");
 var Topic = require("./topic-model.js");
 var jwt = require("jwt-simple");
-var secret = 'veryBigSecret...';
+var userCtrl = require('../user/user-controller.js');
 import mongoose = require('mongoose');
 
 module.exports.getTopics = function (req, res) {
@@ -137,7 +137,7 @@ var decodeToken = (req) => {
     return null;
   }
   var token = req.headers.authorization.split(' ')[1];
-  return jwt.decode(token, secret);
+  return jwt.decode(token, userCtrl.getSecret());
 };
 
 module.exports.postTopic = function (req, res) {

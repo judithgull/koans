@@ -1,7 +1,13 @@
 var jwt = require("jwt-simple");
 var User = require("./user-model.js");
-var devSecret = 'veryBigSecret...';
-var secret = process.env.SECRET || devSecret;
+
+export var getSecret = () => {
+  if(!process.env.SECRET){
+    console.log('no secret defined, using default');
+    return 'veryBigSecret...';
+  }
+  return process.env.SECRET;
+};
 
 export class UserController {
 
@@ -39,7 +45,7 @@ export class UserController {
             var payload = {
               sub: user._id
             };
-            var token = jwt.encode(payload, secret);
+            var token = jwt.encode(payload, getSecret());
             success(token, User.getNonSensitiveUser(user));
           }
         });

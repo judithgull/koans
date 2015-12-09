@@ -1,6 +1,6 @@
 var jwt = require("jwt-simple");
 var User = require("../user/user-model.js");
-var secret = 'veryBigSecret...';
+var userCtrl = require('../user/user-controller.js');
 
 export class LoginController {
 
@@ -24,7 +24,7 @@ export class LoginController {
             var payload = {
               sub: user._id
             };
-            var token = jwt.encode(payload, secret);
+            var token = jwt.encode(payload, userCtrl.getSecret());
             success(token, User.getNonSensitiveUser(user));
           } else {
             error(loginError);
