@@ -10,11 +10,18 @@ http://docs.mongodb.org/manual/installation/
 
 ###Setup Database: Add sample data and text
 ```
-mongod 
+mongod
+(in another terminal)
 mongoimport --db koans --collection topics app-node/sample-data/topics.bson
 mongo --eval "db.getSiblingDB('koans').topics.createIndex({title: 'text', 'items.title': 'text','items.description': 'text'})"
 ```
 
+###Drop Database:
+```
+mongod
+(in another terminal)
+mongo koans --eval "db.dropDatabase()"
+```
 
 ## Setup
 1. Install [Node.js](http://nodejs.org/)
