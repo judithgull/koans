@@ -27,6 +27,7 @@ module koans {
         $log.error('statechange error: ' + error);
         $log.error(toState);
         $log.error(toParams);
+        toastr.error('This topic does not exist anymore. Please reload your browser.');
       }
     );
   }]);
