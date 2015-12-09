@@ -63,4 +63,4 @@ form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
 
   p {{editTopic.errorMessage}}
   button.button(type='submit' ng-disabled='editTopicForm.$invalid') Submit
-  a.button(ui-sref='main.home.topicList') Cancel
+  button.button(type='button' name='cancel' ng-click='editTopic.cancel()') Cancel

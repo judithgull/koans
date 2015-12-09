@@ -39,6 +39,11 @@ module editTopic {
       );
     };
 
+    cancel = () => {
+      this.RestClient.clearCachedTopic();
+      this.$state.go("main.home.topicList");
+    };
+
     addExercise = () => {
       this.topic.items.push(new Exercise());
     };
