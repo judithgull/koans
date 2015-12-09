@@ -15,7 +15,7 @@ module.exports = function (gulp, $, config) {
     return $.del(config.buildTestDir, cb);
   });
 
-  gulp.task('buildTests', ['lint', 'clean:test', 'build'], function () {
+  gulp.task('buildTests', ['clean:test', 'build'], function () {
     var testFilter = gulpFilter('**/*_test.js');
     return gulp.src([
       config.unitTestFiles,
@@ -57,7 +57,7 @@ module.exports = function (gulp, $, config) {
   });
 
   // run unit tests
-  gulp.task('unitTest', ['lint', 'karmaFiles'], function (done) {
+  gulp.task('unitTest', ['karmaFiles'], function (done) {
     $.karma.server.start(karmaConf, function (exitCode) {
       console.log('Karma has exited with ' + exitCode);
       done();
@@ -70,7 +70,7 @@ module.exports = function (gulp, $, config) {
   });
 
   // run e2e tests - SERVER MUST BE RUNNING FIRST
-  gulp.task('e2eTest', ['lint', 'build:e2eTest'], function () {
+  gulp.task('e2eTest', ['build:e2eTest'], function () {
     return gulp.src(config.buildE2eTests)
       .pipe($.protractor.protractor({
         configFile: 'protractor.config.js'
