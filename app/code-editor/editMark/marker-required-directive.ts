@@ -1,4 +1,3 @@
-///<reference path='../../typings/tsd.d.ts' />
 module MarkerRequired {
   'use strict';
 
@@ -19,7 +18,7 @@ module MarkerRequired {
   *
   */
   angular
-    .module('editTopic')
+    .module('codeEditor')
     .directive('markRequired', ['EditMarker', (editMarker:codeEditor.EditMarker):ng.IDirective => {
       return {
         restrict: 'A',
