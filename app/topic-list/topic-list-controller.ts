@@ -40,6 +40,7 @@ module topicList {
         (error)=> {
           if(error.status && error.status === 404){
             this.reload();
+            toastr.error('This topic does not exist anymore');
           }else {
             this.errorMessage = error.data.message;
           }
