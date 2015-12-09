@@ -51,7 +51,8 @@ form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
           language='editTopic.topic.programmingLanguage',
           libs-loader='editTopic.libsLoader',
           ng-model='item.solution',
-          same-as-except-mark='item.exercise'
+          same-as-except-mark='item.exercise',
+          no-mark
           ).code-editor
           div(ng-messages="ex.solution.$error")
             p(ng-message="required").t-paragraph Please enter a solution!

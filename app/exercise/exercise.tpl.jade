@@ -1,4 +1,4 @@
-.exercise-card
+.exercise-card(ng-form='ce')
   .exercise-card-info
     h2.t-title-small.exercise-title {{::exercise.currentExercise.title}}
     p.t-paragraph.exercise-description {{exercise.currentExercise.description}}
@@ -7,12 +7,14 @@
     .l-grid.code-editor-wrap
       .l-grid-cell.l-one-half.l-mobile-one-whole
         code-editor(
+          name='exercise',
           language='topic.language',
           ng-model= 'exercise.currentExercise.userSolution',
           orig-model='::exercise.content',
           libs-loader="exercise.libsLoader",
           on-error="exercise.onError",
-          on-success='exercise.onSuccess'
+          on-success='exercise.onSuccess',
+          no-mark
         )
 
       .l-grid-cell.l-one-half.l-mobile-one-whole
