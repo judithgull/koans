@@ -31,16 +31,23 @@ describe('AccountCtrl', function () {
 
   it('should be logged out, if user is logged out', () => {
     var logoutSpy = sinon.spy();
+    var stateSpy = sinon.spy();
     var authService = {
       isLoggedIn: () => true,
       logout: logoutSpy,
       getLoggedInUser: () => {return {name:'testname'}}
     };
 
-    var ctrl = $ctrl('AccountCtrl', {AuthService: authService});
+    var ctrl = $ctrl('AccountCtrl', {
+      AuthService: authService,
+      $state: {
+        go: stateSpy
+      }
+    });
     ctrl.logout();
     expect(ctrl.isLoggedIn).toBe(false);
     sinon.assert.calledOnce(logoutSpy);
+    sinon.assert.calledOnce(stateSpy);
   });
 
 
