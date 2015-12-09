@@ -32,7 +32,7 @@ form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
           on-error= 'editTopic.onExerciseError(this.ex.exercise)',
           on-success= 'editTopic.onExerciseSuccess(this.ex.exercise)',
           name='exercise',
-          language='editTopic.topic.language',
+          language='editTopic.topic.programmingLanguage',
           libs-loader='editTopic.libsLoader',
           mark-required='',
           ng-model='item.exercise').code-editor
@@ -48,7 +48,7 @@ form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
           on-error= 'editTopic.onSolutionError(this.ex.solution)',
           on-success= 'editTopic.onSolutionSuccess(this.ex.solution)',
           name='solution',
-          language='editTopic.topic.language',
+          language='editTopic.topic.programmingLanguage',
           libs-loader='editTopic.libsLoader',
           ng-model='item.solution',
           same-as-except-mark='item.exercise'
