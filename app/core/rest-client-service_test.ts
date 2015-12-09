@@ -19,20 +19,56 @@ module RestClient {
     describe("getTopic(id)", () => {
 
       var topic = test.MockData.getTopic();
+      var testID = topic._id;
 
-      it('should return a topic with the correct attributes', function () {
-        var testID = topic._id;
+      beforeEach(()  => {
         var expectedUrl = TOPICS_URL + testID;
         $httpBackend.when("GET", expectedUrl).respond(topic);
         $httpBackend.expectGET(expectedUrl);
+      });
+
+      afterEach(()  => {
+        $httpBackend.flush();
+      });
+
+      it('should return a topic with the correct attributes', function () {
         var topicPromise = restClient.getTopic(testID);
         topicPromise.then(
           (data) => {
             expect(data).toEqual(topic);
           }
         );
-        $httpBackend.flush();
       });
+
+
+      describe("Topic Cache", () => {
+
+        it('Topic should change if the cache is not cleared', function () {
+          var topicPromise = restClient.getTopic(testID);
+          topicPromise.then(
+            (data) => {
+              data.title = "New Title";
+              restClient.getTopic(testID).then((data) => {
+                expect(data.title).not.toEqual(topic.title);
+              })
+            }
+          );
+        });
+
+        it('Topic should not change if the cache is cleared', function () {
+          var topicPromise = restClient.getTopic(testID);
+          topicPromise.then(
+            (data) => {
+              data.title = "New Title";
+              restClient.clearCachedTopic();
+              restClient.getTopic(testID).then((data) => {
+                expect(data.title).toEqual(topic.title);
+              })
+            }
+          );
+        });
+      });
+
     });
 
     describe("getExercise", () => {
@@ -93,8 +129,8 @@ module RestClient {
       });
     });
 
-  });
 
+  });
 
 
 }

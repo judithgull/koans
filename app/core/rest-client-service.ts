@@ -13,6 +13,7 @@ module RestClient {
     createTopic(topic: Data.ITopic):ng.IPromise<any>;
     updateTopic(topic: Data.ITopic):ng.IPromise<any>;
     deleteTopic(id:number): ng.IPromise<Data.ITopic>;
+    clearCachedTopic():void;
   }
 
   class RestClient implements IRestClient{
@@ -27,6 +28,10 @@ module RestClient {
     constructor(private $http:ng.IHttpService,
                 private $q:ng.IQService) {
     }
+
+    clearCachedTopic = () => {
+      this.topicData = null;
+    };
 
     getTopics(queryParams?):ng.IPromise<Array<Data.ITopic>>{
       return this.$http({
