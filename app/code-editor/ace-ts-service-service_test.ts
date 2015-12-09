@@ -4,8 +4,6 @@ module codeEditor {
 
   describe('AceTsService', function () {
     var service:ts.IAceTsService;
-    var $httpBackend;
-    var tsLibName = "typescripts/lib.d.ts";
 
     beforeEach(angular.mock.module('koans'));
 
@@ -13,20 +11,6 @@ module codeEditor {
       service = AceTsService;
     }));
 
-    beforeEach(inject(function ($injector) {
-      $httpBackend = $injector.get("$httpBackend");
-      $httpBackend.when("GET", tsLibName).respond("lib");
-    }));
-
-    /* it('should return an ace initializer', () => {
-     $httpBackend.expectGET(tsLibName);
-     var init = service.getAceInitializer(["typescripts/lib.d.ts"]);
-     init.then(
-     f => f(ace.edit("testEl"))
-     );
-     $httpBackend.flush();
-     });
-     */
   });
 
 }

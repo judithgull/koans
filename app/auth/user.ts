@@ -1,4 +1,4 @@
-module app{
+module app {
 
   export interface IUser {
     _id?: string,
@@ -8,10 +8,10 @@ module app{
   }
 
 
-  export class User implements IUser{
-    constructor(public name:string=null,
-                public email:string=null,
-                public password:string=null){
+  export class User implements IUser {
+    constructor(public name:string = null,
+                public email:string = null,
+                public password:string = null) {
     }
   }
 

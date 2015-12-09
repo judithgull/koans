@@ -14,8 +14,6 @@ module auth {
   }
 
   export class AuthService implements IAuthService {
-    userKey = 'user';
-
     public static $inject = [
       '$http',
       '$q',
@@ -27,6 +25,8 @@ module auth {
       private $q:ng.IQService,
       private tokenStorage:token.TokenStorage) {
     }
+
+    private userKey = 'user';
 
     logout = () => {
       this.tokenStorage.clear();

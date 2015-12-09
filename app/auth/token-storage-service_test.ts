@@ -12,7 +12,7 @@ module auth.token {
       service = TokenStorage;
     }));
 
-    afterEach(()=>{
+    afterEach(()=> {
       service.clear();
     });
 

@@ -2,8 +2,11 @@
 
 module.exports = function (gulp, $, config) {
   // lint source code
-  gulp.task('lint');
-
+  gulp.task('lint', function () {
+    return gulp.src(config.appScriptFiles)
+      .pipe($.tslint())
+      .pipe($.tslint.report('verbose'));
+});
   /*    gulp.task('lint', function () {
     return gulp.src([
       config.appScriptFiles,
@@ -45,5 +48,6 @@ module.exports = function (gulp, $, config) {
     });
   });
    */
-  gulp.task('analyze', ['lint', 'staticAnalysis']);
+ // gulp.task('analyze', ['lint', 'staticAnalysis']); //TODO
+  gulp.task('analyze', ['staticAnalysis']);
 };

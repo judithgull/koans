@@ -7,7 +7,6 @@ module koans {
    * @description
    *
    */
-
   var app = angular.module('koans', [
     'ui.router',
     'ngAria',
@@ -23,12 +22,13 @@ module koans {
     'auth.account',
   ]);
 
-  app.run(['$rootScope', '$log',function($rootScope, $log) {
-    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-        $log.error("statechange error: " + error);
+  app.run(['$rootScope', '$log', function ($rootScope, $log) {
+    $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+        $log.error('statechange error: ' + error);
         $log.error(toState);
         $log.error(toParams);
       }
-  )}]);
+    );
+  }]);
 
 }
