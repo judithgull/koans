@@ -12,13 +12,3 @@ p(ng-show="topic.allExercisesSolved()") Congratulations! You solved all exercise
 
 div.view-animate-container
   div(ui-view="").view-animate
-
-.ex-nav
-  a.ex-nav--prev(href=""
-  ng-click="topic.previousExercise()"
-  ng-show="topic.hasPreviousExercise()")
-
-  a.ex-nav--next(href=""
-  ng-click="topic.nextExercise()"
-  ng-show="topic.hasNextExercise()")
-
