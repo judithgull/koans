@@ -22,7 +22,6 @@ module ExerciseCtrl {
     onSuccess = () => {
       this.success = true;
       this.getCurrentExercise().solved = true;
-      this.nextExercise();
       this.$timeout(() => {this.$scope.$apply();});
     };
 
