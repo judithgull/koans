@@ -25,9 +25,15 @@ module koans {
   app.run(['$rootScope', '$log', function ($rootScope, $log) {
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
         $log.error('statechange error: ' + error);
+        $log.error(error);
         $log.error(toState);
         $log.error(toParams);
-        toastr.error('This topic does not exist anymore. Please reload your browser.');
+        if(error.status && error.status === 404) {
+          (<Toastr>toastr).error(error.statusText);
+          setTimeout(function(){
+            window.location.reload();
+          }, 1000);
+        }
       }
     );
   }]);
