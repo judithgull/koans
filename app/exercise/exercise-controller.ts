@@ -34,6 +34,12 @@ module ExerciseCtrl {
       }
     }
 
+    previousExercise() {
+      if (this.hasPreviousExercise()) {
+        this.goToExercise(this.getExerciseId() - 1);
+      }
+    }
+
     hasNextExercise = ():boolean => this.getExerciseId()  < this.exerciseCount;
 
     hasPreviousExercise = ():boolean => this.getExerciseId() > 1;
@@ -59,7 +65,7 @@ module ExerciseCtrl {
       }
     }
 
-    giveUp(){
+    giveUp() {
       this.solutionClicked = !this.solutionClicked;
       if(this.solutionClicked) {
         this.getCurrentExercise().solutionRequested = true;
@@ -67,7 +73,7 @@ module ExerciseCtrl {
       } else {
         this.$state.go("main.topic.exercise.details");
       }
-    };
+    }
 
     private getCurrentExercise = () => this.topicData.items[this.id];
 

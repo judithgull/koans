@@ -23,9 +23,9 @@
   button.button(ng-click='exercise.giveUp();solutionClicked = !solutionClicked')
     | {{!solutionClicked && 'Show' || 'Hide'}} solution
 
-  button.button(ng-show="topic.hasPreviousExercise()" type='button' ng-click="topic.previousExercise()")
+  button.button(ng-show="exercise.hasPreviousExercise()" type='button' ng-click="exercise.previousExercise()")
     | Previous exercise
 
-  button.button(ng-show="topic.hasNextExercise() && exercise.success" type='button' ng-click="topic.nextExercise()")
+  button.button(ng-show="exercise.hasNextExercise() && exercise.success" type='button' ng-click="exercise.nextExercise()")
     | Next exercise
 
