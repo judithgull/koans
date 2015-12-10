@@ -2,7 +2,7 @@ module TopicCtrl {
   'use strict';
 
   export interface ITopicCtrl{
-    language:string;
+    programmingLanguage:string;
     title:string;
   }
 
@@ -15,7 +15,7 @@ module TopicCtrl {
   }
 
   class TopicCtrl implements ITopicCtrl{
-    language:string;
+    programmingLanguage:string;
     title:string;
     private exerciseCount:number;
 
@@ -23,7 +23,7 @@ module TopicCtrl {
 
     constructor(public topicData:Data.ITopic, private $state:ITopicStateService) {
       this.title = topicData.title;
-      this.language = topicData.programmingLanguage;
+      this.programmingLanguage = topicData.programmingLanguage;
       this.exerciseCount = topicData.items.length;
     }
 

@@ -1,7 +1,6 @@
 a.button.button-prev(ui-sref='main.home.topicList') Overview
 
 h1.t-title {{::topic.title}}
-p.t-paragraph {{::topic.language}}
 
 .progress-bar
   .progress-bar-item(ng-repeat='ex in topic.topicData.items')
@@ -10,5 +9,6 @@ p.t-paragraph {{::topic.language}}
       span.l-centred {{ $index + 1 }}
 p(ng-show="topic.allExercisesSolved()") Congratulations! You solved all exercises.
 
-div.view-animate-container
+div.programming-lang-wrap.view-animate-container
+  img(ng-src="/assets/icon-{{::topic.programmingLanguage}}.svg" alt="Icon {{::topic.programmingLanguage}}").programming-lang.programming-lang--light
   div(ui-view="").view-animate

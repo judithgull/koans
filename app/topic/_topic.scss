@@ -44,5 +44,19 @@
   }
 }
 
+.programming-lang-wrap {
+  position: relative;
+}
 
-
+.programming-lang {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  &--light {
+    background-color: c(light-grey);
+  }
+  &--dark {
+    background-color: c(black);
+  }
+}

@@ -16,10 +16,10 @@ ul(ng-show='topicList.isLoggedIn').l-list-reset.filter-tabs
   p.t-paragraph.topic-list-message(ng-show='topicList.topics.length==0') Sorry, no matches found.
   .l-grid.topic-list
     .l-grid-cell.l-one-third.l-tablet-one-half.l-mobile-one-whole(ng-repeat="topic in topicList.topics")
-      .topic-item
+      .topic-item.programming-lang-wrap
         a(ui-sref='main.topic.exercise.details({topicId:topic._id})').t-link
           h1(ng-bind="topic.title" data-ellipsis="").topic-title-wrap.t-title.topic-title
-          p.t-paragraph {{topic.programmingLanguage}}
+          img(ng-src="/assets/icon-{{::topic.programmingLanguage}}.svg" alt="Icon {{::topic.programmingLanguage}}").programming-lang.programming-lang--dark
 
-        button(name='delete' ng-click='topicList.deleteTopic(topic._id, $index)' ng-show='topicList.equalsUser(topic.authorId)').button Delete
+  button(name='delete' ng-click='topicList.deleteTopic(topic._id, $index)' ng-show='topicList.equalsUser(topic.authorId)').button Delete
         button(name='edit' ui-sref='main.editTopic({id:topic._id})' ng-show='topicList.equalsUser(topic.authorId)').button Edit
