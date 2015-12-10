@@ -20,6 +20,7 @@ module koans {
     'auth.signUp',
     'auth.login',
     'auth.account',
+    'ngAnimate'
   ]);
 
   app.run(['$rootScope', '$log', function ($rootScope, $log) {

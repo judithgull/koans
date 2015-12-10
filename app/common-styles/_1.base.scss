@@ -200,3 +200,35 @@ textarea {
   padding: s(medium);
   margin-bottom: s(large);
 }
+
+
+// ng-view animation styles
+
+.view-animate-container {
+  position: relative;
+  overflow: hidden;
+  min-height: 366px;
+}
+
+.view-animate.ng-enter, .view-animate.ng-leave {
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 500ms;
+
+  display:block;
+  width:100%;
+
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+}
+
+.view-animate.ng-enter {
+  left:100%;
+}
+.view-animate.ng-enter.ng-enter-active {
+  left:0;
+}
+.view-animate.ng-leave.ng-leave-active {
+  left:-100%;
+}

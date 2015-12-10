@@ -10,7 +10,8 @@ p.t-paragraph {{::topic.language}}
       span.l-centred {{ $index + 1 }}
 p(ng-show="topic.allExercisesSolved()") Congratulations! You solved all exercises.
 
-div(ui-view="")
+div.view-animate-container
+  div(ui-view="").view-animate
 
 .ex-nav
   a.ex-nav--prev(href=""
