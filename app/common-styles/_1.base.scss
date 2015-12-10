@@ -78,23 +78,23 @@ textarea {
       color: c(green);
     }
   }
+  &-plus {
+    display: block;
+    width: s(huge);
+    height: s(huge);
+    padding: 0;
+    margin: 0 auto s(medium);
+
+    &:after {
+      content: '╋';
+    }
+  }
 }
 
 .button + .button {
   margin-left: s(medium);
 }
 
-.button-plus {
-  display: block;
-  width: s(huge);
-  height: s(huge);
-  padding: 0;
-  margin: 0 auto s(medium);
-
-  &:after {
-    content: '╋';
-  }
-}
 
 //input fields
 .input,
