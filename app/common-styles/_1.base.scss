@@ -89,6 +89,17 @@ textarea {
       content: '╋';
     }
   }
+  &-prev:before,
+  &-next:after  {
+    content: '⌃';
+    display: inline-block;
+  }
+  &-prev:before {
+    transform: rotate(270deg);
+  }
+  &-next:after {
+    transform: rotate(90deg);
+  }
 }
 
 .button + .button {
