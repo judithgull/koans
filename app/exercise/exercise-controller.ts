@@ -36,6 +36,8 @@ module ExerciseCtrl {
 
     hasNextExercise = ():boolean => this.getExerciseId()  < this.exerciseCount;
 
+    hasPreviousExercise = ():boolean => this.getExerciseId() > 1;
+
     private goToExercise(id:number) {
       this.$state.go("main.topic.exercise.details", {exerciseId: id});
     }
