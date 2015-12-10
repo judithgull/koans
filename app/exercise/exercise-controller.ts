@@ -11,6 +11,7 @@ module ExerciseCtrl {
     success = false;
     id:number;
     exerciseCount:number;
+    solutionClicked:boolean;
 
     libsLoader = () => this.libs;
 
@@ -56,10 +57,15 @@ module ExerciseCtrl {
       }
     }
 
-    public giveUp() {
-      this.getCurrentExercise().solutionRequested = true;
-      this.$state.go("main.topic.exercise.solution");
-    }
+    giveUp(){
+      this.solutionClicked = !this.solutionClicked;
+      if(this.solutionClicked) {
+        this.getCurrentExercise().solutionRequested = true;
+        this.$state.go("main.topic.exercise.solution");
+      } else {
+        this.$state.go("main.topic.exercise.details");
+      }
+    };
 
     private getCurrentExercise = () => this.topicData.items[this.id];
 
