@@ -73,11 +73,11 @@ module codeEditor {
 
   export class NoMarkAnnotation implements AceAjax.Annotation{
     public type = 'error';
-    public id = 'NoMark';
+    public custom = true;
 
     constructor(public row: number,
                 public column: number,
-                public text = 'Please replace ??? with the correct answer!'
+                public text:string
     ){}
   }
 

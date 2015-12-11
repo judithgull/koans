@@ -4,6 +4,7 @@ module codeEditor {
 
   describe('EditMarker', function () {
     var service:EditMarker;
+    var testText = 'Please replace ??? with the correct answer!';
 
     beforeEach(angular.mock.module('codeEditor'));
 
@@ -68,26 +69,26 @@ module codeEditor {
     describe('Annotation arrays', () => {
 
       it('should not be equal, for different lengths', () => {
-        var a1 = [new NoMarkAnnotation(0,0)];
+        var a1 = [new NoMarkAnnotation(0,0,testText)];
         var a2 = [];
         expect(service.equals(a1,a2)).toBe(false);
       });
 
       it('should be equal, for the same annotations ', () => {
-        var a1 = [new NoMarkAnnotation(0,0)];
-        var a2 = [new NoMarkAnnotation(0,0)];
+        var a1 = [new NoMarkAnnotation(0,0,testText)];
+        var a2 = [new NoMarkAnnotation(0,0,testText)];
         expect(service.equals(a1,a2)).toBe(true);
       });
 
       it('should not be equal, for one different annotation ', () => {
-        var a1 = [new NoMarkAnnotation(0,0)];
-        var a2 = [new NoMarkAnnotation(0,1)];
+        var a1 = [new NoMarkAnnotation(0,0,testText)];
+        var a2 = [new NoMarkAnnotation(0,1,testText)];
         expect(service.equals(a1,a2)).toBe(false);
       });
 
       it('should not be equal, for one different annotation (multiple values)', () => {
-        var a1 = [new NoMarkAnnotation(0,0), new NoMarkAnnotation(0,0)];
-        var a2 = [new NoMarkAnnotation(0,0), new NoMarkAnnotation(1,0)];
+        var a1 = [new NoMarkAnnotation(0,0,testText), new NoMarkAnnotation(0,0,testText)];
+        var a2 = [new NoMarkAnnotation(0,0,testText), new NoMarkAnnotation(1,0,testText)];
         expect(service.equals(a1,a2)).toBe(false);
       });
 
