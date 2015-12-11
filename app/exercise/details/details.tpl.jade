@@ -1,6 +1,6 @@
 div(ng-show="!exercise.success" ng-repeat="e in exercise.errors").feedback
   p.feedback-error
-    span.t-label.feedback-line Line {{e.line}}
+    span(ng-show="e.line > 0").t-label.feedback-line Line {{e.line}}
     span.t-paragraph {{e.message}}
 
 div(ng-show="exercise.success").feedback
