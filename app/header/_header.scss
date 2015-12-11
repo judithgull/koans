@@ -1,6 +1,6 @@
 .main-wrap {
   background-color: c(light-grey);
-  padding: s(huge) s(medium);
+  padding: s(large) s(medium);
   min-height: 100vh;
   box-sizing: border-box;
 }
@@ -10,14 +10,18 @@
   position: relative;
 }
 
-.logo a {
-  display: inline-block;
-  width: 250px;
-  height: 98px;
-  background: url(/assets/learnasyouteach-logo.svg) no-repeat left top;
-  background-size: 100%;
-  & span {
-    display: none;
+.logo {
+  margin: 0;
+
+  a {
+    display: inline-block;
+    width: 250px;
+    height: 98px;
+    background: url(/assets/learnasyouteach-logo.svg) no-repeat left top;
+    background-size: 100%;
+    & span {
+      display: none;
+    }
   }
 }
 

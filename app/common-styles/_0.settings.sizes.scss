@@ -15,6 +15,7 @@ $breakpoints: (
 ) !default;
 
 $sizes: (
+  extra-huge  : $s-base * 7,
   huge        : $s-base * 3,
   large       : $s-base * 1.5,
   medium      : $s-base,

@@ -11,6 +11,7 @@ module ExerciseCtrl {
     success = false;
     id:number;
     exerciseCount:number;
+    solutionClicked:boolean;
 
     libsLoader = () => this.libs;
 
@@ -20,10 +21,13 @@ module ExerciseCtrl {
       this.$timeout(() => {this.$scope.$digest();});
     };
     onSuccess = () => {
-      this.success = true;
-      this.getCurrentExercise().solved = true;
-      this.nextExercise();
-      this.$timeout(() => {this.$scope.$apply();});
+      if (!this.getCurrentExercise().solved) {
+        this.getCurrentExercise().solved = true;
+        this.nextExercise();
+        this.success = true;
+        this.$timeout(() => {this.$scope.$apply();});
+      }
+
     };
 
     getExerciseId = () => this.id +1;
@@ -34,7 +38,15 @@ module ExerciseCtrl {
       }
     }
 
+    previousExercise() {
+      if (this.hasPreviousExercise()) {
+        this.goToExercise(this.getExerciseId() - 1);
+      }
+    }
+
     hasNextExercise = ():boolean => this.getExerciseId()  < this.exerciseCount;
+
+    hasPreviousExercise = ():boolean => this.getExerciseId() > 1;
 
     private goToExercise(id:number) {
       this.$state.go("main.topic.exercise.details", {exerciseId: id});
@@ -57,9 +69,14 @@ module ExerciseCtrl {
       }
     }
 
-    public giveUp() {
-      this.getCurrentExercise().solutionRequested = true;
-      this.$state.go("main.topic.exercise.solution");
+    giveUp() {
+      this.solutionClicked = !this.solutionClicked;
+      if(this.solutionClicked) {
+        this.getCurrentExercise().solutionRequested = true;
+        this.$state.go("main.topic.exercise.solution");
+      } else {
+        this.$state.go("main.topic.exercise.details");
+      }
     }
 
     private getCurrentExercise = () => this.topicData.items[this.id];

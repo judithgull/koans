@@ -1,35 +1,3 @@
-$arrow-size-nr: 30;
-$arrow-size: $arrow-size-nr + px;
-$arrow-space: (sqrt(2 * ($arrow-size-nr/2)*($arrow-size-nr/2)) - ($arrow-size-nr/2)) + px;
-
-$arrow-line-width: 3px;
-
-.ex-nav{
-  &--prev,
-  &--next {
-    width: $arrow-size;
-    height: $arrow-size;
-    display: inline-block;
-    transition: border-color 200ms;
-    margin: $arrow-space;
-    box-shadow: inset $arrow-line-width $arrow-line-width 0px c(black);
-    &:hover{
-      border-color: c(green);
-    }
-  }
-  &--next {
-    transform: rotate(135deg);
-    float:right;
-  }
-  &--prev {
-    transform: rotate(-45deg);
-    float: left;
-  }
-  @include clearfix;
-
-}
-
-
 .progress-bar {
   margin-bottom: s(medium);
   &-item {
@@ -76,5 +44,24 @@ $arrow-line-width: 3px;
   }
 }
 
+.programming-lang-wrap {
+  position: relative;
+}
 
+.programming-lang {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  &--light {
+    background-color: c(light-grey);
+  }
+  &--dark {
+    background-color: c(black);
+  }
+}
 
+.main-title {
+  display: inline-block;
+  margin-left: s(large);
+}

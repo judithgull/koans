@@ -1,23 +1,13 @@
-a.button(ui-sref='main.home.topicList') Overview
-
-h1.t-title {{::topic.title}}
-p.t-paragraph {{::topic.language}}
-
-.progress-bar
+a.button.button-prev(ui-sref='main.home.topicList') Overview
+h1.t-title.main-title {{::topic.title}}
+.pogress-bar
   .progress-bar-item(ng-repeat='ex in topic.topicData.items')
     a(ui-sref='main.topic.exercise.details({ exerciseId:$index + 1 })'
     ng-class="{ isActive: $index + 1 === topic.getExerciseId(), isSolved: ex.solved, isNotSolved: ex.solutionRequested}").progress-bar-item--link
       span.l-centred {{ $index + 1 }}
+
 p(ng-show="topic.allExercisesSolved()") Congratulations! You solved all exercises.
 
-div(ui-view="")
-
-.ex-nav
-  a.ex-nav--prev(href=""
-  ng-click="topic.previousExercise()"
-  ng-show="topic.hasPreviousExercise()")
-
-  a.ex-nav--next(href=""
-  ng-click="topic.nextExercise()"
-  ng-show="topic.hasNextExercise()")
-
+div.programming-lang-wrap.view-animate-container
+  img(ng-src="/assets/icon-{{::topic.programmingLanguage}}.svg" alt="Icon {{::topic.programmingLanguage}}").programming-lang.programming-lang--light
+  div(ui-view="").view-animate
