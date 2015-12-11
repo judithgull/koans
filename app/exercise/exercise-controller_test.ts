@@ -1,18 +1,35 @@
-/*global describe, beforeEach, it, expect, inject, module*/
-/*'use strict';
+//global describe, beforeEach, it, expect, inject, module*/
+module ExerciseCtrl {
+  'use strict';
 
-describe('ExerciseCtrl', function () {
-  var ctrl;
+  describe('ExerciseCtrl', function () {
+    var ctrl;
+    var topic = test.MockData.getTopic();
 
-  beforeEach(module('exercise'));
+    beforeEach(angular.mock.module('exercise'));
 
-  beforeEach(inject(function ($rootScope, $controller) {
-    ctrl = $controller('ExerciseCtrl');
-  }));
+    beforeEach(inject(function ($rootScope:ng.IRootScopeService, $controller) {
+      var scope = $rootScope.$new();
+      ctrl = $controller('ExerciseCtrl', {
+        topicData: topic,
+        $state: {
+          params: {
+            exerciseId: 1
+          }
+        },
+        $scope:scope,
+        libs: {}
+      });
+    }));
 
-  it('should have ctrlName as ExerciseCtrl', function () {
-//    expect(ctrl.ctrlName).toEqual('ExerciseCtrl');
+    it('should initially not have a previous exercise', () => {
+      expect(ctrl.hasPreviousExercise()).toBe(false);
+    });
+
+    it('should initially have a next exercise', () => {
+      expect(ctrl.hasNextExercise()).toBe(true);
+    });
+
   });
+}
 
-});
-*/
