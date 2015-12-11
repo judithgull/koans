@@ -21,5 +21,5 @@ ul(ng-show='topicList.isLoggedIn').l-list-reset.filter-tabs
           h1(ng-bind="topic.title" data-ellipsis="").topic-title-wrap.t-title.topic-title
           img(ng-src="/assets/icon-{{::topic.programmingLanguage}}.svg" alt="Icon {{::topic.programmingLanguage}}").programming-lang.programming-lang--dark
 
-  button(name='delete' ng-click='topicList.deleteTopic(topic._id, $index)' ng-show='topicList.equalsUser(topic.authorId)').button Delete
+        button(name='delete' ng-click='topicList.deleteTopic(topic._id, $index)' ng-show='topicList.equalsUser(topic.authorId)').button Delete
         button(name='edit' ui-sref='main.editTopic({id:topic._id})' ng-show='topicList.equalsUser(topic.authorId)').button Edit
