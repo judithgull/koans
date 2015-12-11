@@ -218,7 +218,7 @@ textarea {
 .view-animate-container {
   position: relative;
   overflow: hidden;
-  min-height: 366px;
+  min-height: 100vh;
 }
 
 .view-animate.ng-enter, .view-animate.ng-leave {
