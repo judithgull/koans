@@ -4,6 +4,16 @@ module codeEditor {
   export class EditMarker {
     mark = "???";
 
+    setAnnotations = (newMarkerAnnotations, session, errorText) => {
+      var annotations = session.getAnnotations();
+      if (newMarkerAnnotations.length > 0) {
+        var otherCustomAnnotations = annotations.filter((a) => a['custom']).filter((a) => a.text != errorText);
+        session.setAnnotations(newMarkerAnnotations.concat(otherCustomAnnotations));
+      } else {
+        session.setAnnotations(annotations.filter((a) => (a.text !== errorText)));
+      }
+    };
+
     getEditRanges = (editor:AceAjax.Editor) => {
       var options = {
         backwards: false,
@@ -30,8 +40,8 @@ module codeEditor {
       var annotationEquals = (a1:AceAjax.Annotation, a2:AceAjax.Annotation) => {
         return a1.column === a2.column && a1.row === a2.row && a1.text === a1.text;
       };
-      for(let i=0;i<a1.length;i++){
-        if(!annotationEquals(a1[i], a2[i])){
+      for (let i = 0; i < a1.length; i++) {
+        if (!annotationEquals(a1[i], a2[i])) {
           return false;
         }
       }
@@ -71,14 +81,14 @@ module codeEditor {
     private escape = (s) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
   }
 
-  export class NoMarkAnnotation implements AceAjax.Annotation{
+  export class NoMarkAnnotation implements AceAjax.Annotation {
     public type = 'error';
     public custom = true;
 
-    constructor(public row: number,
-                public column: number,
-                public text:string
-    ){}
+    constructor(public row:number,
+                public column:number,
+                public text:string) {
+    }
   }
 
   /**

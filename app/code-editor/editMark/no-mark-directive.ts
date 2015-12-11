@@ -24,8 +24,9 @@ module NoMark {
         restrict: 'A',
         require: ['^codeEditor', 'ngModel'],
         link: (scope:ng.IScope, elm:JQuery, attrs:ng.IAttributes, controllers:any[]) => {
+
           var editor:AceAjax.Editor = controllers[0].editor;
-          var markerAnnotations = [];
+          var session: AceAjax.IEditSession = editor.getSession();
           let errorText = 'Please replace ??? with the correct answer!';
 
           controllers[1].$validators['noMark'] = (value) => !editMarker.containsMark(value);
@@ -35,20 +36,16 @@ module NoMark {
             return ranges.map((r) => new codeEditor.NoMarkAnnotation(r.start.row, r.start.column, errorText));
           };
 
+          var markerAnnotations = [];
           var updateMarkers = () => {
-            var annotations:AceAjax.Annotation[] = editor.getSession().getAnnotations();
-            var newMarkerAnnotations = getMarkers();
-            if (!editMarker.equals(newMarkerAnnotations, markerAnnotations)) {
-              markerAnnotations = newMarkerAnnotations;
-              if(newMarkerAnnotations.length > 0) {
-                var otherCustomAnnotations = annotations.filter((a) => a['custom']).filter((a) => a.text!=errorText);
-                editor.getSession().setAnnotations(newMarkerAnnotations.concat(otherCustomAnnotations));
-              }else{
-                editor.getSession().setAnnotations(annotations.filter((a) => (a.text !== errorText)));
-              }
+            var newMarkers = getMarkers();
+            if (!editMarker.equals(newMarkers, markerAnnotations)) {
+              markerAnnotations = newMarkers;
+              editMarker.setAnnotations(newMarkers, session, errorText);
             }
           };
-          editor.getSession().on("changeAnnotation", updateMarkers);
+
+          session.on("changeAnnotation", updateMarkers);
         }
       };
     }]);

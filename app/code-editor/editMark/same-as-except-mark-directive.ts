@@ -25,11 +25,10 @@ module codeEditor {
       restrict: 'A',
       require: ['^codeEditor', 'ngModel'],
       link: (scope:ng.IScope, elm:JQuery, attrs:ng.IAttributes, controllers:any[]) => {
-        console.log('linking sameAsExceptMark');
         let ngModel = controllers[1];
         var editor:AceAjax.Editor = controllers[0].editor;
-        var markerAnnotations = [];
-        let errorText = 'Do not change anything other than ' + editMarker.mark + '!';
+        var session = editor.getSession();
+
 
         const otherModel = attrs['sameAsExceptMark'];
         ngModel.$validators['sameAsExceptMark'] = (value) => editMarker.hasOnlyMarkChanged(scope.$eval(otherModel),value);
@@ -38,29 +37,27 @@ module codeEditor {
         scope.$watch(otherModel, ngModel.$validate);
 
 
+        let errorText = 'Do not change anything other than ' + editMarker.mark + '!';
         var getMarkers = ():AceAjax.Annotation[] => {
-          var  changed =  editMarker.hasOnlyMarkChanged(scope.$eval(otherModel), editor.getSession().getValue());
-          if(!changed){
-            return [new NoMarkAnnotation(0,0,errorText)];
-          }else{
+          var changed = editMarker.hasOnlyMarkChanged(scope.$eval(otherModel), session.getValue());
+          if (!changed) {
+            return [new NoMarkAnnotation(0, 0, errorText)];
+          } else {
             return [];
           }
         };
 
+
+        var markerAnnotations = [];
         var updateMarkers = () => {
-          var annotations:AceAjax.Annotation[] = editor.getSession().getAnnotations();
-          var newMarkerAnnotations = getMarkers();
-          if (!editMarker.equals(newMarkerAnnotations, markerAnnotations)) {
-            markerAnnotations = newMarkerAnnotations;
-            if(newMarkerAnnotations.length > 0) {
-              var otherCustomAnnotations = annotations.filter((a) => a['custom']).filter((a) => a.text!=errorText);
-              editor.getSession().setAnnotations(newMarkerAnnotations.concat(otherCustomAnnotations));
-            }else{
-              editor.getSession().setAnnotations(annotations.filter((a) => (a.text !== errorText)));
-            }
+          var newMarkers = getMarkers();
+          if (!editMarker.equals(newMarkers, markerAnnotations)) {
+            markerAnnotations = newMarkers;
+            editMarker.setAnnotations(newMarkers, session, errorText);
           }
         };
-        editor.getSession().on("changeAnnotation", updateMarkers);
+
+        session.on("changeAnnotation", updateMarkers);
 
       }
     };
