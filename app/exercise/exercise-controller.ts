@@ -21,9 +21,13 @@ module ExerciseCtrl {
       this.$timeout(() => {this.$scope.$digest();});
     };
     onSuccess = () => {
-      this.success = true;
-      this.getCurrentExercise().solved = true;
-      this.$timeout(() => {this.$scope.$apply();});
+      if (!this.getCurrentExercise().solved) {
+        this.getCurrentExercise().solved = true;
+        this.nextExercise();
+        this.success = true;
+        this.$timeout(() => {this.$scope.$apply();});
+      }
+
     };
 
     getExerciseId = () => this.id +1;

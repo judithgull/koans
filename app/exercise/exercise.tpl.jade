@@ -26,6 +26,6 @@
   button.button.button-prev(ng-show="exercise.hasPreviousExercise()" type='button' ng-click="exercise.previousExercise()")
     | Previous
 
-  button.button.button-next(ng-show="exercise.hasNextExercise() && exercise.success" type='button' ng-click="exercise.nextExercise()")
+  button.button.button-next(ng-show="exercise.hasNextExercise() && exercise.getCurrentExercise().solved" type='button' ng-click="exercise.nextExercise()")
     | Next
 
