@@ -95,6 +95,31 @@ module codeEditor {
 
     });
 
+    describe('getEditMarks',()=>{
+
+      it('should return an empty array for an empty, null or undefined text', () => {
+        expect(service.getEditMarks(undefined)).toEqual([]);
+        expect(service.getEditMarks(null)).toEqual([]);
+        expect(service.getEditMarks('')).toEqual([]);
+      });
+
+      it('should find a mark on a single line', () => {
+        expect(service.getEditMarks('???')).toEqual([{row: 0, column: 0}]);
+        expect(service.getEditMarks('aa???')).toEqual([{row: 0, column: 2}]);
+        expect(service.getEditMarks('aa???aa')).toEqual([{row: 0, column: 2}]);
+        expect(service.getEditMarks('aa???aa???')).toEqual([{row: 0, column: 2}]);
+      });
+
+      it('should not return a result, if no edit mark is found', () => {
+        expect(service.getEditMarks('a')).toEqual([]);
+      });
+
+      it('should return one occurrence per line for multiple lines', () => {
+        expect(service.getEditMarks('\n???')).toEqual([{row: 1, column: 0}]);
+      });
+
+    });
+
   });
 
 }

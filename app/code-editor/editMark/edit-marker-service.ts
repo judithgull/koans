@@ -14,6 +14,30 @@ module codeEditor {
       }
     };
 
+    /**
+     * find edit marks in a multi-line text and return row and the column of the first occurrence of that row
+     * (ignores multiple occurrences in a single row, because displaying multiple errors per row is not much help for the user)
+     * */
+    getEditMarks = (text:string):Position[] => {
+      if (!text) {
+        return [];
+      }
+      let lines = text.split(/\r\n|\r|\n/g);
+
+      let res = [];
+      lines.forEach(((l,row) => {
+        let col = l.indexOf(this.mark);
+        if(col >= 0){
+         res.push({
+           row: row,
+           column: col
+         });
+        }
+      }));
+
+      return res;
+    };
+
     getEditRanges = (editor:AceAjax.Editor) => {
       var options = {
         backwards: false,
@@ -24,10 +48,14 @@ module codeEditor {
       };
 
       var range = editor.find(this.mark, options);
+      console.log('found');
+      console.log(range);
       var ranges = [];
       while (range) {
         ranges.push(range);
+        console.log('next');
         range = editor.findNext(options);
+        console.log(range);
       }
       return ranges;
 
@@ -40,8 +68,8 @@ module codeEditor {
       var annotationEquals = (a1:AceAjax.Annotation, a2:AceAjax.Annotation) => {
         return a1.column === a2.column && a1.row === a2.row && a1.text === a1.text;
       };
-      for (let i = 0; i < a1.length; i++) {
-        if (!annotationEquals(a1[i], a2[i])) {
+      for(let i=0;i<a1.length;i++){
+        if(!annotationEquals(a1[i], a2[i])){
           return false;
         }
       }
@@ -81,14 +109,19 @@ module codeEditor {
     private escape = (s) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
   }
 
-  export class NoMarkAnnotation implements AceAjax.Annotation {
+  export class NoMarkAnnotation implements AceAjax.Annotation{
     public type = 'error';
     public custom = true;
 
-    constructor(public row:number,
-                public column:number,
-                public text:string) {
-    }
+    constructor(public row: number,
+                public column: number,
+                public text:string
+    ){}
+  }
+
+  export interface Position{
+    row:number,
+    column:number
   }
 
   /**
