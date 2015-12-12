@@ -32,14 +32,14 @@ module NoMark {
           controllers[1].$validators['noMark'] = (value) => !editMarker.containsMark(value);
 
           var getMarkers = ():AceAjax.Annotation[] => {
-            var ranges = editMarker.getEditRanges(editor);
-            return ranges.map((r) => new codeEditor.NoMarkAnnotation(r.start.row, r.start.column, errorText));
+            var ranges = editMarker.getEditMarks(session.getValue());
+            return ranges.map((r) => new codeEditor.NoMarkAnnotation(r.row, r.column, errorText));
           };
 
           var markerAnnotations = [];
           var updateMarkers = () => {
             var newMarkers = getMarkers();
-            if (!editMarker.equals(newMarkers, markerAnnotations)) {
+           if (!editMarker.equals(newMarkers, markerAnnotations)) {
               markerAnnotations = newMarkers;
               editMarker.setAnnotations(newMarkers, session, errorText);
             }

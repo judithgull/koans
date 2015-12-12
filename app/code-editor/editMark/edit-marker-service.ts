@@ -38,29 +38,6 @@ module codeEditor {
       return res;
     };
 
-    getEditRanges = (editor:AceAjax.Editor) => {
-      var options = {
-        backwards: false,
-        wrap: true,
-        caseSensitive: false,
-        wholeWord: false,
-        regExp: false
-      };
-
-      var range = editor.find(this.mark, options);
-      console.log('found');
-      console.log(range);
-      var ranges = [];
-      while (range) {
-        ranges.push(range);
-        console.log('next');
-        range = editor.findNext(options);
-        console.log(range);
-      }
-      return ranges;
-
-    };
-
     equals = (a1:AceAjax.Annotation[], a2:AceAjax.Annotation[]) => {
       if (a1.length !== a2.length) {
         return false;
