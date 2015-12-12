@@ -30,12 +30,12 @@ module codeEditor {
         expect(service.hasOnlyMarkChanged("", "")).toBe(true);
       });
 
-
       it('should return true, if nothing has changed', () => {
         expect(service.hasOnlyMarkChanged("???", "???")).toBe(true);
       });
 
       it('should return true when mark changed', () => {
+       expect(service.hasOnlyMarkChanged("???", "")).toBe(true);
        expect(service.hasOnlyMarkChanged("???", "??")).toBe(true);
        expect(service.hasOnlyMarkChanged("code ???", "code ??")).toBe(true);
        expect(service.hasOnlyMarkChanged("code ??? aaa", "code ?? aaa")).toBe(true);

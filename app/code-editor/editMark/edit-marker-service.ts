@@ -72,7 +72,7 @@ module codeEditor {
       var splits = origText.split(this.mark);
       var rs = splits
         .map(this.escape)
-        .join('[\\s\\S]+');
+        .join('[\\s\\S]*');
 
       var r = RegExp(rs);
       var matches = r.test(changedText);
