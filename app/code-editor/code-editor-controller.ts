@@ -13,10 +13,9 @@ module codeEditor {
     private selectionProcessed = false;
     private hasAnnotations = true;
 
-    public static $inject = ['$scope', 'AceTsService', 'EditMarker'];
+    public static $inject = ['$scope', 'EditMarker'];
 
     constructor(private $scope:ICodeEditorScope,
-                private AceTsService:ts.IAceTsService,
                 private editMarker:EditMarker) {
 
     }
@@ -83,40 +82,50 @@ module codeEditor {
       this.editor = editor;
       this.initProperties();
       var libs = this.$scope.libsLoader();
-      this.AceTsService.addLibs(editor, libs());
+      let worker = this.getWorkerExt(this.$scope.language);
+      worker.addLibs(editor.getSession(), libs());
       if (this.isRun()) {
-        this.processResults(this.start());
+        this.processResults(this.start(worker));
       }
     };
 
-    start = ():Rx.Observable<Data.IStatus> => {
+    getWorkerExt = (progLang:string):IWorkerExtension => {
+      if (progLang === 'typescript') {
+        return new TsWorkerExt();
+      } else if (progLang === 'javascript') {
+        return new JsWorkerExt();
+      }
+    };
+
+    start = (worker:IWorkerExtension):Rx.Observable<Data.IStatus> => {
+
       var subject = new Rx.Subject<Data.IStatus>();
       subject.onNext(new Data.PendingStatus(Data.taskType.compile));
       this.editor.getSession().on("changeAnnotation", () => this.emitAnnotationError(subject));
-      this.editor.getSession().on("compiled", (e) => this.startRun(subject, e.data));
+      worker.addRunEventListener(this.editor.getSession(), (v) => this.startRun(subject, v));
       return subject;
     };
 
 
     emitAnnotationError = (subject:Rx.Subject<Data.IStatus>) => {
       var annotations = this.editor.getSession().getAnnotations();
-        if (annotations.length > 0) {
-          this.hasAnnotations = true;
+      if (annotations.length > 0) {
+        this.hasAnnotations = true;
 
-          var errors = annotations.map((a) => {
-            return {
-              message: a.text,
-              line: a.row + 1
-            }
-          });
-          subject.onNext(new Data.ErrorStatus(Data.taskType.compile, errors));
-        } else {
-          this.hasAnnotations = false;
-        }
+        var errors = annotations.map((a) => {
+          return {
+            message: a.text,
+            line: a.row + 1
+          }
+        });
+        subject.onNext(new Data.ErrorStatus(Data.taskType.compile, errors));
+      } else {
+        this.hasAnnotations = false;
+      }
 
     };
 
-    private startRun = (subject:Rx.Subject<Data.IStatus>, script:string) => {
+    private startRun = (subject:Rx.Subject<Data.IStatus>, script:string):void => {
       if (!this.hasAnnotations) {
         var preparedScript = "chai.should();var expect = chai.expect;var assert = chai.assert;\n" + script;
         var taskType = Data.taskType.run;
