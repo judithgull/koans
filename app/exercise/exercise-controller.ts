@@ -25,6 +25,20 @@ module ExerciseCtrl {
         this.getCurrentExercise().solved = true;
         this.nextExercise();
         this.success = true;
+
+        if(this.allExercisesSolved()) {
+          let popup = "<div>" +
+            "<p class='t-paragraph'>Congratulations! You solved all exercises.</p>" +
+            "<p class='t-paragraph'>Solve more exercises?</p>" +
+            "<a href='#/topic-list' class='button'>Ok</a>" +
+            "<button type='button' class='button'>Cancel</button>" +
+            "</div>";
+          (<Toastr>toastr).success(popup,'',{timeOut:0});
+
+        } else {
+          (<Toastr>toastr).success("Great job!");
+        }
+
         this.$timeout(() => {
           this.$scope.$apply();
         });
