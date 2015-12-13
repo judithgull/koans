@@ -100,6 +100,10 @@ module ExerciseCtrl {
           this.getCurrentExercise().solutionRequested = true;
         }
         this.$state.go("main.topic.exercise.solution");
+        if(this.finished()){
+          this.showSolveMoreToast('You finished all exercises.');
+        }
+
       } else {
         this.$state.go("main.topic.exercise.details");
       }
