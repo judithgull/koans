@@ -3,7 +3,6 @@ module codeEditor {
 
   export interface ICodeEditorScope extends ng.IScope{
     language:string;
-    origModel:string;
     libsLoader:Function;
     onError:Function;
     onSuccess:Function;
@@ -16,7 +15,6 @@ module codeEditor {
       restrict: 'E',
       scope: {
         language: '=',
-        origModel: '=',
         libsLoader: '&libsLoader',
         onError: '&onError',
         onSuccess: '&onSuccess'
