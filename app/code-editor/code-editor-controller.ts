@@ -21,9 +21,9 @@ module codeEditor {
 
     handleChange = () => {
       this.$scope.handleEditorChange(this.editor);
-      if (!this.selectionProcessed) {
+/*      if (!this.selectionProcessed) {
         this.selectEditMark();
-      }
+      }*/
 
     };
 
