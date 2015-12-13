@@ -12,6 +12,7 @@ module editTopic {
   class EditTopicCtrl implements IEditTopicModel{
 
     errorMessage:string = null;
+    solutionErrors:Data.IError[][] = [];
 
     libsLoader = () => this.libs;
 
@@ -60,13 +61,22 @@ module editTopic {
       this.setValidity(element, 'exerciseCompileAndRun', false);
     };
 
-    onSolutionError = (element:ng.INgModelController) => (errors:Array<Data.IError>) => {
+    onSolutionError = (index: number, element:ng.INgModelController) => (errors:Array<Data.IError>) => {
       this.setValidity(element, 'solutionCompileAndRun', false);
+      this.solutionErrors[index] = errors;
     };
 
-    onSolutionSuccess = (element:ng.INgModelController) => () => {
+    onSolutionSuccess = (index: number, element:ng.INgModelController) => () => {
       this.setValidity(element, 'solutionCompileAndRun', true);
+      this.solutionErrors[index] = null;
+      console.log('success');
+      this.$scope.$digest();
     };
+
+    getSolutionError = (index:number) => {
+      return this.solutionErrors[index];
+    };
+
 
     private setValidity(element:ng.INgModelController, validationErrorKey: string, isValid: boolean) {
       element.$setValidity(validationErrorKey, isValid);
