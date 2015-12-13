@@ -27,15 +27,10 @@ module ExerciseCtrl {
         this.success = true;
 
         if(this.allExercisesSolved()) {
-          let popup = "<div>" +
-            "<p class='t-paragraph'>Congratulations! You solved all exercises.</p>" +
-            "<p class='t-paragraph'>Solve more exercises?</p>" +
-            "<a href='#/topic-list' class='button'>Ok</a>" +
-            "<button type='button' class='button'>Cancel</button>" +
-            "</div>";
-          (<Toastr>toastr).success(popup,'',{timeOut:0});
-
-        } else {
+          this.showSolveMoreToast('Congratulations! You solved all exercises.');
+        } else if (this.finished()){
+          this.showSolveMoreToast('You finished all exercises.');
+        }else {
           (<Toastr>toastr).success("Great job!");
         }
 
@@ -43,11 +38,21 @@ module ExerciseCtrl {
           this.$scope.$apply();
         });
       }
-
     };
 
-    allExercisesSolved = () => this.topicData.items.every((exercise) => exercise.solved === true && exercise.solutionRequested != true
-    );
+    private showSolveMoreToast(message:string){
+      let popup = "<div>" +
+        "<p class='t-paragraph'>"+message+"</p>" +
+        "<p class='t-paragraph'>Solve more exercises?</p>" +
+        "<a href='#/topic-list' class='button'>Ok</a>" +
+        "<button type='button' class='button'>Cancel</button>" +
+        "</div>";
+      (<Toastr>toastr).success(popup,'',{timeOut:0});
+    }
+
+    finished = () => this.topicData.items.every((exercise) => exercise.solved || exercise.solutionRequested);
+
+    allExercisesSolved = () => this.topicData.items.every((exercise) => exercise.solved && !exercise.solutionRequested);
 
     getExerciseId = () => this.id +1;
 
