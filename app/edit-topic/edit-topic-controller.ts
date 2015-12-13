@@ -62,15 +62,13 @@ module editTopic {
     };
 
     onSolutionError = (index: number, element:ng.INgModelController) => (errors:Array<Data.IError>) => {
-      this.setValidity(element, 'solutionCompileAndRun', false);
       this.solutionErrors[index] = errors;
+      this.setValidity(element, 'solutionCompileAndRun', false);
     };
 
     onSolutionSuccess = (index: number, element:ng.INgModelController) => () => {
-      this.setValidity(element, 'solutionCompileAndRun', true);
       this.solutionErrors[index] = null;
-      console.log('success');
-      this.$scope.$digest();
+      this.setValidity(element, 'solutionCompileAndRun', true);
     };
 
     getSolutionError = (index:number) => {
