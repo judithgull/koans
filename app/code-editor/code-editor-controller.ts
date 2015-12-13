@@ -46,7 +46,8 @@ module codeEditor {
     private initProperties = () => {
       this.editor.$blockScrolling = Infinity;
       this.editor.setOptions({
-        maxLines: Infinity
+        maxLines: Infinity,
+        autoScrollEditorIntoView: true
       });
 
       this.editor.commands.addCommands([{
