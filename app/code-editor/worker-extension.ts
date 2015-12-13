@@ -40,6 +40,11 @@ module codeEditor {
     }
 
     addRunEventListener(session:AceAjax.IEditSession, cb:  (string) => void) {
+      session.on("changeAnnotation", () => {
+        if(session.getAnnotations().length === 0){
+          cb(session.getValue());
+        }
+      });
     }
 
   }
