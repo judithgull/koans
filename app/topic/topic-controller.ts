@@ -29,8 +29,6 @@ module TopicCtrl {
 
     getExerciseId = () => this.$state.params.exerciseId;
 
-    allExercisesSolved = () => this.topicData.items.every((exercise) => exercise.solved === true && exercise.solutionRequested != true
-    );
   }
 
 

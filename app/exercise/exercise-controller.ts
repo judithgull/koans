@@ -32,6 +32,9 @@ module ExerciseCtrl {
 
     };
 
+    allExercisesSolved = () => this.topicData.items.every((exercise) => exercise.solved === true && exercise.solutionRequested != true
+    );
+
     getExerciseId = () => this.id +1;
 
     nextExercise() {

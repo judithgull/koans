@@ -6,8 +6,6 @@ h1.t-title.main-title {{::topic.title}}
     ng-class="{ isActive: $index + 1 === topic.getExerciseId(), isSolved: ex.solved, isNotSolved: ex.solutionRequested}").progress-bar-item--link
       span.l-centred {{ $index + 1 }}
 
-p(ng-show="topic.allExercisesSolved()") Congratulations! You solved all exercises.
-
 div.programming-lang-wrap.view-animate-container
   img(ng-src="/assets/icon-{{::topic.programmingLanguage}}.svg" alt="Icon {{::topic.programmingLanguage}}").programming-lang.programming-lang--light
   div(ui-view="").view-animate
