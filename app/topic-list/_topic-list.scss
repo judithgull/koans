@@ -64,6 +64,7 @@ $title-wrap-height: $lines * ($t-title-font-size * $t-title-line-height);
 
 .topic-title {
   word-wrap: break-word;
+  margin-right: 3rem;
   &-wrap {
     height: $title-wrap-height;
     overflow: hidden;
