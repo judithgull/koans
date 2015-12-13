@@ -21,11 +21,13 @@ module ExerciseCtrl {
       this.$timeout(() => {this.$scope.$digest();});
     };
     onSuccess = () => {
-      if (!this.getCurrentExercise().solved) {
+      if (!this.getCurrentExercise().solved && !this.getCurrentExercise().solutionRequested) {
         this.getCurrentExercise().solved = true;
         this.nextExercise();
         this.success = true;
-        this.$timeout(() => {this.$scope.$apply();});
+        this.$timeout(() => {
+          this.$scope.$apply();
+        });
       }
 
     };
@@ -72,7 +74,9 @@ module ExerciseCtrl {
     giveUp() {
       this.solutionClicked = !this.solutionClicked;
       if(this.solutionClicked) {
-        this.getCurrentExercise().solutionRequested = true;
+        if(!this.getCurrentExercise().solved) {
+          this.getCurrentExercise().solutionRequested = true;
+        }
         this.$state.go("main.topic.exercise.solution");
       } else {
         this.$state.go("main.topic.exercise.details");
