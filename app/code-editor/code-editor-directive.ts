@@ -32,6 +32,10 @@ module codeEditor {
         scope.handleEditorChange = (editor:AceAjax.Editor) => {
           ngModelCtrl.$setViewValue(editor.getValue());
         };
+
+        scope.$watch('language', (newValue:string) => {
+          scope.codeEditor.editor.getSession().setMode("ace/mode/" + newValue);
+        });
      }
     };
   }
