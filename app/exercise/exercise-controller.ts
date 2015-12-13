@@ -44,8 +44,8 @@ module ExerciseCtrl {
       let popup = "<div>" +
         "<p class='t-paragraph'>"+message+"</p>" +
         "<p class='t-paragraph'>Solve more exercises?</p>" +
-        "<a href='#/topic-list' class='button'>Ok</a>" +
-        "<button type='button' class='button'>Cancel</button>" +
+        "<a href='#/topic-list' class='button button--light'>Ok</a>" +
+        "<a href='#' class='button button--light'>Cancel</a>" +
         "</div>";
       (<Toastr>toastr).success(popup,'',{timeOut:0});
     }

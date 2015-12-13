@@ -67,6 +67,10 @@ textarea {
   font-size: 1rem;
   color: c(blue);
   text-decoration: none;
+  &--light {
+    border: 1px solid c(white);
+    color: c(white);
+  }
   &:disabled {
     border-color: rgba(c(blue), 0.4);
     color: rgba(c(blue), 0.4);
