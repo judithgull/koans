@@ -10,9 +10,9 @@ form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
           option(value='javascript')
             | Javascript
     .field-row
-      label(for='editTopicForm.title').label.t-label Series Title
+      label(for='editTopicForm.title').label.t-label Series Title *
       input.input(id='editTopicForm.title' name='title' ng-model='editTopic.topic.title' required='')
-      div(ng-messages="editTopicForm.title.$error")
+      div(ng-show='editTopicForm.title.$dirty' ng-messages="editTopicForm.title.$error")
         p(ng-message="required").t-paragraph.form-error-msg Please enter a title!
 
   ul.l-list-reset
@@ -21,15 +21,15 @@ form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
         label(for='editTopicForm.$index.title').label.t-label Exercise Title
         input.input(id='editTopicForm.$index.title' name='title' ng-model='item.title')
       .field-row
-        label(for='editTopicForm.$index.description').label.t-label Description
+        label(for='editTopicForm.$index.description').label.t-label Description *
         textarea.textarea(id='editTopicForm.$index.description' name='description' ng-model='item.description' required='')
-        div(ng-messages="ex.description.$error")
+        div(ng-messages="ex.description.$error" ng-show='ex.description.$dirty')
           p(ng-message="required").t-paragraph.form-error-msg Please enter a description!
       .field-row
         p.t-paragraph.t-info-msg You exercise must contain the marker '???'. This marker must be replaced in the solution with the correct answer.
         .l-grid.code-editor-wrap
           .l-grid-cell.l-one-half.l-mobile-one-whole
-            label(for='editTopicForm.$index.exercise').label.t-label Exercise
+            label(for='editTopicForm.$index.exercise').label.t-label Exercise *
             code-editor(
             id='editTopicForm.$index.exercise',
             required='',
@@ -40,12 +40,12 @@ form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
             libs-loader='editTopic.libsLoader',
             mark-required='',
             ng-model='item.exercise').code-editor
-            div(ng-messages="ex.exercise.$error")
+            div(ng-messages="ex.exercise.$error" ng-show='ex.exercise.$dirty')
               p(ng-message="required").t-paragraph.form-error-msg Please enter an exercise!
               p(ng-message="exerciseCompileAndRun").t-paragraph.form-error-msg Your exercise must have an error to be fixed by the user!
               p(ng-message="markRequired").t-paragraph.form-error-msg The exercise should contain '???' to be edited by the user!
           .l-grid-cell.l-one-half.l-mobile-one-whole
-            label(for='editTopicForm.$index.solution').label.t-label Solution
+            label(for='editTopicForm.$index.solution').label.t-label Solution *
             code-editor(
             id='editTopicForm.$index.solution',
             required='',
@@ -58,7 +58,7 @@ form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
             same-as-except-mark='item.exercise',
             no-mark
             ).code-editor
-            div(ng-messages="ex.solution.$error")
+            div(ng-messages="ex.solution.$error" ng-show='ex.solution.$dirty')
               p(ng-message="required").t-paragraph.form-error-msg Please enter a solution!
               p(ng-message="solutionCompileAndRun").t-paragraph.form-error-msg Your solution must have no errors!
               p(ng-message="sameAsExceptMark").t-paragraph.form-error-msg Only ??? can change in the solution compared to the exercise.
