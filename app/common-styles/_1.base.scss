@@ -106,6 +106,10 @@ textarea {
   }
 }
 
+a.button {
+  display: inline;
+}
+
 .button + .button {
   margin-left: s(medium);
 }
