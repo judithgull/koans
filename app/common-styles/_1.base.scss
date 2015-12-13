@@ -243,3 +243,12 @@ textarea {
 .view-animate.ng-leave.ng-leave-active {
   left:-100%;
 }
+
+.field-row {
+  margin-bottom: s(large);
+}
+
+.form-error-msg{
+  color: c(error);
+  margin-top: s(small);
+}
