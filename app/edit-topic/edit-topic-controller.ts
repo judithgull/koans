@@ -77,8 +77,10 @@ module editTopic {
 
 
     private setValidity(element:ng.INgModelController, validationErrorKey: string, isValid: boolean) {
-      element.$setValidity(validationErrorKey, isValid);
-      this.$timeout(() => this.$scope.$digest());
+      if(element) {
+        element.$setValidity(validationErrorKey, isValid);
+        this.$timeout(() => this.$scope.$digest());
+      }
     }
 
     public static $inject = ['RestClient', '$state', '$scope', 'libs', 'SearchParamsService', 'topic', '$timeout'];

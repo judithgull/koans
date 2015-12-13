@@ -11,7 +11,6 @@ module codeEditor {
 
     editor:AceAjax.Editor;
     private selectionProcessed = false;
-    private hasAnnotations = true;
 
     public static $inject = ['$scope', 'EditMarker'];
 
@@ -98,7 +97,6 @@ module codeEditor {
     };
 
     start = (worker:IWorkerExtension):Rx.Observable<Data.IStatus> => {
-
       var subject = new Rx.Subject<Data.IStatus>();
       subject.onNext(new Data.PendingStatus(Data.taskType.compile));
       this.editor.getSession().on("changeAnnotation", () => this.emitAnnotationError(subject));
@@ -108,32 +106,37 @@ module codeEditor {
 
 
     emitAnnotationError = (subject:Rx.Subject<Data.IStatus>) => {
-      var annotations = this.editor.getSession().getAnnotations();
-      if (annotations.length > 0) {
-        this.hasAnnotations = true;
-
-        var errors = annotations.map((a) => {
+      if (this.hasAnnotations()) {
+        var errors = this.editor.getSession().getAnnotations().map((a) => {
           return {
             message: a.text,
             line: a.row + 1
           }
         });
         subject.onNext(new Data.ErrorStatus(Data.taskType.compile, errors));
-      } else {
-        this.hasAnnotations = false;
       }
-
     };
 
+    private hasAnnotations():boolean{
+      return this.editor.getSession().getAnnotations().length > 0;
+    }
+
     private startRun = (subject:Rx.Subject<Data.IStatus>, script:string):void => {
-      if (!this.hasAnnotations) {
+      if (!this.hasAnnotations()) {
         var preparedScript = "chai.should();var expect = chai.expect;var assert = chai.assert;\n" + script;
         var taskType = Data.taskType.run;
         try {
           eval(preparedScript);
           subject.onNext(new Data.SuccessStatus(taskType));
         } catch (e) {
-          var err = {message: e.message, line: -1};
+          let message = 'Runtime Error: Incorrect implementation';
+          var err = {message: message, line: -1};
+          this.editor.getSession().setAnnotations([{
+            row:0,
+            column:0,
+            text: message,
+            type: 'error'
+          }]);
           subject.onNext(new Data.ErrorStatus(taskType, [err]));
         }
       }
