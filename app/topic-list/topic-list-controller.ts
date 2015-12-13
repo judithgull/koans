@@ -30,6 +30,7 @@ module topicList {
       this.user = this.authService.getLoggedInUser();
       this.searchText = this.searchParamsService.getSearchText();
       this.reload();
+      (<Toastr>toastr).clear();
     }
 
     deleteTopic = (id:number, index:number) => {
