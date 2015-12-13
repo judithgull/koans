@@ -35,6 +35,7 @@ module codeEditor {
 
         scope.$watch('language', (newValue:string) => {
           scope.codeEditor.editor.getSession().setMode("ace/mode/" + newValue);
+          scope.codeEditor.load(scope.codeEditor.editor);
         });
      }
     };
