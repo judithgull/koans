@@ -1,8 +1,11 @@
 .exercise-card {
   background-color: c(black);
-  padding: s(extra-huge) s(small);
+  padding: s(huge) s(small);
   &-info {
-    margin-bottom: s(huge);
+    max-width: 500px;
+    display: block;
+
+    margin: s(small) auto s(huge);
     text-align: center;
   }
 }
@@ -10,11 +13,6 @@
 .exercise-title,
 .exercise-description {
   color: c(light-grey);
-}
-
-.exercise-description{
-  max-width: 500px;
-  display: inline-block;
 }
 
 .code-editor-wrap{
