@@ -5,6 +5,10 @@ $icon-space-left: s(medium);
 $lines            : 2;
 $title-wrap-height: $lines * ($t-title-font-size * $t-title-line-height);
 
+$title-wrap-space-bottom: s(large);
+$button-height: ($t-default-font-size * $t-default-line-height) + ( 2 * s(small));
+$topic-item-padding: s(small);
+
 .search-field{
   position: relative;
   margin-bottom: s(huge);
@@ -51,9 +55,9 @@ $title-wrap-height: $lines * ($t-title-font-size * $t-title-line-height);
 
 .topic-item {
   background-color: c(light-grey);
-  min-height: 234px;
-  padding: s(small);
-  margin-bottom: s(large);
+  min-height: $title-wrap-height + $title-wrap-space-bottom + $button-height + (2 * $topic-item-padding);
+  padding: $topic-item-padding;
+  margin-bottom: $title-wrap-space-bottom;
 
 
   display: block;
