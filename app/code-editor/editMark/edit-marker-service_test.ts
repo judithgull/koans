@@ -120,6 +120,23 @@ module codeEditor {
 
     });
 
+    describe('split visible', () => {
+      it('should not split, if there is no hidden marker', () => {
+        expect(service.splitVisible('')).toEqual({visible: '', hidden: ''});
+        expect(service.splitVisible('a')).toEqual({visible: 'a', hidden: ''});
+        expect(service.splitVisible('a\nb')).toEqual({visible: 'a\nb', hidden: ''});
+      });
+
+      it('should split on the first hidden marker', () => {
+        expect(service.splitVisible('//hidden\nabc')).toEqual({visible: '', hidden: 'abc'});
+        expect(service.splitVisible('a\n//hidden\nb')).toEqual({visible: 'a', hidden: 'b'});
+        expect(service.splitVisible('a\n//hidden\nb\nc')).toEqual({visible: 'a', hidden: 'b\nc'});
+        expect(service.splitVisible('a\nb\n//hidden\nb\nc')).toEqual({visible: 'a\nb', hidden: 'b\nc'});
+        expect(service.splitVisible('a\nb\n//hidden aaa\nb\nc')).toEqual({visible: 'a\nb', hidden: 'b\nc'});
+      });
+
+    });
+
   });
 
 }

@@ -22,7 +22,7 @@ module codeEditor {
       if (!text) {
         return [];
       }
-      let lines = text.split(/\r\n|\r|\n/g);
+      let lines = this.getLines(text);
 
       let res = [];
       lines.forEach(((l,row) => {
@@ -84,6 +84,45 @@ module codeEditor {
     };
 
     private escape = (s) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+
+    private getLines = (s) => s.split(/\r\n|\r|\n/g);
+
+    splitVisible = (s:string):IHidable => {
+      let lines = this.getLines(s);
+
+      let hiddenIdx = this.findHiddenMarker(lines);
+
+      let visibleLines = [];
+      let hiddenLines = [];
+      if(hiddenIdx >= 0){
+        for(let i=0;i<lines.length && i<hiddenIdx;i++){
+          visibleLines.push(lines[i]);
+        }
+
+        for(let j=hiddenIdx+1;j<lines.length;j++){
+          hiddenLines.push(lines[j]);
+        }
+      }else{
+        for(let i=0;i<lines.length;i++){
+          visibleLines.push(lines[i]);
+        }
+      }
+      return {
+        visible: visibleLines.join("\n"),
+        hidden: hiddenLines.join("\n")
+      }
+    };
+
+    private findHiddenMarker = (lines):number => {
+      for(let i = 0; i< lines.length; i++){
+        if(lines[i].indexOf('//hidden') >= 0){
+          return i;
+        }
+      }
+      return -1;
+    }
+
+
   }
 
   export class NoMarkAnnotation implements AceAjax.Annotation{
@@ -94,6 +133,11 @@ module codeEditor {
                 public column: number,
                 public text:string
     ){}
+  }
+
+  export interface IHidable{
+    visible:string;
+    hidden: string;
   }
 
   export interface Position{
