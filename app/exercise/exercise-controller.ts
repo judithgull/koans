@@ -5,6 +5,7 @@ module ExerciseCtrl {
   class ExerciseCtrl {
     currentExercise:IExercise;
     content:string;
+    hidden:string;
 
     errors:Array<Data.IError> = [];
     successMessage:string = "Great job!!!";
@@ -76,20 +77,25 @@ module ExerciseCtrl {
       this.$state.go("main.topic.exercise.details", {exerciseId: id});
     }
 
-    public static $inject = ['topicData', '$state', '$scope', 'libs', '$timeout'];
+    public static $inject = ['topicData', '$state', '$scope', 'libs', '$timeout', 'EditMarker'];
 
     constructor(private topicData:Data.ITopic,
                 private $state:angular.ui.IStateService,
                 private $scope:ng.IScope,
                 private libs,
-                private $timeout:ng.ITimeoutService
+                private $timeout:ng.ITimeoutService,
+                private editMarker: codeEditor.EditMarker
     ) {
       this.id = this.$state.params['exerciseId'] - 1;
       this.currentExercise = this.getCurrentExercise();
       this.exerciseCount = topicData.items.length;
-      this.content = this.currentExercise.exercise;
+
+      let hidable = this.editMarker.splitVisible(this.currentExercise.exercise);
+      this.hidden = hidable.hidden;
+      this.content = hidable.visible;
+
       if(!this.currentExercise.userSolution){
-        this.currentExercise.userSolution = this.currentExercise.exercise;
+        this.currentExercise.userSolution = hidable.visible;
       }
     }
 

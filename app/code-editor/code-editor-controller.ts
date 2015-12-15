@@ -125,6 +125,10 @@ module codeEditor {
     private startRun = (subject:Rx.Subject<Data.IStatus>, script:string):void => {
       if (!this.hasAnnotations()) {
         var preparedScript = "chai.should();var expect = chai.expect;var assert = chai.assert;\n" + script;
+
+        if(this.$scope.hiddenText){
+          preparedScript = preparedScript + '\n' + this.$scope.hiddenText;
+        }
         var taskType = Data.taskType.run;
         try {
           eval(preparedScript);
