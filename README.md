@@ -12,14 +12,15 @@ Programming exercises in Typescript and Javascript
 # Installation
 
 ## MongoDB
-- Install MongoDB
+### Install 
+Install with brew on OSX:
 ```
 brew install mongodb
 ```
-###Instructions:
-http://docs.mongodb.org/manual/installation/
+or see the docs: https://docs.mongodb.org/manual/installation/
 
-###Setup Database: Add sample data and text
+###Setup
+Add text index (for search) and sample data:
 ```
 mongod
 (in another terminal)
@@ -27,7 +28,8 @@ mongoimport --db koans --collection topics app-node/sample-data/topics.bson
 mongo --eval "db.getSiblingDB('koans').topics.createIndex({title: 'text', 'items.title': 'text','items.description': 'text'})"
 ```
 
-###Drop Database:
+###Drop
+Only if you need to drop it for any reason use:
 ```
 mongod
 (in another terminal)
