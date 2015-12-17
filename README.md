@@ -1,4 +1,15 @@
-# koans
+# Koans
+Programming exercises in Typescript and Javascript
+
+
+# Features
+- Creation of exercise series with template code and assertions
+- Support for Typescript and Javascript
+- Automatic verification of user solution and instant feedback
+- Exercise search
+- Authentication
+
+# Installation
 
 ## MongoDB
 - Install MongoDB
