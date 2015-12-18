@@ -27,7 +27,7 @@ module topic {
       params: {
         exerciseId: 1
       },
-      templateUrl: "../exercise/exercise.tpl.html",
+      templateUrl: "topic/exercise/exercise.tpl.html",
       controller: "ExerciseCtrl",
       controllerAs: "exercise",
       resolve: {
@@ -37,12 +37,12 @@ module topic {
       }
     }).state("main.topic.exercise.solution", {
       url: "/solution",
-      templateUrl: "../exercise/solution/solution.tpl.html",
+      templateUrl: "topic/exercise/solution/solution.tpl.html",
       controller: "SolutionCtrl",
       controllerAs: "solution"
     }).state("main.topic.exercise.details", {
       url: "",
-      templateUrl: "../exercise/details/details.tpl.html"
+      templateUrl: "topic/exercise/details/details.tpl.html"
     });
 
   }
