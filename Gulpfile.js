@@ -30,6 +30,7 @@ _.merge(config, buildConfig);
 
 config.appFiles = path.join(config.appDir, "**/*");
 config.appFontFiles = path.join(config.appDir, "assets/fonts/**/*");
+config.faviconFiles = path.join(config.appDir, "assets/favicon.png");
 config.appAssetsFiles = path.join(config.appDir, "assets/**/*");
 config.appMarkupFiles = path.join(config.appDir, "**/*.jade");
 config.appScriptFiles = path.join(config.appDir, "**/*.ts");
