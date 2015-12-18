@@ -6,7 +6,7 @@ module editTopic {
     submit: Function;
     addExercise:Function;
     removeExercise:Function;
-    topic: Data.ITopic;
+    topic: core.ITopic;
   }
 
   class EditTopicCtrl implements IEditTopicModel {
@@ -17,14 +17,14 @@ module editTopic {
     constructor(private RestClient:RestClient.IRestClient,
                 private $state:angular.ui.IStateService,
                 private $scope:ng.IScope,
-                private libs:Array<Data.ILibrary>,
+                private libs:Array<core.ILibrary>,
                 private searchParamsService:core.SearchParamsService,
-                public topic:Data.ITopic,
+                public topic:core.ITopic,
                 private $timeout:ng.ITimeoutService) {
     }
 
     errorMessage:string = null;
-    solutionErrors:Data.IError[][] = [];
+    solutionErrors:core.IError[][] = [];
 
     libsLoader = () => this.libs;
 
@@ -65,7 +65,7 @@ module editTopic {
       this.topic.items.splice(index, 1);
     };
 
-    onExerciseError = (element:ng.INgModelController) => (errors:Array<Data.IError>) => {
+    onExerciseError = (element:ng.INgModelController) => (errors:Array<core.IError>) => {
       this.setValidity(element, "exerciseCompileAndRun", true);
     };
 
@@ -73,7 +73,7 @@ module editTopic {
       this.setValidity(element, "exerciseCompileAndRun", false);
     };
 
-    onSolutionError = (index:number, element:ng.INgModelController) => (errors:Array<Data.IError>) => {
+    onSolutionError = (index:number, element:ng.INgModelController) => (errors:Array<core.IError>) => {
       this.solutionErrors[index] = errors;
       this.setValidity(element, "solutionCompileAndRun", false);
     };

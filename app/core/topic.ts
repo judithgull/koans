@@ -1,11 +1,11 @@
-module Data {
+module core {
   "use strict";
 
   export interface ITopic {
     _id: number;
     title: string;
     programmingLanguage: string;
-    items: Array<Data.IExercise>;
+    items: Array<core.IExercise>;
   }
 
   export interface IExercise {

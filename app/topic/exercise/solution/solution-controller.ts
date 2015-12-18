@@ -7,7 +7,7 @@ module SolutionCtrl {
 
     public static $inject = ["exData"];
 
-    constructor(exData:Data.IExercise) {
+    constructor(exData:core.IExercise) {
       this.content = exData.solution;
     }
 

@@ -4,7 +4,7 @@ module test {
 
   export class MockData {
 
-    static getTopic():Data.ITopic {
+    static getTopic():core.ITopic {
       return {
         "_id": 1,
         "title": "Typescript Intro - Types",
@@ -38,7 +38,7 @@ module test {
       };
     }
 
-    static getTopics():Array<Data.ITopic> {
+    static getTopics():Array<core.ITopic> {
       return [
         {
           "_id": 1,

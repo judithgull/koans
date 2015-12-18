@@ -5,14 +5,14 @@ module editTopic {
 
   describe("EditTopicCtrl", function () {
     var ctrl:IEditTopicModel;
-    var testTopic:Data.ITopic;
-    var topic:Data.ITopic;
+    var testTopic:core.ITopic;
+    var topic:core.ITopic;
 
     beforeEach(angular.mock.module("editTopic"));
 
     beforeEach(inject(function ($rootScope, $controller, $state:angular.ui.IStateService) {
       const rc = {
-        createTopic: (topic:Data.ITopic) => {
+        createTopic: (topic:core.ITopic) => {
           testTopic = topic;
         }
       };

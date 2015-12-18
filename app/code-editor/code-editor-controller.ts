@@ -59,7 +59,7 @@ module codeEditor {
       }]);
     };
 
-    private processResults = (allEvents:Rx.Observable<Data.IStatus>) => {
+    private processResults = (allEvents:Rx.Observable<core.IStatus>) => {
       var successEvents = allEvents.filter(s => s.success);
       var errorEvents = allEvents.filter(s => !s.success);
 
@@ -97,16 +97,16 @@ module codeEditor {
       }
     };
 
-    start = (worker:IWorkerExtension):Rx.Observable<Data.IStatus> => {
-      var subject = new Rx.Subject<Data.IStatus>();
-      subject.onNext(new Data.PendingStatus(Data.taskType.compile));
+    start = (worker:IWorkerExtension):Rx.Observable<core.IStatus> => {
+      var subject = new Rx.Subject<core.IStatus>();
+      subject.onNext(new core.PendingStatus(core.taskType.compile));
       this.editor.getSession().on("changeAnnotation", () => this.emitAnnotationError(subject));
       worker.addRunEventListener(this.editor.getSession(), (v) => this.startRun(subject, v));
       return subject;
     };
 
 
-    emitAnnotationError = (subject:Rx.Subject<Data.IStatus>) => {
+    emitAnnotationError = (subject:Rx.Subject<core.IStatus>) => {
       if (this.hasAnnotations()) {
         var errors = this.editor.getSession().getAnnotations().map((a) => {
           return {
@@ -114,25 +114,25 @@ module codeEditor {
             line: a.row + 1
           };
         });
-        subject.onNext(new Data.ErrorStatus(Data.taskType.compile, errors));
+        subject.onNext(new core.ErrorStatus(core.taskType.compile, errors));
       }
     };
 
     private hasAnnotations = ():boolean => {
       return this.editor.getSession().getAnnotations().length > 0;
-    }
+    };
 
-    private startRun = (subject:Rx.Subject<Data.IStatus>, script:string):void => {
+    private startRun = (subject:Rx.Subject<core.IStatus>, script:string):void => {
       if (!this.hasAnnotations()) {
         var preparedScript = "chai.should();var expect = chai.expect;var assert = chai.assert;\n" + script;
 
         if (this.$scope.hiddenText) {
           preparedScript = preparedScript + "\n" + this.$scope.hiddenText;
         }
-        var taskType = Data.taskType.run;
+        var taskType = core.taskType.run;
         try {
           eval(preparedScript);
-          subject.onNext(new Data.SuccessStatus(taskType));
+          subject.onNext(new core.SuccessStatus(taskType));
         } catch (e) {
           let message = "Runtime Error: Incorrect implementation";
           var err = {message: message, line: -1};
@@ -142,7 +142,7 @@ module codeEditor {
             text: message,
             type: "error"
           }]);
-          subject.onNext(new Data.ErrorStatus(taskType, [err]));
+          subject.onNext(new core.ErrorStatus(taskType, [err]));
         }
       }
     }

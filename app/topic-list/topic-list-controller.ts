@@ -2,7 +2,7 @@ module topicList {
   "use strict";
 
   export interface ITopicListCtrl {
-    topics: Array<Data.ITopic>;
+    topics: Array<core.ITopic>;
     deleteTopic: Function;
     equalsUser: Function;
   }
@@ -13,7 +13,7 @@ module topicList {
     user:app.IUser;
     isShowAll:boolean;
     isLoggedIn:boolean;
-    topics:Array<Data.ITopic> = [];
+    topics:Array<core.ITopic> = [];
     searchText:string;
 
     public static $inject = [

@@ -9,7 +9,7 @@ module codeEditor {
     /**
      * Add libraries to ace editor
      * */
-    addLibs(session:AceAjax.IEditSession, libs:Array<Data.ILibrary>);
+    addLibs(session:AceAjax.IEditSession, libs:Array<core.ILibrary>);
 
     /**
      * Adds a listener to start running the code
@@ -20,7 +20,7 @@ module codeEditor {
 
   export class TsWorkerExt implements IWorkerExtension {
 
-    addLibs(session:AceAjax.IEditSession, libs:Array<Data.ILibrary>) {
+    addLibs(session:AceAjax.IEditSession, libs:Array<core.ILibrary>) {
       libs.forEach(
         lib => {
           (<any>session).$worker.emit("addLibrary", {data: lib});
@@ -35,7 +35,7 @@ module codeEditor {
 
   export class JsWorkerExt implements IWorkerExtension {
 
-    addLibs(session:AceAjax.IEditSession, libs:Array<Data.ILibrary>) {
+    addLibs(session:AceAjax.IEditSession, libs:Array<core.ILibrary>) {
       // nop
     }
 

@@ -4,21 +4,21 @@ module RestClient {
   export const TOPICS_URL = "/topics/";
 
   export interface IRestClient {
-    getTopic(id:number): ng.IPromise<Data.ITopic>;
-    getExercise(topicId:number, exerciseId:number):ng.IPromise<Data.IExercise>;
-    getDefaultLibs():ng.IPromise<Array<Data.ILibrary>>;
-    getLib(name:string):ng.IPromise<Data.ILibrary>;
-    getLibs(names:string[]):ng.IPromise<Array<Data.ILibrary>>;
-    getTopics(queryParams?):ng.IPromise<Array<Data.ITopic>>;
-    createTopic(topic:Data.ITopic):ng.IPromise<any>;
-    updateTopic(topic:Data.ITopic):ng.IPromise<any>;
-    deleteTopic(id:number): ng.IPromise<Data.ITopic>;
+    getTopic(id:number): ng.IPromise<core.ITopic>;
+    getExercise(topicId:number, exerciseId:number):ng.IPromise<core.IExercise>;
+    getDefaultLibs():ng.IPromise<Array<core.ILibrary>>;
+    getLib(name:string):ng.IPromise<core.ILibrary>;
+    getLibs(names:string[]):ng.IPromise<Array<core.ILibrary>>;
+    getTopics(queryParams?):ng.IPromise<Array<core.ITopic>>;
+    createTopic(topic:core.ITopic):ng.IPromise<any>;
+    updateTopic(topic:core.ITopic):ng.IPromise<any>;
+    deleteTopic(id:number): ng.IPromise<core.ITopic>;
     clearCachedTopic():void;
   }
 
   class RestClient implements IRestClient {
 
-    topicData:Data.ITopic;
+    topicData:core.ITopic;
 
     public static $inject = [
       "$http",
@@ -33,7 +33,7 @@ module RestClient {
       this.topicData = null;
     };
 
-    getTopics(queryParams?):ng.IPromise<Array<Data.ITopic>> {
+    getTopics(queryParams?):ng.IPromise<Array<core.ITopic>> {
       return this.$http({
         url: TOPICS_URL,
         method: "GET",
@@ -45,12 +45,12 @@ module RestClient {
       );
     }
 
-    getTopic(id:number):ng.IPromise<Data.ITopic> {
+    getTopic(id:number):ng.IPromise<core.ITopic> {
       var deferred = this.$q.defer();
 
       if (!this.topicData || this.topicData._id !== id) {
         this.$http.get(TOPICS_URL + id).then(response => {
-          this.topicData = <Data.ITopic> response.data;
+          this.topicData = <core.ITopic> response.data;
           deferred.resolve(this.topicData);
         }).catch(reason => {
           deferred.reject(reason);
@@ -61,20 +61,20 @@ module RestClient {
       return deferred.promise;
     }
 
-    createTopic(topic:Data.ITopic):ng.IPromise<any> {
+    createTopic(topic:core.ITopic):ng.IPromise<any> {
       return this.$http.post(TOPICS_URL, topic);
     }
 
-    updateTopic(topic:Data.ITopic):ng.IPromise<any> {
+    updateTopic(topic:core.ITopic):ng.IPromise<any> {
       return this.$http.put(TOPICS_URL + topic._id, topic);
     }
 
-    deleteTopic(id:number):ng.IPromise<Data.ITopic> {
+    deleteTopic(id:number):ng.IPromise<core.ITopic> {
       var deferred = this.$q.defer();
 
       if (!this.topicData || this.topicData._id !== id) {
         this.$http.delete(TOPICS_URL + id).then(response => {
-          this.topicData = <Data.ITopic> response.data;
+          this.topicData = <core.ITopic> response.data;
           deferred.resolve(this.topicData);
         }).catch(reason => {
           deferred.reject(reason);
@@ -85,22 +85,22 @@ module RestClient {
       return deferred.promise;
     }
 
-    getExercise(topicId:number, exerciseId:number):ng.IPromise<Data.IExercise> {
+    getExercise(topicId:number, exerciseId:number):ng.IPromise<core.IExercise> {
       return this.getTopic(topicId).then(() => this.topicData.items[exerciseId - 1]);
     }
 
     /**
      * return the default libraries
      * */
-    getDefaultLibs():ng.IPromise<Array<Data.ILibrary>> {
+    getDefaultLibs():ng.IPromise<Array<core.ILibrary>> {
       return this.getLibs(["typescripts/lib.d.ts", "typescripts/chai/chai.d.ts", "typescripts/angularjs/angular.d.ts"]);
     }
 
-    getLibs(names:string[]):ng.IPromise<Array<Data.ILibrary>> {
+    getLibs(names:string[]):ng.IPromise<Array<core.ILibrary>> {
       return this.$q.all(names.map(name => this.getLib(name)));
     }
 
-    getLib(libName:string):ng.IPromise<Data.ILibrary> {
+    getLib(libName:string):ng.IPromise<core.ILibrary> {
       return this.$http.get(libName).then(
         (response) => {
           return {

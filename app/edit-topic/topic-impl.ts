@@ -1,8 +1,8 @@
 module editTopic {
 
-  export class Topic implements Data.ITopic {
+  export class Topic implements core.ITopic {
     _id:number;
-    items:Array<Data.IExercise> = [];
+    items:Array<core.IExercise> = [];
 
     constructor(public title:string = "",
                 public programmingLanguage:string = "typescript") {
@@ -10,7 +10,7 @@ module editTopic {
     }
   }
 
-  export class Exercise implements Data.IExercise {
+  export class Exercise implements core.IExercise {
     _id:number;
 
     constructor(public sortOrder:number = 1,

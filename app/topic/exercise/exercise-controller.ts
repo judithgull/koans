@@ -1,5 +1,5 @@
 module ExerciseCtrl {
-  import IExercise = Data.IExercise;
+  import IExercise = core.IExercise;
   "use strict";
 
   class ExerciseCtrl {
@@ -7,7 +7,7 @@ module ExerciseCtrl {
     content:string;
     hidden:string;
 
-    errors:Array<Data.IError> = [];
+    errors:Array<core.IError> = [];
     successMessage:string = "Great job!!!";
     success = false;
     id:number;
@@ -16,7 +16,7 @@ module ExerciseCtrl {
 
     libsLoader = () => this.libs;
 
-    onError = (errors:Array<Data.IError>) => {
+    onError = (errors:Array<core.IError>) => {
       this.success = false;
       this.errors = errors;
       this.$timeout(() => {
@@ -81,7 +81,7 @@ module ExerciseCtrl {
 
     public static $inject = ["topicData", "$state", "$scope", "libs", "$timeout", "EditMarker"];
 
-    constructor(private topicData:Data.ITopic,
+    constructor(private topicData:core.ITopic,
                 private $state:angular.ui.IStateService,
                 private $scope:ng.IScope,
                 private libs,
