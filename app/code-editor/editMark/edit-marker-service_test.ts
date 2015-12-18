@@ -60,6 +60,17 @@ module codeEditor {
         expect(service.hasOnlyMarkChanged("a ??? a ???", "a b")).toBe(false);
       });
 
+      it("should return true when white space of original text changed", () => {
+        expect(service.hasOnlyMarkChanged("a ??? a", "aba")).toBe(true);
+        expect(service.hasOnlyMarkChanged("a ??? a ???", "aba b")).toBe(true);
+        expect(service.hasOnlyMarkChanged("a \n??? a ???", "aba b")).toBe(true);
+        expect(service.hasOnlyMarkChanged("a \n??? a ???", "aba b\nb")).toBe(true);
+      });
+
+      it("should return false when white space of original text is removed", () => {
+        expect(service.hasOnlyMarkChanged("a a \n??? a ???", "aa b a b\nb")).toBe(false);
+      });
+
       it("should be valid for special characters as well", () => {
         expect(service.hasOnlyMarkChanged("(1 * 1).should.equal(???);", "(1 * 1).should.equal(1);")).toBe(true);
       });

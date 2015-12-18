@@ -71,6 +71,7 @@ module codeEditor {
       }
       var splits = origText.split(this.mark);
       var rs = splits
+        .map((s)=>s.trim())
         .map(this.escape)
         .join("[\\s\\S]*");
 
