@@ -7,7 +7,7 @@ module codeEditor {
     setAnnotations = (newMarkerAnnotations, session, errorText) => {
       var annotations = session.getAnnotations();
       if (newMarkerAnnotations.length > 0) {
-        var otherCustomAnnotations = annotations.filter((a) => a["custom"]).filter((a) => a.text != errorText);
+        var otherCustomAnnotations = annotations.filter((a) => a["custom"]).filter((a) => a.text !== errorText);
         session.setAnnotations(newMarkerAnnotations.concat(otherCustomAnnotations));
       } else {
         session.setAnnotations(annotations.filter((a) => (a.text !== errorText)));
@@ -110,7 +110,7 @@ module codeEditor {
       return {
         visible: visibleLines.join("\n"),
         hidden: hiddenLines.join("\n")
-      }
+      };
     };
 
     private findHiddenMarker = (lines):number => {

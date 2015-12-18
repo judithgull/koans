@@ -112,13 +112,13 @@ module codeEditor {
           return {
             message: a.text,
             line: a.row + 1
-          }
+          };
         });
         subject.onNext(new Data.ErrorStatus(Data.taskType.compile, errors));
       }
     };
 
-    private hasAnnotations():boolean {
+    private hasAnnotations = ():boolean => {
       return this.editor.getSession().getAnnotations().length > 0;
     }
 

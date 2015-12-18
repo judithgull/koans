@@ -13,7 +13,7 @@ module editTopic {
     beforeEach(inject(function ($rootScope, $controller, $state:angular.ui.IStateService) {
       const rc = {
         createTopic: (topic:Data.ITopic) => {
-          testTopic = topic
+          testTopic = topic;
         }
       };
       const libs = [];
@@ -53,33 +53,33 @@ module editTopic {
     });
 
     //
-    //it("should call createTopic with the correct arguments", () => {
-    //  const testTitle = "testTitle";
-    //  const testLanguage = "javascript";
-    //  const testExercise = "testExercise";
+    //  it("should call createTopic with the correct arguments", () => {
+    //    const testTitle = "testTitle";
+    //    const testLanguage = "javascript";
+    //    const testExercise = "testExercise";
     //
-    //  topic.title = testTitle;
-    //  topic.language = testLanguage;
-    //  topic.items[0].exercise = testExercise;
+    //    topic.title = testTitle;
+    //    topic.language = testLanguage;
+    //    topic.items[0].exercise = testExercise;
     //
-    //  ctrl.submit();
+    //    ctrl.submit();
     //
-    //  expect(testTopic.language).toEqual(testLanguage);
-    //  expect(testTopic.title).toEqual(testTitle);
-    //  expect(testTopic.items[0].exercise).toEqual(testExercise);
-    //});
+    //    expect(testTopic.language).toEqual(testLanguage);
+    //    expect(testTopic.title).toEqual(testTitle);
+    //    expect(testTopic.items[0].exercise).toEqual(testExercise);
+    //  });
     //
-    //it("should have different sort order", ()=> {
-    //  ctrl.addExercise();
-    //  ctrl.addExercise();
+    //  it("should have different sort order", ()=> {
+    //    ctrl.addExercise();
+    //    ctrl.addExercise();
     //
-    //  ctrl.submit();
+    //    ctrl.submit();
     //
-    //  expect(topic.items[0].sortOrder).toBe(1);
-    //  expect(topic.items[1].sortOrder).toBe(2);
-    //  expect(topic.items[2].sortOrder).toBe(3);
+    //    expect(topic.items[0].sortOrder).toBe(1);
+    //    expect(topic.items[1].sortOrder).toBe(2);
+    //    expect(topic.items[2].sortOrder).toBe(3);
     //
-    //});
+    //
 
   });
 }

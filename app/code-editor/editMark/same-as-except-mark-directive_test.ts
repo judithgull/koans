@@ -4,7 +4,7 @@ module codeEditor {
 
   describe("sameAsExceptMark", () => {
     var scope:ng.IScope, form;
-    var testExercise = "var a = ???";
+    // var testExercise = "var a = ???";
 
     beforeEach(angular.mock.module("codeEditor"));
 
@@ -16,7 +16,7 @@ module codeEditor {
         "<input name='solution' ng-model='model.solution' same-as-except-mark='model.exercise'>" +
         "</form>"
       );
-      var codeEditor = sinon.spy();
+      // var codeEditor = sinon.spy();
       scope["model"] = {
         exercise: "",
         solution: ""

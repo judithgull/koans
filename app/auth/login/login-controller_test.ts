@@ -19,8 +19,7 @@ module auth.login {
 
       var mockAuthService:auth.IAuthService = {
         signUp: () => null,
-        logout: () => {
-        },
+        logout: () => undefined,
         isLoggedIn: () => false,
         getLoggedInUser: ()=>null,
         login: (email:string, password:string):ng.IPromise<void> => {

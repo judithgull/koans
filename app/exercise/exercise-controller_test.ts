@@ -1,4 +1,4 @@
-//global describe, beforeEach, it, expect, inject, module*/
+// global describe, beforeEach, it, expect, inject, module*/
 module ExerciseCtrl {
   "use strict";
 

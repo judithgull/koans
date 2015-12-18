@@ -50,7 +50,7 @@ module RestClient {
               data.title = "New Title";
               restClient.getTopic(testID).then((data) => {
                 expect(data.title).not.toEqual(topic.title);
-              })
+              });
             }
           );
         });
@@ -63,7 +63,7 @@ module RestClient {
               restClient.clearCachedTopic();
               restClient.getTopic(testID).then((data) => {
                 expect(data.title).toEqual(topic.title);
-              })
+              });
             }
           );
         });

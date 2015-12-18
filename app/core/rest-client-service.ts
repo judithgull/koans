@@ -48,7 +48,7 @@ module RestClient {
     getTopic(id:number):ng.IPromise<Data.ITopic> {
       var deferred = this.$q.defer();
 
-      if (!this.topicData || this.topicData._id != id) {
+      if (!this.topicData || this.topicData._id !== id) {
         this.$http.get(TOPICS_URL + id).then(response => {
           this.topicData = <Data.ITopic> response.data;
           deferred.resolve(this.topicData);
@@ -72,7 +72,7 @@ module RestClient {
     deleteTopic(id:number):ng.IPromise<Data.ITopic> {
       var deferred = this.$q.defer();
 
-      if (!this.topicData || this.topicData._id != id) {
+      if (!this.topicData || this.topicData._id !== id) {
         this.$http.delete(TOPICS_URL + id).then(response => {
           this.topicData = <Data.ITopic> response.data;
           deferred.resolve(this.topicData);

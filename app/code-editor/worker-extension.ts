@@ -36,7 +36,7 @@ module codeEditor {
   export class JsWorkerExt implements IWorkerExtension {
 
     addLibs(session:AceAjax.IEditSession, libs:Array<Data.ILibrary>) {
-      //nop
+      // nop
     }
 
     addRunEventListener(session:AceAjax.IEditSession, cb:(string) => void) {

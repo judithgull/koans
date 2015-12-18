@@ -43,7 +43,7 @@ module ExerciseCtrl {
       }
     };
 
-    private showSolveMoreToast(message:string) {
+    private showSolveMoreToast = (message:string) => {
       let popup = "<div>" +
         "<p class='t-paragraph'>" + message + "</p>" +
         "<p class='t-paragraph'>Solve more exercises?</p>" +
@@ -51,7 +51,7 @@ module ExerciseCtrl {
         "<a href='#' class='button button--light'>Cancel</a>" +
         "</div>";
       (<Toastr>toastr).success(popup, "", {timeOut: 0});
-    }
+    };
 
     finished = () => this.topicData.items.every((exercise) => exercise.solved || exercise.solutionRequested);
 
@@ -59,25 +59,25 @@ module ExerciseCtrl {
 
     getExerciseId = () => this.id + 1;
 
-    nextExercise() {
+    nextExercise = () => {
       if (this.hasNextExercise()) {
         this.goToExercise(this.getExerciseId() + 1);
       }
-    }
+    };
 
-    previousExercise() {
+    previousExercise = () => {
       if (this.hasPreviousExercise()) {
         this.goToExercise(this.getExerciseId() - 1);
       }
-    }
+    };
 
     hasNextExercise = ():boolean => this.getExerciseId() < this.exerciseCount;
 
     hasPreviousExercise = ():boolean => this.getExerciseId() > 1;
 
-    private goToExercise(id:number) {
+    private goToExercise = (id:number) => {
       this.$state.go("main.topic.exercise.details", {exerciseId: id});
-    }
+    };
 
     public static $inject = ["topicData", "$state", "$scope", "libs", "$timeout", "EditMarker"];
 
@@ -100,7 +100,7 @@ module ExerciseCtrl {
       }
     }
 
-    giveUp() {
+    giveUp = () => {
       this.solutionClicked = !this.solutionClicked;
       if (this.solutionClicked) {
         if (!this.getCurrentExercise().solved) {
@@ -114,13 +114,13 @@ module ExerciseCtrl {
       } else {
         this.$state.go("main.topic.exercise.details");
       }
-    }
+    };
 
     private getCurrentExercise = () => this.topicData.items[this.id];
 
-    public isSolution() {
+    public isSolution = () => {
       return this.$state.is("main.topic.exercise.solution");
-    }
+    };
   }
 
   /**

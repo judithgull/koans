@@ -21,7 +21,7 @@ module auth.login {
       this.authService.login(this.email, this.password).then(
         ()=> this.$state.go("main.home.topicList", {}, {reload: true}),
         (error) => {
-          this.error = error
+          this.error = error;
         }
       );
     }

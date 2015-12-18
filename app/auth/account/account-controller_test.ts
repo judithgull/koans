@@ -24,7 +24,7 @@ describe("AccountCtrl", function () {
     var authService = {
       isLoggedIn: () => true,
       getLoggedInUser: () => {
-        return {name: "testname"}
+        return {name: "testname"};
       }
     };
     var ctrl = $ctrl("AccountCtrl", {AuthService: authService});
@@ -38,7 +38,7 @@ describe("AccountCtrl", function () {
       isLoggedIn: () => true,
       logout: logoutSpy,
       getLoggedInUser: () => {
-        return {name: "testname"}
+        return {name: "testname"};
       }
     };
 

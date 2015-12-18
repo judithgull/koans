@@ -20,8 +20,7 @@ module editTopic {
           topic: (RestClient:RestClient.IRestClient, $stateParams, $q:ng.IQService) => {
             if ($stateParams.id) {
               return RestClient.getTopic($stateParams.id);
-            }
-            else {
+            } else {
               var deferred = $q.defer();
               deferred.resolve(new Topic());
               return deferred.promise;

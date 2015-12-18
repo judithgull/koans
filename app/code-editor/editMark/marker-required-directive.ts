@@ -26,6 +26,6 @@ module MarkerRequired {
         link: (scope:ng.IScope, elm:JQuery, attrs:ng.IAttributes, ngModel:ng.INgModelController) => {
           ngModel.$validators["markRequired"] = (value) => editMarker.containsMark(value);
         }
-      }
-    }])
+      };
+    }]);
 }

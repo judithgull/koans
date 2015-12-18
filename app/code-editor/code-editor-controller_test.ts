@@ -7,6 +7,13 @@ module codeEditor {
     var scope:ICodeEditorScope;
     var testEditor:AceAjax.Editor;
 
+    var createTestEditor = () => {
+      var doc = angular.element(document);
+      doc.find("body").append("<div  id='#test'></div>");
+      var element = doc.find("#test");
+      testEditor = ace.edit(element.get(0));
+    };
+
     beforeEach(angular.mock.module("codeEditor"));
 
     beforeEach(inject(function ($rootScope, $controller) {
@@ -15,14 +22,6 @@ module codeEditor {
       ctrl = $controller("CodeEditorCtrl", {$scope: scope});
       createTestEditor();
     }));
-
-    var createTestEditor = () => {
-      var doc = angular.element(document);
-      doc.find("body").append("<div  id='#test'></div>");
-      var element = doc.find("#test");
-      testEditor = ace.edit(element.get(0));
-    };
-
 
     it("should be defined", function () {
       expect(ctrl).toBeDefined();

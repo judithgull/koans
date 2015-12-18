@@ -1,6 +1,6 @@
 /*global describe, beforeEach, it, expect, inject, module*/
-//"use strict";
 module topicList {
+  "use strict";
 
   describe("Topic List Controller", () => {
     var topics = test.MockData.getTopics();
@@ -19,8 +19,7 @@ module topicList {
       };
 
       var authService = {
-        getLoggedInUser: () => {
-        },
+        getLoggedInUser: () => undefined,
         isLoggedIn: () => true
       };
 
@@ -45,8 +44,7 @@ module topicList {
         expect(ctrl.topics.length).toBe(topics.length);
       });
 
-    })
-
+    });
 
   });
 

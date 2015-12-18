@@ -1,5 +1,4 @@
 module codeEditor {
-  import Annotation = AceAjax.Annotation;
   "use strict";
 
   /**
@@ -33,7 +32,7 @@ module codeEditor {
           const otherModel = attrs["sameAsExceptMark"];
           ngModel.$validators["sameAsExceptMark"] = (value) => editMarker.hasOnlyMarkChanged(scope.$eval(otherModel), value);
 
-          //trigger validation when other model value specified in attrs.sameAs is changed
+          // trigger validation when other model value specified in attrs.sameAs is changed
           scope.$watch(otherModel, ngModel.$validate);
 
 

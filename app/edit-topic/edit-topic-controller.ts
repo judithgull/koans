@@ -11,6 +11,18 @@ module editTopic {
 
   class EditTopicCtrl implements IEditTopicModel {
 
+    public static $inject = ["RestClient", "$state", "$scope", "libs", "SearchParamsService", "topic", "$timeout"];
+
+    // dependencies are injected via AngularJS $injector
+    constructor(private RestClient:RestClient.IRestClient,
+                private $state:angular.ui.IStateService,
+                private $scope:ng.IScope,
+                private libs:Array<Data.ILibrary>,
+                private searchParamsService:core.SearchParamsService,
+                public topic:Data.ITopic,
+                private $timeout:ng.ITimeoutService) {
+    }
+
     errorMessage:string = null;
     solutionErrors:Data.IError[][] = [];
 
@@ -75,24 +87,11 @@ module editTopic {
       return this.solutionErrors[index];
     };
 
-
     private setValidity(element:ng.INgModelController, validationErrorKey:string, isValid:boolean) {
       if (element) {
         element.$setValidity(validationErrorKey, isValid);
         this.$timeout(() => this.$scope.$digest());
       }
-    }
-
-    public static $inject = ["RestClient", "$state", "$scope", "libs", "SearchParamsService", "topic", "$timeout"];
-
-    // dependencies are injected via AngularJS $injector
-    constructor(private RestClient:RestClient.IRestClient,
-                private $state:angular.ui.IStateService,
-                private $scope:ng.IScope,
-                private libs:Array<Data.ILibrary>,
-                private searchParamsService:core.SearchParamsService,
-                public topic:Data.ITopic,
-                private $timeout:ng.ITimeoutService) {
     }
   }
 

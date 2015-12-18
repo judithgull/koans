@@ -30,10 +30,10 @@ module auth.signUp {
           const otherModel = attrs["sameAs"];
           ngModel.$validators["same-as"] = (value) => scope.$eval(otherModel) === value;
 
-          //trigger validation when other model value specified in attrs.sameAs is changed
+          // trigger validation when other model value specified in attrs.sameAs is changed
           scope.$watch(otherModel, ngModel.$validate);
 
         }
-      }
-    })
+      };
+    });
 }
