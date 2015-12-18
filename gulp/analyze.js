@@ -3,28 +3,10 @@
 module.exports = function (gulp, $, config) {
   // lint source code
   gulp.task("lint", function () {
-    return gulp.src(config.appScriptFiles)
+    return gulp.src([config.appScriptFiles,config.appNodeScriptFiles])
       .pipe($.tslint())
       .pipe($.tslint.report("verbose"));
   });
-  /*    gulp.task("lint", function () {
-   return gulp.src([
-   config.appScriptFiles,
-   config.e2eFiles,
-   config.unitTestFiles
-   ])
-   .pipe($.plumber({errorHandler: function (err) {
-   $.notify.onError({
-   title: "Error linting at " + err.plugin,
-   subtitle: " ", //overrides defaults
-   message: err.message.replace(/\u001b\[.*?m/g, ""),
-   sound: " " //overrides defaults
-   })(err);
-
-   this.emit("end");
-   }}))
-   }); */
-
   // run plato anaylysis on JavaScript (ES5) files
   gulp.task("staticAnalysis");
   /*  gulp.task("staticAnalysis", function (done) {
@@ -49,5 +31,5 @@ module.exports = function (gulp, $, config) {
    });
    */
   // gulp.task("analyze", ["lint", "staticAnalysis"]); //TODO
-  gulp.task("analyze", ["staticAnalysis"]);
+  gulp.task("analyze", ["lint", "staticAnalysis"]);
 };

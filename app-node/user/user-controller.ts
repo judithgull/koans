@@ -66,7 +66,7 @@ export class UserController {
               {
                 token: token,
                 user: user
-              })
+              });
           });
 
       }

@@ -1,6 +1,5 @@
 /* global describe, beforeEach, it, expect, inject, module */
 import request = require("supertest");
-import sinon = require("sinon");
 import chai = require("chai");
 import serverModule = require("../app");
 

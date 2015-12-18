@@ -10,7 +10,7 @@ module server.user {
     beforeEach(() => {
       var mockBcrypt = {
         hash: (payload, x, y, callback) => {
-          callback(null, "testHash")
+          callback(null, "testHash");
         }
       };
       userCtrl = new userCtrlModule.UserController(mockBcrypt);

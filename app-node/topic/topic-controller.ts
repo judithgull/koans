@@ -4,6 +4,31 @@ var jwt = require("jwt-simple");
 var userCtrl = require("../user/user-controller.js");
 import mongoose = require("mongoose");
 
+var findById = (req):mongoose.Promise<any> => Topic.findOne({_id: req.params.id}).exec();
+
+var decodeToken = (req) => {
+  if (!req.headers || !req.headers.authorization) {
+    return null;
+  }
+  var token = req.headers.authorization.split(" ")[1];
+  return jwt.decode(token, userCtrl.getSecret());
+};
+
+var isAuthorOfOwnTopic = (topic, req):boolean => {
+  var payload = decodeToken(req);
+  return payload ? topic.authorId.toString() === payload.sub : false;
+};
+
+var hasValidTocken = (req) => {
+  return !!decodeToken(req);
+};
+
+var getUserId = (req):string => {
+  var payload = decodeToken(req);
+  return payload.sub;
+};
+
+
 module.exports.getTopics = function (req, res) {
   res.format({
     "application/json": function (req, res) {
@@ -58,8 +83,7 @@ module.exports.deleteTopic = function (req, res) {
               res.status(404).send({message: "Not found"});
             } else if (!isAuthorOfOwnTopic(topic, req)) {
               res.status(401).send({message: "Not authorized"});
-            }
-            else {
+            } else {
               Topic
                 .remove({_id: req.params.id}, function (err) {
                   if (err) {
@@ -88,8 +112,7 @@ module.exports.updateTopic = function (req, res) {
               res.status(404).send({message: "Not found"});
             } else if (!isAuthorOfOwnTopic(topic, req)) {
               res.status(401).send({message: "Not authorized"});
-            }
-            else {
+            } else {
               var body = req.body;
               Topic
                 .update(
@@ -112,34 +135,6 @@ module.exports.updateTopic = function (req, res) {
   });
 };
 
-
-var findById = function (req):mongoose.Promise<any> {
-  return Topic.findOne({_id: req.params.id}).exec();
-};
-
-
-var isAuthorOfOwnTopic = (topic, req):boolean => {
-  var payload = decodeToken(req);
-  return payload ? topic.authorId.toString() === payload.sub : false;
-};
-
-var hasValidTocken = (req) => {
-  return !!decodeToken(req);
-};
-
-var getUserId = (req):string => {
-  var payload = decodeToken(req);
-  return payload.sub;
-};
-
-var decodeToken = (req) => {
-  if (!req.headers || !req.headers.authorization) {
-    return null;
-  }
-  var token = req.headers.authorization.split(" ")[1];
-  return jwt.decode(token, userCtrl.getSecret());
-};
-
 module.exports.postTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
@@ -154,9 +149,9 @@ module.exports.postTopic = function (req, res) {
         topic.authorId = getUserId(req);
 
         topic.save(function (err) {
-          if (err)
+          if (err) {
             res.send(topic);
-          else {
+          } else {
             res.status(200).send({message: "ok"});
           }
         });
