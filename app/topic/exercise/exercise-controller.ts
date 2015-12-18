@@ -1,6 +1,6 @@
 module ExerciseCtrl {
-  import IExercise = core.IExercise;
   "use strict";
+  import IExercise = core.IExercise;
 
   class ExerciseCtrl {
     currentExercise:IExercise;

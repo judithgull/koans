@@ -1,6 +1,7 @@
 /* tslint:disable:max-line-length */
 
 module test {
+  "use strict";
 
   export class MockData {
 

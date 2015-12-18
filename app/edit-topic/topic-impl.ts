@@ -1,4 +1,5 @@
 module editTopic {
+  "use strict";
 
   export class Topic implements core.ITopic {
     _id:number;

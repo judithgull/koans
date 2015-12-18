@@ -1,4 +1,6 @@
 module server {
+  "use strict";
+
   var express = require("express");
   var bcrypt = require("bcrypt-nodejs");
   var router = express.Router();

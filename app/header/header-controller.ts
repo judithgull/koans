@@ -1,6 +1,7 @@
 module HeaderCtrl {
-  import IAuthService = auth.IAuthService;
   "use strict";
+
+  import IAuthService = auth.IAuthService;
 
   class HeaderCtrl {
 
