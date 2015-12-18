@@ -48,7 +48,7 @@ module ExerciseCtrl {
         "<p class='t-paragraph'>" + message + "</p>" +
         "<p class='t-paragraph'>Solve more exercises?</p>" +
         "<a href='#/topic-list' class='button button--light'>Ok</a>" +
-        "<a href='#' class='button button--light'>Cancel</a>" +
+        "<button class='button button--light'>Cancel</button>" +
         "</div>";
       (<Toastr>toastr).success(popup, "", {timeOut: 0});
     };
