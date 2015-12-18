@@ -1,5 +1,5 @@
 module topicList {
-  'use strict';
+  "use strict";
 
   export interface ITopicListCtrl {
     topics: Array<Data.ITopic>;
@@ -17,9 +17,9 @@ module topicList {
     searchText:string;
 
     public static $inject = [
-      'RestClient',
-      'AuthService',
-      'SearchParamsService'
+      "RestClient",
+      "AuthService",
+      "SearchParamsService"
     ];
 
     constructor(private RestClient:RestClient.IRestClient,
@@ -41,7 +41,7 @@ module topicList {
         (error)=> {
           if (error.status && error.status === 404) {
             this.reload();
-            toastr.error('This topic does not exist anymore');
+            toastr.error("This topic does not exist anymore");
           } else {
             this.errorMessage = error.data.message;
           }
@@ -90,6 +90,6 @@ module topicList {
    *
    */
   angular
-    .module('topicList')
-    .controller('TopicListCtrl', TopicListCtrl);
+    .module("topicList")
+    .controller("TopicListCtrl", TopicListCtrl);
 }

@@ -1,5 +1,5 @@
 module MarkerRequired {
-  'use strict';
+  "use strict";
 
   /**
    * @ngdoc directive
@@ -18,13 +18,13 @@ module MarkerRequired {
    *
    */
   angular
-    .module('codeEditor')
-    .directive('markRequired', ['EditMarker', (editMarker:codeEditor.EditMarker):ng.IDirective => {
+    .module("codeEditor")
+    .directive("markRequired", ["EditMarker", (editMarker:codeEditor.EditMarker):ng.IDirective => {
       return {
-        restrict: 'A',
-        require: 'ngModel',
+        restrict: "A",
+        require: "ngModel",
         link: (scope:ng.IScope, elm:JQuery, attrs:ng.IAttributes, ngModel:ng.INgModelController) => {
-          ngModel.$validators['markRequired'] = (value) => editMarker.containsMark(value);
+          ngModel.$validators["markRequired"] = (value) => editMarker.containsMark(value);
         }
       }
     }])

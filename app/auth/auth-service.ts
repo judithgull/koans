@@ -1,9 +1,9 @@
-///<reference path='../../typings/tsd.d.ts' />
+///<reference path="../../typings/tsd.d.ts" />
 module auth {
-  'use strict';
+  "use strict";
 
-  export const USERS_URL = '/users/';
-  export const LOGIN_URL = '/login/';
+  export const USERS_URL = "/users/";
+  export const LOGIN_URL = "/login/";
 
   export interface IAuthService {
     signUp(user:app.IUser):ng.IPromise<void>;
@@ -15,9 +15,9 @@ module auth {
 
   export class AuthService implements IAuthService {
     public static $inject = [
-      '$http',
-      '$q',
-      'TokenStorage'
+      "$http",
+      "$q",
+      "TokenStorage"
     ];
 
     constructor(private $http:ng.IHttpService,
@@ -25,7 +25,7 @@ module auth {
                 private tokenStorage:token.TokenStorage) {
     }
 
-    private userKey = 'user';
+    private userKey = "user";
 
     logout = () => {
       this.tokenStorage.clear();
@@ -64,13 +64,13 @@ module auth {
 
 
     private saveLoginData = (response) => {
-      var token = response.data['token'];
-      var user = response.data['user'];
+      var token = response.data["token"];
+      var user = response.data["user"];
       if (token && user) {
         this.tokenStorage.set(token);
         localStorage.setItem(this.userKey, JSON.stringify(user));
       } else {
-        console.log('incomplete login information received');
+        console.log("incomplete login information received");
       }
     }
   }
@@ -83,6 +83,6 @@ module auth {
    *
    */
   angular
-    .module('auth')
-    .service('AuthService', AuthService);
+    .module("auth")
+    .service("AuthService", AuthService);
 }

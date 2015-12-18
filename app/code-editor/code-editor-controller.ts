@@ -1,5 +1,5 @@
 module codeEditor {
-  'use strict';
+  "use strict";
 
   export interface  ICodeEditorModel {
     editor:AceAjax.Editor;
@@ -12,7 +12,7 @@ module codeEditor {
     editor:AceAjax.Editor;
     private selectionProcessed = false;
 
-    public static $inject = ['$scope', 'EditMarker'];
+    public static $inject = ["$scope", "EditMarker"];
 
     constructor(private $scope:ICodeEditorScope,
                 private editMarker:EditMarker) {
@@ -90,9 +90,9 @@ module codeEditor {
     };
 
     getWorkerExt = (progLang:string):IWorkerExtension => {
-      if (progLang === 'typescript') {
+      if (progLang === "typescript") {
         return new TsWorkerExt();
-      } else if (progLang === 'javascript') {
+      } else if (progLang === "javascript") {
         return new JsWorkerExt();
       }
     };
@@ -127,20 +127,20 @@ module codeEditor {
         var preparedScript = "chai.should();var expect = chai.expect;var assert = chai.assert;\n" + script;
 
         if (this.$scope.hiddenText) {
-          preparedScript = preparedScript + '\n' + this.$scope.hiddenText;
+          preparedScript = preparedScript + "\n" + this.$scope.hiddenText;
         }
         var taskType = Data.taskType.run;
         try {
           eval(preparedScript);
           subject.onNext(new Data.SuccessStatus(taskType));
         } catch (e) {
-          let message = 'Runtime Error: Incorrect implementation';
+          let message = "Runtime Error: Incorrect implementation";
           var err = {message: message, line: -1};
           this.editor.getSession().setAnnotations([{
             row: 0,
             column: 0,
             text: message,
-            type: 'error'
+            type: "error"
           }]);
           subject.onNext(new Data.ErrorStatus(taskType, [err]));
         }
@@ -158,6 +158,6 @@ module codeEditor {
    *
    */
   angular
-    .module('codeEditor')
-    .controller('CodeEditorCtrl', CodeEditorCtrl);
+    .module("codeEditor")
+    .controller("CodeEditorCtrl", CodeEditorCtrl);
 }

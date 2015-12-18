@@ -1,13 +1,13 @@
 /*global describe, beforeEach, it, expect, inject, module*/
-//'use strict';
+//"use strict";
 module topicList {
 
-  describe('Topic List Controller', () => {
+  describe("Topic List Controller", () => {
     var topics = test.MockData.getTopics();
     var ctrl:ITopicListCtrl;
     var rs;
 
-    beforeEach(()=> angular.mock.module('topicList'));
+    beforeEach(()=> angular.mock.module("topicList"));
 
     beforeEach(inject(($rootScope, $controller, $q) => {
       rs = $rootScope;
@@ -24,18 +24,18 @@ module topicList {
         isLoggedIn: () => true
       };
 
-      ctrl = $controller('TopicListCtrl',
+      ctrl = $controller("TopicListCtrl",
         {
           RestClient: ds,
           AuthService: authService
         });
     }));
 
-    it('should be defined', () => {
+    it("should be defined", () => {
       expect(ctrl).toBeDefined();
     });
 
-    it('should have an empty topics array before data is resolved', ()  => {
+    it("should have an empty topics array before data is resolved", ()  => {
       expect(ctrl.topics.length).toEqual(0);
     });
 

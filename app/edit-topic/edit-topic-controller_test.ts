@@ -1,14 +1,14 @@
-///<reference path='../../typings/tsd.d.ts' />
+///<reference path="../../typings/tsd.d.ts" />
 module editTopic {
   /* global describe, beforeEach, it, expect, inject, module */
-  'use strict';
+  "use strict";
 
-  describe('EditTopicCtrl', function () {
+  describe("EditTopicCtrl", function () {
     var ctrl:IEditTopicModel;
     var testTopic:Data.ITopic;
     var topic:Data.ITopic;
 
-    beforeEach(angular.mock.module('editTopic'));
+    beforeEach(angular.mock.module("editTopic"));
 
     beforeEach(inject(function ($rootScope, $controller, $state:angular.ui.IStateService) {
       const rc = {
@@ -17,46 +17,46 @@ module editTopic {
         }
       };
       const libs = [];
-      ctrl = $controller('EditTopicCtrl',
+      ctrl = $controller("EditTopicCtrl",
         {
-          'RestClient': rc,
-          'libs': libs,
+          "RestClient": rc,
+          "libs": libs,
           topic: new Topic(),
-          '$scope': $rootScope
+          "$scope": $rootScope
         });
       topic = ctrl.topic;
 
     }));
 
-    it('should have typescript as initial language', function () {
-      expect(topic.programmingLanguage).toEqual('typescript');
+    it("should have typescript as initial language", function () {
+      expect(topic.programmingLanguage).toEqual("typescript");
     });
 
-    it('should have 1 item initially', () => {
+    it("should have 1 item initially", () => {
       expect(topic.items.length).toBe(1);
     });
 
-    it('should add a new exercise on addExercise', ()=> {
+    it("should add a new exercise on addExercise", ()=> {
       ctrl.addExercise();
       expect(topic.items.length).toBe(2);
     });
 
-    it('should remove an exercise on removeExercise', ()=> {
+    it("should remove an exercise on removeExercise", ()=> {
       ctrl.removeExercise(0);
       expect(topic.items.length).toBe(0);
     });
 
-    it('should only remove one exercise', ()=> {
+    it("should only remove one exercise", ()=> {
       ctrl.addExercise();
       ctrl.removeExercise(0);
       expect(topic.items.length).toBe(1);
     });
 
     //
-    //it('should call createTopic with the correct arguments', () => {
-    //  const testTitle = 'testTitle';
-    //  const testLanguage = 'javascript';
-    //  const testExercise = 'testExercise';
+    //it("should call createTopic with the correct arguments", () => {
+    //  const testTitle = "testTitle";
+    //  const testLanguage = "javascript";
+    //  const testExercise = "testExercise";
     //
     //  topic.title = testTitle;
     //  topic.language = testLanguage;
@@ -69,7 +69,7 @@ module editTopic {
     //  expect(testTopic.items[0].exercise).toEqual(testExercise);
     //});
     //
-    //it('should have different sort order', ()=> {
+    //it("should have different sort order", ()=> {
     //  ctrl.addExercise();
     //  ctrl.addExercise();
     //

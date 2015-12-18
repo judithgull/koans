@@ -1,12 +1,12 @@
-///<reference path='../../typings/tsd.d.ts' />
+///<reference path="../../typings/tsd.d.ts" />
 
 /* global describe, beforeEach, it, expect, inject, module */
-'use strict';
+"use strict";
 
-describe('HeaderCtrl', function () {
+describe("HeaderCtrl", function () {
   var $ctrl;
 
-  beforeEach(angular.mock.module('header'));
+  beforeEach(angular.mock.module("header"));
 
   beforeEach(inject(function ($rootScope, $controller) {
     $ctrl = $controller;

@@ -1,6 +1,6 @@
 module ExerciseCtrl {
   import IExercise = Data.IExercise;
-  'use strict';
+  "use strict";
 
   class ExerciseCtrl {
     currentExercise:IExercise;
@@ -30,9 +30,9 @@ module ExerciseCtrl {
         this.success = true;
 
         if (this.allExercisesSolved()) {
-          this.showSolveMoreToast('Congratulations! You solved all exercises.');
+          this.showSolveMoreToast("Congratulations! You solved all exercises.");
         } else if (this.finished()) {
-          this.showSolveMoreToast('You finished all exercises.');
+          this.showSolveMoreToast("You finished all exercises.");
         } else {
           (<Toastr>toastr).success("Great job!");
         }
@@ -50,7 +50,7 @@ module ExerciseCtrl {
         "<a href='#/topic-list' class='button button--light'>Ok</a>" +
         "<a href='#' class='button button--light'>Cancel</a>" +
         "</div>";
-      (<Toastr>toastr).success(popup, '', {timeOut: 0});
+      (<Toastr>toastr).success(popup, "", {timeOut: 0});
     }
 
     finished = () => this.topicData.items.every((exercise) => exercise.solved || exercise.solutionRequested);
@@ -79,7 +79,7 @@ module ExerciseCtrl {
       this.$state.go("main.topic.exercise.details", {exerciseId: id});
     }
 
-    public static $inject = ['topicData', '$state', '$scope', 'libs', '$timeout', 'EditMarker'];
+    public static $inject = ["topicData", "$state", "$scope", "libs", "$timeout", "EditMarker"];
 
     constructor(private topicData:Data.ITopic,
                 private $state:angular.ui.IStateService,
@@ -87,7 +87,7 @@ module ExerciseCtrl {
                 private libs,
                 private $timeout:ng.ITimeoutService,
                 private editMarker:codeEditor.EditMarker) {
-      this.id = this.$state.params['exerciseId'] - 1;
+      this.id = this.$state.params["exerciseId"] - 1;
       this.currentExercise = this.getCurrentExercise();
       this.exerciseCount = topicData.items.length;
 
@@ -108,7 +108,7 @@ module ExerciseCtrl {
         }
         this.$state.go("main.topic.exercise.solution");
         if (this.finished()) {
-          this.showSolveMoreToast('You finished all exercises.');
+          this.showSolveMoreToast("You finished all exercises.");
         }
 
       } else {
@@ -131,6 +131,6 @@ module ExerciseCtrl {
    *
    */
   angular
-    .module('exercise')
-    .controller('ExerciseCtrl', ExerciseCtrl);
+    .module("exercise")
+    .controller("ExerciseCtrl", ExerciseCtrl);
 }

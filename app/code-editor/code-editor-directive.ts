@@ -1,5 +1,5 @@
 module codeEditor {
-  'use strict';
+  "use strict";
 
   export interface ICodeEditorScope extends ng.IScope {
     language:string;
@@ -13,29 +13,29 @@ module codeEditor {
 
   function codeEditor():ng.IDirective {
     return {
-      restrict: 'E',
+      restrict: "E",
       scope: {
-        language: '=',
-        libsLoader: '&libsLoader',
-        onError: '&onError',
-        onSuccess: '&onSuccess',
-        hiddenText: '=?'
+        language: "=",
+        libsLoader: "&libsLoader",
+        onError: "&onError",
+        onSuccess: "&onSuccess",
+        hiddenText: "=?"
       },
-      require: 'ngModel',
-      templateUrl: 'code-editor/code-editor.tpl.html',
-      controllerAs: 'codeEditor',
-      controller: 'CodeEditorCtrl',
+      require: "ngModel",
+      templateUrl: "code-editor/code-editor.tpl.html",
+      controllerAs: "codeEditor",
+      controller: "CodeEditorCtrl",
       link: function (scope:ICodeEditorScope, el, attrs, ngModelCtrl:ng.INgModelController) {
         ngModelCtrl.$render = () => {
           var editor:AceAjax.Editor = scope.codeEditor.editor;
-          editor.setValue(ngModelCtrl.$viewValue || '');
+          editor.setValue(ngModelCtrl.$viewValue || "");
         };
 
         scope.handleEditorChange = (editor:AceAjax.Editor) => {
           ngModelCtrl.$setViewValue(editor.getValue());
         };
 
-        scope.$watch('language', (newValue:string) => {
+        scope.$watch("language", (newValue:string) => {
           scope.codeEditor.editor.getSession().setMode("ace/mode/" + newValue);
           scope.codeEditor.load(scope.codeEditor.editor);
         });
@@ -61,6 +61,6 @@ module codeEditor {
    *
    */
   angular
-    .module('codeEditor')
-    .directive('codeEditor', codeEditor);
+    .module("codeEditor")
+    .directive("codeEditor", codeEditor);
 }

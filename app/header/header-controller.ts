@@ -1,12 +1,12 @@
 module HeaderCtrl {
   import IAuthService = auth.IAuthService;
-  'use strict';
+  "use strict";
 
   class HeaderCtrl {
 
     private isLoggedIn:boolean;
 
-    public static $inject = ['AuthService'];
+    public static $inject = ["AuthService"];
 
     constructor(private authService:IAuthService) {
       this.isLoggedIn = authService.isLoggedIn();
@@ -23,6 +23,6 @@ module HeaderCtrl {
    *
    */
   angular
-    .module('header')
-    .controller('HeaderCtrl', HeaderCtrl);
+    .module("header")
+    .controller("HeaderCtrl", HeaderCtrl);
 }

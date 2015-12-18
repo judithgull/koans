@@ -1,23 +1,23 @@
-///<reference path='../typings/tsd.d.ts' />
-var http = require('http'),
-  express = require('express'),
-  bodyParser = require('body-parser'),
+///<reference path="../typings/tsd.d.ts" />
+var http = require("http"),
+  express = require("express"),
+  bodyParser = require("body-parser"),
   methodOverride = require("method-override"),
-  mongoose = require('mongoose'),
-  path = require('path'),
-  compression = require('compression');
+  mongoose = require("mongoose"),
+  path = require("path"),
+  compression = require("compression");
 
 export var serverApp = express();
 
 serverApp.use(compression());
 
-var env:string = process.env.NODE_ENV || 'development';
+var env:string = process.env.NODE_ENV || "development";
 var maxAge = 0;
-if (env.toUpperCase() === 'PRODUCTION') {
+if (env.toUpperCase() === "PRODUCTION") {
   maxAge = 86400000;
 }
 
-serverApp.use(express.static(path.join(__dirname, '../app'), {maxAge: maxAge}));
+serverApp.use(express.static(path.join(__dirname, "../app"), {maxAge: maxAge}));
 
 
 serverApp.use(bodyParser.urlencoded({
@@ -26,7 +26,7 @@ serverApp.use(bodyParser.urlencoded({
 serverApp.use(bodyParser.json());
 
 serverApp.use(methodOverride(function (req) {
-  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+  if (req.body && typeof req.body === "object" && "_method" in req.body) {
     var method = req.body._method;
     delete req.body._method;
     return method;
@@ -37,15 +37,15 @@ serverApp.use(methodOverride(function (req) {
 /**
  * DB
  */
-mongoose.connect(process.env.DB_URI || 'mongodb://localhost:27017/koans');
+mongoose.connect(process.env.DB_URI || "mongodb://localhost:27017/koans");
 
 /**
  * Routes
  */
 
-serverApp.use("/topics", require('./topic/topic-routes.js'));
-serverApp.use("/users", require('./user/user-routes.js'));
-serverApp.use("/login", require('./login/login-routes.js'));
+serverApp.use("/topics", require("./topic/topic-routes.js"));
+serverApp.use("/users", require("./user/user-routes.js"));
+serverApp.use("/login", require("./login/login-routes.js"));
 
 /**
  * Start Server

@@ -1,5 +1,5 @@
 module Data {
-  'use strict';
+  "use strict";
 
   export interface ITopic {
     _id: number;

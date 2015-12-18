@@ -1,5 +1,5 @@
 module core {
-  'use strict';
+  "use strict";
 
   /* @ngdoc object
    * @name core
@@ -7,8 +7,8 @@ module core {
    *
    */
   angular
-    .module('core',
-      ['ui.router']
+    .module("core",
+      ["ui.router"]
     ).config(($urlMatcherFactoryProvider) => {
     $urlMatcherFactoryProvider.caseInsensitive(true);
     $urlMatcherFactoryProvider.strictMode(false);

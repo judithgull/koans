@@ -1,5 +1,5 @@
 module topic {
-  'use strict';
+  "use strict";
 
   /* @ngdoc object
    * @name topic
@@ -7,8 +7,8 @@ module topic {
    *
    */
   angular
-    .module('topic', [
-      'core',
-      'exercise'
+    .module("topic", [
+      "core",
+      "exercise"
     ]);
 }

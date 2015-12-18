@@ -1,5 +1,5 @@
 module codeEditor {
-  'use strict';
+  "use strict";
 
   export class EditMarker {
     mark = "???";
@@ -7,7 +7,7 @@ module codeEditor {
     setAnnotations = (newMarkerAnnotations, session, errorText) => {
       var annotations = session.getAnnotations();
       if (newMarkerAnnotations.length > 0) {
-        var otherCustomAnnotations = annotations.filter((a) => a['custom']).filter((a) => a.text != errorText);
+        var otherCustomAnnotations = annotations.filter((a) => a["custom"]).filter((a) => a.text != errorText);
         session.setAnnotations(newMarkerAnnotations.concat(otherCustomAnnotations));
       } else {
         session.setAnnotations(annotations.filter((a) => (a.text !== errorText)));
@@ -72,7 +72,7 @@ module codeEditor {
       var splits = origText.split(this.mark);
       var rs = splits
         .map(this.escape)
-        .join('[\\s\\S]*');
+        .join("[\\s\\S]*");
 
       var r = RegExp(rs);
       var matches = r.test(changedText);
@@ -83,7 +83,7 @@ module codeEditor {
       return false;
     };
 
-    private escape = (s) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    private escape = (s) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
 
     private getLines = (s) => s.split(/\r\n|\r|\n/g);
 
@@ -115,7 +115,7 @@ module codeEditor {
 
     private findHiddenMarker = (lines):number => {
       for (let i = 0; i < lines.length; i++) {
-        if (lines[i].indexOf('//hidden') >= 0) {
+        if (lines[i].indexOf("//hidden") >= 0) {
           return i;
         }
       }
@@ -126,7 +126,7 @@ module codeEditor {
   }
 
   export class NoMarkAnnotation implements AceAjax.Annotation {
-    public type = 'error';
+    public type = "error";
     public custom = true;
 
     constructor(public row:number,
@@ -153,6 +153,6 @@ module codeEditor {
    *
    */
   angular
-    .module('codeEditor')
-    .service('EditMarker', EditMarker);
+    .module("codeEditor")
+    .service("EditMarker", EditMarker);
 }

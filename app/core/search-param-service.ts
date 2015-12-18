@@ -1,6 +1,6 @@
-///<reference path='../../typings/tsd.d.ts' />
+///<reference path="../../typings/tsd.d.ts" />
 module core {
-  'use strict';
+  "use strict";
 
   export interface ISearchParam {
     authorId?:string
@@ -9,8 +9,8 @@ module core {
 
 
   export class SearchParamsService {
-    private AUTHOR_ID_KEY = 'queryAuthorId';
-    private SEARCH_TEXT_KEY = 'querySearchText';
+    private AUTHOR_ID_KEY = "queryAuthorId";
+    private SEARCH_TEXT_KEY = "querySearchText";
 
     setAuthorId = (authorId:string) => {
       localStorage.setItem(this.AUTHOR_ID_KEY, authorId);
@@ -64,6 +64,6 @@ module core {
    *
    */
   angular
-    .module('core')
-    .service('SearchParamsService', SearchParamsService);
+    .module("core")
+    .service("SearchParamsService", SearchParamsService);
 }

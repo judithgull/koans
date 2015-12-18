@@ -1,6 +1,6 @@
-///<reference path='../../typings/tsd.d.ts' />
+///<reference path="../../typings/tsd.d.ts" />
 module header {
-  'use strict';
+  "use strict";
 
   /* @ngdoc object
    * @name header
@@ -8,8 +8,8 @@ module header {
    *
    */
   angular
-    .module('header', [
-      'ui.router',
-      'auth'
+    .module("header", [
+      "ui.router",
+      "auth"
     ]);
 }

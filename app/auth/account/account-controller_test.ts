@@ -1,48 +1,48 @@
-///<reference path='../../../typings/tsd.d.ts' />
+///<reference path="../../../typings/tsd.d.ts" />
 
 /* global describe, beforeEach, it, expect, inject, module */
-'use strict';
+"use strict";
 
-describe('AccountCtrl', function () {
+describe("AccountCtrl", function () {
   var $ctrl;
 
-  beforeEach(()=> angular.mock.module('auth.account'));
+  beforeEach(()=> angular.mock.module("auth.account"));
 
   beforeEach(inject(function ($rootScope, $controller) {
     $ctrl = $controller;
   }));
 
-  it('should inititially not be logged in', () => {
+  it("should inititially not be logged in", () => {
     var authService = {
       isLoggedIn: () => false
     };
-    var ctrl = $ctrl('AccountCtrl', {AuthService: authService});
+    var ctrl = $ctrl("AccountCtrl", {AuthService: authService});
     expect(ctrl.isLoggedIn).toBe(false);
   });
 
-  it('should be logged in, if user is logged in', () => {
+  it("should be logged in, if user is logged in", () => {
     var authService = {
       isLoggedIn: () => true,
       getLoggedInUser: () => {
-        return {name: 'testname'}
+        return {name: "testname"}
       }
     };
-    var ctrl = $ctrl('AccountCtrl', {AuthService: authService});
+    var ctrl = $ctrl("AccountCtrl", {AuthService: authService});
     expect(ctrl.isLoggedIn).toBe(true);
   });
 
-  it('should be logged out, if user is logged out', () => {
+  it("should be logged out, if user is logged out", () => {
     var logoutSpy = sinon.spy();
     var stateSpy = sinon.spy();
     var authService = {
       isLoggedIn: () => true,
       logout: logoutSpy,
       getLoggedInUser: () => {
-        return {name: 'testname'}
+        return {name: "testname"}
       }
     };
 
-    var ctrl = $ctrl('AccountCtrl', {
+    var ctrl = $ctrl("AccountCtrl", {
       AuthService: authService,
       $state: {
         go: stateSpy

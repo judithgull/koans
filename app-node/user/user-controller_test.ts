@@ -1,16 +1,16 @@
 /* global describe, beforeEach, it, expect, inject, module */
 module server.user {
-  'use strict';
-  var sinon:SinonStatic = require('sinon');
-  var assert = require('assert');
-  var userCtrlModule = require('./user-controller');
+  "use strict";
+  var sinon:SinonStatic = require("sinon");
+  var assert = require("assert");
+  var userCtrlModule = require("./user-controller");
 
-  describe('UserController', () => {
+  describe("UserController", () => {
     var userCtrl;
     beforeEach(() => {
       var mockBcrypt = {
         hash: (payload, x, y, callback) => {
-          callback(null, 'testHash')
+          callback(null, "testHash")
         }
       };
       userCtrl = new userCtrlModule.UserController(mockBcrypt);
@@ -20,16 +20,16 @@ module server.user {
       var mockSave = sinon.spy();
 
       var mockUser = {
-        name: '',
-        email: '',
-        password: '',
+        name: "",
+        email: "",
+        password: "",
         save: mockSave
       };
 
-      userCtrl.saveUser('testname', 'testemail', 'testpass', mockUser);
-      assert(mockUser.name === 'testname');
-      assert(mockUser.email === 'testemail');
-      assert(mockUser.password === 'testHash');
+      userCtrl.saveUser("testname", "testemail", "testpass", mockUser);
+      assert(mockUser.name === "testname");
+      assert(mockUser.email === "testemail");
+      assert(mockUser.password === "testHash");
       sinon.assert.calledOnce(mockSave);
 
     });

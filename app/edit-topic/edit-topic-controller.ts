@@ -1,6 +1,6 @@
-///<reference path='../../typings/tsd.d.ts' />
+///<reference path="../../typings/tsd.d.ts" />
 module editTopic {
-  'use strict';
+  "use strict";
 
   export interface IEditTopicModel {
     submit: Function;
@@ -54,21 +54,21 @@ module editTopic {
     };
 
     onExerciseError = (element:ng.INgModelController) => (errors:Array<Data.IError>) => {
-      this.setValidity(element, 'exerciseCompileAndRun', true);
+      this.setValidity(element, "exerciseCompileAndRun", true);
     };
 
     onExerciseSuccess = (element:ng.INgModelController) => () => {
-      this.setValidity(element, 'exerciseCompileAndRun', false);
+      this.setValidity(element, "exerciseCompileAndRun", false);
     };
 
     onSolutionError = (index:number, element:ng.INgModelController) => (errors:Array<Data.IError>) => {
       this.solutionErrors[index] = errors;
-      this.setValidity(element, 'solutionCompileAndRun', false);
+      this.setValidity(element, "solutionCompileAndRun", false);
     };
 
     onSolutionSuccess = (index:number, element:ng.INgModelController) => () => {
       this.solutionErrors[index] = null;
-      this.setValidity(element, 'solutionCompileAndRun', true);
+      this.setValidity(element, "solutionCompileAndRun", true);
     };
 
     getSolutionError = (index:number) => {
@@ -83,7 +83,7 @@ module editTopic {
       }
     }
 
-    public static $inject = ['RestClient', '$state', '$scope', 'libs', 'SearchParamsService', 'topic', '$timeout'];
+    public static $inject = ["RestClient", "$state", "$scope", "libs", "SearchParamsService", "topic", "$timeout"];
 
     // dependencies are injected via AngularJS $injector
     constructor(private RestClient:RestClient.IRestClient,
@@ -105,6 +105,6 @@ module editTopic {
    *
    */
   angular
-    .module('editTopic')
-    .controller('EditTopicCtrl', EditTopicCtrl);
+    .module("editTopic")
+    .controller("EditTopicCtrl", EditTopicCtrl);
 }

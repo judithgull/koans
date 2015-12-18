@@ -1,64 +1,64 @@
-form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
+form(ng-submit="editTopic.submit()" name="editTopicForm").edit-topic-form
   .topic-info
     .field-row
-      label(for='editTopicForm.language').custom-select.t-label
+      label(for="editTopicForm.language").custom-select.t-label
         span.inline-label
           | Language
-        select.select(id='editTopicForm.language' name='language' ng-model="editTopic.topic.programmingLanguage")
-          option(value='typescript')
+        select.select(id="editTopicForm.language" name="language" ng-model="editTopic.topic.programmingLanguage")
+          option(value="typescript")
             | Typescript
-          option(value='javascript')
+          option(value="javascript")
             | Javascript
     .field-row
-      label(for='editTopicForm.title').label.t-label Series Title *
-      input.input(id='editTopicForm.title' name='title' ng-model='editTopic.topic.title' required='')
-      div(ng-show='editTopicForm.title.$dirty' ng-messages="editTopicForm.title.$error")
+      label(for="editTopicForm.title").label.t-label Series Title *
+      input.input(id="editTopicForm.title" name="title" ng-model="editTopic.topic.title" required="")
+      div(ng-show="editTopicForm.title.$dirty" ng-messages="editTopicForm.title.$error")
         p(ng-message="required").t-paragraph.form-error-msg Please enter a title!
 
   ul.l-list-reset
-    li.exercise-card-form(ng-repeat='item in editTopic.topic.items' ng-form='ex')
+    li.exercise-card-form(ng-repeat="item in editTopic.topic.items" ng-form="ex")
       .field-row
-        label(for='editTopicForm.$index.title').label.t-label Exercise Title
-        input.input(id='editTopicForm.$index.title' name='title' ng-model='item.title')
+        label(for="editTopicForm.$index.title").label.t-label Exercise Title
+        input.input(id="editTopicForm.$index.title" name="title" ng-model="item.title")
       .field-row
-        label(for='editTopicForm.$index.description').label.t-label Description *
-        textarea.textarea(id='editTopicForm.$index.description' name='description' ng-model='item.description' required='')
-        div(ng-messages="ex.description.$error" ng-show='ex.description.$dirty')
+        label(for="editTopicForm.$index.description").label.t-label Description *
+        textarea.textarea(id="editTopicForm.$index.description" name="description" ng-model="item.description" required="")
+        div(ng-messages="ex.description.$error" ng-show="ex.description.$dirty")
           p(ng-message="required").t-paragraph.form-error-msg Please enter a description!
       .field-row
-        p.t-paragraph.t-info-msg You exercise must contain the marker '???'. This marker must be replaced in the solution with the correct answer.
+        p.t-paragraph.t-info-msg You exercise must contain the marker "???". This marker must be replaced in the solution with the correct answer.
         .l-grid.code-editor-wrap
           .l-grid-cell.l-one-half.l-mobile-one-whole
-            label(for='editTopicForm.$index.exercise').label.t-label Exercise *
+            label(for="editTopicForm.$index.exercise").label.t-label Exercise *
             code-editor(
-            id='editTopicForm.$index.exercise',
-            required='',
-            on-error= 'editTopic.onExerciseError(this.ex.exercise)',
-            on-success= 'editTopic.onExerciseSuccess(this.ex.exercise)',
-            name='exercise',
-            language='editTopic.topic.programmingLanguage',
-            libs-loader='editTopic.libsLoader',
-            mark-required='',
-            ng-model='item.exercise').code-editor
-            div(ng-messages="ex.exercise.$error" ng-show='ex.exercise.$dirty')
+            id="editTopicForm.$index.exercise",
+            required="",
+            on-error= "editTopic.onExerciseError(this.ex.exercise)",
+            on-success= "editTopic.onExerciseSuccess(this.ex.exercise)",
+            name="exercise",
+            language="editTopic.topic.programmingLanguage",
+            libs-loader="editTopic.libsLoader",
+            mark-required="",
+            ng-model="item.exercise").code-editor
+            div(ng-messages="ex.exercise.$error" ng-show="ex.exercise.$dirty")
               p(ng-message="required").t-paragraph.form-error-msg Please enter an exercise!
               p(ng-message="exerciseCompileAndRun").t-paragraph.form-error-msg Your exercise must have an error to be fixed by the user!
-              p(ng-message="markRequired").t-paragraph.form-error-msg The exercise should contain '???' to be edited by the user!
+              p(ng-message="markRequired").t-paragraph.form-error-msg The exercise should contain "???" to be edited by the user!
           .l-grid-cell.l-one-half.l-mobile-one-whole
-            label(for='editTopicForm.$index.solution').label.t-label Solution *
+            label(for="editTopicForm.$index.solution").label.t-label Solution *
             code-editor(
-            id='editTopicForm.$index.solution',
-            required='',
-            on-error= 'editTopic.onSolutionError($index, this.ex.solution)',
-            on-success= 'editTopic.onSolutionSuccess($index, this.ex.solution)',
-            name='solution',
-            language='editTopic.topic.programmingLanguage',
-            libs-loader='editTopic.libsLoader',
-            ng-model='item.solution',
-            same-as-except-mark='item.exercise',
+            id="editTopicForm.$index.solution",
+            required="",
+            on-error= "editTopic.onSolutionError($index, this.ex.solution)",
+            on-success= "editTopic.onSolutionSuccess($index, this.ex.solution)",
+            name="solution",
+            language="editTopic.topic.programmingLanguage",
+            libs-loader="editTopic.libsLoader",
+            ng-model="item.solution",
+            same-as-except-mark="item.exercise",
             no-mark
             ).code-editor
-            div(ng-messages="ex.solution.$error" ng-show='ex.solution.$dirty')
+            div(ng-messages="ex.solution.$error" ng-show="ex.solution.$dirty")
               p(ng-message="required").t-paragraph.form-error-msg Please enter a solution!
               p(ng-message="solutionCompileAndRun").t-paragraph.form-error-msg Your solution must have no errors!
               p(ng-message="sameAsExceptMark").t-paragraph.form-error-msg Only ??? can change in the solution compared to the exercise.
@@ -68,9 +68,9 @@ form(ng-submit='editTopic.submit()' name='editTopicForm').edit-topic-form
                 span {{se.message}}
 
 
-      button.button(name='delete' ng-click='editTopic.removeExercise($index)' ng-show='editTopic.topic.items.length>1') Delete
-      button.button(type='button' name='add' ng-click='editTopic.addExercise()' ng-show='$last') Add another exercise
+      button.button(name="delete" ng-click="editTopic.removeExercise($index)" ng-show="editTopic.topic.items.length>1") Delete
+      button.button(type="button" name="add" ng-click="editTopic.addExercise()" ng-show="$last") Add another exercise
 
   p {{editTopic.errorMessage}}
-  button.button(type='submit' ng-disabled='editTopicForm.$invalid') Submit
-  button.button(type='button' name='cancel' ng-click='editTopic.cancel()') Cancel
+  button.button(type="submit" ng-disabled="editTopicForm.$invalid") Submit
+  button.button(type="button" name="cancel" ng-click="editTopic.cancel()") Cancel

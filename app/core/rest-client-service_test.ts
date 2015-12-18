@@ -1,8 +1,8 @@
 /* global describe, beforeEach, it, expect, inject, module */
 module RestClient {
-  'use strict';
+  "use strict";
 
-  describe('RestClient', function () {
+  describe("RestClient", function () {
     var restClient:RestClient.IRestClient;
     var $httpBackend;
     var tsLibName = "typescripts/lib.d.ts";
@@ -31,7 +31,7 @@ module RestClient {
         $httpBackend.flush();
       });
 
-      it('should return a topic with the correct attributes', function () {
+      it("should return a topic with the correct attributes", function () {
         var topicPromise = restClient.getTopic(testID);
         topicPromise.then(
           (data) => {
@@ -43,7 +43,7 @@ module RestClient {
 
       describe("Topic Cache", () => {
 
-        it('Topic should change if the cache is not cleared', function () {
+        it("Topic should change if the cache is not cleared", function () {
           var topicPromise = restClient.getTopic(testID);
           topicPromise.then(
             (data) => {
@@ -55,7 +55,7 @@ module RestClient {
           );
         });
 
-        it('Topic should not change if the cache is cleared', function () {
+        it("Topic should not change if the cache is cleared", function () {
           var topicPromise = restClient.getTopic(testID);
           topicPromise.then(
             (data) => {
@@ -75,7 +75,7 @@ module RestClient {
 
       var topic = test.MockData.getTopic();
 
-      it('should return an exercise with the correct attributes', function () {
+      it("should return an exercise with the correct attributes", function () {
         var expectedUrl = TOPICS_URL + topic._id;
         var exercise = topic.items[0];
         $httpBackend.when("GET", expectedUrl).respond(topic);
@@ -90,7 +90,7 @@ module RestClient {
       });
     });
 
-    it('should return the typescript default library ', function () {
+    it("should return the typescript default library ", function () {
       $httpBackend.expectGET(tsLibName);
       var libPromise = restClient.getLib(tsLibName);
 
@@ -103,7 +103,7 @@ module RestClient {
       $httpBackend.flush();
     });
 
-    it('should return an Array with the typescript default library ', () => {
+    it("should return an Array with the typescript default library ", () => {
       $httpBackend.expectGET(tsLibName);
       var libsPromise = restClient.getLibs([tsLibName]);
 
@@ -121,7 +121,7 @@ module RestClient {
 
       var topic = test.MockData.getTopic();
 
-      it('should store a topic', () => {
+      it("should store a topic", () => {
         $httpBackend.expectPOST(RestClient.TOPICS_URL);
         $httpBackend.whenPOST().respond(200);
         restClient.createTopic(topic);

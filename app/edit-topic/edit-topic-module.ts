@@ -1,6 +1,6 @@
-///<reference path='../../typings/tsd.d.ts' />
+///<reference path="../../typings/tsd.d.ts" />
 module editTopic {
-  'use strict';
+  "use strict";
 
   /* @ngdoc object
    * @name edit-topic
@@ -8,10 +8,10 @@ module editTopic {
    *
    */
   angular
-    .module('editTopic', [
-      'ui.router',
-      'ngMessages',
-      'core',
-      'codeEditor'
+    .module("editTopic", [
+      "ui.router",
+      "ngMessages",
+      "core",
+      "codeEditor"
     ]);
 }

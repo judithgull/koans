@@ -1,6 +1,6 @@
 module codeEditor {
   import Annotation = AceAjax.Annotation;
-  'use strict';
+  "use strict";
 
   /**
    * @ngdoc directive
@@ -19,25 +19,25 @@ module codeEditor {
    *
    */
   angular
-    .module('codeEditor')
-    .directive('sameAsExceptMark', ['EditMarker', (editMarker:codeEditor.EditMarker):ng.IDirective => {
+    .module("codeEditor")
+    .directive("sameAsExceptMark", ["EditMarker", (editMarker:codeEditor.EditMarker):ng.IDirective => {
       return {
-        restrict: 'A',
-        require: ['^codeEditor', 'ngModel'],
+        restrict: "A",
+        require: ["^codeEditor", "ngModel"],
         link: (scope:ng.IScope, elm:JQuery, attrs:ng.IAttributes, controllers:any[]) => {
           let ngModel = controllers[1];
           var editor:AceAjax.Editor = controllers[0].editor;
           var session = editor.getSession();
 
 
-          const otherModel = attrs['sameAsExceptMark'];
-          ngModel.$validators['sameAsExceptMark'] = (value) => editMarker.hasOnlyMarkChanged(scope.$eval(otherModel), value);
+          const otherModel = attrs["sameAsExceptMark"];
+          ngModel.$validators["sameAsExceptMark"] = (value) => editMarker.hasOnlyMarkChanged(scope.$eval(otherModel), value);
 
           //trigger validation when other model value specified in attrs.sameAs is changed
           scope.$watch(otherModel, ngModel.$validate);
 
 
-          let errorText = 'Do not change anything other than ' + editMarker.mark + '!';
+          let errorText = "Do not change anything other than " + editMarker.mark + "!";
           var getMarkers = ():AceAjax.Annotation[] => {
             var changed = editMarker.hasOnlyMarkChanged(scope.$eval(otherModel), session.getValue());
             if (!changed) {

@@ -1,16 +1,16 @@
 //global describe, beforeEach, it, expect, inject, module*/
 module ExerciseCtrl {
-  'use strict';
+  "use strict";
 
-  describe('ExerciseCtrl', function () {
+  describe("ExerciseCtrl", function () {
     var ctrl;
     var topic = test.MockData.getTopic();
 
-    beforeEach(angular.mock.module('exercise'));
+    beforeEach(angular.mock.module("exercise"));
 
     beforeEach(inject(function ($rootScope:ng.IRootScopeService, $controller) {
       var scope = $rootScope.$new();
-      ctrl = $controller('ExerciseCtrl', {
+      ctrl = $controller("ExerciseCtrl", {
         topicData: topic,
         $state: {
           params: {
@@ -22,11 +22,11 @@ module ExerciseCtrl {
       });
     }));
 
-    it('should initially not have a previous exercise', () => {
+    it("should initially not have a previous exercise", () => {
       expect(ctrl.hasPreviousExercise()).toBe(false);
     });
 
-    it('should initially have a next exercise', () => {
+    it("should initially have a next exercise", () => {
       expect(ctrl.hasNextExercise()).toBe(true);
     });
 

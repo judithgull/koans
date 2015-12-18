@@ -1,16 +1,16 @@
-///<reference path='../../../typings/tsd.d.ts' />
+///<reference path="../../../typings/tsd.d.ts" />
 
 module auth.login {
 
   /* global describe, beforeEach, it, expect, inject, module */
-  'use strict';
+  "use strict";
 
-  describe('LoginCtrl', function () {
+  describe("LoginCtrl", function () {
     var ctrl:LoginCtrl;
     var loginSpy;
     var deferred;
 
-    beforeEach(angular.mock.module('auth.login'));
+    beforeEach(angular.mock.module("auth.login"));
 
     beforeEach(inject(($controller, $q:ng.IQService) => {
 
@@ -30,26 +30,26 @@ module auth.login {
         }
       };
 
-      ctrl = $controller('LoginCtrl',
+      ctrl = $controller("LoginCtrl",
         {
           AuthService: mockAuthService
         });
 
     }));
 
-    it('should have an empty email and empty password initially', ()  => {
+    it("should have an empty email and empty password initially", ()  => {
       expect(ctrl.email).toBe(null);
       expect(ctrl.password).toBe(null);
     });
 
-    describe('submit', () => {
+    describe("submit", () => {
 
-      it('should call login once', ()  => {
-        ctrl.email = 'testEmail';
-        ctrl.password = 'testPwd';
+      it("should call login once", ()  => {
+        ctrl.email = "testEmail";
+        ctrl.password = "testPwd";
         ctrl.submit();
         sinon.assert.calledOnce(loginSpy);
-        sinon.assert.calledWith(loginSpy, 'testEmail', 'testPwd');
+        sinon.assert.calledWith(loginSpy, "testEmail", "testPwd");
       });
 
     });

@@ -1,5 +1,5 @@
 module auth.signUp {
-  'use strict';
+  "use strict";
 
   /**
    * @ngdoc directive
@@ -21,14 +21,14 @@ module auth.signUp {
    *
    */
   angular
-    .module('auth.signUp')
-    .directive('sameAs', ():ng.IDirective => {
+    .module("auth.signUp")
+    .directive("sameAs", ():ng.IDirective => {
       return {
-        restrict: 'A',
-        require: 'ngModel',
+        restrict: "A",
+        require: "ngModel",
         link: (scope:ng.IScope, elm:JQuery, attrs:ng.IAttributes, ngModel:ng.INgModelController) => {
-          const otherModel = attrs['sameAs'];
-          ngModel.$validators['same-as'] = (value) => scope.$eval(otherModel) === value;
+          const otherModel = attrs["sameAs"];
+          ngModel.$validators["same-as"] = (value) => scope.$eval(otherModel) === value;
 
           //trigger validation when other model value specified in attrs.sameAs is changed
           scope.$watch(otherModel, ngModel.$validate);

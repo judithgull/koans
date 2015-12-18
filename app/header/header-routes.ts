@@ -1,6 +1,6 @@
 module header {
-  'use strict';
+  "use strict";
 
   angular
-    .module('header');
+    .module("header");
 }

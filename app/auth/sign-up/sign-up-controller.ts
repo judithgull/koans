@@ -1,9 +1,9 @@
-///<reference path='../../../typings/tsd.d.ts' />
+///<reference path="../../../typings/tsd.d.ts" />
 module signUp.SignUpCtrl {
-  'use strict';
+  "use strict";
 
   export class SignUpCtrl {
-    public static $inject = ['AuthService', '$state'];
+    public static $inject = ["AuthService", "$state"];
     duplicatedEmailError = null;
 
     constructor(private authService:auth.IAuthService, private $state:angular.ui.IStateService, public user:app.IUser) {
@@ -12,7 +12,7 @@ module signUp.SignUpCtrl {
 
     submit = () => {
       this.authService.signUp(this.user).then(
-        ()=> this.$state.go('main.home.topicList', {}, {reload: true}),
+        ()=> this.$state.go("main.home.topicList", {}, {reload: true}),
         (error) => {
           this.duplicatedEmailError = error;
         }
@@ -29,6 +29,6 @@ module signUp.SignUpCtrl {
    *
    */
   angular
-    .module('auth.signUp')
-    .controller('SignUpCtrl', SignUpCtrl);
+    .module("auth.signUp")
+    .controller("SignUpCtrl", SignUpCtrl);
 }

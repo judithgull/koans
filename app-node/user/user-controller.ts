@@ -3,8 +3,8 @@ var User = require("./user-model.js");
 
 export var getSecret = () => {
   if (!process.env.SECRET) {
-    console.log('no secret defined, using default');
-    return 'veryBigSecret...';
+    console.log("no secret defined, using default");
+    return "veryBigSecret...";
   }
   return process.env.SECRET;
 };
@@ -22,7 +22,7 @@ export class UserController {
         if (res === null) {
           success();
         } else {
-          error('This E-Mail already exists.');
+          error("This E-Mail already exists.");
         }
       }
     });

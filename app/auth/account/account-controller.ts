@@ -1,13 +1,13 @@
-///<reference path='../../../typings/tsd.d.ts' />
+///<reference path="../../../typings/tsd.d.ts" />
 module auth.AccountCtrl {
-  'use strict';
+  "use strict";
 
   class AccountCtrl {
 
     private isLoggedIn:boolean;
     private loginName:string;
 
-    public static $inject = ['AuthService', '$state'];
+    public static $inject = ["AuthService", "$state"];
 
     constructor(private authService:IAuthService,
                 private $state:angular.ui.IStateService) {
@@ -20,7 +20,7 @@ module auth.AccountCtrl {
     logout = () => {
       this.authService.logout();
       this.isLoggedIn = false;
-      this.$state.go('main.home.topicList', {}, {reload: true});
+      this.$state.go("main.home.topicList", {}, {reload: true});
     }
   }
 
@@ -33,6 +33,6 @@ module auth.AccountCtrl {
    *
    */
   angular
-    .module('auth.account')
-    .controller('AccountCtrl', AccountCtrl);
+    .module("auth.account")
+    .controller("AccountCtrl", AccountCtrl);
 }

@@ -1,7 +1,7 @@
 module RestClient {
-  'use strict';
+  "use strict";
 
-  export const TOPICS_URL = '/topics/';
+  export const TOPICS_URL = "/topics/";
 
   export interface IRestClient {
     getTopic(id:number): ng.IPromise<Data.ITopic>;
@@ -21,8 +21,8 @@ module RestClient {
     topicData:Data.ITopic;
 
     public static $inject = [
-      '$http',
-      '$q'
+      "$http",
+      "$q"
     ];
 
     constructor(private $http:ng.IHttpService,
@@ -121,6 +121,6 @@ module RestClient {
    *
    */
   angular
-    .module('core')
-    .service('RestClient', RestClient);
+    .module("core")
+    .service("RestClient", RestClient);
 }

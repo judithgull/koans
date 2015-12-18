@@ -1,5 +1,5 @@
 module NoMark {
-  'use strict';
+  "use strict";
 
 
   /**
@@ -18,18 +18,18 @@ module NoMark {
    </example>
    *
    */
-  angular.module('codeEditor')
-    .directive('noMark', ['EditMarker', (editMarker:codeEditor.EditMarker):ng.IDirective => {
+  angular.module("codeEditor")
+    .directive("noMark", ["EditMarker", (editMarker:codeEditor.EditMarker):ng.IDirective => {
       return {
-        restrict: 'A',
-        require: ['^codeEditor', 'ngModel'],
+        restrict: "A",
+        require: ["^codeEditor", "ngModel"],
         link: (scope:ng.IScope, elm:JQuery, attrs:ng.IAttributes, controllers:any[]) => {
 
           var editor:AceAjax.Editor = controllers[0].editor;
           var session:AceAjax.IEditSession = editor.getSession();
-          let errorText = 'Please replace ??? with the correct answer!';
+          let errorText = "Please replace ??? with the correct answer!";
 
-          controllers[1].$validators['noMark'] = (value) => !editMarker.containsMark(value);
+          controllers[1].$validators["noMark"] = (value) => !editMarker.containsMark(value);
 
           var getMarkers = ():AceAjax.Annotation[] => {
             var ranges = editMarker.getEditMarks(session.getValue());

@@ -1,5 +1,5 @@
 module auth.account {
-  'use strict';
+  "use strict";
 
   /**
    * @ngdoc directive
@@ -18,16 +18,16 @@ module auth.account {
    *
    */
   angular
-    .module('auth')
-    .directive('account', account);
+    .module("auth")
+    .directive("account", account);
 
   function account():ng.IDirective {
     return {
-      restrict: 'E',
+      restrict: "E",
       scope: {},
-      templateUrl: 'auth/account/account.tpl.html',
-      controllerAs: 'account',
-      controller: 'AccountCtrl'
+      templateUrl: "auth/account/account.tpl.html",
+      controllerAs: "account",
+      controller: "AccountCtrl"
     };
   }
 }

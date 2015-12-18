@@ -1,10 +1,10 @@
-///<reference path='../../typings/tsd.d.ts' />
+///<reference path="../../typings/tsd.d.ts" />
 module auth.interceptor {
-  'use strict';
+  "use strict";
 
   export class AuthInterceptor implements ng.IHttpInterceptor {
 
-    public static $inject = ['TokenStorage'];
+    public static $inject = ["TokenStorage"];
 
     constructor(private tokenStorage:token.TokenStorage) {
     }
@@ -12,7 +12,7 @@ module auth.interceptor {
     request = (config:ng.IRequestConfig):ng.IRequestConfig => {
       var token = this.tokenStorage.get();
       if (token && config.headers) {
-        config.headers['authorization'] = 'Bearer ' + token;
+        config.headers["authorization"] = "Bearer " + token;
       }
       return config;
     };
@@ -27,10 +27,10 @@ module auth.interceptor {
    *
    */
   angular
-    .module('auth')
-    .service('AuthInterceptor', AuthInterceptor)
+    .module("auth")
+    .service("AuthInterceptor", AuthInterceptor)
     .config(($httpProvider:ng.IHttpProvider) => {
-      $httpProvider.interceptors.push('AuthInterceptor');
+      $httpProvider.interceptors.push("AuthInterceptor");
     });
 
 }

@@ -1,41 +1,41 @@
-'use strict';
+"use strict";
 
-var outDir = 'build/';
+var outDir = "build/";
 
 module.exports = {
-  host: 'localhost',
+  host: "localhost",
   port: 3000,
 
   // app directories
-  appDir: 'app',
+  appDir: "app",
   //node app file
-  appNodeDir:'app-node',
+  appNodeDir:"app-node",
 
   //patches for external libraries
-  libDir: 'lib',
-  nodeModules: 'node_modules',
-  tsTypingsDir: 'typings',
+  libDir: "lib",
+  nodeModules: "node_modules",
+  tsTypingsDir: "typings",
 
   // unit test directories
-  unitTestDir: 'app',
+  unitTestDir: "app",
 
   // build test dir
-  buildTestDir: outDir + 'test/',
+  buildTestDir: outDir + "test/",
 
   // build directories
-  buildDir: outDir + 'app/',
-  buildNodeDir: outDir + 'app-node/',
-  buildCss: outDir + 'app/css/',
-  buildFonts: outDir + 'app/assets/fonts/',
-  buildAssets: outDir + 'app/assets/',
-  buildJs: outDir + 'app/js/',
-  buildNodeJs: outDir + 'app-node/',
-  buildData: outDir + 'app/data/',
-  extDir: outDir + 'app/vendor/',
+  buildDir: outDir + "app/",
+  buildNodeDir: outDir + "app-node/",
+  buildCss: outDir + "app/css/",
+  buildFonts: outDir + "app/assets/fonts/",
+  buildAssets: outDir + "app/assets/",
+  buildJs: outDir + "app/js/",
+  buildNodeJs: outDir + "app-node/",
+  buildData: outDir + "app/data/",
+  extDir: outDir + "app/vendor/",
   extAceDir: outDir + "app/vendor/ace-builds/src-min-noconflict",
-  extCss: outDir + 'app/vendor/css/',
-  extFonts: outDir + 'app/vendor/fonts/',
-  extJs: outDir + 'app/vendor/js/',
-  extTs: outDir + 'app/typescripts/',
-  server: outDir + 'app-node/app.js'
+  extCss: outDir + "app/vendor/css/",
+  extFonts: outDir + "app/vendor/fonts/",
+  extJs: outDir + "app/vendor/js/",
+  extTs: outDir + "app/typescripts/",
+  server: outDir + "app-node/app.js"
 };

@@ -1,5 +1,5 @@
 module solution {
-  'use strict';
+  "use strict";
 
   /* @ngdoc object
    * @name exercise.solution
@@ -7,7 +7,7 @@ module solution {
    *
    */
   angular
-    .module('exercise.solution', [
-      'ui.router'
+    .module("exercise.solution", [
+      "ui.router"
     ]);
 }

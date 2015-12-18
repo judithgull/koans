@@ -1,4 +1,4 @@
-.exercise-card(ng-form='ce')
+.exercise-card(ng-form="ce")
   .exercise-card-info
     h2.t-title-small.exercise-title {{::exercise.currentExercise.title}}
     p.t-paragraph.exercise-description {{exercise.currentExercise.description}}
@@ -7,26 +7,26 @@
     .l-grid.code-editor-wrap
       .l-grid-cell.l-one-half.l-mobile-one-whole
         code-editor(
-        name='exercise',
-        language='topic.programmingLanguage',
-        ng-model= 'exercise.currentExercise.userSolution',
+        name="exercise",
+        language="topic.programmingLanguage",
+        ng-model= "exercise.currentExercise.userSolution",
         libs-loader="exercise.libsLoader",
         on-error="exercise.onError",
-        on-success='exercise.onSuccess',
+        on-success="exercise.onSuccess",
         no-mark,
-        same-as-except-mark='::exercise.content',
-        hidden-text='exercise.hidden'
+        same-as-except-mark="::exercise.content",
+        hidden-text="exercise.hidden"
         )
 
       .l-grid-cell.l-one-half.l-mobile-one-whole
         div(ui-view="")
 
-  button.button(ng-click='exercise.giveUp();solutionClicked = !solutionClicked')
-    | {{!solutionClicked && 'Show' || 'Hide'}} solution
+  button.button(ng-click="exercise.giveUp();solutionClicked = !solutionClicked")
+    | {{!solutionClicked && "Show" || "Hide"}} solution
 
-  button.button.button-prev(ng-show="exercise.hasPreviousExercise()" type='button' ng-click="exercise.previousExercise()")
+  button.button.button-prev(ng-show="exercise.hasPreviousExercise()" type="button" ng-click="exercise.previousExercise()")
     | Previous
 
-  button.button.button-next(ng-show="exercise.hasNextExercise() && (exercise.getCurrentExercise().solved || exercise.getCurrentExercise().solutionRequested)" type='button' ng-click="exercise.nextExercise()")
+  button.button.button-next(ng-show="exercise.hasNextExercise() && (exercise.getCurrentExercise().solved || exercise.getCurrentExercise().solutionRequested)" type="button" ng-click="exercise.nextExercise()")
     | Next
 

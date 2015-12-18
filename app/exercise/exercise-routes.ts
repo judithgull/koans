@@ -1,6 +1,6 @@
 module exercise {
-  'use strict';
+  "use strict";
 
   angular
-    .module('exercise');
+    .module("exercise");
 }

@@ -1,5 +1,5 @@
 module TopicCtrl {
-  'use strict';
+  "use strict";
 
   export interface ITopicCtrl {
     programmingLanguage:string;
@@ -19,7 +19,7 @@ module TopicCtrl {
     title:string;
     private exerciseCount:number;
 
-    public static $inject = ['topicData', '$state'];
+    public static $inject = ["topicData", "$state"];
 
     constructor(public topicData:Data.ITopic, private $state:ITopicStateService) {
       this.title = topicData.title;
@@ -40,6 +40,6 @@ module TopicCtrl {
    *
    */
   angular
-    .module('topic')
-    .controller('TopicCtrl', TopicCtrl);
+    .module("topic")
+    .controller("TopicCtrl", TopicCtrl);
 }

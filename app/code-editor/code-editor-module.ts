@@ -1,5 +1,5 @@
 module codeEditor {
-  'use strict';
+  "use strict";
 
   /* @ngdoc object
    * @name code-editor
@@ -7,5 +7,5 @@ module codeEditor {
    *
    */
   angular
-    .module('codeEditor', []);
+    .module("codeEditor", []);
 }

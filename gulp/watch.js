@@ -1,13 +1,13 @@
-'use strict';
+"use strict";
 
 module.exports = function (gulp, $, config) {
-  gulp.task('nodemon', ['build'], function (cb) {
+  gulp.task("nodemon", ["build"], function (cb) {
 
     var started = false;
 
     return $.nodemon({
       script: config.server
-    }).on('start', function () {
+    }).on("start", function () {
       // to avoid nodemon being started multiple times
       // thanks @matthisk
       if (!started) {
@@ -17,7 +17,7 @@ module.exports = function (gulp, $, config) {
     });
   });
 
-  gulp.task('watch', ['nodemon', 'node-scripts'], function () {
+  gulp.task("watch", ["nodemon", "node-scripts"], function () {
     $.browserSync({
       proxy: "http://localhost:3000/",
       port: 7000
@@ -29,11 +29,11 @@ module.exports = function (gulp, $, config) {
       config.appScriptFiles,
       config.appMarkupFiles,
       config.appStyleFiles,
-      '!' + config.unitTestFiles], ['browserSync']);
+      "!" + config.unitTestFiles], ["browserSync"]);
 
   });
 
-  gulp.task('browserSync', ['build-frontend'], function () {
+  gulp.task("browserSync", ["build-frontend"], function () {
     $.browserSync.reload();
   });
 };

@@ -1,6 +1,6 @@
 var jwt = require("jwt-simple");
 var User = require("../user/user-model.js");
-var userCtrl = require('../user/user-controller.js');
+var userCtrl = require("../user/user-controller.js");
 
 export class LoginController {
 
@@ -8,7 +8,7 @@ export class LoginController {
   }
 
   login = (email:string, pwd:string, error:Function, success:Function) => {
-    var loginError = 'The email and password do not match.';
+    var loginError = "The email and password do not match.";
 
     User.findOne({email: email}, (err, user) => {
       if (err) {

@@ -2,7 +2,7 @@
  * Programming language specific functionality  appart from built-in worker
  * */
 module codeEditor {
-  'use strict';
+  "use strict";
 
   export interface IWorkerExtension {
 
@@ -23,7 +23,7 @@ module codeEditor {
     addLibs(session:AceAjax.IEditSession, libs:Array<Data.ILibrary>) {
       libs.forEach(
         lib => {
-          (<any>session).$worker.emit('addLibrary', {data: lib});
+          (<any>session).$worker.emit("addLibrary", {data: lib});
         }
       );
     }

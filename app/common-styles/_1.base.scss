@@ -1,4 +1,4 @@
-@import 'mixins';
+@import "mixins";
 
 html {
   min-height: 100%;
@@ -90,12 +90,12 @@ textarea {
     margin: 0 auto s(medium);
 
     &:after {
-      content: '╋';
+      content: "╋";
     }
   }
   &-prev:before,
   &-next:after {
-    content: '⌃';
+    content: "⌃";
     display: inline-block;
   }
   &-prev:before {
@@ -141,7 +141,7 @@ a.button {
   display: inline-block;
 
   &:after {
-    content: '';
+    content: "";
     width: 0;
     height: 0;
     border-left: 5px solid transparent;

@@ -1,11 +1,11 @@
 module SolutionCtrl {
-  'use strict';
+  "use strict";
 
   class SolutionCtrl {
 
     content:string;
 
-    public static $inject = ['exData'];
+    public static $inject = ["exData"];
 
     constructor(exData:Data.IExercise) {
       this.content = exData.solution;
@@ -22,6 +22,6 @@ module SolutionCtrl {
    *
    */
   angular
-    .module('exercise.solution')
-    .controller('SolutionCtrl', SolutionCtrl);
+    .module("exercise.solution")
+    .controller("SolutionCtrl", SolutionCtrl);
 }

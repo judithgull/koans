@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
@@ -7,7 +7,7 @@ var UserSchema = new Schema({
   password: String
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model("User", UserSchema);
 module.exports.getNonSensitiveUser = (user) => {
   return {
     _id: user._id,

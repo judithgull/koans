@@ -1,19 +1,19 @@
-form(ng-submit='login.submit()' name='loginForm')
+form(ng-submit="login.submit()" name="loginForm")
   .field-row
-    label(for='loginForm.email').label.t-label  E-mail *
-    input.input(id='loginForm.email' name='email' type='email' ng-model='login.email' required='' validate-email='')
-    div(ng-messages="loginForm.email.$error" ng-show='loginForm.email.$dirty')
+    label(for="loginForm.email").label.t-label  E-mail *
+    input.input(id="loginForm.email" name="email" type="email" ng-model="login.email" required="" validate-email="")
+    div(ng-messages="loginForm.email.$error" ng-show="loginForm.email.$dirty")
       p(ng-message="required").t-paragraph.form-error-msg Please enter an E-mail!
       p(ng-message="email").t-paragraph.form-error-msg Please enter a valid E-mail!
 
   .field-row
-    label(for='loginForm.password').label.t-label  Password *
-    input.input(id='loginForm.password' name='password' type='password' ng-model='login.password' required='')
-    div(ng-messages="loginForm.password.$error" ng-show='loginForm.password.$dirty')
+    label(for="loginForm.password").label.t-label  Password *
+    input.input(id="loginForm.password" name="password" type="password" ng-model="login.password" required="")
+    div(ng-messages="loginForm.password.$error" ng-show="loginForm.password.$dirty")
       p(ng-message="required").t-paragraph.form-error-msg Please enter a Password!
 
   .field-row
     p.t-paragraph.form-error-msg {{login.error}}
 
-  button.button(type='submit' ng-disabled='loginForm.$invalid') Submit
-  a.button(ui-sref='main.home.topicList') Cancel
+  button.button(type="submit" ng-disabled="loginForm.$invalid") Submit
+  a.button(ui-sref="main.home.topicList") Cancel

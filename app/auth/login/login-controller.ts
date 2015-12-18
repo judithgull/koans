@@ -1,6 +1,6 @@
-///<reference path='../../../typings/tsd.d.ts' />
+///<reference path="../../../typings/tsd.d.ts" />
 module auth.login {
-  'use strict';
+  "use strict";
 
   export class LoginCtrl {
 
@@ -9,8 +9,8 @@ module auth.login {
     error:string = null;
 
     public static $inject = [
-      'AuthService',
-      '$state'
+      "AuthService",
+      "$state"
     ];
 
     constructor(private authService:IAuthService,
@@ -19,7 +19,7 @@ module auth.login {
 
     submit = () => {
       this.authService.login(this.email, this.password).then(
-        ()=> this.$state.go('main.home.topicList', {}, {reload: true}),
+        ()=> this.$state.go("main.home.topicList", {}, {reload: true}),
         (error) => {
           this.error = error
         }
@@ -36,6 +36,6 @@ module auth.login {
    *
    */
   angular
-    .module('auth.login')
-    .controller('LoginCtrl', LoginCtrl);
+    .module("auth.login")
+    .controller("LoginCtrl", LoginCtrl);
 }

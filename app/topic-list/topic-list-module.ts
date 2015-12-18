@@ -1,5 +1,5 @@
 module topicList {
-  'use strict';
+  "use strict";
 
   /* @ngdoc object
    * @name topic-list
@@ -7,10 +7,10 @@ module topicList {
    *
    */
   angular
-    .module('topicList', [
-      'ui.router',
-      'core',
-      'truncate',
-      'dibari.angular-ellipsis'
+    .module("topicList", [
+      "ui.router",
+      "core",
+      "truncate",
+      "dibari.angular-ellipsis"
     ]);
 }

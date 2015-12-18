@@ -1,8 +1,8 @@
 module auth.token {
-  'use strict';
+  "use strict";
 
   export class TokenStorage {
-    private authTokenKey = 'authToken';
+    private authTokenKey = "authToken";
 
     set = (token:string) => localStorage.setItem(this.authTokenKey, token);
 
@@ -19,6 +19,6 @@ module auth.token {
    *
    */
   angular
-    .module('auth')
-    .service('TokenStorage', TokenStorage);
+    .module("auth")
+    .service("TokenStorage", TokenStorage);
 }
