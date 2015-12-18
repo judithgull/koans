@@ -1,14 +1,14 @@
-.feedback{
+.feedback {
   line-height: 1.25;
   margin-bottom: s(small);
-  &-line{
+  &-line {
     margin-right: s(small);
   }
-  &-error{
+  &-error {
     background-color: c(error);
     display: inline;
   }
-  &-success{
+  &-success {
     background-color: c(success);
     display: inline;
   }

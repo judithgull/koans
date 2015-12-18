@@ -1,5 +1,5 @@
 module server {
-  var  express = require('express');
+  var express = require('express');
   var bcrypt = require("bcrypt-nodejs");
   var router = express.Router();
   var userCtrlModule = require('./user-controller.js');

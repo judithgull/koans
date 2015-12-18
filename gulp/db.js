@@ -34,12 +34,12 @@ module.exports = function (gulp, $) {
   gulp.task('mongo-export', runCommand('mongoexport --db koans --collection topics --out app-node/sample-data/topics.bson'));
 
 
-  gulp.task('drop-mongo', function(){
+  gulp.task('drop-mongo', function () {
     run('mongo koans --eval "db.dropDatabase()"').exec();
   });
 
-  gulp.task('reset-db', function(){
-    if(isResetDb) {
+  gulp.task('reset-db', function () {
+    if (isResetDb) {
       gulp.start('drop-mongo');
       run('mongoimport --db koans --collection topics app-node/sample-data/topics.bson').exec();
       run('mongo -eval "db.topics.createIndex({title: \'text\'},{name: \'TextIndex\',\'default_language\': \'en\', \'language_override\': \'lang\'})"').exec();

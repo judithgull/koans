@@ -29,9 +29,9 @@ module auth {
         // overwrite the default Angular email validator
         if (ctrl && ctrl.$validators['email']) {
           ctrl.$validators['email'] =
-          (modelValue) => ctrl.$isEmpty(modelValue) || EMAIL_REGEXP.test(modelValue);
+            (modelValue) => ctrl.$isEmpty(modelValue) || EMAIL_REGEXP.test(modelValue);
         }
       }
     };
-  };
+  }
 }

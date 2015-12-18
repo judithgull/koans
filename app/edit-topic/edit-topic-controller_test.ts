@@ -4,13 +4,13 @@ module editTopic {
   'use strict';
 
   describe('EditTopicCtrl', function () {
-    var ctrl: IEditTopicModel;
-    var testTopic: Data.ITopic;
-    var topic: Data.ITopic;
+    var ctrl:IEditTopicModel;
+    var testTopic:Data.ITopic;
+    var topic:Data.ITopic;
 
     beforeEach(angular.mock.module('editTopic'));
 
-    beforeEach(inject(function ($rootScope, $controller, $state: angular.ui.IStateService) {
+    beforeEach(inject(function ($rootScope, $controller, $state:angular.ui.IStateService) {
       const rc = {
         createTopic: (topic:Data.ITopic) => {
           testTopic = topic
@@ -18,10 +18,12 @@ module editTopic {
       };
       const libs = [];
       ctrl = $controller('EditTopicCtrl',
-        {'RestClient': rc,
-          'libs' : libs,
-           topic : new Topic(),
-          '$scope': $rootScope});
+        {
+          'RestClient': rc,
+          'libs': libs,
+          topic: new Topic(),
+          '$scope': $rootScope
+        });
       topic = ctrl.topic;
 
     }));

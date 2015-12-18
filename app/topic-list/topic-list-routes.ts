@@ -5,7 +5,7 @@ module topicList {
     .module('topicList')
     .config(config);
 
-  function config($stateProvider: ng.ui.IStateProvider) {
+  function config($stateProvider:ng.ui.IStateProvider) {
     $stateProvider
       .state('main.home.topicList', {
         url: '/topic-list',

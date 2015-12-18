@@ -17,7 +17,7 @@ module ExerciseCtrl {
             exerciseId: 1
           }
         },
-        $scope:scope,
+        $scope: scope,
         libs: {}
       });
     }));

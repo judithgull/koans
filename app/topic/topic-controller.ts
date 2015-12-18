@@ -1,12 +1,12 @@
 module TopicCtrl {
   'use strict';
 
-  export interface ITopicCtrl{
+  export interface ITopicCtrl {
     programmingLanguage:string;
     title:string;
   }
 
-  export interface ITopicStateService extends angular.ui.IStateService{
+  export interface ITopicStateService extends angular.ui.IStateService {
     params: ITopicParams;
   }
 
@@ -14,7 +14,7 @@ module TopicCtrl {
     exerciseId:number;
   }
 
-  class TopicCtrl implements ITopicCtrl{
+  class TopicCtrl implements ITopicCtrl {
     programmingLanguage:string;
     title:string;
     private exerciseCount:number;
@@ -33,12 +33,12 @@ module TopicCtrl {
 
 
   /**
-  * @ngdoc object
-  * @name topic.controller:TopicCtrl
-  *
-  * @description
-  *
-  */
+   * @ngdoc object
+   * @name topic.controller:TopicCtrl
+   *
+   * @description
+   *
+   */
   angular
     .module('topic')
     .controller('TopicCtrl', TopicCtrl);

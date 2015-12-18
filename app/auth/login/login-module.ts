@@ -3,10 +3,10 @@ module login {
   'use strict';
 
   /* @ngdoc object
-  * @name auth.login
-  * @description
-  *
-  */
+   * @name auth.login
+   * @description
+   *
+   */
   angular
     .module('auth.login', [
       'ui.router',

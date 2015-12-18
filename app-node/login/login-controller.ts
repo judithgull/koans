@@ -20,7 +20,7 @@ export class LoginController {
       else {
         this.bcrypt.compare(pwd, user.password, function (err, isValid) {
 
-          if(isValid) {
+          if (isValid) {
             var payload = {
               sub: user._id
             };
@@ -41,7 +41,7 @@ export class LoginController {
         this.login(body.email, body.password,
           (err) => {
             console.log(err);
-            res.status(401).send({message:err});
+            res.status(401).send({message: err});
           }, (token, user) => {
             res.status(200).send({token: token, user: user})
           });

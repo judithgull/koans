@@ -43,32 +43,27 @@ module Data {
     type:taskType
   }
 
-  export class SuccessStatus implements IStatus{
-    constructor(
-      public type:taskType,
-      public running = false,
-      public success = true,
-      public errors = []){
+  export class SuccessStatus implements IStatus {
+    constructor(public type:taskType,
+                public running = false,
+                public success = true,
+                public errors = []) {
     }
   }
 
-  export class ErrorStatus implements IStatus{
-    constructor(
-      public type:taskType,
-      public errors,
-      public success = false,
-      public running = false
-      ){
+  export class ErrorStatus implements IStatus {
+    constructor(public type:taskType,
+                public errors,
+                public success = false,
+                public running = false) {
     }
   }
 
-  export class PendingStatus implements IStatus{
-    constructor(
-      public type:taskType,
-      public errors = [],
-      public success = false,
-      public running = true
-    ){
+  export class PendingStatus implements IStatus {
+    constructor(public type:taskType,
+                public errors = [],
+                public success = false,
+                public running = true) {
     }
   }
 

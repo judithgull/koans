@@ -24,14 +24,14 @@ module.exports = function (gulp, $, config) {
     return $.del(config.buildNodeDir, cb);
   });
 
-  gulp.task('node-scripts', ['clean-node'],  function () {
+  gulp.task('node-scripts', ['clean-node'], function () {
     var tsFilter = $.filter('**/*.ts');
     return gulp.src(config.appNodeScriptFiles)
-      .pipe($.if(!isProd,$.sourcemaps.init()))
+      .pipe($.if(!isProd, $.sourcemaps.init()))
       .pipe(tsFilter)
       .pipe($.typescript(config.tsProject))
       .pipe(tsFilter.restore())
-      .pipe($.if(!isProd,$.sourcemaps.write('.')))
+      .pipe($.if(!isProd, $.sourcemaps.write('.')))
       .pipe(gulp.dest(config.buildNodeJs))
   });
 
@@ -44,23 +44,25 @@ module.exports = function (gulp, $, config) {
 
   // copy data files into build directory
   gulp.task('data', ['clean'], function () {
-        return gulp.src(config.appDataFiles)
-          .pipe(gulp.dest(config.buildData));
-      });
+    return gulp.src(config.appDataFiles)
+      .pipe(gulp.dest(config.buildData));
+  });
 
   // compile styles and copy into build directory
   gulp.task('styles', ['clean'], function () {
     return gulp.src(config.appStyleFiles)
-      .pipe($.plumber({errorHandler: function (err) {
-        $.notify.onError({
-          title: 'Error linting at ' + err.plugin,
-          subtitle: ' ', //overrides defaults
-          message: err.message.replace(/\u001b\[.*?m/g, ''),
-          sound: ' ' //overrides defaults
-        })(err);
+      .pipe($.plumber({
+        errorHandler: function (err) {
+          $.notify.onError({
+            title: 'Error linting at ' + err.plugin,
+            subtitle: ' ', //overrides defaults
+            message: err.message.replace(/\u001b\[.*?m/g, ''),
+            sound: ' ' //overrides defaults
+          })(err);
 
-        this.emit('end');
-      }}))
+          this.emit('end');
+        }
+      }))
       .pipe($.sass())
       .pipe($.autoprefixer())
       .pipe($.if(isProd, $.concat('app.css')))
@@ -77,11 +79,11 @@ module.exports = function (gulp, $, config) {
       , tsFilter = $.filter('**/*.ts');
 
     return gulp.src([
-      config.appScriptFiles,
-      config.buildDir + '**/*.html',
-      '!**/*_test.*',
-      '!**/index.html'
-    ])
+        config.appScriptFiles,
+        config.buildDir + '**/*.html',
+        '!**/*_test.*',
+        '!**/index.html'
+      ])
       .pipe($.sourcemaps.init())
       .pipe(tsFilter)
       .pipe($.typescript(config.tsProject))
@@ -123,7 +125,7 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildDir));
   });
 
-  gulp.task('bowerCopyCss',['inject'], function(){
+  gulp.task('bowerCopyCss', ['inject'], function () {
     var cssFilter = $.filter('**/*.css');
     return gulp.src($.mainBowerFiles(), {base: bowerDir})
       .pipe(cssFilter)
@@ -145,7 +147,7 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.extDir))
   });
 
-  gulp.task('bowerCopyAce', ['inject'], function(){
+  gulp.task('bowerCopyAce', ['inject'], function () {
     var aceFilter = $.filter('ace-builds/**/*.js');
     return gulp.src($.mainBowerFiles(), {base: bowerDir})
       .pipe(aceFilter)
@@ -154,7 +156,7 @@ module.exports = function (gulp, $, config) {
 
   // copy bower components into build directory
   gulp.task('bowerCopy', ['inject', 'bowerCopyCss', 'bowerCopyAce'], function () {
-    var jsNoAceFilter = $.filter(['**/*.js','!ace-builds/**']);
+    var jsNoAceFilter = $.filter(['**/*.js', '!ace-builds/**']);
     return gulp.src($.mainBowerFiles(), {base: bowerDir})
       .pipe(jsNoAceFilter)
       .pipe($.if(isProd, $.concat('vendor.js')))
@@ -251,6 +253,6 @@ module.exports = function (gulp, $, config) {
 
   gulp.task('build-frontend', ['copyTemplates', 'assets', 'fonts', 'data']);
 
-  gulp.task('build', ['node-scripts','build-frontend']);
+  gulp.task('build', ['node-scripts', 'build-frontend']);
 
 };

@@ -3,10 +3,10 @@ module header {
   'use strict';
 
   /* @ngdoc object
-  * @name header
-  * @description
-  *
-  */
+   * @name header
+   * @description
+   *
+   */
   angular
     .module('header', [
       'ui.router',

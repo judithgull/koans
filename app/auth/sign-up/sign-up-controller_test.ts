@@ -11,7 +11,7 @@ module signUp.SignUpCtrl {
 
     beforeEach(angular.mock.module('auth.signUp'));
 
-    beforeEach(inject( ($rootScope, $controller, $q:ng.IQService) =>  {
+    beforeEach(inject(($rootScope, $controller, $q:ng.IQService) => {
       submitUserSpy = sinon.spy();
       deferred = $q.defer();
 
@@ -20,9 +20,10 @@ module signUp.SignUpCtrl {
           submitUserSpy(user);
           return deferred.promise;
         },
-        logout: () => {},
+        logout: () => {
+        },
         isLoggedIn: () => false,
-        getLoggedInUser:()=>null,
+        getLoggedInUser: ()=>null,
         login: (email, password) => null
       };
 
@@ -32,7 +33,8 @@ module signUp.SignUpCtrl {
       };
 
       ctrl = $controller('SignUpCtrl',
-        {AuthService: mockAuthService,
+        {
+          AuthService: mockAuthService,
           $state: mockStateService
         });
     }));
@@ -64,19 +66,19 @@ module signUp.SignUpCtrl {
         sinon.assert.calledWith(submitUserSpy, testUser);
       });
 
-/*      it('should return to topic-list, after successful signup', () => {
-        const testUser = new app.User();
-        testUser.name = 'testName';
-        testUser.email = 'testEmail';
-        testUser.password = 'testPwd';
-        ctrl.user = testUser;
+      /*      it('should return to topic-list, after successful signup', () => {
+       const testUser = new app.User();
+       testUser.name = 'testName';
+       testUser.email = 'testEmail';
+       testUser.password = 'testPwd';
+       ctrl.user = testUser;
 
-        ctrl.submit();
-        deferred.resolve();
-        sinon.assert.calledOnce(goSpy);
-        sinon.assert.calledWith(goSpy, 'main.topic-list');
-      });
-*/
+       ctrl.submit();
+       deferred.resolve();
+       sinon.assert.calledOnce(goSpy);
+       sinon.assert.calledWith(goSpy, 'main.topic-list');
+       });
+       */
     });
 
   });

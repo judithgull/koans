@@ -13,12 +13,11 @@ module editTopic {
   export class Exercise implements Data.IExercise {
     _id:number;
 
-    constructor(
-      public sortOrder:number = 1,
-      public title:string = '',
-      public description:string = '',
-      public exercise:string = '',
-      public solution:string = '') {
+    constructor(public sortOrder:number = 1,
+                public title:string = '',
+                public description:string = '',
+                public exercise:string = '',
+                public solution:string = '') {
     }
   }
 }

@@ -14,7 +14,7 @@ module codeEditor {
     /**
      * Adds a listener to start running the code
      * */
-    addRunEventListener(session:AceAjax.IEditSession, cb: (string) => void);
+    addRunEventListener(session:AceAjax.IEditSession, cb:(string) => void);
 
   }
 
@@ -28,20 +28,20 @@ module codeEditor {
       );
     }
 
-    addRunEventListener(session:AceAjax.IEditSession, cb:  (string) => void) {
+    addRunEventListener(session:AceAjax.IEditSession, cb:(string) => void) {
       session.on("compiled", (e) => cb(e.data));
     }
   }
 
-  export class JsWorkerExt implements  IWorkerExtension{
+  export class JsWorkerExt implements IWorkerExtension {
 
     addLibs(session:AceAjax.IEditSession, libs:Array<Data.ILibrary>) {
       //nop
     }
 
-    addRunEventListener(session:AceAjax.IEditSession, cb:  (string) => void) {
+    addRunEventListener(session:AceAjax.IEditSession, cb:(string) => void) {
       session.on("changeAnnotation", () => {
-        if(session.getAnnotations().length === 0){
+        if (session.getAnnotations().length === 0) {
           cb(session.getValue());
         }
       });

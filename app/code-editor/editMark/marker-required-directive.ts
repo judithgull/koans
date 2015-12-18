@@ -2,21 +2,21 @@ module MarkerRequired {
   'use strict';
 
   /**
-  * @ngdoc directive
-  * @name editTopic.directive:markerRequired
-  * @restrict EA
-  * @element
-  *
-  * @description
-  *
-  * @example
-    <example module="editTopic">
-      <file name="index.html">
-        <marker-required></marker-required>
-      </file>
-    </example>
-  *
-  */
+   * @ngdoc directive
+   * @name editTopic.directive:markerRequired
+   * @restrict EA
+   * @element
+   *
+   * @description
+   *
+   * @example
+   <example module="editTopic">
+   <file name="index.html">
+   <marker-required></marker-required>
+   </file>
+   </example>
+   *
+   */
   angular
     .module('codeEditor')
     .directive('markRequired', ['EditMarker', (editMarker:codeEditor.EditMarker):ng.IDirective => {

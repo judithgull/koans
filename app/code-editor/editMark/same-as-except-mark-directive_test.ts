@@ -1,6 +1,6 @@
 module codeEditor {
-/* global describe, beforeEach, it, expect, inject, module */
-'use strict';
+  /* global describe, beforeEach, it, expect, inject, module */
+  'use strict';
 
   describe('sameAsExceptMark', () => {
     var scope:ng.IScope, form;
@@ -25,21 +25,21 @@ module codeEditor {
       form = scope['form'];
     }));
 
-/*
-    it('should be valid, if only ??? has changed', ()  => {
-      form.exercise.$setViewValue(testExercise);
-      form.solution.$setViewValue('var a = 2;');
-      scope.$digest();
-      expect(form.solution.$valid).toBe(true);
-    });
+    /*
+     it('should be valid, if only ??? has changed', ()  => {
+     form.exercise.$setViewValue(testExercise);
+     form.solution.$setViewValue('var a = 2;');
+     scope.$digest();
+     expect(form.solution.$valid).toBe(true);
+     });
 
-    it('should be invalid, if something else has changed as well.', ()  => {
-      form.exercise.$setViewValue(testExercise);
-      form.solution.$setViewValue('var aaa = 2;');
-      scope.$digest();
-      expect(form.solution.$valid).toBe(false);
-    });
-    */
+     it('should be invalid, if something else has changed as well.', ()  => {
+     form.exercise.$setViewValue(testExercise);
+     form.solution.$setViewValue('var aaa = 2;');
+     scope.$digest();
+     expect(form.solution.$valid).toBe(false);
+     });
+     */
 
   });
 }

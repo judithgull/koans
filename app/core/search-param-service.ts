@@ -2,7 +2,7 @@
 module core {
   'use strict';
 
-  export interface ISearchParam{
+  export interface ISearchParam {
     authorId?:string
     search?:string
   }
@@ -13,7 +13,7 @@ module core {
     private SEARCH_TEXT_KEY = 'querySearchText';
 
     setAuthorId = (authorId:string) => {
-      localStorage.setItem(this.AUTHOR_ID_KEY,authorId);
+      localStorage.setItem(this.AUTHOR_ID_KEY, authorId);
     };
 
     getAuthorId = ():string => {
@@ -25,7 +25,7 @@ module core {
     };
 
     setSearchText = (searchText:string) => {
-      localStorage.setItem(this.SEARCH_TEXT_KEY,searchText);
+      localStorage.setItem(this.SEARCH_TEXT_KEY, searchText);
     };
 
     removeSearchText = () => {
@@ -44,11 +44,11 @@ module core {
     getSearchParam = ():ISearchParam => {
       var authorId = this.getAuthorId();
       var query:ISearchParam = {};
-      if(authorId){
+      if (authorId) {
         query.authorId = authorId;
       }
       var search = this.getSearchText();
-      if(search){
+      if (search) {
         query.search = search;
       }
       return query;

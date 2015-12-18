@@ -8,9 +8,9 @@ module auth.interceptor {
     var tokenStorage:token.TokenStorage;
 
     var testHeaders:ng.IHttpRequestConfigHeaders = {};
-    var testConfig: ng.IRequestConfig = {
-      method:'GET',
-      url:'testUrl',
+    var testConfig:ng.IRequestConfig = {
+      method: 'GET',
+      url: 'testUrl',
       headers: testHeaders
     };
 
@@ -25,13 +25,13 @@ module auth.interceptor {
       expect(interceptor.request).toBeDefined();
     });
 
-    it('should not change the config, if no token is available', () =>  {
+    it('should not change the config, if no token is available', () => {
       var intercepted = interceptor.request(testConfig);
       expect(intercepted).toEqual(testConfig);
       expect(intercepted.headers['authorization']).not.toBeDefined();
     });
 
-    it('should add a header, if a token is available', () =>  {
+    it('should add a header, if a token is available', () => {
       tokenStorage.set('testToken');
       var intercepted = interceptor.request(testConfig);
       expect(intercepted).toEqual(testConfig);

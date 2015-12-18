@@ -8,8 +8,7 @@ module HeaderCtrl {
 
     public static $inject = ['AuthService'];
 
-    constructor(private authService: IAuthService
-    ) {
+    constructor(private authService:IAuthService) {
       this.isLoggedIn = authService.isLoggedIn();
     }
 
@@ -17,12 +16,12 @@ module HeaderCtrl {
 
 
   /**
-  * @ngdoc object
-  * @name header.controller:HeaderCtrl
-  *
-  * @description
-  *
-  */
+   * @ngdoc object
+   * @name header.controller:HeaderCtrl
+   *
+   * @description
+   *
+   */
   angular
     .module('header')
     .controller('HeaderCtrl', HeaderCtrl);

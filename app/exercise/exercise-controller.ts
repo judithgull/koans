@@ -19,7 +19,9 @@ module ExerciseCtrl {
     onError = (errors:Array<Data.IError>) => {
       this.success = false;
       this.errors = errors;
-      this.$timeout(() => {this.$scope.$digest();});
+      this.$timeout(() => {
+        this.$scope.$digest();
+      });
     };
     onSuccess = () => {
       if (!this.getCurrentExercise().solved && !this.getCurrentExercise().solutionRequested) {
@@ -27,11 +29,11 @@ module ExerciseCtrl {
         this.nextExercise();
         this.success = true;
 
-        if(this.allExercisesSolved()) {
+        if (this.allExercisesSolved()) {
           this.showSolveMoreToast('Congratulations! You solved all exercises.');
-        } else if (this.finished()){
+        } else if (this.finished()) {
           this.showSolveMoreToast('You finished all exercises.');
-        }else {
+        } else {
           (<Toastr>toastr).success("Great job!");
         }
 
@@ -41,21 +43,21 @@ module ExerciseCtrl {
       }
     };
 
-    private showSolveMoreToast(message:string){
+    private showSolveMoreToast(message:string) {
       let popup = "<div>" +
-        "<p class='t-paragraph'>"+message+"</p>" +
+        "<p class='t-paragraph'>" + message + "</p>" +
         "<p class='t-paragraph'>Solve more exercises?</p>" +
         "<a href='#/topic-list' class='button button--light'>Ok</a>" +
         "<a href='#' class='button button--light'>Cancel</a>" +
         "</div>";
-      (<Toastr>toastr).success(popup,'',{timeOut:0});
+      (<Toastr>toastr).success(popup, '', {timeOut: 0});
     }
 
     finished = () => this.topicData.items.every((exercise) => exercise.solved || exercise.solutionRequested);
 
     allExercisesSolved = () => this.topicData.items.every((exercise) => exercise.solved && !exercise.solutionRequested);
 
-    getExerciseId = () => this.id +1;
+    getExerciseId = () => this.id + 1;
 
     nextExercise() {
       if (this.hasNextExercise()) {
@@ -69,7 +71,7 @@ module ExerciseCtrl {
       }
     }
 
-    hasNextExercise = ():boolean => this.getExerciseId()  < this.exerciseCount;
+    hasNextExercise = ():boolean => this.getExerciseId() < this.exerciseCount;
 
     hasPreviousExercise = ():boolean => this.getExerciseId() > 1;
 
@@ -84,8 +86,7 @@ module ExerciseCtrl {
                 private $scope:ng.IScope,
                 private libs,
                 private $timeout:ng.ITimeoutService,
-                private editMarker: codeEditor.EditMarker
-    ) {
+                private editMarker:codeEditor.EditMarker) {
       this.id = this.$state.params['exerciseId'] - 1;
       this.currentExercise = this.getCurrentExercise();
       this.exerciseCount = topicData.items.length;
@@ -94,19 +95,19 @@ module ExerciseCtrl {
       this.hidden = hidable.hidden;
       this.content = hidable.visible;
 
-      if(!this.currentExercise.userSolution){
+      if (!this.currentExercise.userSolution) {
         this.currentExercise.userSolution = hidable.visible;
       }
     }
 
     giveUp() {
       this.solutionClicked = !this.solutionClicked;
-      if(this.solutionClicked) {
-        if(!this.getCurrentExercise().solved) {
+      if (this.solutionClicked) {
+        if (!this.getCurrentExercise().solved) {
           this.getCurrentExercise().solutionRequested = true;
         }
         this.$state.go("main.topic.exercise.solution");
-        if(this.finished()){
+        if (this.finished()) {
           this.showSolveMoreToast('You finished all exercises.');
         }
 

@@ -25,13 +25,13 @@ module codeEditor {
       let lines = this.getLines(text);
 
       let res = [];
-      lines.forEach(((l,row) => {
+      lines.forEach(((l, row) => {
         let col = l.indexOf(this.mark);
-        if(col >= 0){
-         res.push({
-           row: row,
-           column: col
-         });
+        if (col >= 0) {
+          res.push({
+            row: row,
+            column: col
+          });
         }
       }));
 
@@ -45,8 +45,8 @@ module codeEditor {
       var annotationEquals = (a1:AceAjax.Annotation, a2:AceAjax.Annotation) => {
         return a1.column === a2.column && a1.row === a2.row && a1.text === a1.text;
       };
-      for(let i=0;i<a1.length;i++){
-        if(!annotationEquals(a1[i], a2[i])){
+      for (let i = 0; i < a1.length; i++) {
+        if (!annotationEquals(a1[i], a2[i])) {
           return false;
         }
       }
@@ -94,16 +94,16 @@ module codeEditor {
 
       let visibleLines = [];
       let hiddenLines = [];
-      if(hiddenIdx >= 0){
-        for(let i=0;i<lines.length && i<hiddenIdx;i++){
+      if (hiddenIdx >= 0) {
+        for (let i = 0; i < lines.length && i < hiddenIdx; i++) {
           visibleLines.push(lines[i]);
         }
 
-        for(let j=hiddenIdx+1;j<lines.length;j++){
+        for (let j = hiddenIdx + 1; j < lines.length; j++) {
           hiddenLines.push(lines[j]);
         }
-      }else{
-        for(let i=0;i<lines.length;i++){
+      } else {
+        for (let i = 0; i < lines.length; i++) {
           visibleLines.push(lines[i]);
         }
       }
@@ -114,8 +114,8 @@ module codeEditor {
     };
 
     private findHiddenMarker = (lines):number => {
-      for(let i = 0; i< lines.length; i++){
-        if(lines[i].indexOf('//hidden') >= 0){
+      for (let i = 0; i < lines.length; i++) {
+        if (lines[i].indexOf('//hidden') >= 0) {
           return i;
         }
       }
@@ -125,22 +125,22 @@ module codeEditor {
 
   }
 
-  export class NoMarkAnnotation implements AceAjax.Annotation{
+  export class NoMarkAnnotation implements AceAjax.Annotation {
     public type = 'error';
     public custom = true;
 
-    constructor(public row: number,
-                public column: number,
-                public text:string
-    ){}
+    constructor(public row:number,
+                public column:number,
+                public text:string) {
+    }
   }
 
-  export interface IHidable{
+  export interface IHidable {
     visible:string;
     hidden: string;
   }
 
-  export interface Position{
+  export interface Position {
     row:number,
     column:number
   }

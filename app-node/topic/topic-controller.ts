@@ -35,13 +35,13 @@ module.exports.getTopic = function (req, res) {
     "application/json": function (req, res) {
       findById(req)
         .then(
-        (topic) => {
-          if (!topic) {
-            res.status(404).send({message: 'Not found'});
-          } else {
-            res.send(topic);
-          }
-        });
+          (topic) => {
+            if (!topic) {
+              res.status(404).send({message: 'Not found'});
+            } else {
+              res.send(topic);
+            }
+          });
 
     }
   });
@@ -53,27 +53,27 @@ module.exports.deleteTopic = function (req, res) {
     "application/json": function (req, res) {
       findById(req)
         .then(
-        (topic) => {
-          if (!topic) {
-            res.status(404).send({message: 'Not found'});
-          } else if (!isAuthorOfOwnTopic(topic, req)) {
-            res.status(401).send({message: 'Not authorized'});
+          (topic) => {
+            if (!topic) {
+              res.status(404).send({message: 'Not found'});
+            } else if (!isAuthorOfOwnTopic(topic, req)) {
+              res.status(401).send({message: 'Not authorized'});
+            }
+            else {
+              Topic
+                .remove({_id: req.params.id}, function (err) {
+                  if (err) {
+                    res.status(401).send({message: 'Error removing item' + req.params.id});
+                  } else {
+                    res.status(200).send({message: 'ok'});
+                  }
+                });
+            }
+          },
+          (error) => {
+            res.status(500).send({message: error});
           }
-          else {
-            Topic
-              .remove({_id: req.params.id}, function (err) {
-                if (err) {
-                  res.status(401).send({message: 'Error removing item' + req.params.id});
-                } else {
-                  res.status(200).send({message: 'ok'});
-                }
-              });
-          }
-        },
-        (error) => {
-          res.status(500).send({message: error});
-        }
-      );
+        );
     }
   });
 };
@@ -83,31 +83,31 @@ module.exports.updateTopic = function (req, res) {
     "application/json": function (req, res) {
       findById(req)
         .then(
-        (topic) => {
-          if (!topic) {
-            res.status(404).send({message: 'Not found'});
-          } else if (!isAuthorOfOwnTopic(topic, req)) {
-            res.status(401).send({message: 'Not authorized'});
+          (topic) => {
+            if (!topic) {
+              res.status(404).send({message: 'Not found'});
+            } else if (!isAuthorOfOwnTopic(topic, req)) {
+              res.status(401).send({message: 'Not authorized'});
+            }
+            else {
+              var body = req.body;
+              Topic
+                .update(
+                  {_id: req.params.id},
+                  {$set: {'title': body.title, 'programmingLanguage': body.programmingLanguage, 'items': body.items}},
+                  function (err) {
+                    if (err) {
+                      res.status(401).send({message: 'Error updating Topic ' + req.params.id});
+                    } else {
+                      res.status(200).send({message: 'ok'});
+                    }
+                  });
+            }
+          },
+          (error) => {
+            res.status(500).send({message: error});
           }
-          else {
-            var body = req.body;
-            Topic
-              .update(
-              {_id: req.params.id},
-              {$set: {'title': body.title, 'programmingLanguage': body.programmingLanguage, 'items': body.items}},
-              function (err) {
-                if (err) {
-                  res.status(401).send({message: 'Error updating Topic ' + req.params.id});
-                } else {
-                  res.status(200).send({message: 'ok'});
-                }
-              });
-          }
-        },
-        (error) => {
-          res.status(500).send({message: error});
-        }
-      );
+        );
     }
   });
 };

@@ -6,8 +6,8 @@ var gulpFilter = require('gulp-filter');
 
 // karmaConf.files get populated in karmaFiles
 /*karmaConf.files = [
-  'node_modules/karma-babel-preprocessor/node_modules/babel-core/browser-polyfill.js'
-];*/
+ 'node_modules/karma-babel-preprocessor/node_modules/babel-core/browser-polyfill.js'
+ ];*/
 karmaConf.files = [];
 
 module.exports = function (gulp, $, config) {
@@ -18,11 +18,11 @@ module.exports = function (gulp, $, config) {
   gulp.task('buildTests', ['clean:test', 'build'], function () {
     var testFilter = gulpFilter('**/*_test.js');
     return gulp.src([
-      config.unitTestFiles,
-      config.appScriptFiles,
-      config.appNodeScriptFiles,
-      config.nodeUnitTestFiles
-    ])
+        config.unitTestFiles,
+        config.appScriptFiles,
+        config.appNodeScriptFiles,
+        config.nodeUnitTestFiles
+      ])
       .pipe($.typescript(config.tsProject))
       .pipe(testFilter)
       .pipe(gulp.dest(config.buildUnitTestsDir));
@@ -42,9 +42,9 @@ module.exports = function (gulp, $, config) {
 
     // add application javascript
     stream.queue(gulp.src([
-      config.buildJsFiles,
-      '!**/*_test.*'
-    ])
+        config.buildJsFiles,
+        '!**/*_test.*'
+      ])
       .pipe($.angularFilesort()));
 
     // add unit tests

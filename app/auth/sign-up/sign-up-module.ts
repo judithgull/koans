@@ -3,10 +3,10 @@ module signUp {
   'use strict';
 
   /* @ngdoc object
-  * @name auth.sign-up
-  * @description
-  *
-  */
+   * @name auth.sign-up
+   * @description
+   *
+   */
   angular
     .module('auth.signUp', [
       'ui.router',

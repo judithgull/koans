@@ -17,7 +17,7 @@ module editTopic {
           libs: function (RestClient:RestClient.IRestClient) {
             return RestClient.getDefaultLibs();
           },
-          topic: (RestClient:RestClient.IRestClient, $stateParams, $q: ng.IQService) => {
+          topic: (RestClient:RestClient.IRestClient, $stateParams, $q:ng.IQService) => {
             if ($stateParams.id) {
               return RestClient.getTopic($stateParams.id);
             }

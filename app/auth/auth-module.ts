@@ -3,10 +3,10 @@ module auth {
   'use strict';
 
   /* @ngdoc object
-  * @name auth
-  * @description
-  *
-  */
+   * @name auth
+   * @description
+   *
+   */
   angular
     .module('auth', [
       'ui.router'

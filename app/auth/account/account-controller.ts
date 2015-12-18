@@ -9,11 +9,10 @@ module auth.AccountCtrl {
 
     public static $inject = ['AuthService', '$state'];
 
-    constructor(private authService: IAuthService,
-                private $state: angular.ui.IStateService
-    ) {
+    constructor(private authService:IAuthService,
+                private $state:angular.ui.IStateService) {
       this.isLoggedIn = authService.isLoggedIn();
-      if(this.isLoggedIn){
+      if (this.isLoggedIn) {
         this.loginName = authService.getLoggedInUser().name;
       }
     }
@@ -21,18 +20,18 @@ module auth.AccountCtrl {
     logout = () => {
       this.authService.logout();
       this.isLoggedIn = false;
-      this.$state.go('main.home.topicList', {}, { reload: true });
+      this.$state.go('main.home.topicList', {}, {reload: true});
     }
   }
 
 
   /**
-  * @ngdoc object
-  * @name auth.account.controller:AccountCtrl
-  *
-  * @description
-  *
-  */
+   * @ngdoc object
+   * @name auth.account.controller:AccountCtrl
+   *
+   * @description
+   *
+   */
   angular
     .module('auth.account')
     .controller('AccountCtrl', AccountCtrl);

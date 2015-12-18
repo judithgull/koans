@@ -21,9 +21,9 @@ module codeEditor {
 
     handleChange = () => {
       this.$scope.handleEditorChange(this.editor);
-/*      if (!this.selectionProcessed) {
-        this.selectEditMark();
-      }*/
+      /*      if (!this.selectionProcessed) {
+       this.selectEditMark();
+       }*/
 
     };
 
@@ -118,7 +118,7 @@ module codeEditor {
       }
     };
 
-    private hasAnnotations():boolean{
+    private hasAnnotations():boolean {
       return this.editor.getSession().getAnnotations().length > 0;
     }
 
@@ -126,7 +126,7 @@ module codeEditor {
       if (!this.hasAnnotations()) {
         var preparedScript = "chai.should();var expect = chai.expect;var assert = chai.assert;\n" + script;
 
-        if(this.$scope.hiddenText){
+        if (this.$scope.hiddenText) {
           preparedScript = preparedScript + '\n' + this.$scope.hiddenText;
         }
         var taskType = Data.taskType.run;
@@ -137,8 +137,8 @@ module codeEditor {
           let message = 'Runtime Error: Incorrect implementation';
           var err = {message: message, line: -1};
           this.editor.getSession().setAnnotations([{
-            row:0,
-            column:0,
+            row: 0,
+            column: 0,
             text: message,
             type: 'error'
           }]);

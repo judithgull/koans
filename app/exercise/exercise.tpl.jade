@@ -7,15 +7,15 @@
     .l-grid.code-editor-wrap
       .l-grid-cell.l-one-half.l-mobile-one-whole
         code-editor(
-          name='exercise',
-          language='topic.programmingLanguage',
-          ng-model= 'exercise.currentExercise.userSolution',
-          libs-loader="exercise.libsLoader",
-          on-error="exercise.onError",
-          on-success='exercise.onSuccess',
-          no-mark,
-          same-as-except-mark='::exercise.content',
-          hidden-text='exercise.hidden'
+        name='exercise',
+        language='topic.programmingLanguage',
+        ng-model= 'exercise.currentExercise.userSolution',
+        libs-loader="exercise.libsLoader",
+        on-error="exercise.onError",
+        on-success='exercise.onSuccess',
+        no-mark,
+        same-as-except-mark='::exercise.content',
+        hidden-text='exercise.hidden'
         )
 
       .l-grid-cell.l-one-half.l-mobile-one-whole

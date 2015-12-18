@@ -26,7 +26,7 @@ module NoMark {
         link: (scope:ng.IScope, elm:JQuery, attrs:ng.IAttributes, controllers:any[]) => {
 
           var editor:AceAjax.Editor = controllers[0].editor;
-          var session: AceAjax.IEditSession = editor.getSession();
+          var session:AceAjax.IEditSession = editor.getSession();
           let errorText = 'Please replace ??? with the correct answer!';
 
           controllers[1].$validators['noMark'] = (value) => !editMarker.containsMark(value);
@@ -39,7 +39,7 @@ module NoMark {
           var markerAnnotations = [];
           var updateMarkers = () => {
             var newMarkers = getMarkers();
-           if (!editMarker.equals(newMarkers, markerAnnotations)) {
+            if (!editMarker.equals(newMarkers, markerAnnotations)) {
               markerAnnotations = newMarkers;
               editMarker.setAnnotations(newMarkers, session, errorText);
             }

@@ -39,10 +39,10 @@ module topicList {
           this.topics.splice(index, 1);
         },
         (error)=> {
-          if(error.status && error.status === 404){
+          if (error.status && error.status === 404) {
             this.reload();
             toastr.error('This topic does not exist anymore');
-          }else {
+          } else {
             this.errorMessage = error.data.message;
           }
         }

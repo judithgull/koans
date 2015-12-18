@@ -6,7 +6,7 @@ module koans {
     .config(config);
 
 
-  function config($urlRouterProvider: ng.ui.IUrlRouterProvider, $stateProvider: ng.ui.IStateProvider) {
+  function config($urlRouterProvider:ng.ui.IUrlRouterProvider, $stateProvider:ng.ui.IStateProvider) {
     $urlRouterProvider.otherwise('topic-list');
     $stateProvider
       .state('main', {

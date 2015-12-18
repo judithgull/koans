@@ -23,7 +23,9 @@ describe('AccountCtrl', function () {
   it('should be logged in, if user is logged in', () => {
     var authService = {
       isLoggedIn: () => true,
-      getLoggedInUser: () => {return {name:'testname'}}
+      getLoggedInUser: () => {
+        return {name: 'testname'}
+      }
     };
     var ctrl = $ctrl('AccountCtrl', {AuthService: authService});
     expect(ctrl.isLoggedIn).toBe(true);
@@ -35,7 +37,9 @@ describe('AccountCtrl', function () {
     var authService = {
       isLoggedIn: () => true,
       logout: logoutSpy,
-      getLoggedInUser: () => {return {name:'testname'}}
+      getLoggedInUser: () => {
+        return {name: 'testname'}
+      }
     };
 
     var ctrl = $ctrl('AccountCtrl', {

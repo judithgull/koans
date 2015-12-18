@@ -5,7 +5,7 @@ module codeEditor {
   describe('Code Editor Controller', function () {
     var ctrl:ICodeEditorModel;
     var scope:ICodeEditorScope;
-    var testEditor: AceAjax.Editor;
+    var testEditor:AceAjax.Editor;
 
     beforeEach(angular.mock.module('codeEditor'));
 
@@ -20,7 +20,7 @@ module codeEditor {
       var doc = angular.element(document);
       doc.find('body').append('<div  id="#test"></div>');
       var element = doc.find("#test");
-      testEditor =  ace.edit(element.get(0));
+      testEditor = ace.edit(element.get(0));
     };
 
 
@@ -28,17 +28,16 @@ module codeEditor {
       expect(ctrl).toBeDefined();
     });
 
-/*    it('should change the initValue', () => {
-      const testValue = "test";
-      const loader = ctrl.createExerciseDataLoader();
-      loader(testEditor);
-      testEditor.setValue(testValue);
-      //ctrl.handleChange({});
-      //expect(scope.ngModel).toBe(testValue);
-    });
-*/
+    /*    it('should change the initValue', () => {
+     const testValue = "test";
+     const loader = ctrl.createExerciseDataLoader();
+     loader(testEditor);
+     testEditor.setValue(testValue);
+     //ctrl.handleChange({});
+     //expect(scope.ngModel).toBe(testValue);
+     });
+     */
   });
-
 
 
 }

@@ -9,7 +9,9 @@ module server.user {
     var userCtrl;
     beforeEach(() => {
       var mockBcrypt = {
-        hash: (payload,x,y,callback) => {callback(null, 'testHash')}
+        hash: (payload, x, y, callback) => {
+          callback(null, 'testHash')
+        }
       };
       userCtrl = new userCtrlModule.UserController(mockBcrypt);
     });
@@ -24,7 +26,7 @@ module server.user {
         save: mockSave
       };
 
-      userCtrl.saveUser('testname','testemail', 'testpass', mockUser);
+      userCtrl.saveUser('testname', 'testemail', 'testpass', mockUser);
       assert(mockUser.name === 'testname');
       assert(mockUser.email === 'testemail');
       assert(mockUser.password === 'testHash');

@@ -6,7 +6,7 @@ module signUp {
     .module('auth.signUp')
     .config(config);
 
-  function config($stateProvider: ng.ui.IStateProvider) {
+  function config($stateProvider:ng.ui.IStateProvider) {
     $stateProvider
       .state('main.signUp', {
         url: '/sign-up',

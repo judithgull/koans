@@ -10,15 +10,15 @@ module RestClient {
     getLib(name:string):ng.IPromise<Data.ILibrary>;
     getLibs(names:string[]):ng.IPromise<Array<Data.ILibrary>>;
     getTopics(queryParams?):ng.IPromise<Array<Data.ITopic>>;
-    createTopic(topic: Data.ITopic):ng.IPromise<any>;
-    updateTopic(topic: Data.ITopic):ng.IPromise<any>;
+    createTopic(topic:Data.ITopic):ng.IPromise<any>;
+    updateTopic(topic:Data.ITopic):ng.IPromise<any>;
     deleteTopic(id:number): ng.IPromise<Data.ITopic>;
     clearCachedTopic():void;
   }
 
-  class RestClient implements IRestClient{
+  class RestClient implements IRestClient {
 
-    topicData: Data.ITopic;
+    topicData:Data.ITopic;
 
     public static $inject = [
       '$http',
@@ -33,12 +33,12 @@ module RestClient {
       this.topicData = null;
     };
 
-    getTopics(queryParams?):ng.IPromise<Array<Data.ITopic>>{
+    getTopics(queryParams?):ng.IPromise<Array<Data.ITopic>> {
       return this.$http({
-          url: TOPICS_URL,
-          method: "GET",
-          params: queryParams
-        }).then(
+        url: TOPICS_URL,
+        method: "GET",
+        params: queryParams
+      }).then(
         (response) => {
           return response.data;
         }
@@ -61,12 +61,12 @@ module RestClient {
       return deferred.promise;
     }
 
-    createTopic(topic: Data.ITopic):ng.IPromise<any> {
-      return this.$http.post(TOPICS_URL,topic);
+    createTopic(topic:Data.ITopic):ng.IPromise<any> {
+      return this.$http.post(TOPICS_URL, topic);
     }
 
-    updateTopic(topic: Data.ITopic):ng.IPromise<any> {
-      return this.$http.put(TOPICS_URL + topic._id,topic);
+    updateTopic(topic:Data.ITopic):ng.IPromise<any> {
+      return this.$http.put(TOPICS_URL + topic._id, topic);
     }
 
     deleteTopic(id:number):ng.IPromise<Data.ITopic> {
@@ -92,11 +92,11 @@ module RestClient {
     /**
      * return the default libraries
      * */
-    getDefaultLibs():ng.IPromise<Array<Data.ILibrary>>{
+    getDefaultLibs():ng.IPromise<Array<Data.ILibrary>> {
       return this.getLibs(["typescripts/lib.d.ts", "typescripts/chai/chai.d.ts", "typescripts/angularjs/angular.d.ts"]);
     }
 
-    getLibs(names:string[]):ng.IPromise<Array<Data.ILibrary>>{
+    getLibs(names:string[]):ng.IPromise<Array<Data.ILibrary>> {
       return this.$q.all(names.map(name => this.getLib(name)));
     }
 
@@ -104,8 +104,8 @@ module RestClient {
       return this.$http.get(libName).then(
         (response) => {
           return {
-            name:libName,
-            content:response.data
+            name: libName,
+            content: response.data
           };
         }
       );

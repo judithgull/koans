@@ -15,12 +15,12 @@ module SolutionCtrl {
 
 
   /**
-  * @ngdoc object
-  * @name exercise.solution.controller:SolutionCtrl
-  *
-  * @description
-  *
-  */
+   * @ngdoc object
+   * @name exercise.solution.controller:SolutionCtrl
+   *
+   * @description
+   *
+   */
   angular
     .module('exercise.solution')
     .controller('SolutionCtrl', SolutionCtrl);

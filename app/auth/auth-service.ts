@@ -20,10 +20,9 @@ module auth {
       'TokenStorage'
     ];
 
-    constructor(
-      private $http:ng.IHttpService,
-      private $q:ng.IQService,
-      private tokenStorage:token.TokenStorage) {
+    constructor(private $http:ng.IHttpService,
+                private $q:ng.IQService,
+                private tokenStorage:token.TokenStorage) {
     }
 
     private userKey = 'user';
@@ -39,7 +38,7 @@ module auth {
 
     login = (email:string, password:string):angular.IPromise<void> => {
       return this.handleTokenRequest(
-        this.$http.post(LOGIN_URL,{email: email, password: password})
+        this.$http.post(LOGIN_URL, {email: email, password: password})
       );
     };
 

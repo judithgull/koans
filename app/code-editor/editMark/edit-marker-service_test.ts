@@ -35,11 +35,11 @@ module codeEditor {
       });
 
       it('should return true when mark changed', () => {
-       expect(service.hasOnlyMarkChanged("???", "")).toBe(true);
-       expect(service.hasOnlyMarkChanged("???", "??")).toBe(true);
-       expect(service.hasOnlyMarkChanged("code ???", "code ??")).toBe(true);
-       expect(service.hasOnlyMarkChanged("code ??? aaa", "code ?? aaa")).toBe(true);
-       expect(service.hasOnlyMarkChanged("code ??? aa\na", "code ?\n? aa\na")).toBe(true);
+        expect(service.hasOnlyMarkChanged("???", "")).toBe(true);
+        expect(service.hasOnlyMarkChanged("???", "??")).toBe(true);
+        expect(service.hasOnlyMarkChanged("code ???", "code ??")).toBe(true);
+        expect(service.hasOnlyMarkChanged("code ??? aaa", "code ?? aaa")).toBe(true);
+        expect(service.hasOnlyMarkChanged("code ??? aa\na", "code ?\n? aa\na")).toBe(true);
       });
 
       it('should return false when original text changed', () => {
@@ -69,33 +69,33 @@ module codeEditor {
     describe('Annotation arrays', () => {
 
       it('should not be equal, for different lengths', () => {
-        var a1 = [new NoMarkAnnotation(0,0,testText)];
+        var a1 = [new NoMarkAnnotation(0, 0, testText)];
         var a2 = [];
-        expect(service.equals(a1,a2)).toBe(false);
+        expect(service.equals(a1, a2)).toBe(false);
       });
 
       it('should be equal, for the same annotations ', () => {
-        var a1 = [new NoMarkAnnotation(0,0,testText)];
-        var a2 = [new NoMarkAnnotation(0,0,testText)];
-        expect(service.equals(a1,a2)).toBe(true);
+        var a1 = [new NoMarkAnnotation(0, 0, testText)];
+        var a2 = [new NoMarkAnnotation(0, 0, testText)];
+        expect(service.equals(a1, a2)).toBe(true);
       });
 
       it('should not be equal, for one different annotation ', () => {
-        var a1 = [new NoMarkAnnotation(0,0,testText)];
-        var a2 = [new NoMarkAnnotation(0,1,testText)];
-        expect(service.equals(a1,a2)).toBe(false);
+        var a1 = [new NoMarkAnnotation(0, 0, testText)];
+        var a2 = [new NoMarkAnnotation(0, 1, testText)];
+        expect(service.equals(a1, a2)).toBe(false);
       });
 
       it('should not be equal, for one different annotation (multiple values)', () => {
-        var a1 = [new NoMarkAnnotation(0,0,testText), new NoMarkAnnotation(0,0,testText)];
-        var a2 = [new NoMarkAnnotation(0,0,testText), new NoMarkAnnotation(1,0,testText)];
-        expect(service.equals(a1,a2)).toBe(false);
+        var a1 = [new NoMarkAnnotation(0, 0, testText), new NoMarkAnnotation(0, 0, testText)];
+        var a2 = [new NoMarkAnnotation(0, 0, testText), new NoMarkAnnotation(1, 0, testText)];
+        expect(service.equals(a1, a2)).toBe(false);
       });
 
 
     });
 
-    describe('getEditMarks',()=>{
+    describe('getEditMarks', ()=> {
 
       it('should return an empty array for an empty, null or undefined text', () => {
         expect(service.getEditMarks(undefined)).toEqual([]);

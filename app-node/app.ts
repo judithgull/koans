@@ -13,11 +13,11 @@ serverApp.use(compression());
 
 var env:string = process.env.NODE_ENV || 'development';
 var maxAge = 0;
-if(env.toUpperCase() === 'PRODUCTION'){
+if (env.toUpperCase() === 'PRODUCTION') {
   maxAge = 86400000;
 }
 
-serverApp.use(express.static(path.join(__dirname, '../app'), { maxAge: maxAge }));
+serverApp.use(express.static(path.join(__dirname, '../app'), {maxAge: maxAge}));
 
 
 serverApp.use(bodyParser.urlencoded({

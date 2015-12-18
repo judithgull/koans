@@ -22,28 +22,28 @@ module topic {
           }
         }
       }).state('main.topic.exercise', {
-        abstract: true,
-        url:'/exercise/{exerciseId:int}',
-        params: {
-          exerciseId: 1
-        },
-        templateUrl: '../exercise/exercise.tpl.html',
-        controller: 'ExerciseCtrl',
-        controllerAs: 'exercise',
-        resolve: {
-          exData: function (RestClient:RestClient.IRestClient, $stateParams) {
-            return RestClient.getExercise($stateParams.topicId, $stateParams.exerciseId);
-          }
+      abstract: true,
+      url: '/exercise/{exerciseId:int}',
+      params: {
+        exerciseId: 1
+      },
+      templateUrl: '../exercise/exercise.tpl.html',
+      controller: 'ExerciseCtrl',
+      controllerAs: 'exercise',
+      resolve: {
+        exData: function (RestClient:RestClient.IRestClient, $stateParams) {
+          return RestClient.getExercise($stateParams.topicId, $stateParams.exerciseId);
         }
-      }).state('main.topic.exercise.solution', {
-        url: '/solution',
-        templateUrl: '../exercise/solution/solution.tpl.html',
-        controller: 'SolutionCtrl',
-        controllerAs: 'solution'
-      }).state('main.topic.exercise.details', {
-        url: '',
-        templateUrl: '../exercise/details/details.tpl.html'
-      });
+      }
+    }).state('main.topic.exercise.solution', {
+      url: '/solution',
+      templateUrl: '../exercise/solution/solution.tpl.html',
+      controller: 'SolutionCtrl',
+      controllerAs: 'solution'
+    }).state('main.topic.exercise.details', {
+      url: '',
+      templateUrl: '../exercise/details/details.tpl.html'
+    });
 
   }
 }

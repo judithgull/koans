@@ -1,11 +1,11 @@
 // global settings
-$boilerplate-mode:       true !default;
+$boilerplate-mode: true !default;
 
 @if not $boilerplate-mode {
-  $layout-classes:    false;
-  $helper-classes:    false;
-  $form-classes:      false;
-  $state-classes:     false;
+  $layout-classes: false;
+  $helper-classes: false;
+  $form-classes: false;
+  $state-classes: false;
 }
 
 // if in boilerplate-mode adapt the prefixes to your need
@@ -14,9 +14,9 @@ $boilerplate-mode:       true !default;
 // %l-site-width, .l-site-width { /* foobar */ }
 // if not in boilerplate mode this will be ignored
 
-$layout-selectors:      "%l-" ".l-";
-$text-selectors:        "%t-" ".t-";
-$form-selectors:        "%form-" ".form-";
-$state-selectors:       "%is-" ".is-";
-$state-selectors-and:   "&%is-" "&.is-";
+$layout-selectors: "%l-" ".l-";
+$text-selectors: "%t-" ".t-";
+$form-selectors: "%form-" ".form-";
+$state-selectors: "%is-" ".is-";
+$state-selectors-and: "&%is-" "&.is-";
 

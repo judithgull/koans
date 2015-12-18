@@ -2,7 +2,7 @@ var jwt = require("jwt-simple");
 var User = require("./user-model.js");
 
 export var getSecret = () => {
-  if(!process.env.SECRET){
+  if (!process.env.SECRET) {
     console.log('no secret defined, using default');
     return 'veryBigSecret...';
   }
@@ -32,7 +32,7 @@ export class UserController {
 
   saveUser = (name:string, email:string, pwd:string, user, error:Function, success:Function) => {
     this.checkEmail(email, error, () => {
-      this.bcrypt.hash(pwd, null, null, (err, hash) =>{
+      this.bcrypt.hash(pwd, null, null, (err, hash) => {
 
         user.name = name;
         user.email = email;
@@ -60,7 +60,7 @@ export class UserController {
         this.saveUser(body.name, body.email, body.password, new User(),
           (err) => {
             console.log(err);
-            res.status(400).send({message:err});
+            res.status(400).send({message: err});
           }, (token, user) => {
             res.status(200).send(
               {

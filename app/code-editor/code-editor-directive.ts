@@ -1,7 +1,7 @@
 module codeEditor {
   'use strict';
 
-  export interface ICodeEditorScope extends ng.IScope{
+  export interface ICodeEditorScope extends ng.IScope {
     language:string;
     hiddenText?:string;
     libsLoader:Function;
@@ -11,7 +11,7 @@ module codeEditor {
     handleEditorChange:Function;
   }
 
-  function codeEditor(): ng.IDirective {
+  function codeEditor():ng.IDirective {
     return {
       restrict: 'E',
       scope: {
@@ -25,8 +25,8 @@ module codeEditor {
       templateUrl: 'code-editor/code-editor.tpl.html',
       controllerAs: 'codeEditor',
       controller: 'CodeEditorCtrl',
-     link: function(scope: ICodeEditorScope, el, attrs, ngModelCtrl: ng.INgModelController) {
-       ngModelCtrl.$render = () => {
+      link: function (scope:ICodeEditorScope, el, attrs, ngModelCtrl:ng.INgModelController) {
+        ngModelCtrl.$render = () => {
           var editor:AceAjax.Editor = scope.codeEditor.editor;
           editor.setValue(ngModelCtrl.$viewValue || '');
         };
@@ -39,7 +39,7 @@ module codeEditor {
           scope.codeEditor.editor.getSession().setMode("ace/mode/" + newValue);
           scope.codeEditor.load(scope.codeEditor.editor);
         });
-     }
+      }
     };
   }
 

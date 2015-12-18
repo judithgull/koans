@@ -2,14 +2,14 @@
 module editTopic {
   'use strict';
 
-  export interface IEditTopicModel{
+  export interface IEditTopicModel {
     submit: Function;
     addExercise:Function;
     removeExercise:Function;
     topic: Data.ITopic;
   }
 
-  class EditTopicCtrl implements IEditTopicModel{
+  class EditTopicCtrl implements IEditTopicModel {
 
     errorMessage:string = null;
     solutionErrors:Data.IError[][] = [];
@@ -26,10 +26,10 @@ module editTopic {
       this.updateSortOrder();
 
       var isNew = !this.topic._id;
-      var submitFunction = (isNew)?(t)=>this.RestClient.createTopic(t):(t)=>this.RestClient.updateTopic(t);
+      var submitFunction = (isNew) ? (t)=>this.RestClient.createTopic(t) : (t)=>this.RestClient.updateTopic(t);
       submitFunction(this.topic).then(
         ()=> {
-          if(isNew) {
+          if (isNew) {
             this.searchParamsService.removeSearchText();
           }
           this.$state.go("main.home.topicList");
@@ -50,7 +50,7 @@ module editTopic {
     };
 
     removeExercise = (index:number) => {
-      this.topic.items.splice(index,1);
+      this.topic.items.splice(index, 1);
     };
 
     onExerciseError = (element:ng.INgModelController) => (errors:Array<Data.IError>) => {
@@ -61,12 +61,12 @@ module editTopic {
       this.setValidity(element, 'exerciseCompileAndRun', false);
     };
 
-    onSolutionError = (index: number, element:ng.INgModelController) => (errors:Array<Data.IError>) => {
+    onSolutionError = (index:number, element:ng.INgModelController) => (errors:Array<Data.IError>) => {
       this.solutionErrors[index] = errors;
       this.setValidity(element, 'solutionCompileAndRun', false);
     };
 
-    onSolutionSuccess = (index: number, element:ng.INgModelController) => () => {
+    onSolutionSuccess = (index:number, element:ng.INgModelController) => () => {
       this.solutionErrors[index] = null;
       this.setValidity(element, 'solutionCompileAndRun', true);
     };
@@ -76,8 +76,8 @@ module editTopic {
     };
 
 
-    private setValidity(element:ng.INgModelController, validationErrorKey: string, isValid: boolean) {
-      if(element) {
+    private setValidity(element:ng.INgModelController, validationErrorKey:string, isValid:boolean) {
+      if (element) {
         element.$setValidity(validationErrorKey, isValid);
         this.$timeout(() => this.$scope.$digest());
       }
@@ -89,22 +89,21 @@ module editTopic {
     constructor(private RestClient:RestClient.IRestClient,
                 private $state:angular.ui.IStateService,
                 private $scope:ng.IScope,
-                private libs: Array<Data.ILibrary>,
+                private libs:Array<Data.ILibrary>,
                 private searchParamsService:core.SearchParamsService,
                 public topic:Data.ITopic,
-                private $timeout:ng.ITimeoutService
-    ) {
+                private $timeout:ng.ITimeoutService) {
     }
   }
 
 
   /**
-  * @ngdoc object
-  * @name editTopic.controller:EditTopicCtrl
-  *
-  * @description
-  *
-  */
+   * @ngdoc object
+   * @name editTopic.controller:EditTopicCtrl
+   *
+   * @description
+   *
+   */
   angular
     .module('editTopic')
     .controller('EditTopicCtrl', EditTopicCtrl);

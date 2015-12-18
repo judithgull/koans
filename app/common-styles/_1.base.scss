@@ -1,21 +1,22 @@
 @import 'mixins';
 
 html {
-  min-height:100%;
+  min-height: 100%;
   font: $t-default-font-size/#{$t-default-line-height} $t-default-font-family;
   color: c(black);
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
+
 html, body, .l-body {
-  min-height:100%;
+  min-height: 100%;
   margin: 0;
 }
+
 strong {
   font-weight: 400;
 }
-
 
 // Remove text-shadow in selection highlight: h5bp.com/i
 // These selection rule sets have to be separate.
@@ -41,7 +42,6 @@ svg,
 video {
   vertical-align: middle;
 }
-
 
 // Remove default fieldset styles.
 fieldset {
@@ -94,7 +94,7 @@ textarea {
     }
   }
   &-prev:before,
-  &-next:after  {
+  &-next:after {
     content: '⌃';
     display: inline-block;
   }
@@ -114,19 +114,18 @@ a.button {
   margin-left: s(medium);
 }
 
-
 //input fields
 .input,
 .textarea,
 .select {
   @include t(paragraph);
-  border:  1px solid c(black);
+  border: 1px solid c(black);
   border-radius: s(large);
   background-color: transparent;
   padding: s(small) s(medium);
   transition: border-color 200ms;
   &:focus {
-    outline:none;
+    outline: none;
     border-color: c(purple);
   }
 }
@@ -137,12 +136,12 @@ a.button {
   width: 100%;
 }
 
-.custom-select{
+.custom-select {
   position: relative;
   display: inline-block;
 
-  &:after{
-    content:'';
+  &:after {
+    content: '';
     width: 0;
     height: 0;
     border-left: 5px solid transparent;
@@ -152,7 +151,7 @@ a.button {
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    pointer-events:none;
+    pointer-events: none;
   }
 }
 
@@ -170,11 +169,9 @@ a.button {
   display: block;
 }
 
-
-.inline-label{
+.inline-label {
   margin-right: s(small);
 }
-
 
 // general typography styles
 
@@ -206,11 +203,10 @@ a.button {
   &:hover {
     color: c(green);
   }
-  & + .t-link{
+  & + .t-link {
     margin-left: s(medium);
   }
 }
-
 
 // general card styles
 
@@ -219,7 +215,6 @@ a.button {
   padding: s(medium);
   margin-bottom: s(large);
 }
-
 
 // ng-view animation styles
 
@@ -230,33 +225,35 @@ a.button {
 }
 
 .view-animate.ng-enter, .view-animate.ng-leave {
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 500ms;
+  transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 500ms;
 
-  display:block;
-  width:100%;
+  display: block;
+  width: 100%;
 
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .view-animate.ng-enter {
-  left:100%;
+  left: 100%;
 }
+
 .view-animate.ng-enter.ng-enter-active {
-  left:0;
+  left: 0;
 }
+
 .view-animate.ng-leave.ng-leave-active {
-  left:-100%;
+  left: -100%;
 }
 
 .field-row {
   margin-bottom: s(large);
 }
 
-.form-error-msg{
+.form-error-msg {
   color: c(error);
   margin-top: s(small);
 }

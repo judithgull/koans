@@ -10,19 +10,19 @@ var _ = require('lodash')
 
 $ = require('gulp-load-plugins')({
   pattern: [
-  'browser-sync',
-  'del',
-  'gulp-*',
-  'karma',
-  'main-bower-files',
-  'multi-glob',
-  'plato',
-  'run-sequence',
-  'streamqueue',
-  'uglify-save-license',
-  'wiredep',
-  'yargs',
-  'nodemon'
+    'browser-sync',
+    'del',
+    'gulp-*',
+    'karma',
+    'main-bower-files',
+    'multi-glob',
+    'plato',
+    'run-sequence',
+    'streamqueue',
+    'uglify-save-license',
+    'wiredep',
+    'yargs',
+    'nodemon'
   ]
 });
 

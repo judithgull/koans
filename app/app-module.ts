@@ -29,9 +29,9 @@ module koans {
         $log.error(error);
         $log.error(toState);
         $log.error(toParams);
-        if(error.status && error.status === 404) {
+        if (error.status && error.status === 404) {
           (<Toastr>toastr).error(error.statusText);
-          setTimeout(function(){
+          setTimeout(function () {
             window.location.reload();
           }, 1000);
         }

@@ -19,18 +19,21 @@ module auth.login {
 
       var mockAuthService:auth.IAuthService = {
         signUp: () => null,
-        logout: () => {},
+        logout: () => {
+        },
         isLoggedIn: () => false,
-        getLoggedInUser:()=>null,
+        getLoggedInUser: ()=>null,
         login: (email:string, password:string):ng.IPromise<void> => {
           loginSpy(email, password);
           deferred.reject();
-          return deferred.promise;}
+          return deferred.promise;
+        }
       };
 
       ctrl = $controller('LoginCtrl',
-        {AuthService: mockAuthService
-      });
+        {
+          AuthService: mockAuthService
+        });
 
     }));
 

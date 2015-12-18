@@ -6,7 +6,7 @@ module login {
     .module('auth.login')
     .config(config);
 
-  function config($stateProvider: ng.ui.IStateProvider) {
+  function config($stateProvider:ng.ui.IStateProvider) {
     $stateProvider
       .state('main.login', {
         url: '/login',

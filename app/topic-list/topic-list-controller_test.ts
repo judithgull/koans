@@ -19,7 +19,8 @@ module topicList {
       };
 
       var authService = {
-        getLoggedInUser: () => {},
+        getLoggedInUser: () => {
+        },
         isLoggedIn: () => true
       };
 
