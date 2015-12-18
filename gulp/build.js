@@ -3,7 +3,8 @@
 var _ = require("underscore.string")
   , fs = require("fs")
   , path = require("path")
-  , bowerDir = JSON.parse(fs.readFileSync(".bowerrc")).directory + path.sep;
+  , bowerDir = JSON.parse(fs.readFileSync(".bowerrc")).directory + path.sep
+  , favicons = require("gulp-favicons");
 
 module.exports = function (gulp, $, config) {
   var isProd = $.yargs.argv.stage === "prod";
@@ -251,7 +252,18 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildTestDirectiveTemplatesDir));
   });
 
-  gulp.task("build-frontend", ["copyTemplates", "assets", "fonts", "data"]);
+  gulp.task("favicons", function () {
+    gulp.src(config.faviconFiles).pipe(favicons({
+      display: "standalone",
+      orientation: "portrait",
+      version: 1.0,
+      logging: false,
+      online: false,
+      html: "./build/app/index.html"
+    })).pipe(gulp.dest("./build/app"));
+  });
+
+  gulp.task("build-frontend", ["copyTemplates", "favicons", "assets", "fonts", "data"]);
 
   gulp.task("build", ["node-scripts", "build-frontend"]);
 

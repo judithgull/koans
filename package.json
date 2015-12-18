@@ -21,6 +21,7 @@
     "gulp-css-rebase-urls": "0.0.5",
     "gulp-cssmin": "^0.1.6",
     "gulp-exec": "^2.1.2",
+    "gulp-favicons": "^2.2.1",
     "gulp-filter": "^2.0.0",
     "gulp-htmlmin": "^1.0.0",
     "gulp-if": "^1.2.4",
