@@ -1,4 +1,5 @@
 module app {
+  "use strict";
 
   export interface IUser {
     _id?: string,
