@@ -55,6 +55,24 @@ mongo --eval "db.getSiblingDB('koans').topics.createIndex({title: 'text', 'items
 #### 3. Nodejs
 Install [Node.js](http://nodejs.org/) (This will also install npm).
 
+#### 4. Dependencies
+Move to the project home (location of the cloned repo):
+```
+cd <path_to_cloned_project>/koans
+```
+
+Run `npm install` to install all dependencies. (npm, bower, patched libraries)
+
+#### 5. Run in production mode
+
+Make sure mongodb is running:
+```
+mongod
+```
+Run ```npm start``` to start application (in a different terminal)
+
+Open browser with [http://localhost:3000] (http://localhost:3000)
+
 #### 4. Webstorm
 1. Use the lates Webstorm 11.x or higher
 2. Install Typescript Version >= 1.6.2 in Webstorm: install with npm i -g typescript
@@ -62,8 +80,6 @@ Install [Node.js](http://nodejs.org/) (This will also install npm).
 - Compiler version: Use path of globally installed typescript: /usr/local/lib/node_modules/typescript/lib
 - Command line options: -p .
 
-#### 5. Install Dependencies
-Run `npm install` to install all dependencies. (npm, bower, patched libraries)
 
 #### 6. Run
 Run `npm start` to start application
