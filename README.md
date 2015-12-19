@@ -73,34 +73,30 @@ Run ```npm start``` to start application (in a different terminal)
 
 Open browser with [http://localhost:3000] (http://localhost:3000)
 
-#### 4. Webstorm
-1. Use the lates Webstorm 11.x or higher
-2. Install Typescript Version >= 1.6.2 in Webstorm: install with npm i -g typescript
-3. Add to Webstorm: Preferences/Languages & Frameworks/Typescript
-- Compiler version: Use path of globally installed typescript: /usr/local/lib/node_modules/typescript/lib
-- Command line options: -p .
+# Development
 
+#### 1. Webstorm
+1. Use the latest Webstorm 11.0 or higher
+2. Make sure the appropriate typescript compiler is used >= 1.6.2: Preferences/Languages & Frameworks/Typescript
+- Compiler version (1.7.3 (bundeled)
+- Use tsconfig.json
 
-#### 6. Run
-Run `npm start` to start application
-
-#### 6. Development Tasks
-- Run `gulp` to run the build task and setup the development environment
-- Run `gulp build` to compile assets
-- Run `gulp dev` to run the build task and setup the development environment
-- Run `gulp unitTest` to run unit tests via Karma and to create code coverage reports
-- Run `gulp webdriverUpdate` to download Selenium server standalone and Chrome driver for e2e testing
-- Run `gulp e2eTest` to run e2e tests via Protractor
+#### 2. Gulp Tasks
+- Run `gulp` to run the build task and setup the development environment (starts mongodb as well)
 - Run `gulp --stage prod` to build files for production
+- Run `gulp unitTest` to run unit tests: [http://localhost:9876](http://localhost:9876)
 
 ## Maintenance tasks
 
 #### MongoDB
 ###### Drop
 Only if you need to drop the db for any reason use:
+
+Make sure db is started:
 ```
 mongod
+```
 (in another terminal)
+```
 mongo koans --eval "db.dropDatabase()"
 ```
-
