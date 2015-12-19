@@ -13,7 +13,7 @@ Programming exercises in Typescript and Javascript
 
 #### 1. MongoDB
 ###### Install 
-Install with brew on OSX: https://docs.mongodb.org/manual/installation/
+See: https://docs.mongodb.org/manual/installation/
 
 ###### Setup
 Add text index (for search) and sample data:
