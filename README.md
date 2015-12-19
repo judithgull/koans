@@ -11,41 +11,61 @@ Programming exercises in Typescript and Javascript
 
 # Installation
 
-#### 1. MongoDB
+#### 1. Clone the repository
+```
+git clone https://github.com/judithgull/koans.git
+```
+
+#### 2. MongoDB
 ###### Install 
 See: https://docs.mongodb.org/manual/installation/
 
-###### Setup
-Add text index (for search) and sample data:
+Create Data directory
+```
+mkdir -p /data/db
+```
+Ensure that the user account running mongod has read and write permissions for the directory.
+
+Test, if db is running: 
 ```
 mongod
-(in another terminal)
+```
+
+###### Setup
+Add text index (for search) and sample data:
+
+Start mongodb, if not already started:
+```
+mongod
+```
+In another terminal:
+Move to the project home (location of the cloned repo):
+```
+cd <path_to_cloned_project>/koans
+```
+Import sample data:
+```
 mongoimport --db koans --collection topics app-node/sample-data/topics.bson
+```
+Add textindex for search:
+```
 mongo --eval "db.getSiblingDB('koans').topics.createIndex({title: 'text', 'items.title': 'text','items.description': 'text'})"
 ```
 
-###### Drop
-Only if you need to drop it for any reason use:
-```
-mongod
-(in another terminal)
-mongo koans --eval "db.dropDatabase()"
-```
-
-#### 2. Nodejs
+#### 3. Nodejs
 Install [Node.js](http://nodejs.org/) (This will also install npm).
 
-#### 3. Webstorm
+#### 4. Webstorm
 1. Use the lates Webstorm 11.x or higher
 2. Install Typescript Version >= 1.6.2 in Webstorm: install with npm i -g typescript
 3. Add to Webstorm: Preferences/Languages & Frameworks/Typescript
 - Compiler version: Use path of globally installed typescript: /usr/local/lib/node_modules/typescript/lib
 - Command line options: -p .
 
-#### 4. Install Dependencies
+#### 5. Install Dependencies
 Run `npm install` to install all dependencies. (npm, bower, patched libraries)
 
-#### 5. Run
+#### 6. Run
 Run `npm start` to start application
 
 #### 6. Development Tasks
@@ -56,3 +76,15 @@ Run `npm start` to start application
 - Run `gulp webdriverUpdate` to download Selenium server standalone and Chrome driver for e2e testing
 - Run `gulp e2eTest` to run e2e tests via Protractor
 - Run `gulp --stage prod` to build files for production
+
+## Maintenance tasks
+
+#### MongoDB
+###### Drop
+Only if you need to drop the db for any reason use:
+```
+mongod
+(in another terminal)
+mongo koans --eval "db.dropDatabase()"
+```
+
