@@ -1,6 +1,5 @@
-# Koans
-Programming exercises in Typescript and Javascript
-
+# A Platform for Programming Exercises in Typescript and Javascript
+[https://ilovecode.herokuapp.com/](https://ilovecode.herokuapp.com/)
 
 # Features
 - Creation of exercise series with template code and assertions
