@@ -9,6 +9,14 @@ Programming exercises in Typescript and Javascript
 - Exercise search
 - Authentication
 
+# Technology Stack
+- [AngularJS](https://angularjs.org/)
+- [Sass (SCSS)](http://sass-lang.com/)
+- [NodeJs](https://nodejs.org/)
+- [MongoDb](https://www.mongodb.org/)
+- [Typescript](http://www.typescriptlang.org/)
+- [Gulp](http://gulpjs.com/)
+
 # Installation
 
 #### 1. Clone the repository
@@ -38,7 +46,7 @@ Start mongodb, if not already started:
 ```
 mongod
 ```
-In another terminal:
+In a different terminal:
 Move to the project home (location of the cloned repo):
 ```
 cd <path_to_cloned_project>/koans
@@ -96,7 +104,7 @@ Make sure db is started:
 ```
 mongod
 ```
-(in another terminal)
+(in a different terminal)
 ```
 mongo koans --eval "db.dropDatabase()"
 ```
