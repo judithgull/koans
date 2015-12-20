@@ -1,4 +1,3 @@
-///<reference path="../../../typings/tsd.d.ts" />
 module auth.login {
   "use strict";
 
@@ -32,7 +31,7 @@ module auth.login {
    * @ngdoc object
    * @name auth.login.controller:LoginCtrl
    *
-   * @description
+   * @description Controller for login
    *
    */
   angular
