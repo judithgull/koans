@@ -1,11 +1,9 @@
-///<reference path="../../typings/tsd.d.ts" />
-module auth.interceptor {
-  /* global describe, beforeEach, it, expect, inject, module */
+module auth {
   "use strict";
 
   describe("AuthInterceptor", () => {
     var interceptor:AuthInterceptor;
-    var tokenStorage:token.TokenStorage;
+    var tokenStorage:TokenStorage;
 
     var testHeaders:ng.IHttpRequestConfigHeaders = {};
     var testConfig:ng.IRequestConfig = {
@@ -37,7 +35,6 @@ module auth.interceptor {
       expect(intercepted).toEqual(testConfig);
       expect(intercepted.headers["authorization"]).toEqual("Bearer testToken");
     });
-
 
   });
 }

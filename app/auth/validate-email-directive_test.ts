@@ -1,14 +1,12 @@
-///<reference path="../../typings/tsd.d.ts" />
 module auth {
-  /* global describe, beforeEach, it, expect, inject, module */
   "use strict";
 
-  describe("validateEmail", function () {
+  describe("validateEmail", () => {
     var scope, form;
 
     beforeEach(angular.mock.module("auth"));
 
-    beforeEach(inject(function ($compile, $rootScope) {
+    beforeEach(inject(($compile, $rootScope) => {
       scope = $rootScope;
       var element = angular.element(
         "<form name='form'>" +
@@ -46,7 +44,5 @@ module auth {
       expect(form.text.$valid).toBe(true);
     });
 
-
   });
-
 }

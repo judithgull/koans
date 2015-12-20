@@ -1,4 +1,3 @@
-///<reference path="../../typings/tsd.d.ts" />
 module auth {
   "use strict";
 
@@ -14,6 +13,9 @@ module auth {
   }
 
   export class AuthService implements IAuthService {
+
+    private userKey = "user";
+
     public static $inject = [
       "$http",
       "$q",
@@ -22,10 +24,8 @@ module auth {
 
     constructor(private $http:ng.IHttpService,
                 private $q:ng.IQService,
-                private tokenStorage:token.TokenStorage) {
+                private tokenStorage:TokenStorage) {
     }
-
-    private userKey = "user";
 
     logout = () => {
       this.tokenStorage.clear();
@@ -77,9 +77,9 @@ module auth {
 
   /**
    * @ngdoc service
-   * @name auth.service:Auth
+   * @name auth.service:AuthService
    *
-   * @description
+   * @description Service for authentication (sign-up, login, logout)
    *
    */
   angular

@@ -1,5 +1,4 @@
-module auth.token {
-  /* global describe, beforeEach, it, expect, inject, module */
+module auth {
   "use strict";
 
   describe("TokenStorage", () => {

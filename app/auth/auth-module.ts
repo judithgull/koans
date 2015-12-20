@@ -1,12 +1,12 @@
-///<reference path="../../typings/tsd.d.ts" />
 module auth {
   "use strict";
 
-  /* @ngdoc object
+  /**
+   * @ngdoc object
    * @name auth
-   * @description
+   * @description authentication module
    *
-   */
+   **/
   angular
     .module("auth", [
       "ui.router"

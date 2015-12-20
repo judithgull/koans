@@ -1,12 +1,11 @@
-///<reference path="../../typings/tsd.d.ts" />
-module auth.interceptor {
+module auth {
   "use strict";
 
   export class AuthInterceptor implements ng.IHttpInterceptor {
 
     public static $inject = ["TokenStorage"];
 
-    constructor(private tokenStorage:token.TokenStorage) {
+    constructor(private tokenStorage:TokenStorage) {
     }
 
     request = (config:ng.IRequestConfig):ng.IRequestConfig => {
@@ -21,16 +20,15 @@ module auth.interceptor {
 
   /**
    * @ngdoc service
-   * @name auth.factory:AuthInterceptor
+   * @name auth.service:AuthInterceptor
    *
-   * @description
+   * @description interceptor for http request to send token
    *
-   */
+   **/
   angular
     .module("auth")
     .service("AuthInterceptor", AuthInterceptor)
     .config(($httpProvider:ng.IHttpProvider) => {
       $httpProvider.interceptors.push("AuthInterceptor");
     });
-
 }

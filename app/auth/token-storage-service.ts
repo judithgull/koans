@@ -1,4 +1,4 @@
-module auth.token {
+module auth {
   "use strict";
 
   export class TokenStorage {
@@ -15,9 +15,9 @@ module auth.token {
    * @ngdoc service
    * @name auth.service:TokenStorage
    *
-   * @description
+   * @description Service for storing the token.
    *
-   */
+   **/
   angular
     .module("auth")
     .service("TokenStorage", TokenStorage);
