@@ -1,4 +1,3 @@
-///<reference path="../../typings/tsd.d.ts" />
 module editTopic {
   "use strict";
 
@@ -13,7 +12,6 @@ module editTopic {
 
     public static $inject = ["RestClient", "$state", "$scope", "libs", "SearchParamsService", "topic", "$timeout"];
 
-    // dependencies are injected via AngularJS $injector
     constructor(private RestClient:core.IRestClient,
                 private $state:angular.ui.IStateService,
                 private $scope:ng.IScope,
@@ -58,7 +56,7 @@ module editTopic {
     };
 
     addExercise = () => {
-      this.topic.items.push(new Exercise());
+      this.topic.items.push(new core.Exercise());
     };
 
     removeExercise = (index:number) => {
@@ -100,7 +98,7 @@ module editTopic {
    * @ngdoc object
    * @name editTopic.controller:EditTopicCtrl
    *
-   * @description
+   * @description Controller for editing existing and new topics
    *
    */
   angular

@@ -1,11 +1,9 @@
-///<reference path="../../typings/tsd.d.ts" />
 module editTopic {
   "use strict";
 
-  /* @ngdoc object
+  /** @ngdoc object
    * @name edit-topic
-   * @description
-   *
+   * @description module for editing existing and new topics
    */
   angular
     .module("editTopic", [

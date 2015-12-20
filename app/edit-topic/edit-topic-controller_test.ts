@@ -1,16 +1,14 @@
-///<reference path="../../typings/tsd.d.ts" />
 module editTopic {
-  /* global describe, beforeEach, it, expect, inject, module */
   "use strict";
 
-  describe("EditTopicCtrl", function () {
+  describe("EditTopicCtrl", () => {
     var ctrl:IEditTopicModel;
     var testTopic:core.ITopic;
     var topic:core.ITopic;
 
     beforeEach(angular.mock.module("editTopic"));
 
-    beforeEach(inject(function ($rootScope, $controller, $state:angular.ui.IStateService) {
+    beforeEach(inject(($rootScope, $controller) => {
       const rc = {
         createTopic: (topic:core.ITopic) => {
           testTopic = topic;
@@ -21,14 +19,14 @@ module editTopic {
         {
           "RestClient": rc,
           "libs": libs,
-          topic: new Topic(),
+          topic: new core.Topic(),
           "$scope": $rootScope
         });
       topic = ctrl.topic;
 
     }));
 
-    it("should have typescript as initial language", function () {
+    it("should have typescript as initial language", () =>  {
       expect(topic.programmingLanguage).toEqual("typescript");
     });
 
@@ -51,35 +49,6 @@ module editTopic {
       ctrl.removeExercise(0);
       expect(topic.items.length).toBe(1);
     });
-
-    //
-    //  it("should call createTopic with the correct arguments", () => {
-    //    const testTitle = "testTitle";
-    //    const testLanguage = "javascript";
-    //    const testExercise = "testExercise";
-    //
-    //    topic.title = testTitle;
-    //    topic.language = testLanguage;
-    //    topic.items[0].exercise = testExercise;
-    //
-    //    ctrl.submit();
-    //
-    //    expect(testTopic.language).toEqual(testLanguage);
-    //    expect(testTopic.title).toEqual(testTitle);
-    //    expect(testTopic.items[0].exercise).toEqual(testExercise);
-    //  });
-    //
-    //  it("should have different sort order", ()=> {
-    //    ctrl.addExercise();
-    //    ctrl.addExercise();
-    //
-    //    ctrl.submit();
-    //
-    //    expect(topic.items[0].sortOrder).toBe(1);
-    //    expect(topic.items[1].sortOrder).toBe(2);
-    //    expect(topic.items[2].sortOrder).toBe(3);
-    //
-    //
 
   });
 }

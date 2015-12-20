@@ -23,6 +23,27 @@ module core {
     solutionRequested?:boolean;
   }
 
+  export class Topic implements ITopic {
+    _id:number;
+    items:Array<IExercise> = [];
+
+    constructor(public title:string = "",
+                public programmingLanguage:string = "typescript") {
+      this.items.push(new Exercise());
+    }
+  }
+
+  export class Exercise implements IExercise {
+    _id:number;
+
+    constructor(public sortOrder:number = 1,
+                public title:string = "",
+                public description:string = "",
+                public exercise:string = "",
+                public solution:string = "") {
+    }
+  }
+
   export interface ILibrary {
     name:string;
     content:any;
