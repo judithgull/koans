@@ -1,14 +1,12 @@
 "use strict";
 
-var _ = require("lodash")
-  , buildConfig = require("./build.config")
-  , config = {}
-  , gulp = require("gulp")
-  , gulpFiles = require("require-dir")("./gulp")
-  , path = require("path")
-  , $, key;
-
-$ = require("gulp-load-plugins")({
+var _ = require("lodash"),
+  buildConfig = require("./build.config"),
+  gulp = require("gulp"),
+  gulpFiles = require("require-dir")("./gulp"),
+  path = require("path"),
+  key,
+  $ = require("gulp-load-plugins")({
   pattern: [
     "browser-sync",
     "del",
@@ -24,7 +22,8 @@ $ = require("gulp-load-plugins")({
     "yargs",
     "nodemon"
   ]
-});
+  }),
+  config = {};
 
 _.merge(config, buildConfig);
 

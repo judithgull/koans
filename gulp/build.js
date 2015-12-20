@@ -1,10 +1,10 @@
 "use strict";
 
-var _ = require("underscore.string")
-  , fs = require("fs")
-  , path = require("path")
-  , bowerDir = JSON.parse(fs.readFileSync(".bowerrc")).directory + path.sep
-  , favicons = require("gulp-favicons");
+var _ = require("underscore.string"),
+  fs = require("fs"),
+  path = require("path"),
+  bowerDir = JSON.parse(fs.readFileSync(".bowerrc")).directory + path.sep,
+  favicons = require("gulp-favicons");
 
 module.exports = function (gulp, $, config) {
   var isProd = $.yargs.argv.stage === "prod";
