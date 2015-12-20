@@ -2,12 +2,12 @@
 module koans {
   "use strict";
 
-  /* @ngdoc object
+  /** @ngdoc object
    * @name koans
    * @description
    *
    */
-  var app = angular.module("koans", [
+  var app = angular.module("app", [
     "ui.router",
     "ngAria",
     "ui.ace",
