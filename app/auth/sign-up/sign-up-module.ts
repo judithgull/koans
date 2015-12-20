@@ -1,12 +1,11 @@
-///<reference path="../../../typings/tsd.d.ts" />
-module signUp {
+module auth.signUp {
   "use strict";
 
-  /* @ngdoc object
+  /** @ngdoc object
    * @name auth.sign-up
-   * @description
+   * @description account sign-up
    *
-   */
+   **/
   angular
     .module("auth.signUp", [
       "ui.router",

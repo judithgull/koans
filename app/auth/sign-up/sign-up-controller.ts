@@ -1,12 +1,14 @@
-///<reference path="../../../typings/tsd.d.ts" />
-module signUp.SignUpCtrl {
+module auth.signUp {
   "use strict";
 
   export class SignUpCtrl {
-    public static $inject = ["AuthService", "$state"];
     duplicatedEmailError = null;
 
-    constructor(private authService:auth.IAuthService, private $state:angular.ui.IStateService, public user:app.IUser) {
+    static $inject = ["AuthService", "$state"];
+
+    constructor(private authService:auth.IAuthService,
+                private $state:angular.ui.IStateService,
+                public user:app.IUser) {
       this.user = new app.User();
     }
 
@@ -25,7 +27,7 @@ module signUp.SignUpCtrl {
    * @ngdoc object
    * @name auth.signUp.controller:SignUpCtrl
    *
-   * @description
+   * @description sign-up controller
    *
    */
   angular

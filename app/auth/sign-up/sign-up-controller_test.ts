@@ -1,12 +1,9 @@
-///<reference path="../../../typings/tsd.d.ts" />
-module signUp.SignUpCtrl {
-  /* global describe, beforeEach, it, expect, inject, module */
+module auth.signUp {
   "use strict";
 
   describe("SignUpCtrl", () => {
     var ctrl:SignUpCtrl;
     var submitUserSpy;
-    var goSpy;
     var deferred:ng.IDeferred<any>;
 
     beforeEach(angular.mock.module("auth.signUp"));
@@ -26,15 +23,9 @@ module signUp.SignUpCtrl {
         login: (email, password) => null
       };
 
-      goSpy = sinon.spy();
-      var mockStateService = {
-        go: goSpy
-      };
-
       ctrl = $controller("SignUpCtrl",
         {
-          AuthService: mockAuthService,
-          $state: mockStateService
+          AuthService: mockAuthService
         });
     }));
 
@@ -65,19 +56,6 @@ module signUp.SignUpCtrl {
         sinon.assert.calledWith(submitUserSpy, testUser);
       });
 
-      /*      it("should return to topic-list, after successful signup", () => {
-       const testUser = new app.User();
-       testUser.name = "testName";
-       testUser.email = "testEmail";
-       testUser.password = "testPwd";
-       ctrl.user = testUser;
-
-       ctrl.submit();
-       deferred.resolve();
-       sinon.assert.calledOnce(goSpy);
-       sinon.assert.calledWith(goSpy, "main.topic-list");
-       });
-       */
     });
 
   });

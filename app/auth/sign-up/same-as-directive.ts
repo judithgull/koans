@@ -4,22 +4,21 @@ module auth.signUp {
   /**
    * @ngdoc directive
    * @name auth.signUp.directive:sameAs
-   * @restrict EA
-   * @element
+   * @restrict A
    *
-   * @description
+   * @description Compares two ng-Model values. If the values are not the same, there is a validation error.
    *
    * @example
    <example module="auth.signUp">
-   <file name="index.html">
-   <form name="form">
-   <input name="password" ng-model="model.password" type="password">
-   <input name="passwordRepeated" ng-model="model.passwordRepeated" type="password" same-as="model.password">
-   </form>
-   </file>
+     <file name="index.html">
+       <form name="form">
+         <input name="password" ng-model="model.password" type="password">
+         <input name="passwordRepeated" ng-model="model.passwordRepeated" type="password" same-as="model.password">
+       </form>
+     </file>
    </example>
    *
-   */
+   **/
   angular
     .module("auth.signUp")
     .directive("sameAs", ():ng.IDirective => {

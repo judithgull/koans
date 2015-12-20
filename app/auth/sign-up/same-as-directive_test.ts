@@ -1,9 +1,9 @@
 module auth.signUp {
-  /* global describe, beforeEach, it, expect, inject, module */
   "use strict";
 
   describe("sameAs", () => {
-    var scope:ng.IScope, form;
+    let scope:ng.IScope,
+        form;
     const TEST_VAL_1 = "pw1";
     const TEST_VAL_2 = "pw2";
 
