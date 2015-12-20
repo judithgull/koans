@@ -1,7 +1,7 @@
 .exercise-card(ng-form="ce")
   .exercise-card-info
-    h2.t-title-small.exercise-title {{::exercise.currentExercise.title}}
-    p.t-paragraph.exercise-description {{exercise.currentExercise.description}}
+    h2(ng-if="exercise.currentExercise.title").t-title-small.exercise-title {{::exercise.currentExercise.title}}
+    p.t-paragraph.exercise-description {{::exercise.currentExercise.description}}
 
   .l-grid-wrap
     .l-grid.code-editor-wrap
