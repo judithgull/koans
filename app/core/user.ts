@@ -8,7 +8,6 @@ module app {
     password:string
   }
 
-
   export class User implements IUser {
     constructor(public name:string = null,
                 public email:string = null,
