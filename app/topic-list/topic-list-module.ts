@@ -1,16 +1,15 @@
 module topicList {
   "use strict";
 
-  /* @ngdoc object
+  /** @ngdoc object
    * @name topic-list
-   * @description
+   * @description Module for list of topics (loading, searching, displaying)
    *
    */
   angular
     .module("topicList", [
       "ui.router",
       "core",
-      "truncate",
       "dibari.angular-ellipsis"
     ]);
 }

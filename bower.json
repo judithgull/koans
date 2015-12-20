@@ -12,7 +12,6 @@
     "bonescss": "~0.7.3",
     "sensible": "~0.5.4",
     "angular-aria": "~1.4.8",
-    "angular-truncate-2": "~0.4.1",
     "angular-ellipsis": "~0.1.6",
     "toastr": "~2.1.2",
     "angular-animate": "~1.4.8"

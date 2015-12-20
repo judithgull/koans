@@ -1,6 +1,7 @@
 {
   "name": "koans",
   "version": "0.0.0",
+  "repository":"https://github.com/judithgull/koans",
   "main": "build/app-node/app.js",
   "scripts": {
     "postinstall": "bower install; tsd install; gulp patchLibs",
