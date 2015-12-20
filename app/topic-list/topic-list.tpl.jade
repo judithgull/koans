@@ -12,7 +12,7 @@ ul(ng-show="topicList.isLoggedIn").l-list-reset.filter-tabs
       | My Koans
 
 .filter-wrap
-  button(ui-sref="main.editTopic()" ng-disabled="!header.isLoggedIn").button.button-plus
+  button(ui-sref="main.editTopic()" ng-disabled="!topicList.isLoggedIn").button.button-plus
   p.t-paragraph.topic-list-message(ng-show="topicList.topics.length==0") Sorry, no matches found.
   .l-grid.topic-list
     h1.is-visuallyhidden List of Exercises Series
