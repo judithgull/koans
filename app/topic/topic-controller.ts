@@ -1,4 +1,4 @@
-module TopicCtrl {
+module topic {
   "use strict";
 
   export interface ITopicCtrl {
@@ -19,7 +19,7 @@ module TopicCtrl {
     title:string;
     private exerciseCount:number;
 
-    public static $inject = ["topicData", "$state"];
+    static $inject = ["topicData", "$state"];
 
     constructor(public topicData:core.ITopic, private $state:ITopicStateService) {
       this.title = topicData.title;

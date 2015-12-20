@@ -1,16 +1,15 @@
-// global describe, beforeEach, it, expect, inject, module*/
-module ExerciseCtrl {
+module topic.exercise {
   "use strict";
 
   describe("ExerciseCtrl", function () {
-    var ctrl;
+    var ctrl:ExerciseCtrl;
     var topic = core.testUtil.MockData.getTopic();
 
-    beforeEach(angular.mock.module("exercise"));
+    beforeEach(angular.mock.module("topic.exercise"));
 
     beforeEach(inject(function ($rootScope:ng.IRootScopeService, $controller) {
       var scope = $rootScope.$new();
-      ctrl = $controller("ExerciseCtrl", {
+      ctrl = <ExerciseCtrl>$controller("ExerciseCtrl", {
         topicData: topic,
         $state: {
           params: {

@@ -1,8 +1,8 @@
-module ExerciseCtrl {
+module topic.exercise {
   "use strict";
   import IExercise = core.IExercise;
 
-  class ExerciseCtrl {
+  export class ExerciseCtrl {
     currentExercise:IExercise;
     content:string;
     hidden:string;
@@ -14,6 +14,27 @@ module ExerciseCtrl {
     exerciseCount:number;
     solutionClicked:boolean;
 
+    static $inject = ["topicData", "$state", "$scope", "libs", "$timeout", "EditMark"];
+
+    constructor(private topicData:core.ITopic,
+                private $state:angular.ui.IStateService,
+                private $scope:ng.IScope,
+                private libs,
+                private $timeout:ng.ITimeoutService,
+                private editMark:codeEditor.editMark.EditMark) {
+      this.id = this.$state.params["exerciseId"] - 1;
+      this.currentExercise = this.getCurrentExercise();
+      this.exerciseCount = topicData.items.length;
+
+      let hidable = this.editMark.splitVisible(this.currentExercise.exercise);
+      this.hidden = hidable.hidden;
+      this.content = hidable.visible;
+
+      if (!this.currentExercise.userSolution) {
+        this.currentExercise.userSolution = hidable.visible;
+      }
+    }
+
     libsLoader = () => this.libs;
 
     onError = (errors:Array<core.IError>) => {
@@ -23,6 +44,7 @@ module ExerciseCtrl {
         this.$scope.$digest();
       });
     };
+
     onSuccess = () => {
       if (!this.getCurrentExercise().solved && !this.getCurrentExercise().solutionRequested) {
         this.getCurrentExercise().solved = true;
@@ -79,27 +101,6 @@ module ExerciseCtrl {
       this.$state.go("main.topic.exercise.details", {exerciseId: id});
     };
 
-    public static $inject = ["topicData", "$state", "$scope", "libs", "$timeout", "EditMark"];
-
-    constructor(private topicData:core.ITopic,
-                private $state:angular.ui.IStateService,
-                private $scope:ng.IScope,
-                private libs,
-                private $timeout:ng.ITimeoutService,
-                private editMark:codeEditor.editMark.EditMark) {
-      this.id = this.$state.params["exerciseId"] - 1;
-      this.currentExercise = this.getCurrentExercise();
-      this.exerciseCount = topicData.items.length;
-
-      let hidable = this.editMark.splitVisible(this.currentExercise.exercise);
-      this.hidden = hidable.hidden;
-      this.content = hidable.visible;
-
-      if (!this.currentExercise.userSolution) {
-        this.currentExercise.userSolution = hidable.visible;
-      }
-    }
-
     giveUp = () => {
       this.solutionClicked = !this.solutionClicked;
       if (this.solutionClicked) {
@@ -118,19 +119,17 @@ module ExerciseCtrl {
 
     private getCurrentExercise = () => this.topicData.items[this.id];
 
-    public isSolution = () => {
-      return this.$state.is("main.topic.exercise.solution");
-    };
+    isSolution = () => this.$state.is("main.topic.exercise.solution");
   }
 
   /**
    * @ngdoc object
-   * @name exercise.controller:ExerciseCtrl
+   * @name topic.exercise.controller:ExerciseCtrl
    *
-   * @description
+   * @description Controller for exercise (run, validate and show errors and success)
    *
    */
   angular
-    .module("exercise")
+    .module("topic.exercise")
     .controller("ExerciseCtrl", ExerciseCtrl);
 }

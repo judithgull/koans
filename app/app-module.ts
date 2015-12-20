@@ -14,6 +14,7 @@ module koans {
     "codeEditor",
     "topicList",
     "topic",
+    "topic.exercise",
     "editTopic",
     "auth",
     "header",
