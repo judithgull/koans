@@ -27,6 +27,10 @@ form(ng-submit="editTopic.submit()" name="editTopicForm").edit-topic-form
           p(ng-message="required").t-paragraph.form-error-msg Please enter a description!
       .field-row
         p.t-paragraph.t-info-msg You exercise must contain the mark "???". This mark must be replaced in the solution with the correct answer.
+        p.t-paragraph.t-info-msg
+          a(href="http://chaijs.com/").t-info-msg Chai
+          |  assertions can be use to validate the user solution
+        p.t-paragraph.t-info-msg You can insert the comment //hidden to hide everything below this keyword.
         .l-grid.code-editor-wrap
           .l-grid-cell.l-one-half.l-mobile-one-whole
             label(for="editTopicForm.$index.exercise").label.t-label Exercise *
