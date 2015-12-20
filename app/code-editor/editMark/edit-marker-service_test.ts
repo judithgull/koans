@@ -2,14 +2,14 @@
 module codeEditor {
   "use strict";
 
-  describe("EditMarker", function () {
-    var service:EditMarker;
+  describe("EditMark", function () {
+    var service:EditMark;
     var testText = "Please replace ??? with the correct answer!";
 
     beforeEach(angular.mock.module("codeEditor"));
 
-    beforeEach(inject(function (EditMarker) {
-      service = EditMarker;
+    beforeEach(inject(function (EditMark) {
+      service = EditMark;
     }));
 
     it("empty text should not contain a mark", () => {

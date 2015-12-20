@@ -1,7 +1,7 @@
 module codeEditor {
   "use strict";
 
-  export class EditMarker {
+  export class EditMark {
     mark = "???";
 
     setAnnotations = (newMarkerAnnotations, session, errorText) => {
@@ -148,12 +148,12 @@ module codeEditor {
 
   /**
    * @ngdoc service
-   * @name codeEditor.service:EditMarker
+   * @name codeEditor.service:EditMark
    *
    * @description
    *
    */
   angular
     .module("codeEditor")
-    .service("EditMarker", EditMarker);
+    .service("EditMark", EditMark);
 }

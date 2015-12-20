@@ -79,14 +79,14 @@ module ExerciseCtrl {
       this.$state.go("main.topic.exercise.details", {exerciseId: id});
     };
 
-    public static $inject = ["topicData", "$state", "$scope", "libs", "$timeout", "EditMarker"];
+    public static $inject = ["topicData", "$state", "$scope", "libs", "$timeout", "EditMark"];
 
     constructor(private topicData:core.ITopic,
                 private $state:angular.ui.IStateService,
                 private $scope:ng.IScope,
                 private libs,
                 private $timeout:ng.ITimeoutService,
-                private editMarker:codeEditor.EditMarker) {
+                private editMarker:codeEditor.EditMark) {
       this.id = this.$state.params["exerciseId"] - 1;
       this.currentExercise = this.getCurrentExercise();
       this.exerciseCount = topicData.items.length;

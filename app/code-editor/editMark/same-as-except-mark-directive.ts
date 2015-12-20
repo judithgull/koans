@@ -19,7 +19,7 @@ module codeEditor {
    */
   angular
     .module("codeEditor")
-    .directive("sameAsExceptMark", ["EditMarker", (editMarker:codeEditor.EditMarker):ng.IDirective => {
+    .directive("sameAsExceptMark", ["EditMark", (editMarker:codeEditor.EditMark):ng.IDirective => {
       return {
         restrict: "A",
         require: ["^codeEditor", "ngModel"],

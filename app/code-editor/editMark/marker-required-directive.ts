@@ -19,7 +19,7 @@ module MarkerRequired {
    */
   angular
     .module("codeEditor")
-    .directive("markRequired", ["EditMarker", (editMarker:codeEditor.EditMarker):ng.IDirective => {
+    .directive("markRequired", ["EditMark", (editMarker:codeEditor.EditMark):ng.IDirective => {
       return {
         restrict: "A",
         require: "ngModel",

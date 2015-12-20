@@ -19,7 +19,7 @@ module NoMark {
    *
    */
   angular.module("codeEditor")
-    .directive("noMark", ["EditMarker", (editMarker:codeEditor.EditMarker):ng.IDirective => {
+    .directive("noMark", ["EditMark", (editMarker:codeEditor.EditMark):ng.IDirective => {
       return {
         restrict: "A",
         require: ["^codeEditor", "ngModel"],

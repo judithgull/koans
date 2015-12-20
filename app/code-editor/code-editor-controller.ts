@@ -12,10 +12,10 @@ module codeEditor {
     editor:AceAjax.Editor;
     private selectionProcessed = false;
 
-    public static $inject = ["$scope", "EditMarker"];
+    public static $inject = ["$scope", "EditMark"];
 
     constructor(private $scope:ICodeEditorScope,
-                private editMarker:EditMarker) {
+                private editMarker:EditMark) {
 
     }
 
