@@ -84,9 +84,9 @@ module topicList {
 
   /**
    * @ngdoc object
-   * @name topic-list.controller:TopicListCtrl
+   * @name topicList.controller:TopicListCtrl
    *
-   * @description
+   * @description Controller for list of topics
    *
    */
   angular

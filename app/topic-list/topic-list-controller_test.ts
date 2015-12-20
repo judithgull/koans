@@ -1,4 +1,3 @@
-/*global describe, beforeEach, it, expect, inject, module*/
 module topicList {
   "use strict";
 
