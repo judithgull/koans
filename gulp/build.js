@@ -26,6 +26,31 @@ module.exports = function (gulp, $, config) {
 
   gulp.task("node:clean", clean(config.buildNodeDir));
 
+  // copy and optimize images into build directory
+  gulp.task("assets", ["clean"], function () {
+    return gulp.src(config.appAssetsFiles)
+      .pipe($.if(isProd, $.imagemin()))
+      .pipe(gulp.dest(config.buildAssets));
+  });
+
+  gulp.task("favicons", ["index", "clean"], function () {
+    gulp.src(config.faviconFiles).pipe(favicons({
+      display: "standalone",
+      orientation: "portrait",
+      version: 1.0,
+      logging: false,
+      online: false,
+      html: "./build/app/index.html"
+    })).pipe(gulp.dest("./build/app"));
+  });
+
+  // compile index.jade and copy into build directory
+  gulp.task("index",["clean"], function () {
+    return gulp.src(config.appIndexFile)
+      .pipe($.jade())
+      .pipe(gulp.dest(config.buildDir));
+  });
+
   gulp.task("node-scripts", function () {
     var tsFilter = $.filter("**/*.ts");
     return gulp.src(config.appNodeScriptFiles)
@@ -38,20 +63,14 @@ module.exports = function (gulp, $, config) {
   });
 
   // compile markup files and copy into build directory
-  gulp.task("markup", ["clean"], function () {
+  gulp.task("markup", function () {
     return gulp.src(config.appMarkupFiles)
       .pipe($.jade())
       .pipe(gulp.dest(config.buildDir));
   });
 
-  // copy data files into build directory
-  gulp.task("data", ["clean"], function () {
-    return gulp.src(config.appDataFiles)
-      .pipe(gulp.dest(config.buildData));
-  });
-
   // compile styles and copy into build directory
-  gulp.task("styles", ["clean"], function () {
+  gulp.task("styles", function () {
     return gulp.src(config.appStyleFiles)
       .pipe($.plumber({
         errorHandler: function (err) {
@@ -170,14 +189,14 @@ module.exports = function (gulp, $, config) {
   });
 
   // copy typescriptServices from node_modules into build directory
-  gulp.task("copyTsServices", ["clean", "bowerCopy"], function () {
+  gulp.task("copyTsServices", [ "bowerCopy"], function () {
     return gulp.src(config.tsServicesFiles)
       .pipe(gulp.dest(config.extAceDir));
   });
 
 
   // copy typescripts/lib.d.ts to build directory
-  gulp.task("copyTypeDefinitions", ["clean", "bowerCopy"], function () {
+  gulp.task("copyTypeDefinitions", ["bowerCopy"], function () {
     return gulp.src([config.tsLibDTs, config.tsTypings])
       .pipe(gulp.dest(config.extTs));
   });
@@ -227,22 +246,6 @@ module.exports = function (gulp, $, config) {
     }
   });
 
-  // copy custom fonts into build directory
-  gulp.task("fonts", ["clean"], function () {
-    var fontFilter = $.filter("**/*.{eot,otf,svg,ttf,woff}");
-    return gulp.src([config.appFontFiles])
-      .pipe(fontFilter)
-      .pipe(gulp.dest(config.buildFonts))
-      .pipe(fontFilter.restore());
-  });
-
-  // copy and optimize images into build directory
-  gulp.task("assets", function () {
-    return gulp.src(config.appAssetsFiles)
-      .pipe($.if(isProd, $.imagemin()))
-      .pipe(gulp.dest(config.buildAssets));
-  });
-
   gulp.task("copyTemplates", ["bowerInject"], function () {
     // always copy templates to testBuild directory
     var stream = $.streamqueue({objectMode: true});
@@ -253,20 +256,9 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildTestDirectiveTemplatesDir));
   });
 
-  gulp.task("favicons", function () {
-    gulp.src(config.faviconFiles).pipe(favicons({
-      display: "standalone",
-      orientation: "portrait",
-      version: 1.0,
-      logging: false,
-      online: false,
-      html: "./build/app/index.html"
-    })).pipe(gulp.dest("./build/app"));
-  });
+  gulp.task("pre-build", ["assets", "favicons", "node:clean"]);
 
-  gulp.task("pre-build", ["clean", "node:clean"]);
-
-  gulp.task("build-frontend", ["copyTemplates", "favicons", "assets", "fonts", "data"]);
+  gulp.task("build-frontend", ["copyTemplates"]);
 
   gulp.task("build", ["node-scripts", "build-frontend"]);
 

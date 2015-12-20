@@ -28,15 +28,14 @@ var _ = require("lodash"),
 _.merge(config, buildConfig);
 
 config.appFiles = path.join(config.appDir, "**/*");
-config.appFontFiles = path.join(config.appDir, "assets/fonts/**/*");
 config.faviconFiles = path.join(config.appDir, "assets/favicon.png");
 config.appAssetsFiles = path.join(config.appDir, "assets/**/*");
 config.appMarkupFiles = path.join(config.appDir, "**/*.jade");
+config.appIndexFile = path.join(config.appDir, "**/index.jade");
 config.appScriptFiles = path.join(config.appDir, "**/*.ts");
 config.appNodeScriptFiles = path.join(config.appNodeDir, "**/*.ts");
 
 config.appStyleFiles = path.join(config.appDir, "**/*.scss");
-config.appDataFiles = path.join(config.appDir, "data/**/*.json");
 
 config.tsLibDir = path.join(config.nodeModules, "typescript/lib");
 config.tsServicesFiles = path.join(config.tsLibDir, "typescriptServices.js");
