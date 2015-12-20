@@ -1,25 +1,25 @@
-module NoMark {
+module codeEditor.editMark {
   "use strict";
 
 
   /**
    * @ngdoc Validates, if no edit mark is available in the ng.Model value
-   * @name codeEditor.directive:noMark
+   * @name codeEditor.directive:noEditMark
    * @restrict A
-   * @element
    *
-   * @description
+   * @description Validates that there is no edit mark available.
+   * Sets validation error and annotations in code-editor, if necessary.
    *
    * @example
    <example module="codeEditor">
    <file name="index.html">
-   <no-mark></no-mark>
+   <code-editor no-edit-mark></code-editor>
    </file>
    </example>
    *
    */
   angular.module("codeEditor")
-    .directive("noMark", ["EditMark", (editMarker:codeEditor.EditMark):ng.IDirective => {
+    .directive("noEditMark", ["EditMark", (editMarker:EditMark):ng.IDirective => {
       return {
         restrict: "A",
         require: ["^codeEditor", "ngModel"],
@@ -33,7 +33,7 @@ module NoMark {
 
           var getMarkers = ():AceAjax.Annotation[] => {
             var ranges = editMarker.getEditMarks(session.getValue());
-            return ranges.map((r) => new codeEditor.NoMarkAnnotation(r.row, r.column, errorText));
+            return ranges.map((r) => new NoMarkAnnotation(r.row, r.column, errorText));
           };
 
           var markerAnnotations = [];

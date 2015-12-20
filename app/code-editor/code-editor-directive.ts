@@ -1,4 +1,4 @@
-module codeEditor {
+module codeEditor.editMark {
   "use strict";
 
   export interface ICodeEditorScope extends ng.IScope {

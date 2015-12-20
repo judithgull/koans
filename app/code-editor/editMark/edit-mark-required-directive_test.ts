@@ -19,14 +19,14 @@ module codeEditor.editMark {
       form = scope.form;
     }));
 
-    it("should be invalid for a text without marker", () => {
+    it("should be invalid for a text without edit mark", () => {
       form.text.$setViewValue("bla");
       scope.$digest();
       expect(form.text.$valid).toBe(false);
     });
 
 
-    it("should be valid for a text with marker", () => {
+    it("should be valid for a text with edit mark", () => {
       form.text.$setViewValue("aaa ??? bla");
       scope.$digest();
       expect(form.text.$valid).toBe(true);

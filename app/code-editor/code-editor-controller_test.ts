@@ -1,4 +1,4 @@
-module codeEditor {
+module codeEditor.editMark {
   /* global describe, beforeEach, it, expect, inject, module */
   "use strict";
 

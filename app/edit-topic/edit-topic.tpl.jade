@@ -26,7 +26,7 @@ form(ng-submit="editTopic.submit()" name="editTopicForm").edit-topic-form
         div(ng-messages="ex.description.$error" ng-show="ex.description.$dirty")
           p(ng-message="required").t-paragraph.form-error-msg Please enter a description!
       .field-row
-        p.t-paragraph.t-info-msg You exercise must contain the marker "???". This marker must be replaced in the solution with the correct answer.
+        p.t-paragraph.t-info-msg You exercise must contain the mark "???". This mark must be replaced in the solution with the correct answer.
         .l-grid.code-editor-wrap
           .l-grid-cell.l-one-half.l-mobile-one-whole
             label(for="editTopicForm.$index.exercise").label.t-label Exercise *
@@ -55,13 +55,13 @@ form(ng-submit="editTopic.submit()" name="editTopicForm").edit-topic-form
             language="editTopic.topic.programmingLanguage",
             libs-loader="editTopic.libsLoader",
             ng-model="item.solution",
-            same-as-except-mark="item.exercise",
-            no-mark
+            same-as-except-edit-mark="item.exercise",
+            no-edit-mark
             ).code-editor
             div(ng-messages="ex.solution.$error" ng-show="ex.solution.$dirty")
               p(ng-message="required").t-paragraph.form-error-msg Please enter a solution!
               p(ng-message="solutionCompileAndRun").t-paragraph.form-error-msg Your solution must have no errors!
-              p(ng-message="sameAsExceptMark").t-paragraph.form-error-msg Only ??? can change in the solution compared to the exercise.
+              p(ng-message="sameAsExceptEditMark").t-paragraph.form-error-msg Only ??? can change in the solution compared to the exercise.
             div(ng-show="ex.solution.$error && ex.solution.$error.solutionCompileAndRun" ng-repeat="se in editTopic.getSolutionError($index)").feedback
               p.feedback-error
                 span(ng-show="se.line > 0").t-label.feedback-line Line {{se.line}}

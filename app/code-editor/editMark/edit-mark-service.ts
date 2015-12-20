@@ -1,4 +1,4 @@
-module codeEditor {
+module codeEditor.editMark {
   "use strict";
 
   export class EditMark {
@@ -150,7 +150,7 @@ module codeEditor {
    * @ngdoc service
    * @name codeEditor.service:EditMark
    *
-   * @description
+   * @description Helper methods for editMark
    *
    */
   angular

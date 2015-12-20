@@ -1,4 +1,4 @@
-module codeEditor {
+module codeEditor.editMark {
   /* global describe, beforeEach, it, expect, inject, module */
   "use strict";
 
@@ -13,7 +13,7 @@ module codeEditor {
       var element = angular.element(
         "<form name='form'>" +
         "<input name='exercise' ng-model='model.exercise'>" +
-        "<input name='solution' ng-model='model.solution' same-as-except-mark='model.exercise'>" +
+        "<input name='solution' ng-model='model.solution' same-as-except-edit-mark='model.exercise'>" +
         "</form>"
       );
       // var codeEditor = sinon.spy();

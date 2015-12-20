@@ -86,12 +86,12 @@ module ExerciseCtrl {
                 private $scope:ng.IScope,
                 private libs,
                 private $timeout:ng.ITimeoutService,
-                private editMarker:codeEditor.EditMark) {
+                private editMark:codeEditor.editMark.EditMark) {
       this.id = this.$state.params["exerciseId"] - 1;
       this.currentExercise = this.getCurrentExercise();
       this.exerciseCount = topicData.items.length;
 
-      let hidable = this.editMarker.splitVisible(this.currentExercise.exercise);
+      let hidable = this.editMark.splitVisible(this.currentExercise.exercise);
       this.hidden = hidable.hidden;
       this.content = hidable.visible;
 

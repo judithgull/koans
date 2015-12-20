@@ -1,5 +1,5 @@
 /* global describe, beforeEach, it, expect, inject, module */
-module codeEditor {
+module codeEditor.editMark {
   "use strict";
 
   describe("EditMark", function () {
