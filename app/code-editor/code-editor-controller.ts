@@ -1,4 +1,4 @@
-module codeEditor.editMark {
+module codeEditor {
   "use strict";
 
   export interface  ICodeEditorModel {
@@ -15,20 +15,23 @@ module codeEditor.editMark {
     public static $inject = ["$scope", "EditMark"];
 
     constructor(private $scope:ICodeEditorScope,
-                private editMarker:EditMark) {
+                private editMark:editMark.EditMark) {
 
     }
 
     handleChange = () => {
       this.$scope.handleEditorChange(this.editor);
-      /*      if (!this.selectionProcessed) {
-       this.selectEditMark();
-       }*/
-
+//      TODO: Does not work on safari mobile yet
+//      if (!this.selectionProcessed) {
+//      this.selectEditMark();
+//      }
     };
 
+    /**
+     *
+     * */
     selectEditMark = () => {
-      var range = this.editor.find(this.editMarker.mark, {
+      var range = this.editor.find(this.editMark.mark, {
         backwards: false,
         wrap: true,
         caseSensitive: false,
@@ -152,9 +155,9 @@ module codeEditor.editMark {
 
   /**
    * @ngdoc object
-   * @name exercise.controller:CodeEditorCtrl
+   * @name codeEditor.controller:CodeEditorCtrl
    *
-   * @description
+   * @description Handles code editor setup
    *
    */
   angular

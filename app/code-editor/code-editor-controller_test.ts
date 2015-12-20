@@ -1,5 +1,4 @@
-module codeEditor.editMark {
-  /* global describe, beforeEach, it, expect, inject, module */
+module codeEditor {
   "use strict";
 
   describe("Code Editor Controller", function () {
@@ -26,17 +25,6 @@ module codeEditor.editMark {
     it("should be defined", function () {
       expect(ctrl).toBeDefined();
     });
-
-    /*    it("should change the initValue", () => {
-     const testValue = "test";
-     const loader = ctrl.createExerciseDataLoader();
-     loader(testEditor);
-     testEditor.setValue(testValue);
-     //ctrl.handleChange({});
-     //expect(scope.ngModel).toBe(testValue);
-     });
-     */
   });
-
 
 }

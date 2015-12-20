@@ -1,9 +1,10 @@
 module codeEditor {
   "use strict";
 
-  /* @ngdoc object
+  /** @ngdoc object
    * @name code-editor
-   * @description
+   * @description Code Editor module:
+   *  Handles user input in ace code editor: Validation, Compiling, Execution
    *
    */
   angular
