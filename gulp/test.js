@@ -75,9 +75,5 @@ module.exports = function (gulp, $, config) {
       });
   });
 
-  // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-  /* jshint -W106 */
   gulp.task("webdriverUpdate", $.protractor.webdriver_update);
-  /* jshint +W106 */
-  // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 };
