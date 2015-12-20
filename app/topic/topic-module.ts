@@ -1,9 +1,9 @@
 module topic {
   "use strict";
 
-  /* @ngdoc object
+  /** @ngdoc object
    * @name topic
-   * @description
+   * @description Module for solving an topic containing multiple exercises
    *
    */
   angular

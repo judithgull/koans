@@ -16,9 +16,9 @@ module SolutionCtrl {
 
   /**
    * @ngdoc object
-   * @name exercise.solution.controller:SolutionCtrl
+   * @name topic.exercise.solution.controller:SolutionCtrl
    *
-   * @description
+   * @description Controller for showing solution
    *
    */
   angular
