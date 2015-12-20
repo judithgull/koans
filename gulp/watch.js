@@ -18,12 +18,12 @@ module.exports = function (gulp, $, config) {
   });
 
 
-  gulp.task("browserSync", ["build-frontend"], function () {
+  gulp.task("browserSync", ["frontend:build"], function () {
     $.browserSync.reload();
   });
 
   //watch frontend/backend
-  gulp.task("watch", ["nodemon", "node-scripts"], function () {
+  gulp.task("watch", ["nodemon", "node:build"], function () {
     $.browserSync({
       proxy: "http://localhost:3000/",
       port: 7000

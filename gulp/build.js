@@ -63,7 +63,7 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.extTs));
   });
 
-  gulp.task("node-scripts", function () {
+  gulp.task("node:build", function () {
     var tsFilter = $.filter("**/*.ts");
     return gulp.src(config.appNodeScriptFiles)
       .pipe($.if(!isProd, $.sourcemaps.init()))
@@ -257,8 +257,8 @@ module.exports = function (gulp, $, config) {
 
   gulp.task("pre-build", ["assets", "favicons", "copyTsServices", "copyTypeDefinitions","node:clean"]);
 
-  gulp.task("build-frontend", ["copyTemplates"]);
+  gulp.task("frontend:build", ["copyTemplates"]);
 
-  gulp.task("build", ["node-scripts", "build-frontend"]);
+  gulp.task("build", ["node:build", "frontend:build"]);
 
 };
