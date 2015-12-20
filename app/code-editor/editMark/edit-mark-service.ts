@@ -61,7 +61,7 @@ module codeEditor.editMark {
       }
     };
 
-    /*
+    /**
      * Only mark is allowed to change.
      * Returns true, if no other text than the mark changes
      * */
@@ -126,7 +126,7 @@ module codeEditor.editMark {
 
   }
 
-  export class NoMarkAnnotation implements AceAjax.Annotation {
+  export class CustomAnnotation implements AceAjax.Annotation {
     public type = "error";
     public custom = true;
 

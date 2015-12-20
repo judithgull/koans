@@ -25,20 +25,20 @@ module codeEditor.editMark {
         require: ["^codeEditor", "ngModel"],
         link: (scope:ng.IScope, elm:JQuery, attrs:ng.IAttributes, controllers:any[]) => {
 
-          var editor:AceAjax.Editor = controllers[0].editor;
-          var session:AceAjax.IEditSession = editor.getSession();
+          let editor:AceAjax.Editor = controllers[0].editor;
+          let session:AceAjax.IEditSession = editor.getSession();
           let errorText = "Please replace ??? with the correct answer!";
 
           controllers[1].$validators["noMark"] = (value) => !editMarker.containsMark(value);
 
-          var getMarkers = ():AceAjax.Annotation[] => {
+          let getMarkers = ():AceAjax.Annotation[] => {
             var ranges = editMarker.getEditMarks(session.getValue());
-            return ranges.map((r) => new NoMarkAnnotation(r.row, r.column, errorText));
+            return ranges.map((r) => new CustomAnnotation(r.row, r.column, errorText));
           };
 
-          var markerAnnotations = [];
-          var updateMarkers = () => {
-            var newMarkers = getMarkers();
+          let markerAnnotations = [];
+          let updateMarkers = () => {
+            let newMarkers = getMarkers();
             if (!editMarker.equals(newMarkers, markerAnnotations)) {
               markerAnnotations = newMarkers;
               editMarker.setAnnotations(newMarkers, session, errorText);

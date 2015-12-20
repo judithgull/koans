@@ -38,19 +38,19 @@ module codeEditor.editMark {
 
 
           let errorText = "Do not change anything other than " + editMark.mark + "!";
-          var getMarkers = ():AceAjax.Annotation[] => {
-            var changed = editMark.hasOnlyMarkChanged(scope.$eval(otherModel), session.getValue());
+          let getMarkers = ():AceAjax.Annotation[] => {
+            let changed = editMark.hasOnlyMarkChanged(scope.$eval(otherModel), session.getValue());
             if (!changed) {
-              return [new NoMarkAnnotation(0, 0, errorText)];
+              return [new CustomAnnotation(0, 0, errorText)];
             } else {
               return [];
             }
           };
 
 
-          var markerAnnotations = [];
-          var updateMarkers = () => {
-            var newMarkers = getMarkers();
+          let markerAnnotations = [];
+          let updateMarkers = () => {
+            let newMarkers = getMarkers();
             if (!editMark.equals(newMarkers, markerAnnotations)) {
               markerAnnotations = newMarkers;
               editMark.setAnnotations(newMarkers, session, errorText);
