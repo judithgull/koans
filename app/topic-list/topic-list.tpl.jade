@@ -1,7 +1,7 @@
 .search-field
   span.icon-loupe
+  label(for="search").is-visuallyhidden Search
   input.input(id="search" name="search" type="text" ng-change="topicList.search()" ng-model="topicList.searchText")
-
 
 ul(ng-show="topicList.isLoggedIn").l-list-reset.filter-tabs
   li(ng-class="{ isActive: topicList.isShowAll}").filter-tabs--item
