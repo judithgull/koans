@@ -5,7 +5,7 @@ module auth {
     var service:AuthService;
     var $httpBackend:ng.IHttpBackendService;
     var testToken = "testToken";
-    var user = new app.User("testName", "testEmail", "testPwd");
+    var user = new core.User("testName", "testEmail", "testPwd");
     var testUserResponse = {
       _id: "id",
       name: user.name,

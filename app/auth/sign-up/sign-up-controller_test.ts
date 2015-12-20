@@ -13,7 +13,7 @@ module auth.signUp {
       deferred = $q.defer();
 
       var mockAuthService:auth.IAuthService = {
-        signUp: (user:app.IUser):ng.IPromise<void> => {
+        signUp: (user:core.IUser):ng.IPromise<void> => {
           submitUserSpy(user);
           return deferred.promise;
         },
@@ -41,11 +41,11 @@ module auth.signUp {
       it("should call submit user once", ()  => {
         ctrl.submit();
         sinon.assert.calledOnce(submitUserSpy);
-        sinon.assert.calledWith(submitUserSpy, new app.User());
+        sinon.assert.calledWith(submitUserSpy, new core.User());
       });
 
       it("should call submit user once with correct values", ()  => {
-        const testUser = new app.User();
+        const testUser = new core.User();
         testUser.name = "testName";
         testUser.email = "testEmail";
         testUser.password = "testPwd";
