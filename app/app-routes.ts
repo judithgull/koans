@@ -1,4 +1,4 @@
-module koans {
+module app {
   "use strict";
 
   angular

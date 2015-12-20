@@ -1,10 +1,10 @@
 ///<reference path="../typings/tsd.d.ts" />
-module koans {
+module app {
   "use strict";
 
   /** @ngdoc object
-   * @name koans
-   * @description
+   * @name app
+   * @description main entry point
    *
    */
   var app = angular.module("app", [
