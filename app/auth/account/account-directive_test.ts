@@ -1,15 +1,26 @@
 /* global describe, beforeEach, it, expect, inject, module */
-"use strict";
+module auth.account {
+  "use strict";
 
-describe("account", function () {
-  var scope
-    , element;
+  /**
+   * Account logic is tested in controller. Only verify setup here.
+   * */
+  describe("account", () => {
+    let scope:ng.IRootScopeService,
+        element;
 
-  beforeEach(angular.mock.module("auth.account"));
+    beforeEach(angular.mock.module("auth.account"));
 
-  beforeEach(inject(function ($compile, $rootScope) {
-    scope = $rootScope.$new();
-    element = $compile(angular.element("<account></account>"))(scope);
-  }));
+    beforeEach(inject(($compile, $rootScope) => {
+      scope = $rootScope.$new();
+      element = $compile(angular.element("<account></account>"))(scope);
+    }));
 
-});
+    it("should exist", ()  => {
+      scope.$digest();
+      expect(element).toBeDefined();
+    });
+
+  });
+
+}

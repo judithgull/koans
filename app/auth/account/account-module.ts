@@ -1,14 +1,14 @@
-///<reference path="../../../typings/tsd.d.ts" />
-module account {
+module auth.account {
   "use strict";
 
-  /* @ngdoc object
+  /**
+   * @ngdoc object
    * @name auth.account
-   * @description
+   * @description account overview (sign-up, login, logout)
    *
-   */
+   **/
   angular
-    .module("auth.account", [
-      "ui.router"
-    ]);
+    .module("auth.account",
+      ["ui.router"]
+    );
 }

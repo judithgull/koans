@@ -1,13 +1,12 @@
-///<reference path="../../../typings/tsd.d.ts" />
-module auth.AccountCtrl {
+module auth.account {
   "use strict";
 
-  class AccountCtrl {
+  export class AccountCtrl {
 
-    private isLoggedIn:boolean;
-    private loginName:string;
+    isLoggedIn:boolean;
+    loginName:string;
 
-    public static $inject = ["AuthService", "$state"];
+    static $inject = ["AuthService", "$state"];
 
     constructor(private authService:IAuthService,
                 private $state:angular.ui.IStateService) {
@@ -29,7 +28,7 @@ module auth.AccountCtrl {
    * @ngdoc object
    * @name auth.account.controller:AccountCtrl
    *
-   * @description
+   * @description Controller for account overview (sign-up, login, logout)
    *
    */
   angular
