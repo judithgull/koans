@@ -51,6 +51,18 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildDir));
   });
 
+  // copy current typescriptServices from node_modules into build directory
+  gulp.task("copyTsServices", [ "clean"], function () {
+    return gulp.src(config.tsServicesFiles)
+      .pipe(gulp.dest(config.extAceDir));
+  });
+
+  // copy typescripts/lib.d.ts to build directory
+  gulp.task("copyTypeDefinitions", ["clean"], function () {
+    return gulp.src([config.tsLibDTs, config.tsTypings])
+      .pipe(gulp.dest(config.extTs));
+  });
+
   gulp.task("node-scripts", function () {
     var tsFilter = $.filter("**/*.ts");
     return gulp.src(config.appNodeScriptFiles)
@@ -188,21 +200,8 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.extDir));
   });
 
-  // copy typescriptServices from node_modules into build directory
-  gulp.task("copyTsServices", [ "bowerCopy"], function () {
-    return gulp.src(config.tsServicesFiles)
-      .pipe(gulp.dest(config.extAceDir));
-  });
-
-
-  // copy typescripts/lib.d.ts to build directory
-  gulp.task("copyTypeDefinitions", ["bowerCopy"], function () {
-    return gulp.src([config.tsLibDTs, config.tsTypings])
-      .pipe(gulp.dest(config.extTs));
-  });
-
   // inject bower components into index.html
-  gulp.task("bowerInject", ["copyTsServices", "copyTypeDefinitions"], function () {
+  gulp.task("bowerInject", ["bowerCopy"], function () {
     if (isProd) {
       return gulp.src(config.buildDir + "index.html")
         .pipe($.inject(gulp.src([
@@ -256,7 +255,7 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildTestDirectiveTemplatesDir));
   });
 
-  gulp.task("pre-build", ["assets", "favicons", "node:clean"]);
+  gulp.task("pre-build", ["assets", "favicons", "copyTsServices", "copyTypeDefinitions","node:clean"]);
 
   gulp.task("build-frontend", ["copyTemplates"]);
 
