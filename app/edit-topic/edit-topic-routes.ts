@@ -14,10 +14,10 @@ module editTopic {
         controller: "EditTopicCtrl",
         controllerAs: "editTopic",
         resolve: {
-          libs: function (RestClient:RestClient.IRestClient) {
+          libs: function (RestClient:core.IRestClient) {
             return RestClient.getDefaultLibs();
           },
-          topic: (RestClient:RestClient.IRestClient, $stateParams, $q:ng.IQService) => {
+          topic: (RestClient:core.IRestClient, $stateParams, $q:ng.IQService) => {
             if ($stateParams.id) {
               return RestClient.getTopic($stateParams.id);
             } else {

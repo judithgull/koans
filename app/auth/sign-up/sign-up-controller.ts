@@ -8,8 +8,8 @@ module auth.signUp {
 
     constructor(private authService:auth.IAuthService,
                 private $state:angular.ui.IStateService,
-                public user:app.IUser) {
-      this.user = new app.User();
+                public user:core.IUser) {
+      this.user = new core.User();
     }
 
     submit = () => {

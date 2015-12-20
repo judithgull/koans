@@ -10,7 +10,7 @@ module topicList {
 
   class TopicListCtrl implements ITopicListCtrl {
     errorMessage:string = null;
-    user:app.IUser;
+    user:core.IUser;
     isShowAll:boolean;
     isLoggedIn:boolean;
     topics:Array<core.ITopic> = [];
@@ -22,7 +22,7 @@ module topicList {
       "SearchParamsService"
     ];
 
-    constructor(private RestClient:RestClient.IRestClient,
+    constructor(private RestClient:core.IRestClient,
                 private authService:auth.IAuthService,
                 private searchParamsService:core.SearchParamsService) {
 

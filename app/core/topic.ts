@@ -1,3 +1,6 @@
+/**
+ * Classes and interfaces regarding topic.
+ */
 module core {
   "use strict";
 
@@ -66,6 +69,4 @@ module core {
                 public running = true) {
     }
   }
-
-
 }

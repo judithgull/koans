@@ -1,4 +1,4 @@
-module RestClient {
+module core {
   "use strict";
 
   export const TOPICS_URL = "/topics/";
@@ -115,9 +115,9 @@ module RestClient {
 
   /**
    * @ngdoc service
-   * @name exercise.service:RestClient
+   * @name core.service:RestClient
    *
-   * @description
+   * @description Connect to the REST Backend.
    *
    */
   angular

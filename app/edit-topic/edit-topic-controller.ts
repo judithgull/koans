@@ -14,7 +14,7 @@ module editTopic {
     public static $inject = ["RestClient", "$state", "$scope", "libs", "SearchParamsService", "topic", "$timeout"];
 
     // dependencies are injected via AngularJS $injector
-    constructor(private RestClient:RestClient.IRestClient,
+    constructor(private RestClient:core.IRestClient,
                 private $state:angular.ui.IStateService,
                 private $scope:ng.IScope,
                 private libs:Array<core.ILibrary>,

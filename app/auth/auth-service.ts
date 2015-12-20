@@ -5,10 +5,10 @@ module auth {
   export const LOGIN_URL = "/login/";
 
   export interface IAuthService {
-    signUp(user:app.IUser):ng.IPromise<void>;
+    signUp(user:core.IUser):ng.IPromise<void>;
     logout():void;
     isLoggedIn():boolean;
-    getLoggedInUser():app.IUser;
+    getLoggedInUser():core.IUser;
     login(email:string, password:string):ng.IPromise<void>;
   }
 
@@ -42,7 +42,7 @@ module auth {
       );
     };
 
-    signUp = (user:app.IUser):ng.IPromise<void> => {
+    signUp = (user:core.IUser):ng.IPromise<void> => {
       return this.handleTokenRequest(
         this.$http.post(USERS_URL, user)
       );

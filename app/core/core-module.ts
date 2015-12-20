@@ -1,16 +1,16 @@
 module core {
   "use strict";
 
-  /* @ngdoc object
+  /** @ngdoc object
    * @name core
-   * @description
+   * @description core functionality used in other modules.
    *
-   */
+   **/
   angular
     .module("core",
-      ["ui.router"]
-    ).config(($urlMatcherFactoryProvider) => {
-    $urlMatcherFactoryProvider.caseInsensitive(true);
-    $urlMatcherFactoryProvider.strictMode(false);
-  });
+    ["ui.router"]
+  ).config(($urlMatcherFactoryProvider) => {
+      $urlMatcherFactoryProvider.caseInsensitive(true);
+      $urlMatcherFactoryProvider.strictMode(false);
+    });
 }

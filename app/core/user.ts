@@ -1,4 +1,7 @@
-module app {
+/**
+ * Classes and interfaces regarding user.
+ */
+module core {
   "use strict";
 
   export interface IUser {

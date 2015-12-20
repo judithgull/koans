@@ -1,8 +1,6 @@
-///<reference path="../../typings/tsd.d.ts" />
-
-/* global describe, beforeEach, it, expect, inject, module */
 module core {
   "use strict";
+
   describe("SearchParamsService", () => {
     var service:SearchParamsService;
 

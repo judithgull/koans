@@ -14,10 +14,10 @@ module topic {
         controller: "TopicCtrl",
         controllerAs: "topic",
         resolve: {
-          topicData: function (RestClient:RestClient.IRestClient, $stateParams) {
+          topicData: function (RestClient:core.IRestClient, $stateParams) {
             return RestClient.getTopic($stateParams.topicId);
           },
-          libs: function (RestClient:RestClient.IRestClient) {
+          libs: function (RestClient:core.IRestClient) {
             return RestClient.getDefaultLibs();
           }
         }
@@ -31,7 +31,7 @@ module topic {
       controller: "ExerciseCtrl",
       controllerAs: "exercise",
       resolve: {
-        exData: function (RestClient:RestClient.IRestClient, $stateParams) {
+        exData: function (RestClient:core.IRestClient, $stateParams) {
           return RestClient.getExercise($stateParams.topicId, $stateParams.exerciseId);
         }
       }

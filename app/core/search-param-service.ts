@@ -1,4 +1,3 @@
-///<reference path="../../typings/tsd.d.ts" />
 module core {
   "use strict";
 
@@ -58,9 +57,9 @@ module core {
 
   /**
    * @ngdoc service
-   * @name core.service:TopicQueryParams
+   * @name core.service:SearchParamsService
    *
-   * @description
+   * @description Handles search query parameters (stores current state in local storage).
    *
    */
   angular
