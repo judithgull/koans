@@ -42,13 +42,9 @@ mongoose.connect(process.env.DB_URI || "mongodb://localhost:27017/koans");
 /**
  * Routes
  */
-
-serverApp.use("/topics", require("./topic/topic-routes.js"));
-serverApp.use("/users", require("./user/user-routes.js"));
-serverApp.use("/login", require("./login/login-routes.js"));
+serverApp.use("/", require("./app-routes.js"));
 
 /**
  * Start Server
  */
-
 http.createServer(serverApp).listen(process.env.PORT || 3000);
