@@ -6,6 +6,7 @@ var gulpFilter = require("gulp-filter");
 karmaConf.files = [];
 
 module.exports = function (gulp, $, config) {
+
   gulp.task("clean:test", function (cb) {
     return $.del(config.buildTestDir, cb);
   });
@@ -14,9 +15,7 @@ module.exports = function (gulp, $, config) {
     var testFilter = gulpFilter("**/*_test.js");
     return gulp.src([
         config.unitTestFiles,
-        config.appScriptFiles,
-        config.appNodeScriptFiles,
-        config.nodeUnitTestFiles
+        config.appScriptFiles
       ])
       .pipe($.typescript(config.tsProject))
       .pipe(testFilter)
