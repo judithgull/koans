@@ -4,7 +4,7 @@ module TopicCtrl {
 
   describe("Topic Controller", () => {
     var ctrl:TopicCtrl.ITopicCtrl;
-    var topic = test.MockData.getTopic();
+    var topic = core.testUtil.MockData.getTopic();
 
     beforeEach(angular.mock.module("topic"));
 

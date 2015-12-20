@@ -4,7 +4,7 @@ module ExerciseCtrl {
 
   describe("ExerciseCtrl", function () {
     var ctrl;
-    var topic = test.MockData.getTopic();
+    var topic = core.testUtil.MockData.getTopic();
 
     beforeEach(angular.mock.module("exercise"));
 

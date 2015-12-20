@@ -1,6 +1,8 @@
 /* tslint:disable:max-line-length */
-
-module test {
+/**
+ * Some test data frequently used in tests.
+ * */
+module core.testUtil {
   "use strict";
 
   export class MockData {

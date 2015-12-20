@@ -3,7 +3,7 @@ module topicList {
   "use strict";
 
   describe("Topic List Controller", () => {
-    var topics = test.MockData.getTopics();
+    var topics = core.testUtil.MockData.getTopics();
     var ctrl:ITopicListCtrl;
     var rs;
 

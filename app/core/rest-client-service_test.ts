@@ -17,7 +17,7 @@ module core {
 
     describe("getTopic(id)", () => {
 
-      var topic = test.MockData.getTopic();
+      var topic = core.testUtil.MockData.getTopic();
       var testID = topic._id;
 
       beforeEach(()  => {
@@ -72,7 +72,7 @@ module core {
 
     describe("getExercise", () => {
 
-      var topic = test.MockData.getTopic();
+      var topic = core.testUtil.MockData.getTopic();
 
       it("should return an exercise with the correct attributes", () => {
         var expectedUrl = TOPICS_URL + topic._id;
@@ -118,7 +118,7 @@ module core {
 
     describe("createTopic", () => {
 
-      var topic = test.MockData.getTopic();
+      var topic = core.testUtil.MockData.getTopic();
 
       it("should store a topic", () => {
         $httpBackend.expectPOST(core.TOPICS_URL);
