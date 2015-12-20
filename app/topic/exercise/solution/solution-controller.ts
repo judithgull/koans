@@ -22,6 +22,6 @@ module SolutionCtrl {
    *
    */
   angular
-    .module("exercise.solution")
+    .module("topic.exercise")
     .controller("SolutionCtrl", SolutionCtrl);
 }

@@ -9,6 +9,6 @@ module topic {
   angular
     .module("topic", [
       "core",
-      "exercise"
+      "topic.exercise"
     ]);
 }

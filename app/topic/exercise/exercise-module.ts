@@ -1,4 +1,4 @@
-module exercise {
+module topic.exercise {
   "use strict";
 
   /* @ngdoc object
@@ -7,9 +7,8 @@ module exercise {
    *
    */
   angular
-    .module("exercise", [
+    .module("topic.exercise", [
       "ui.router",
-      "exercise.solution",
       "codeEditor"
     ]);
 }

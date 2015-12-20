@@ -1,4 +1,4 @@
-module ExerciseCtrl {
+module topic.exercise {
   "use strict";
   import IExercise = core.IExercise;
 
@@ -131,6 +131,6 @@ module ExerciseCtrl {
    *
    */
   angular
-    .module("exercise")
+    .module("topic.exercise")
     .controller("ExerciseCtrl", ExerciseCtrl);
 }
