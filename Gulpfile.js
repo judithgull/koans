@@ -65,7 +65,7 @@ for (key in gulpFiles) {
   gulpFiles[key](gulp, $, config);
 }
 
-gulp.task("dev", function () {
+gulp.task("dev", ["pre-build"], function () {
   gulp.start("watch");
   gulp.start("mongod");
   gulp.start("reset-db");

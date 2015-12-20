@@ -6,6 +6,7 @@
   "scripts": {
     "postinstall": "bower install; tsd install; gulp patchLibs",
     "test": "gulp test",
+    "prestart":"gulp pre-build",
     "start": "gulp build --stage prod;node build/app-node/app.js"
   },
   "dependencies": {

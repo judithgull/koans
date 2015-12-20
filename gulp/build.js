@@ -9,6 +9,12 @@ var _ = require("underscore.string"),
 module.exports = function (gulp, $, config) {
   var isProd = $.yargs.argv.stage === "prod";
 
+  var clean = function(dir){
+    return function (cb) {
+      return $.del(dir, cb);
+    }
+  };
+
   // copy patched libraries into bower_components dir
   gulp.task("patchLibs", function () {
     return gulp.src(config.libFiles)
@@ -16,16 +22,11 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(bowerDir));
   });
 
-  // delete build directory
-  gulp.task("clean", function (cb) {
-    return $.del(config.buildDir, cb);
-  });
+  gulp.task("clean", clean(config.buildDir));
 
-  gulp.task("clean-node", function (cb) {
-    return $.del(config.buildNodeDir, cb);
-  });
+  gulp.task("node:clean", clean(config.buildNodeDir));
 
-  gulp.task("node-scripts", ["clean-node"], function () {
+  gulp.task("node-scripts", function () {
     var tsFilter = $.filter("**/*.ts");
     return gulp.src(config.appNodeScriptFiles)
       .pipe($.if(!isProd, $.sourcemaps.init()))
@@ -74,7 +75,7 @@ module.exports = function (gulp, $, config) {
 
 
   // compile scripts and copy into build directory
-  gulp.task("scripts", ["clean", "analyze", "markup"], function () {
+  gulp.task("scripts", ["analyze", "markup"], function () {
     var htmlFilter = $.filter("**/*.html")
       , jsFilter = $.filter("**/*.js")
       , tsFilter = $.filter("**/*.ts");
@@ -236,7 +237,7 @@ module.exports = function (gulp, $, config) {
   });
 
   // copy and optimize images into build directory
-  gulp.task("assets", ["clean"], function () {
+  gulp.task("assets", function () {
     return gulp.src(config.appAssetsFiles)
       .pipe($.if(isProd, $.imagemin()))
       .pipe(gulp.dest(config.buildAssets));
@@ -262,6 +263,8 @@ module.exports = function (gulp, $, config) {
       html: "./build/app/index.html"
     })).pipe(gulp.dest("./build/app"));
   });
+
+  gulp.task("pre-build", ["clean", "node:clean"]);
 
   gulp.task("build-frontend", ["copyTemplates", "favicons", "assets", "fonts", "data"]);
 
