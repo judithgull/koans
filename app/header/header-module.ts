@@ -1,10 +1,9 @@
-///<reference path="../../typings/tsd.d.ts" />
 module header {
   "use strict";
 
-  /* @ngdoc object
+  /** @ngdoc object
    * @name header
-   * @description
+   * @description header module containing logo and account module.
    *
    */
   angular

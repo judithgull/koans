@@ -12,17 +12,13 @@ module koans {
       .state("main", {
         url: "",
         abstract: true,
-        templateUrl: "header/header.tpl.html",
-        controller: "HeaderCtrl",
-        controllerAs: "header"
+        templateUrl: "header/header.tpl.html"
       });
     $stateProvider
       .state("main.home", {
         url: "",
         abstract: true,
-        templateUrl: "header/header-home.tpl.html",
-        controller: "HeaderCtrl",
-        controllerAs: "header"
+        templateUrl: "header/header-home.tpl.html"
       });
   }
 }
