@@ -2,7 +2,7 @@ module app {
   "use strict";
 
   angular
-    .module("app")
+    .module("koans")
     .config(($urlRouterProvider:ng.ui.IUrlRouterProvider, $stateProvider:ng.ui.IStateProvider) => {
       $urlRouterProvider.otherwise("topic-list");
       $stateProvider

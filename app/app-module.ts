@@ -7,7 +7,7 @@ module app {
    * @description main entry point
    *
    */
-  var app = angular.module("app", [
+  var app = angular.module("koans", [
     "ui.router",
     "ngAria",
     "ui.ace",
