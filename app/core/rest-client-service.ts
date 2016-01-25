@@ -29,6 +29,13 @@ module core {
                 private $q:ng.IQService) {
     }
 
+    private getGlobals = (libName:string) => {
+      if (libName === "typescripts/chai/chai.d.ts") {
+        return "chai.should();var expect = chai.expect;var assert = chai.assert;";
+      }
+      return "";
+    };
+
     clearCachedTopic = () => {
       this.topicData = null;
     };
@@ -105,13 +112,13 @@ module core {
         (response) => {
           return {
             name: libName,
-            content: response.data
+            content: response.data + this.getGlobals(libName)
           };
         }
       );
     }
 
-  }
+}
 
   /**
    * @ngdoc service
