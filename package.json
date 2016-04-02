@@ -1,12 +1,12 @@
 {
   "name": "koans",
   "version": "0.0.0",
-  "repository":"https://github.com/judithgull/koans",
+  "repository": "https://github.com/judithgull/koans",
   "main": "build/app-node/app.js",
   "scripts": {
     "postinstall": "bower install; tsd install; gulp patchLibs",
     "test": "gulp test",
-    "prestart":"gulp pre-build",
+    "prestart": "gulp pre-build",
     "start": "gulp build --stage prod;node build/app-node/app.js"
   },
   "dependencies": {
@@ -48,6 +48,7 @@
     "gulp-uglify": "^1.0.0",
     "jwt-simple": "^0.3.1",
     "lodash": "^3.6.0",
+    "mailgun-js": "^0.7.7",
     "main-bower-files": "^2.0.0",
     "method-override": "^2.3.5",
     "mongodb": "^2.0.45",
