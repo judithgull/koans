@@ -1,4 +1,4 @@
-///<reference path="../typings/tsd.d.ts" />
+///<reference path="../typings/index.d.ts" />
 var http = require("http"),
   express = require("express"),
   bodyParser = require("body-parser"),

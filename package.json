@@ -4,7 +4,7 @@
   "repository": "https://github.com/judithgull/koans",
   "main": "build/app-node/app.js",
   "scripts": {
-    "postinstall": "bower install; tsd install; gulp patchLibs",
+    "postinstall": "bower install; typings install; gulp patchLibs",
     "test": "gulp test",
     "prestart": "gulp pre-build",
     "start": "gulp build --stage prod;node build/app-node/app.js"
@@ -51,13 +51,14 @@
     "mailgun-js": "^0.7.7",
     "main-bower-files": "^2.0.0",
     "method-override": "^2.3.5",
+    "mocha": "^2.5.3",
     "mongodb": "^2.0.45",
     "mongoose": "^4.1.9",
     "nodemon": "^1.7.1",
     "require-dir": "^0.3.0",
     "streamqueue": "~0.1.2",
-    "tsd": "^0.6.5",
-    "typescript": "^1.6.2",
+    "typescript": "^1.8.10",
+    "typings": "^1.4.0",
     "uglify-save-license": "^0.4.1"
   },
   "devDependencies": {
@@ -67,7 +68,7 @@
     "eslint-plugin-angular": "^0.0.7",
     "findup-sync": "^0.2.0",
     "glob": "^5.0.1",
-    "karma": "^0.12.16",
+    "karma": "^0.12.37",
     "karma-coverage": "^0.5.3",
     "karma-failed-reporter": "0.0.3",
     "karma-jasmine": "^0.3.0",
@@ -77,6 +78,7 @@
     "karma-ng-html2js-preprocessor": "^0.1.0",
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-sinon": "^1.0.5",
+    "karma-typescript": "^2.0.6",
     "mocha": "^2.3.3",
     "multi-glob": "^0.4.0",
     "phantomjs": "^1.9.18",

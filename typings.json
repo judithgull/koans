@@ -1,0 +1,27 @@
+{
+  "name": "koans",
+  "globalDependencies": {
+    "ace": "github:DefinitelyTyped/DefinitelyTyped/ace/ace.d.ts#001ca36ba58cef903c4c063555afb07bbc36bb58",
+    "angular": "github:DefinitelyTyped/DefinitelyTyped/angularjs/angular.d.ts#001ca36ba58cef903c4c063555afb07bbc36bb58",
+    "angular-mocks": "github:DefinitelyTyped/DefinitelyTyped/angularjs/angular-mocks.d.ts#001ca36ba58cef903c4c063555afb07bbc36bb58",
+    "angular-sanitize": "github:DefinitelyTyped/DefinitelyTyped/angularjs/angular-sanitize.d.ts#32f0a90dab26f70b206407ac24d4d622d0f0f408",
+    "angular-ui-router": "github:DefinitelyTyped/DefinitelyTyped/angular-ui-router/angular-ui-router.d.ts#32f0a90dab26f70b206407ac24d4d622d0f0f408",
+    "assertion-error": "github:DefinitelyTyped/DefinitelyTyped/assertion-error/assertion-error.d.ts#4f7b7e01d3a9622bfab0bef469e169529e60c66b",
+    "chai": "github:DefinitelyTyped/DefinitelyTyped/chai/chai.d.ts#4f7b7e01d3a9622bfab0bef469e169529e60c66b",
+    "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#421d6610bdb09e1015b71f5991d7a68d079eca21",
+    "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#32f0a90dab26f70b206407ac24d4d622d0f0f408",
+    "jquery": "github:DefinitelyTyped/DefinitelyTyped/jquery/jquery.d.ts#7136728255d96038795d93c3e4b43c3c7de8ac1e",
+    "jwt-simple": "github:DefinitelyTyped/DefinitelyTyped/jwt-simple/jwt-simple.d.ts#421d6610bdb09e1015b71f5991d7a68d079eca21",
+    "karma-jasmine": "github:DefinitelyTyped/DefinitelyTyped/karma-jasmine/karma-jasmine.d.ts#32f0a90dab26f70b206407ac24d4d622d0f0f408",
+    "lodash": "github:DefinitelyTyped/DefinitelyTyped/lodash/lodash.d.ts#32f0a90dab26f70b206407ac24d4d622d0f0f408",
+    "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#421d6610bdb09e1015b71f5991d7a68d079eca21",
+    "mongoose": "github:DefinitelyTyped/DefinitelyTyped/mongoose/mongoose.d.ts#e5a27ea95e47b95333784f1f0d590127b4e39a89",
+    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#e5a27ea95e47b95333784f1f0d590127b4e39a89",
+    "rx-lite": "github:DefinitelyTyped/DefinitelyTyped/rx/rx-lite.d.ts#ebc69904eb78f94030d5d517b42db20867f679c0",
+    "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#421d6610bdb09e1015b71f5991d7a68d079eca21",
+    "sinon": "github:DefinitelyTyped/DefinitelyTyped/sinon/sinon.d.ts#32f0a90dab26f70b206407ac24d4d622d0f0f408",
+    "superagent": "github:DefinitelyTyped/DefinitelyTyped/superagent/superagent.d.ts#c2c22c3b953fe9730d4802022d5e0d18d083909e",
+    "supertest": "github:DefinitelyTyped/DefinitelyTyped/supertest/supertest.d.ts#c2c22c3b953fe9730d4802022d5e0d18d083909e",
+    "toastr": "github:DefinitelyTyped/DefinitelyTyped/toastr/toastr.d.ts#7136728255d96038795d93c3e4b43c3c7de8ac1e"
+  }
+}
