@@ -57,6 +57,7 @@
     "nodemon": "^1.7.1",
     "require-dir": "^0.3.0",
     "streamqueue": "~0.1.2",
+    "tslint": "^3.15.1",
     "typescript": "^1.8.10",
     "typings": "^1.4.0",
     "uglify-save-license": "^0.4.1"
