@@ -1,12 +1,18 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema,
-  ObjectId = Schema.ObjectId;
+"use strict";
+
+/**
+ * Module dependencies.
+ */
+import {Schema, model} from "mongoose";
 
 
-var TopicSchema = new Schema({
+/**
+ * Topic Schema
+ */
+const TopicSchema = new Schema({
   title: String,
   programmingLanguage: String,
-  authorId: ObjectId,
+  authorId: Schema.Types.ObjectId,
   items: [{
     sortOrder: Number,
     title: String,
@@ -16,4 +22,7 @@ var TopicSchema = new Schema({
   }]
 });
 
-module.exports = mongoose.model("Topic", TopicSchema);
+/**
+ * Expose
+ */
+export const topicModel = model("Topic", TopicSchema);

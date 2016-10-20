@@ -43,4 +43,4 @@ app/**/*.css
 app/**/*.css.map
 
 # Typedefinition files
-typings/**/*.ts
+typings
