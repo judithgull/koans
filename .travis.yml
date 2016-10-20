@@ -3,4 +3,4 @@ services:
 language: node_js
 node_js:
   - "node"
-script: build.sh
+before_script: cd koans
