@@ -5,7 +5,7 @@
   "main": "build/app-node/app.js",
   "scripts": {
     "postinstall": "bower install; typings install; gulp patchLibs",
-    "test": "NODE_ENV=test mocha --compilers ts:ts-node/register,tsx:ts-node/register app-node/**/*.ts;gulp test",
+    "test": "NODE_ENV=test mocha --compilers ts:ts-node/register,tsx:ts-node/register app-node/**/*test.ts",
     "prestart": "gulp pre-build",
     "start": "gulp build --stage prod;node build/app-node/app.js"
   },
