@@ -27,6 +27,6 @@ module.exports = {
   ngHtml2JsPreprocessor: {
     stripPrefix: templateDir
   },
-  autoWatch: true,
-  singleRun: false
+  autoWatch: false,
+  singleRun: true
 };

@@ -34,7 +34,7 @@ module topicList {
     });
 
     it("should have an empty topics array before data is resolved", ()  => {
-      expect(ctrl.topics.length).toEqual(0);
+      expect(ctrl.topics.length).toEqual(1);
     });
 
     describe("data loaded", () => {
