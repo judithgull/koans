@@ -1,5 +1,5 @@
 var jwt = require("jwt-simple");
-var User = require("./user-model.js");
+var User = require("./user-model");
 
 export var getSecret = () => {
   if (!process.env.SECRET) {
