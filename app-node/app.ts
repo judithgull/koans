@@ -5,7 +5,8 @@ var http = require("http"),
   methodOverride = require("method-override"),
   mongoose = require("mongoose"),
   path = require("path"),
-  compression = require("compression");
+  compression = require("compression"),
+  routes = require("./app-routes");
 
 export var serverApp = express();
 
@@ -42,7 +43,7 @@ mongoose.connect(process.env.DB_URI || "mongodb://localhost:27017/koans");
 /**
  * Routes
  */
-serverApp.use("/", require("./app-routes.js"));
+serverApp.use("/", routes);
 
 /**
  * Start Server
