@@ -1,15 +1,13 @@
-module server {
-  "use strict";
-  var express = require("express");
-  var router = express.Router();
+"use strict";
 
-  var topic = require("./topic-controller.js");
+import * as topic from "./topic-controller";
 
-  router.get("/", topic.getTopics);
-  router.get("/:id", topic.getTopic);
-  router.post("/", topic.postTopic);
-  router.delete("/:id", topic.deleteTopic);
-  router.put("/:id", topic.updateTopic);
+var express = require("express");
+export const topicRouter = express.Router();
 
-  module.exports = router;
-}
+topicRouter.get("/", topic.getTopics);
+topicRouter.get("/:id", topic.getTopic);
+topicRouter.post("/", topic.postTopic);
+topicRouter.delete("/:id", topic.deleteTopic);
+topicRouter.put("/:id", topic.updateTopic);
+

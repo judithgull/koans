@@ -1,18 +1,29 @@
 "use strict";
 
-/**
- * Module dependencies.
- */
-import {Schema, model} from "mongoose";
-
+import * as mongoose from "mongoose";
 
 /**
  * Topic Schema
  */
-const TopicSchema = new Schema({
+export interface ITopic {
+  title: string,
+  programmingLanguage: String,
+  authorId: mongoose.Types.ObjectId,
+  items: [{
+    sortOrder: Number,
+    title: String,
+    description: String,
+    exercise: String,
+    solution: String
+  }]
+}
+
+interface ITopicModel extends ITopic, mongoose.Document { }
+
+const TopicSchema = new mongoose.Schema({
   title: String,
   programmingLanguage: String,
-  authorId: Schema.Types.ObjectId,
+  authorId: mongoose.Schema.Types.ObjectId,
   items: [{
     sortOrder: Number,
     title: String,
@@ -25,4 +36,5 @@ const TopicSchema = new Schema({
 /**
  * Expose
  */
-export const topicModel = model("Topic", TopicSchema);
+export const Topic = mongoose.model<ITopicModel>("Topic", TopicSchema);
+

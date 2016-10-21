@@ -1,8 +1,11 @@
-var url = require("url");
-var Topic = require("./topic-model.js");
-var jwt = require("jwt-simple");
-var userCtrl = require("../user/user-controller.js");
-import mongoose = require("mongoose");
+"use strict"
+
+import * as mongoose from "mongoose";
+import * as url from "url";
+import {Topic} from "./topic-model";
+import * as jwt from "jwt-simple";
+import * as userCtrl from "../user/user-controller";
+
 
 var findById = (req):mongoose.Promise<any> => Topic.findOne({_id: req.params.id}).exec();
 
@@ -23,13 +26,13 @@ var hasValidTocken = (req) => {
   return !!decodeToken(req);
 };
 
-var getUserId = (req):string => {
+var getUserId = (req):mongoose.Types.ObjectId=> {
   var payload = decodeToken(req);
   return payload.sub;
 };
 
 
-module.exports.getTopics = function (req, res) {
+export const getTopics = function (req, res) {
   res.format({
     "application/json": function (req, res) {
       var authorId = url.parse(req.url, true).query.authorId;
@@ -55,7 +58,7 @@ module.exports.getTopics = function (req, res) {
   });
 };
 
-module.exports.getTopic = function (req, res) {
+export const getTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
       findById(req)
@@ -73,7 +76,7 @@ module.exports.getTopic = function (req, res) {
 };
 
 
-module.exports.deleteTopic = function (req, res) {
+export const deleteTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
       findById(req)
@@ -102,7 +105,7 @@ module.exports.deleteTopic = function (req, res) {
   });
 };
 
-module.exports.updateTopic = function (req, res) {
+export const updateTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
       findById(req)
@@ -135,7 +138,7 @@ module.exports.updateTopic = function (req, res) {
   });
 };
 
-module.exports.postTopic = function (req, res) {
+export const postTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
       if (!hasValidTocken(req)) {
