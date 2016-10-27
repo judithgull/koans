@@ -1,4 +1,5 @@
 ///<reference path="../typings/index.d.ts" />
+
 var http = require("http"),
   express = require("express"),
   bodyParser = require("body-parser"),
@@ -38,7 +39,7 @@ serverApp.use(methodOverride(function (req) {
 /**
  * DB
  */
-mongoose.connect(process.env.DB_URI || "mongodb://localhost:27017/koans");
+export const dbConnection = mongoose.connect(process.env.DB_URI || "mongodb://localhost:27017/koans");
 
 /**
  * Routes
