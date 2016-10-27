@@ -1,13 +1,9 @@
-"use strict"
+"use strict";
 
-import * as mongoose from "mongoose";
 import * as url from "url";
-import {Topic} from "./topic-model";
+import * as TopicModel from "./topic-model";
 import * as jwt from "jwt-simple";
 import * as userCtrl from "../user/user-controller";
-
-
-var findById = (req):mongoose.Promise<any> => Topic.findOne({_id: req.params.id}).exec();
 
 var decodeToken = (req) => {
   if (!req.headers || !req.headers.authorization) {
@@ -26,9 +22,9 @@ var hasValidTocken = (req) => {
   return !!decodeToken(req);
 };
 
-var getUserId = (req):mongoose.Types.ObjectId=> {
+var getUserId = (req):String => {
   var payload = decodeToken(req);
-  return payload.sub;
+  return payload.sub.toHexString();
 };
 
 
@@ -45,7 +41,7 @@ export const getTopics = function (req, res) {
         query.$text = {$search: searchText};
       }
 
-      Topic
+      TopicModel.Topic
         .find(query, function (err, topics) {
           if (err) {
             console.log(err);
@@ -61,7 +57,8 @@ export const getTopics = function (req, res) {
 export const getTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
-      findById(req)
+      console.log(req);
+      TopicModel.get(req.params.id)
         .then(
           (topic) => {
             if (!topic) {
@@ -70,7 +67,6 @@ export const getTopic = function (req, res) {
               res.send(topic);
             }
           });
-
     }
   });
 };
@@ -79,7 +75,7 @@ export const getTopic = function (req, res) {
 export const deleteTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
-      findById(req)
+      TopicModel.get(req.params.id)
         .then(
           (topic) => {
             if (!topic) {
@@ -87,7 +83,7 @@ export const deleteTopic = function (req, res) {
             } else if (!isAuthorOfOwnTopic(topic, req)) {
               res.status(401).send({message: "Not authorized"});
             } else {
-              Topic
+              TopicModel.Topic
                 .remove({_id: req.params.id}, function (err) {
                   if (err) {
                     res.status(401).send({message: "Error removing item" + req.params.id});
@@ -108,7 +104,7 @@ export const deleteTopic = function (req, res) {
 export const updateTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
-      findById(req)
+      TopicModel.get(req.params.id)
         .then(
           (topic) => {
             if (!topic) {
@@ -117,7 +113,7 @@ export const updateTopic = function (req, res) {
               res.status(401).send({message: "Not authorized"});
             } else {
               var body = req.body;
-              Topic
+              TopicModel.Topic
                 .update(
                   {_id: req.params.id},
                   {$set: {"title": body.title, "programmingLanguage": body.programmingLanguage, "items": body.items}},
@@ -144,20 +140,18 @@ export const postTopic = function (req, res) {
       if (!hasValidTocken(req)) {
         res.status(401).send({message: "Login Required!"});
       } else {
-        var body = req.body;
-        var topic = new Topic();
-        topic.title = body.title;
-        topic.programmingLanguage = body.programmingLanguage;
-        topic.items = body.items;
-        topic.authorId = getUserId(req);
+        let body = req.body;
+        let newTopic:TopicModel.ITopic = {
+          title:body.title,
+          programmingLanguage: body.programmingLanguage,
+          authorId:getUserId(req),
+          items: body.items,
+        };
 
-        topic.save(function (err) {
-          if (err) {
-            res.send(topic);
-          } else {
-            res.status(200).send({message: "ok"});
-          }
-        });
+        TopicModel
+          .create(newTopic)
+          .onFulfill(() => res.status(200).send({message: "ok"}))
+          .onReject((reason) => res.send(topic));
       }
     }
   });
