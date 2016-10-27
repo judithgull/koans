@@ -37,6 +37,8 @@ app/**/*.js
 app/**/*.js.map
 app-node/**/*.js
 app-node/**/*.js.map
+config/**/*.js
+config/**/*.js.map
 
 # Generated css files
 app/**/*.css
