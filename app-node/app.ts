@@ -1,6 +1,6 @@
 ///<reference path="../typings/index.d.ts" />
 
-import * as config from "./config/config";
+import {config} from "./config/config";
 
 
 var http = require("http"),
@@ -16,14 +16,7 @@ export var serverApp = express();
 
 serverApp.use(compression());
 
-var env:string = process.env.NODE_ENV || "development";
-var maxAge = 0;
-if (env.toUpperCase() === "PRODUCTION") {
-  maxAge = 86400000;
-}
-
-serverApp.use(express.static(path.join(__dirname, "../app"), {maxAge: maxAge}));
-
+serverApp.use(express.static(path.join(__dirname, "../app"), config.staticCacheOptions));
 
 serverApp.use(bodyParser.urlencoded({
   extended: true
@@ -42,8 +35,8 @@ serverApp.use(methodOverride(function (req) {
 /**
  * DB
  */
-console.log("Connecting to " + config.config.db);
-mongoose.connect(config.config.db);
+console.log("Connecting to " + config.db);
+mongoose.connect(config.db);
 
 /**
  * Routes
