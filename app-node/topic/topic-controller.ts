@@ -31,42 +31,28 @@ var getUserId = (req):String => {
 export const getTopics = function (req, res) {
   res.format({
     "application/json": function (req, res) {
-      var authorId = url.parse(req.url, true).query.authorId;
-      var searchText = url.parse(req.url, true).query.search;
-      var query:any = {};
-      if (authorId) {
-        query.authorId = authorId;
-      }
-      if (searchText) {
-        query.$text = {$search: searchText};
-      }
+      const query = url.parse(req.url, true).query;
 
-      TopicModel.Topic
-        .find(query, function (err, topics) {
-          if (err) {
-            console.log(err);
-          } else {
-            res.send(topics);
-          }
-        }).sort({_id: -1});
-
+      TopicModel
+        .find(query.authorId,query.search)
+        .then((topics) => res.send(topics));
     }
   });
 };
 
 export const getTopic = function (req, res) {
   res.format({
-    "application/json": function (req, res) {
-      console.log(req);
+    "application/json": (req, res) => {
       TopicModel.get(req.params.id)
-        .then(
+        .onFulfill(
           (topic) => {
             if (!topic) {
               res.status(404).send({message: "Not found"});
             } else {
               res.send(topic);
             }
-          });
+          })
+        .onReject((reason) => res.status(500).send(reason));
     }
   });
 };
@@ -83,14 +69,10 @@ export const deleteTopic = function (req, res) {
             } else if (!isAuthorOfOwnTopic(topic, req)) {
               res.status(401).send({message: "Not authorized"});
             } else {
-              TopicModel.Topic
-                .remove({_id: req.params.id}, function (err) {
-                  if (err) {
-                    res.status(401).send({message: "Error removing item" + req.params.id});
-                  } else {
-                    res.status(200).send({message: "ok"});
-                  }
-                });
+              TopicModel.remove(req.params.id)
+                .onFulfill(()=> res.status(200).send({message: "ok"}))
+                .onReject(()=> res.status(401).send({message: "Error removing item" + req.params.id})
+                );
             }
           },
           (error) => {
@@ -151,7 +133,7 @@ export const postTopic = function (req, res) {
         TopicModel
           .create(newTopic)
           .onFulfill(() => res.status(200).send({message: "ok"}))
-          .onReject((reason) => res.send(topic));
+          .onReject((reason) => res.send(reason));
       }
     }
   });

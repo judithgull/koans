@@ -15,12 +15,13 @@ describe("TopicModel", () => {
   };
 
   beforeEach(() => {
-    conn = mongoose.connect(env.config.db);
+    if(!mongoose.connection) {
+      conn = mongoose.connect(env.config.db);
+    }
   });
 
   afterEach((done) => {
     topicModel.clear().then(() => {
-      conn.disconnect();
       done();
     });
   });
@@ -52,7 +53,7 @@ describe("TopicModel", () => {
         .onReject((reason) => done(reason));
     });
 
-    it("finds a topic", done => {
+    it("gets a topic by id", done => {
       topicModel
         .get(testId.toHexString())
         .onFulfill((found) => {
@@ -66,6 +67,21 @@ describe("TopicModel", () => {
         })
         .onReject((reason) => done(reason));
     });
+
+    it("find one topic by search", done => {
+      topicModel
+        .find()
+        .onFulfill((topics) => {
+          try {
+            expect(topics.length).to.equal(1);
+            done();
+          } catch (e) {
+            done(e);
+          }
+        })
+        .onReject((reason) => done(reason));
+    });
+
   });
 
 });
