@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/judithgull/koans.svg?branch=master)](https://travis-ci.org/judithgull/koans)
+
 # A Platform for Programming Exercises in Typescript and Javascript
 [https://ilovecode.herokuapp.com/](https://ilovecode.herokuapp.com/)
 
