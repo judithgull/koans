@@ -8,5 +8,5 @@ module.exports = function (gulp, $, config) {
       .pipe($.tslint.report("verbose"));
   });
 
-  gulp.task("analyze");
+  gulp.task("analyze", ["lint"]);
 };
