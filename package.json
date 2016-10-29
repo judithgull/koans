@@ -44,7 +44,7 @@
     "gulp-sass": "^2.0.4",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-tslint": "^2.0.0",
-    "gulp-typescript": "2.9.0",
+    "gulp-typescript": "^2.14.1",
     "gulp-uglify": "^1.0.0",
     "jwt-simple": "^0.3.1",
     "lodash": "^3.6.0",
@@ -90,7 +90,6 @@
     "sinon": "^1.17.6",
     "supertest": "^1.1.0",
     "ts-node": "^1.6.0",
-    "typescript": "^1.8.10",
     "underscore.string": "^3.0.1",
     "wiredep": "^2.2.0",
     "yargs": "^3.4.5"

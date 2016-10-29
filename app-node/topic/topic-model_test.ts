@@ -2,7 +2,7 @@
 
 import * as mongoose from "mongoose";
 import * as topicModel from "./topic-model";
-import * as env from "../../config";
+import * as env from "../config/config";
 import {expect} from "chai";
 
 describe("TopicModel", () => {

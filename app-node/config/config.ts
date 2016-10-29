@@ -8,4 +8,4 @@ export const config = {
   development: development,
   test: test,
   production: production
-}[process.env.NODE_ENV || development];
+}[process.env.NODE_ENV || "development"];
