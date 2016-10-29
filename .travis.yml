@@ -2,7 +2,7 @@ services:
   - mongodb
 language: node_js
 node_js:
-  - "node"
+  - "6"
 #cache:
 #  directories:
 #    - travis_phantomjs
