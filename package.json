@@ -62,12 +62,8 @@
     "uglify-save-license": "^0.4.1"
   },
   "devDependencies": {
-    "browser-sync": "^2.2.3",
+    "browser-sync": "^2.17.5",
     "chai": "^3.4.1",
-    "eslint-path-formatter": "^0.1.1",
-    "eslint-plugin-angular": "^0.0.7",
-    "findup-sync": "^0.2.0",
-    "glob": "^5.0.1",
     "gulp-tslint": "^2.0.0",
     "karma": "^0.12.37",
     "karma-chrome-launcher": "^2.0.0",
@@ -84,7 +80,6 @@
     "mocha": "^2.3.3",
     "multi-glob": "^0.4.0",
     "phantomjs-prebuilt": "^2.1.13",
-    "plato": "^1.4.0",
     "protractor": "^2.5.1",
     "run-sequence": "^1.0.2",
     "sinon": "^1.17.6",
