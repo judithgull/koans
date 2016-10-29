@@ -46,4 +46,4 @@ serverApp.use("/", routes);
 /**
  * Start Server
  */
-http.createServer(serverApp).listen(process.env.PORT || 3000);
+http.createServer(serverApp).listen(config.serverPort);
