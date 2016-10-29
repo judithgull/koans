@@ -1,25 +1,63 @@
-/* global describe, beforeEach, it, expect, inject, module */
-import request = require("supertest");
-import chai = require("chai");
-import serverModule = require("../app");
+"use strict";
 
+import * as request from "supertest";
+import {expect} from "chai";
+import * as serverModule from "../app";
+import * as topicModel from "./topic-model";
 
-module server.topic.test {
-  "use strict";
-  var expect = chai.expect;
+describe("Topic Api", () => {
+  let testId = null;
 
-  describe("Topic Api", () => {
-
-    it("should return an error, when not authorized", (done) => {
-      request(serverModule.serverApp).
-      post("/topics").
-      send().
-      end((err, res) => {
-        expect(res.status).to.equal(401);
-        expect(res.body.message).not.to.be.undefined;
+  /**
+   * insert test data
+   * */
+  beforeEach((done)=>{
+    const testTopic: topicModel.ITopic = {
+      title: "title",
+      programmingLanguage: "typescript",
+      authorId: "author",
+      items: []
+    };
+    topicModel
+      .create(testTopic)
+      .then((item) => {
+        testId = item._id.toHexString();
         done();
       });
-    });
-
   });
-}
+
+  afterEach((done) => {
+    topicModel.clear().then(() => {
+      done();
+    });
+  });
+
+
+  it("should get a test topic", (done) => {
+    request(serverModule.serverApp)
+      .get("/topics/" + testId)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          console.log(res.text);
+          return done(err)};
+        done();
+      });
+  });
+
+  it("should return an error, when not authorized", (done) => {
+    request(serverModule.serverApp)
+      .post("/topics")
+      .set('Accept', 'application/json')
+      .send()
+      .end((err, res) => {
+      expect(res.status).to.equal(401);
+      expect(res.body.message).not.to.be.undefined;
+      done();
+    });
+  });
+
+});
+

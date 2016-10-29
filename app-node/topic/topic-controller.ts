@@ -1,10 +1,9 @@
-var url = require("url");
-var Topic = require("./topic-model.js");
-var jwt = require("jwt-simple");
-var userCtrl = require("../user/user-controller.js");
-import mongoose = require("mongoose");
+"use strict";
 
-var findById = (req):mongoose.Promise<any> => Topic.findOne({_id: req.params.id}).exec();
+import * as url from "url";
+import * as TopicModel from "./topic-model";
+import * as jwt from "jwt-simple";
+import * as userCtrl from "../user/user-controller";
 
 var decodeToken = (req) => {
   if (!req.headers || !req.headers.authorization) {
@@ -23,60 +22,46 @@ var hasValidTocken = (req) => {
   return !!decodeToken(req);
 };
 
-var getUserId = (req):string => {
+var getUserId = (req):String => {
   var payload = decodeToken(req);
-  return payload.sub;
+  return payload.sub.toHexString();
 };
 
 
-module.exports.getTopics = function (req, res) {
+export const getTopics = function (req, res) {
   res.format({
     "application/json": function (req, res) {
-      var authorId = url.parse(req.url, true).query.authorId;
-      var searchText = url.parse(req.url, true).query.search;
-      var query:any = {};
-      if (authorId) {
-        query.authorId = authorId;
-      }
-      if (searchText) {
-        query.$text = {$search: searchText};
-      }
+      const query = url.parse(req.url, true).query;
 
-      Topic
-        .find(query, function (err, topics) {
-          if (err) {
-            console.log(err);
-          } else {
-            res.send(topics);
-          }
-        }).sort({_id: -1});
-
+      TopicModel
+        .find(query.authorId,query.search)
+        .then((topics) => res.send(topics));
     }
   });
 };
 
-module.exports.getTopic = function (req, res) {
+export const getTopic = function (req, res) {
   res.format({
-    "application/json": function (req, res) {
-      findById(req)
-        .then(
+    "application/json": (req, res) => {
+      TopicModel.get(req.params.id)
+        .onFulfill(
           (topic) => {
             if (!topic) {
               res.status(404).send({message: "Not found"});
             } else {
               res.send(topic);
             }
-          });
-
+          })
+        .onReject((reason) => res.status(500).send(reason));
     }
   });
 };
 
 
-module.exports.deleteTopic = function (req, res) {
+export const deleteTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
-      findById(req)
+      TopicModel.get(req.params.id)
         .then(
           (topic) => {
             if (!topic) {
@@ -84,14 +69,10 @@ module.exports.deleteTopic = function (req, res) {
             } else if (!isAuthorOfOwnTopic(topic, req)) {
               res.status(401).send({message: "Not authorized"});
             } else {
-              Topic
-                .remove({_id: req.params.id}, function (err) {
-                  if (err) {
-                    res.status(401).send({message: "Error removing item" + req.params.id});
-                  } else {
-                    res.status(200).send({message: "ok"});
-                  }
-                });
+              TopicModel.remove(req.params.id)
+                .onFulfill(()=> res.status(200).send({message: "ok"}))
+                .onReject(()=> res.status(401).send({message: "Error removing item" + req.params.id})
+                );
             }
           },
           (error) => {
@@ -102,10 +83,10 @@ module.exports.deleteTopic = function (req, res) {
   });
 };
 
-module.exports.updateTopic = function (req, res) {
+export const updateTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
-      findById(req)
+      TopicModel.get(req.params.id)
         .then(
           (topic) => {
             if (!topic) {
@@ -114,7 +95,7 @@ module.exports.updateTopic = function (req, res) {
               res.status(401).send({message: "Not authorized"});
             } else {
               var body = req.body;
-              Topic
+              TopicModel.Topic
                 .update(
                   {_id: req.params.id},
                   {$set: {"title": body.title, "programmingLanguage": body.programmingLanguage, "items": body.items}},
@@ -135,26 +116,24 @@ module.exports.updateTopic = function (req, res) {
   });
 };
 
-module.exports.postTopic = function (req, res) {
+export const postTopic = function (req, res) {
   res.format({
     "application/json": function (req, res) {
       if (!hasValidTocken(req)) {
         res.status(401).send({message: "Login Required!"});
       } else {
-        var body = req.body;
-        var topic = new Topic();
-        topic.title = body.title;
-        topic.programmingLanguage = body.programmingLanguage;
-        topic.items = body.items;
-        topic.authorId = getUserId(req);
+        let body = req.body;
+        let newTopic:TopicModel.ITopic = {
+          title:body.title,
+          programmingLanguage: body.programmingLanguage,
+          authorId:getUserId(req),
+          items: body.items,
+        };
 
-        topic.save(function (err) {
-          if (err) {
-            res.send(topic);
-          } else {
-            res.status(200).send({message: "ok"});
-          }
-        });
+        TopicModel
+          .create(newTopic)
+          .onFulfill(() => res.status(200).send({message: "ok"}))
+          .onReject((reason) => res.send(reason));
       }
     }
   });

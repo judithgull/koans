@@ -1,6 +1,6 @@
 var jwt = require("jwt-simple");
-var User = require("../user/user-model.js");
-var userCtrl = require("../user/user-controller.js");
+var User = require("../user/user-model");
+var userCtrl = require("../user/user-controller");
 
 export class LoginController {
 

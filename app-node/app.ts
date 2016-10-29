@@ -1,11 +1,16 @@
-///<reference path="../typings/tsd.d.ts" />
+///<reference path="../typings/index.d.ts" />
+
+import * as config from "./config/config";
+
+
 var http = require("http"),
   express = require("express"),
   bodyParser = require("body-parser"),
   methodOverride = require("method-override"),
   mongoose = require("mongoose"),
   path = require("path"),
-  compression = require("compression");
+  compression = require("compression"),
+  routes = require("./app-routes");
 
 export var serverApp = express();
 
@@ -37,12 +42,13 @@ serverApp.use(methodOverride(function (req) {
 /**
  * DB
  */
-mongoose.connect(process.env.DB_URI || "mongodb://localhost:27017/koans");
+console.log("Connecting to " + config.config.db);
+mongoose.connect(config.config.db);
 
 /**
  * Routes
  */
-serverApp.use("/", require("./app-routes.js"));
+serverApp.use("/", routes);
 
 /**
  * Start Server
