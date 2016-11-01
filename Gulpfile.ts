@@ -1,12 +1,12 @@
 "use strict";
 
-var _ = require("lodash"),
-  buildConfig = require("./build.config"),
-  gulp = require("gulp"),
+var __:any = require("lodash");
+var buildConfig:any = require("./build.config"),
+  gulp:any = require("gulp"),
   gulpFiles = require("require-dir")("./gulp"),
   path = require("path"),
   key,
-  $ = require("gulp-load-plugins")({
+  $$:any = require("gulp-load-plugins")({
   pattern: [
     "browser-sync",
     "del",
@@ -22,9 +22,9 @@ var _ = require("lodash"),
     "nodemon"
   ]
   }),
-  config = {};
+  config:any = {};
 
-_.merge(config, buildConfig);
+__.merge(config, buildConfig);
 
 config.appFiles = path.join(config.appDir, "**/*");
 config.faviconFiles = path.join(config.appDir, "assets/favicon.png");
@@ -54,13 +54,13 @@ config.buildUnitTestFiles = path.join(config.buildUnitTestsDir, "**/*_test.js");
 config.unitTestFiles = path.join(config.unitTestDir, "**/*_test.ts");
 config.nodeUnitTestFiles = path.join(config.appNodeDir, "**/*_test.ts");
 
-config.tsProject = $.typescript.createProject("tsconfig.json");
+config.tsProject = $$.typescript.createProject("tsconfig.json");
 
 for (key in gulpFiles) {
-  gulpFiles[key](gulp, $, config);
+  gulpFiles[key](gulp, $$, config);
 }
 
-gulp.task("dev", ["pre-build"], function () {
+gulp.task("dev", ["pre-build"],  ()  => {
   gulp.start("watch");
   gulp.start("mongod");
 });
