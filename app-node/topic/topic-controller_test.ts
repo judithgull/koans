@@ -42,7 +42,8 @@ describe("Topic Api", () => {
       .end((err, res) => {
         if (err) {
           console.log(res.text);
-          return done(err)};
+          return done(err);
+        }
         done();
       });
   });

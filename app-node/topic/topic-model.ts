@@ -12,7 +12,7 @@ export interface ITopic {
   programmingLanguage: String,
   authorId: String,
   items: ITopicItem[]
-};
+}
 
 interface ITopicItem{
   sortOrder: Number,
@@ -20,7 +20,7 @@ interface ITopicItem{
   description: String,
   exercise: String,
   solution: String
-};
+}
 
 interface ITopicModel extends ITopic, mongoose.Document { }
 
