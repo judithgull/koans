@@ -1,5 +1,6 @@
 "use strict";
-var buildConfig = require("./build.config.js"),
+var c = require("./build.config"),
+  buildConfig = c.buildConfig,
   preprocessors = {},
   buildTestDir, templateDir
   , jsDir;

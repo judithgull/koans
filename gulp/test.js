@@ -1,6 +1,6 @@
 "use strict";
 
-var karmaConf = require("../karma.config.js");
+var karmaConf = require("../karma.config");
 var gulpFilter = require("gulp-filter");
 
 karmaConf.files = [];

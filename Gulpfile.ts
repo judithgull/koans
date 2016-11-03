@@ -1,8 +1,8 @@
 "use strict";
 
+import {buildConfig} from "./build.config";
 var __:any = require("lodash");
-var buildConfig:any = require("./build.config"),
-  gulp:any = require("gulp"),
+var gulp:any = require("gulp"),
   gulpFiles = require("require-dir")("./gulp"),
   path = require("path"),
   key,

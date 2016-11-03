@@ -2,7 +2,7 @@
 
 var outDir = "build/";
 
-module.exports = {
+export const buildConfig:any = {
   host: "localhost",
   port: 3000,
 
