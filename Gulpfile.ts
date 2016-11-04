@@ -1,6 +1,7 @@
 "use strict";
 
 import {buildConfig} from "./build.config";
+import * as gulpAnalyze from "./gulp/analyze";
 var __:any = require("lodash");
 var gulp:any = require("gulp"),
   gulpFiles = require("require-dir")("./gulp"),
@@ -66,3 +67,4 @@ gulp.task("dev", ["pre-build"],  ()  => {
 });
 
 gulp.task("default", ["dev"]);
+
