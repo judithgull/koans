@@ -1,4 +1,5 @@
 "use strict";
+import * as del from "del";
 
 var karmaConf = require("../karma.config");
 var gulpFilter = require("gulp-filter");
@@ -8,7 +9,7 @@ karmaConf.files = [];
 module.exports = function (gulp, $, config) {
 
   gulp.task("clean:test", function (cb) {
-    return $.del(config.buildTestDir, cb);
+    return del(config.buildTestDir, cb);
   });
 
   gulp.task("buildTests", ["clean:test", "build"], function () {
