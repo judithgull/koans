@@ -10,7 +10,6 @@ var gulp:any = require("gulp"),
   $$:any = require("gulp-load-plugins")({
   pattern: [
     "browser-sync",
-    "del",
     "gulp-*",
     "karma",
     "main-bower-files",

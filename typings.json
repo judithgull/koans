@@ -25,10 +25,12 @@
     "superagent": "github:DefinitelyTyped/DefinitelyTyped/superagent/superagent.d.ts#c2c22c3b953fe9730d4802022d5e0d18d083909e",
     "supertest": "github:DefinitelyTyped/DefinitelyTyped/supertest/supertest.d.ts#c2c22c3b953fe9730d4802022d5e0d18d083909e",
     "toastr": "github:DefinitelyTyped/DefinitelyTyped/toastr/toastr.d.ts#7136728255d96038795d93c3e4b43c3c7de8ac1e",
+    "underscore.string": "registry:dt/underscore.string#0.0.0+20160514164108",
     "vinyl": "registry:dt/vinyl#1.2.0+20160924121322"
   },
   "dependencies": {
     "body-parser": "registry:npm/body-parser#1.15.2+20160815132839",
+    "del": "registry:npm/del#2.2.0+20160416211512",
     "gulp": "registry:npm/gulp#4.0.0-alpha.2+20160817105618",
     "mongoose": "registry:npm/mongoose#4.3.5+20160628072220"
   }
