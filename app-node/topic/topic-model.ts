@@ -14,7 +14,7 @@ export interface ITopic {
   items: ITopicItem[]
 }
 
-interface ITopicItem{
+interface ITopicItem {
   sortOrder: Number,
   title: String,
   description: String,
@@ -22,12 +22,13 @@ interface ITopicItem{
   solution: String
 }
 
-interface ITopicModel extends ITopic, mongoose.Document { }
+interface ITopicModel extends ITopic, mongoose.Document {
+}
 
 const TopicSchema = new mongoose.Schema({
   title: String,
   programmingLanguage: String,
-  authorId:String,
+  authorId: String,
   items: [{
     sortOrder: Number,
     title: String,
@@ -38,24 +39,24 @@ const TopicSchema = new mongoose.Schema({
 });
 
 
-export const get = (id: string):mongoose.Promise<ITopicModel> => {
-    return Topic.findById(id).exec();
+export const get = (id: string): mongoose.Promise<ITopicModel> => {
+  return Topic.findById(id).exec();
 };
 
-export const create = (t:ITopic):mongoose.Promise<ITopicModel> => {
+export const create = (t: ITopic): mongoose.Promise<ITopicModel> => {
   return Topic.create(t);
 };
 
-export const remove = (id: string):mongoose.Promise<ITopicModel> => {
+export const remove = (id: string): mongoose.Promise<ITopicModel> => {
   return Topic.remove({_id: id}).exec();
 };
 
-export const find = (authorId?:string, searchText?:string): mongoose.Promise<ITopicModel[]> => {
-  const query:any = {};
-  if(authorId){
+export const find = (authorId?: string, searchText?: string): mongoose.Promise<ITopicModel[]> => {
+  const query: any = {};
+  if (authorId) {
     query.authorId = authorId;
   }
-  if(searchText){
+  if (searchText) {
     query.$text = {$search: searchText};
   }
 
@@ -69,7 +70,7 @@ export const find = (authorId?:string, searchText?:string): mongoose.Promise<ITo
 /**
  * Clear collection
  */
-export const clear = ():mongoose.Promise<{}> => {
+export const clear = (): mongoose.Promise<{}> => {
   return Topic.remove({}).exec();
 };
 

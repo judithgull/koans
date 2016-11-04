@@ -15,7 +15,7 @@ describe("TopicModel", () => {
   };
 
   beforeEach(() => {
-    if(!mongoose.connection) {
+    if (!mongoose.connection) {
       conn = mongoose.connect(env.config.db);
     }
   });
