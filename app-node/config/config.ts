@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 import * as development from "./env/development";
 import * as test from "./env/test";

@@ -16,6 +16,9 @@
   "node_modules",
   "build",
   "lib",
-  "bower_components"
+  "bower_components",
+  "Gulpfile.ts",
+  "build.config.ts",
+  "gulp"
 ]
 }

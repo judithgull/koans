@@ -11,7 +11,7 @@ describe("Topic Api", () => {
   /**
    * insert test data
    * */
-  beforeEach((done)=>{
+  beforeEach((done)=> {
     const testTopic: topicModel.ITopic = {
       title: "title",
       programmingLanguage: "typescript",
@@ -36,8 +36,8 @@ describe("Topic Api", () => {
   it("should get a test topic", (done) => {
     request(serverModule.serverApp)
       .get("/topics/" + testId)
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
       .expect(200)
       .end((err, res) => {
         if (err) {
@@ -51,13 +51,13 @@ describe("Topic Api", () => {
   it("should return an error, when not authorized", (done) => {
     request(serverModule.serverApp)
       .post("/topics")
-      .set('Accept', 'application/json')
+      .set("Accept", "application/json")
       .send()
       .end((err, res) => {
-      expect(res.status).to.equal(401);
-      expect(res.body.message).not.to.be.undefined;
-      done();
-    });
+        expect(res.status).to.equal(401);
+        expect(res.body.message).not.to.be.undefined;
+        done();
+      });
   });
 
 });

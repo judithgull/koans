@@ -1,8 +1,10 @@
 "use strict";
 
-var _ = require("underscore.string"),
-  fs = require("fs"),
-  path = require("path"),
+import * as _ from "underscore.string";
+import * as path from "path";
+import * as del from "del";
+
+var fs = require("fs"),
   bowerDir = JSON.parse(fs.readFileSync(".bowerrc")).directory + path.sep,
   favicons = require("gulp-favicons");
 
@@ -11,7 +13,7 @@ module.exports = function (gulp, $, config) {
 
   var clean = function(dir){
     return function (cb) {
-      return $.del(dir, cb);
+      return del(dir, cb);
     }
   };
 
