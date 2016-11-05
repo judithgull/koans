@@ -24,7 +24,6 @@ export const config:any = {
   // patches for external libraries
   libDir: "lib",
   nodeModules: "node_modules",
-  tsTypingsDir: "typings",
 
   // unit test directories
   unitTestDir: "app",
@@ -42,11 +41,10 @@ export const config:any = {
   buildNodeJs: outDir + "app-node/",
   buildData: outDir + "app/data/",
   extDir: outDir + "app/vendor/",
-  extAceDir: outDir + "app/vendor/ace-builds/src-min-noconflict",
+
   extCss: outDir + "app/vendor/css/",
   extFonts: outDir + "app/vendor/fonts/",
   extJs: outDir + "app/vendor/js/",
-  extTs: outDir + "app/typescripts/",
   server: outDir + "app-node/app.js"
 };
 
@@ -58,41 +56,54 @@ const gulpTsFiles =  path.join(config.gulpDir, tsFilter);
 
 const jsFilter = "**/*.js";
 
+// shared
 export const shared = {
   out: "build"
 };
 
+// client
 export const client:any = {};
 
 client.assetDir = path.join(config.appDir, "assets");
 client.assetFiles = path.join(client.assetDir, "**/*");
 client.favicon = path.join(client.assetDir, "favicon.png");
+client.indexFile = path.join(config.appDir, "**/index.jade");
 
 client.out = {};
 client.out.root = path.join(shared.out, "app");
 client.out.index = path.join(client.out.root, "index.html");
 client.out.assetDir = path.join(client.out.root, "assets");
+client.out.aceSrc = path.join(client.out.root, "vendor/ace-builds/src-min-noconflict");
+client.out.typings = path.join(client.out.root, "typescripts");
 
+// global
 export const global:any = {};
 global.tsFiles = [clientTsFiles, serverTsFiles, gulpTsFiles];
 global.bowerDir = "bower_components";
 global.libFiles = path.join("lib", jsFilter);
 
 
+global.tsLibDir = path.join(config.nodeModules, "typescript/lib"); // dir of typescript library
+global.tsServicesFiles = path.join(global.tsLibDir, "typescriptServices.js");
+
+// type definition src
+global.typingsStd = path.join(global.tsLibDir, "lib.d.ts"); // standard library typings
+global.typings = path.join("typings", "**/*.ts"); // installed typings
+
+// server
+export const server:any = {};
+server.out = {};
+server.out.root = path.join(shared.out, "app-node");
+
+// config
 config.appFiles = path.join(config.appDir, "**/*");
-
-
 config.appMarkupFiles = path.join(config.appDir, "**/*.jade");
-config.appIndexFile = path.join(config.appDir, "**/index.jade");
 config.appScriptFiles = path.join(config.appDir, "**/*.ts");
 config.appNodeScriptFiles = path.join(config.appNodeDir, "**/*.ts");
-
 config.appStyleFiles = path.join(config.appDir, "**/*.scss");
 
-config.tsLibDir = path.join(config.nodeModules, "typescript/lib");
-config.tsServicesFiles = path.join(config.tsLibDir, "typescriptServices.js");
-config.tsLibDTs = path.join(config.tsLibDir, "lib.d.ts");
-config.tsTypings = path.join(config.tsTypingsDir, "**/*.ts");
+
+
 
 
 

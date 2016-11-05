@@ -2,61 +2,10 @@
 
 import * as _ from "underscore.string";
 import * as path from "path";
-import * as del from "del";
-import {global, client} from "../build.config";
-
-const favicons = require("gulp-favicons");
+import {global} from "../build.config";
 
 module.exports = (gulp, $, config) => {
   var isProd = $.yargs.argv.stage === "prod";
-
-  // copy patched libraries into bower_components dir
-  gulp.task("patchLibs", () =>
-    gulp.src(global.libFiles)
-      .pipe(gulp.dest(global.bowerDir))
-  );
-
-  // clean
-  gulp.task("clean", (done) => del(config.buildDir, done));
-
-  gulp.task("node:clean", (done) => del(config.buildNodeDir, done));
-
-  // copy and optimize images into build directory
-  gulp.task("assets", ["clean"],  () => {
-    return gulp.src(client.assetFiles)
-      .pipe($.if(isProd, $.imagemin()))
-      .pipe(gulp.dest(client.out.assetDir));
-  });
-
-  gulp.task("favicons", ["index", "clean"], () => {
-    gulp.src(client.favicon).pipe(favicons({
-      display: "standalone",
-      orientation: "portrait",
-      version: 1.0,
-      logging: false,
-      online: false,
-      html: client.out.index
-    })).pipe(gulp.dest(client.out.root));
-  });
-
-  // compile index.jade and copy into build directory
-  gulp.task("index", ["clean"], function () {
-    return gulp.src(config.appIndexFile)
-      .pipe($.jade())
-      .pipe(gulp.dest(config.buildDir));
-  });
-
-  // copy current typescriptServices from node_modules into build directory
-  gulp.task("copyTsServices", ["clean"], function () {
-    return gulp.src(config.tsServicesFiles)
-      .pipe(gulp.dest(config.extAceDir));
-  });
-
-  // copy typescripts/lib.d.ts to build directory
-  gulp.task("copyTypeDefinitions", ["clean"], function () {
-    return gulp.src([config.tsLibDTs, config.tsTypings])
-      .pipe(gulp.dest(config.extTs));
-  });
 
   gulp.task("node:build", function () {
     var tsFilter = $.filter("**/*.ts");
@@ -249,8 +198,6 @@ module.exports = (gulp, $, config) => {
     return stream.done()
       .pipe(gulp.dest(config.buildTestDirectiveTemplatesDir));
   });
-
-  gulp.task("pre-build", ["assets", "favicons", "copyTsServices", "copyTypeDefinitions", "node:clean"]);
 
   gulp.task("frontend:build", ["copyTemplates"]);
 
