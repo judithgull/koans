@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "repository": "https://github.com/judithgull/koans",
   "main": "build/app-node/app.js",
-  "engines":{
+  "engines": {
     "node": "6.9.1"
   },
   "scripts": {
@@ -60,6 +60,7 @@
     "nodemon": "^1.7.1",
     "require-dir": "^0.3.0",
     "streamqueue": "~0.1.2",
+    "ts-node": "^1.6.1",
     "tslint": "^3.15.1",
     "typescript": "^1.8.10",
     "typings": "^1.4.0",
@@ -87,7 +88,6 @@
     "run-sequence": "^1.0.2",
     "sinon": "^1.17.6",
     "supertest": "^1.1.0",
-    "ts-node": "^1.6.0",
     "underscore.string": "^3.3.4",
     "wiredep": "^2.2.0",
     "yargs": "^3.4.5"
