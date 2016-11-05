@@ -3,15 +3,15 @@
 import * as _ from "underscore.string";
 import * as path from "path";
 import * as del from "del";
+import {global} from "../build.config";
 
-var fs = require("fs"),
-  bowerDir = JSON.parse(fs.readFileSync(".bowerrc")).directory + path.sep,
+var bowerDir = global.bowerDir,
   favicons = require("gulp-favicons");
 
 module.exports = function (gulp, $, config) {
   var isProd = $.yargs.argv.stage === "prod";
 
-  var clean = function(dir){
+  var clean = function (dir) {
     return function (cb) {
       return del(dir, cb);
     }
@@ -47,14 +47,14 @@ module.exports = function (gulp, $, config) {
   });
 
   // compile index.jade and copy into build directory
-  gulp.task("index",["clean"], function () {
+  gulp.task("index", ["clean"], function () {
     return gulp.src(config.appIndexFile)
       .pipe($.jade())
       .pipe(gulp.dest(config.buildDir));
   });
 
   // copy current typescriptServices from node_modules into build directory
-  gulp.task("copyTsServices", [ "clean"], function () {
+  gulp.task("copyTsServices", ["clean"], function () {
     return gulp.src(config.tsServicesFiles)
       .pipe(gulp.dest(config.extAceDir));
   });
@@ -90,9 +90,9 @@ module.exports = function (gulp, $, config) {
         errorHandler: function (err) {
           $.notify.onError({
             title: "Error linting at " + err.plugin,
-            subtitle: " ", //overrides defaults
+            subtitle: " ", // overrides defaults
             message: err.message.replace(/\u001b\[.*?m/g, ""),
-            sound: " " //overrides defaults
+            sound: " " // overrides defaults
           })(err);
 
           this.emit("end");
@@ -114,11 +114,11 @@ module.exports = function (gulp, $, config) {
       , tsFilter = $.filter("**/*.ts");
 
     return gulp.src([
-        config.appScriptFiles,
-        config.buildDir + "**/*.html",
-        "!**/*_test.*",
-        "!**/index.html"
-      ])
+      config.appScriptFiles,
+      config.buildDir + "**/*.html",
+      "!**/*_test.*",
+      "!**/index.html"
+    ])
       .pipe($.sourcemaps.init())
       .pipe(tsFilter)
       .pipe($.typescript(config.tsProject))
@@ -150,9 +150,9 @@ module.exports = function (gulp, $, config) {
           config.buildCss + "**/*",
           config.buildJs + "**/*"
         ])
-        .pipe(jsFilter)
-        .pipe($.angularFilesort())
-        .pipe(jsFilter.restore()), {
+          .pipe(jsFilter)
+          .pipe($.angularFilesort())
+          .pipe(jsFilter.restore()), {
           addRootSlash: false,
           ignorePath: config.buildDir
         })
@@ -257,7 +257,7 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildTestDirectiveTemplatesDir));
   });
 
-  gulp.task("pre-build", ["assets", "favicons", "copyTsServices", "copyTypeDefinitions","node:clean"]);
+  gulp.task("pre-build", ["assets", "favicons", "copyTsServices", "copyTypeDefinitions", "node:clean"]);
 
   gulp.task("frontend:build", ["copyTemplates"]);
 

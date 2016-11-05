@@ -26,7 +26,7 @@ module.exports = function (gulp, $) {
 
   gulp.task("stop-mongo", runCommand("mongo --eval 'db.getSiblingDB(\"admin\").shutdownServer()'"));
 
-  //export current db
+  // export current db
   gulp.task("mongo-export", runCommand("mongoexport --db koans --collection topics --out app-node/sample-data/topics.bson"));
 
 };

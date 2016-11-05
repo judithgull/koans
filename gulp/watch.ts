@@ -2,7 +2,7 @@
 
 module.exports = function (gulp, $, config) {
 
-  //use nodemon to watch node server
+  // use nodemon to watch node server
   gulp.task("nodemon", ["build"], function (cb) {
     var started = false;
 
@@ -22,7 +22,7 @@ module.exports = function (gulp, $, config) {
     $.browserSync.reload();
   });
 
-  //watch frontend/backend
+  // watch frontend/backend
   gulp.task("watch", ["nodemon", "node:build"], function () {
     $.browserSync({
       proxy: "http://localhost:3000/",
