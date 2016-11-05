@@ -38,7 +38,6 @@ export const config:any = {
   buildNodeDir: outDir + "app-node/",
   buildCss: outDir + "app/css/",
   buildFonts: outDir + "app/assets/fonts/",
-  buildAssets: outDir + "app/assets/",
   buildJs: outDir + "app/js/",
   buildNodeJs: outDir + "app-node/",
   buildData: outDir + "app/data/",
@@ -57,15 +56,32 @@ const clientTsFiles =  path.join(config.appDir, tsFilter);
 const serverTsFiles =  path.join(config.appNodeDir, tsFilter);
 const gulpTsFiles =  path.join(config.gulpDir, tsFilter);
 
+const jsFilter = "**/*.js";
 
-export const global = {
-  tsFiles:[clientTsFiles, serverTsFiles, gulpTsFiles],
-  bowerDir: "bower_components"
+export const shared = {
+  out: "build"
 };
 
+export const client:any = {};
+
+client.assetDir = path.join(config.appDir, "assets");
+client.assetFiles = path.join(client.assetDir, "**/*");
+client.favicon = path.join(client.assetDir, "favicon.png");
+
+client.out = {};
+client.out.root = path.join(shared.out, "app");
+client.out.index = path.join(client.out.root, "index.html");
+client.out.assetDir = path.join(client.out.root, "assets");
+
+export const global:any = {};
+global.tsFiles = [clientTsFiles, serverTsFiles, gulpTsFiles];
+global.bowerDir = "bower_components";
+global.libFiles = path.join("lib", jsFilter);
+
+
 config.appFiles = path.join(config.appDir, "**/*");
-config.faviconFiles = path.join(config.appDir, "assets/favicon.png");
-config.appAssetsFiles = path.join(config.appDir, "assets/**/*");
+
+
 config.appMarkupFiles = path.join(config.appDir, "**/*.jade");
 config.appIndexFile = path.join(config.appDir, "**/index.jade");
 config.appScriptFiles = path.join(config.appDir, "**/*.ts");
@@ -78,7 +94,7 @@ config.tsServicesFiles = path.join(config.tsLibDir, "typescriptServices.js");
 config.tsLibDTs = path.join(config.tsLibDir, "lib.d.ts");
 config.tsTypings = path.join(config.tsTypingsDir, "**/*.ts");
 
-config.libFiles = path.join(config.libDir, "**/*.js");
+
 
 config.buildDirectiveTemplateFiles = path.join(config.buildDir, "**/*directive.tpl.html");
 config.buildJsFiles = path.join(config.buildJs, "**/*.js");

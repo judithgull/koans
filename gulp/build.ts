@@ -3,47 +3,40 @@
 import * as _ from "underscore.string";
 import * as path from "path";
 import * as del from "del";
-import {global} from "../build.config";
+import {global, client} from "../build.config";
 
-var bowerDir = global.bowerDir,
-  favicons = require("gulp-favicons");
+const favicons = require("gulp-favicons");
 
-module.exports = function (gulp, $, config) {
+module.exports = (gulp, $, config) => {
   var isProd = $.yargs.argv.stage === "prod";
 
-  var clean = function (dir) {
-    return function (cb) {
-      return del(dir, cb);
-    }
-  };
-
   // copy patched libraries into bower_components dir
-  gulp.task("patchLibs", function () {
-    return gulp.src(config.libFiles)
-      .pipe($.filter("**/*.js"))
-      .pipe(gulp.dest(bowerDir));
-  });
+  gulp.task("patchLibs", () =>
+    gulp.src(global.libFiles)
+      .pipe(gulp.dest(global.bowerDir))
+  );
 
-  gulp.task("clean", clean(config.buildDir));
+  // clean
+  gulp.task("clean", (done) => del(config.buildDir, done));
 
-  gulp.task("node:clean", clean(config.buildNodeDir));
+  gulp.task("node:clean", (done) => del(config.buildNodeDir, done));
 
   // copy and optimize images into build directory
-  gulp.task("assets", ["clean"], function () {
-    return gulp.src(config.appAssetsFiles)
+  gulp.task("assets", ["clean"],  () => {
+    return gulp.src(client.assetFiles)
       .pipe($.if(isProd, $.imagemin()))
-      .pipe(gulp.dest(config.buildAssets));
+      .pipe(gulp.dest(client.out.assetDir));
   });
 
-  gulp.task("favicons", ["index", "clean"], function () {
-    gulp.src(config.faviconFiles).pipe(favicons({
+  gulp.task("favicons", ["index", "clean"], () => {
+    gulp.src(client.favicon).pipe(favicons({
       display: "standalone",
       orientation: "portrait",
       version: 1.0,
       logging: false,
       online: false,
-      html: "./build/app/index.html"
-    })).pipe(gulp.dest("./build/app"));
+      html: client.out.index
+    })).pipe(gulp.dest(client.out.root));
   });
 
   // compile index.jade and copy into build directory
@@ -162,13 +155,13 @@ module.exports = function (gulp, $, config) {
 
   gulp.task("bowerCopyCss", ["inject"], function () {
     var cssFilter = $.filter("**/*.css");
-    return gulp.src($.mainBowerFiles(), {base: bowerDir})
+    return gulp.src($.mainBowerFiles(), {base: global.bowerDir})
       .pipe(cssFilter)
       .pipe($.if(isProd, $.modifyCssUrls({
         modify: function (url, filePath) {
           if (url.indexOf("http") !== 0 && url.indexOf("data:") !== 0) {
             filePath = path.dirname(filePath) + path.sep;
-            filePath = filePath.substring(filePath.indexOf(bowerDir) + bowerDir.length,
+            filePath = filePath.substring(filePath.indexOf(global.bowerDir) + global.bowerDir.length,
               filePath.length);
           }
           url = path.normalize(filePath + url);
@@ -184,7 +177,7 @@ module.exports = function (gulp, $, config) {
 
   gulp.task("bowerCopyAce", ["inject"], function () {
     var aceFilter = $.filter("ace-builds/**/*.js");
-    return gulp.src($.mainBowerFiles(), {base: bowerDir})
+    return gulp.src($.mainBowerFiles(), {base: global.bowerDir})
       .pipe(aceFilter)
       .pipe(gulp.dest(config.extDir));
   });
@@ -192,7 +185,7 @@ module.exports = function (gulp, $, config) {
   // copy bower components into build directory
   gulp.task("bowerCopy", ["inject", "bowerCopyCss", "bowerCopyAce"], function () {
     var jsNoAceFilter = $.filter(["**/*.js", "!ace-builds/**"]);
-    return gulp.src($.mainBowerFiles(), {base: bowerDir})
+    return gulp.src($.mainBowerFiles(), {base: global.bowerDir})
       .pipe(jsNoAceFilter)
       .pipe($.if(isProd, $.concat("vendor.js")))
       .pipe($.if(isProd, $.uglify({
@@ -227,7 +220,7 @@ module.exports = function (gulp, $, config) {
     } else {
       return gulp.src(config.buildDir + "index.html")
         .pipe($.wiredep.stream({
-          ignorePath: "../../" + bowerDir.replace(/\\/g, "/"),
+          ignorePath: "../../" + global.bowerDir.replace(/\\/g, "/"),
           fileTypes: {
             html: {
               replace: {
