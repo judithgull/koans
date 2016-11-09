@@ -3,6 +3,7 @@
 import * as _ from "underscore.string";
 import * as path from "path";
 import {global} from "../build.config";
+const pug = require("gulp-pug");
 
 module.exports = (gulp, $, config) => {
   var isProd = $.yargs.argv.stage === "prod";
@@ -21,7 +22,7 @@ module.exports = (gulp, $, config) => {
   // compile markup files and copy into build directory
   gulp.task("markup", function () {
     return gulp.src(config.appMarkupFiles)
-      .pipe($.jade())
+      .pipe(pug())
       .pipe(gulp.dest(config.buildDir));
   });
 
