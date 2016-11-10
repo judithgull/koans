@@ -8,26 +8,26 @@ var gulpFilter = require("gulp-filter");
 
 karmaConf.files = [];
 
-module.exports = function (gulp, $) {
+module.exports = (gulp, $) => {
 
-  gulp.task("clean:test", function (cb) {
+  gulp.task("clean:test", (cb) => {
     return del(config.testDir, cb);
   });
 
-  gulp.task("buildTests", ["clean:test", "build"], function () {
+  gulp.task("buildTests", ["clean:test", "build"], () => {
     var testFilter = gulpFilter("**/*_test.js");
     const tsProject = ts.createProject("tsconfig.json");
     return gulp.src([
-        config.client.unitTestFiles,
-        config.client.scriptFiles
-      ])
+      config.client.unitTestFiles,
+      config.client.scriptFiles
+    ])
       .pipe($.typescript(tsProject))
       .pipe(testFilter)
       .pipe(gulp.dest(config.client.out.unitTestDir));
   });
 
   // inject scripts in karma.config.js
-  gulp.task("karmaFiles", ["buildTests"], function () {
+  gulp.task("karmaFiles", ["buildTests"], () => {
     var stream = $.streamqueue({objectMode: true});
 
     // add bower javascript
@@ -40,23 +40,23 @@ module.exports = function (gulp, $) {
 
     // add application javascript
     stream.queue(gulp.src([
-        config.client.out.jsFiles,
-        "!**/*_test.*"
-      ])
+      config.client.out.jsFiles,
+      "!**/*_test.*"
+    ])
       .pipe($.angularFilesort()));
 
     // add unit tests
     stream.queue(gulp.src([config.client.out.unitTestFiles]));
 
     return stream.done()
-      .on("data", function (file) {
+      .on("data", (file) => {
         karmaConf.files.push(file.path);
       });
   });
 
   // run unit tests
-  gulp.task("unitTest", ["karmaFiles"], function (done) {
-    $.karma.server.start(karmaConf, function (exitCode) {
+  gulp.task("unitTest", ["karmaFiles"], (done) => {
+    $.karma.server.start(karmaConf, (exitCode) => {
       console.log("Karma has exited with " + exitCode);
       done(exitCode);
     });

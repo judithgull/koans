@@ -2,15 +2,15 @@
 
 import * as config from "../build.config";
 
-module.exports = function (gulp, $) {
+module.exports = (gulp, $) => {
 
   // use nodemon to watch node server
-  gulp.task("nodemon", ["build"], function (cb) {
+  gulp.task("nodemon", ["build"], (cb) => {
     var started = false;
 
     return $.nodemon({
       script: config.server.out.app
-    }).on("start", function () {
+    }).on("start", () => {
       // to avoid nodemon being started multiple times
       if (!started) {
         cb();
@@ -20,12 +20,12 @@ module.exports = function (gulp, $) {
   });
 
 
-  gulp.task("browserSync", ["frontend:build"], function () {
+  gulp.task("browserSync", ["frontend:build"], () => {
     $.browserSync.reload();
   });
 
   // watch frontend/backend
-  gulp.task("watch", ["nodemon", "node:build"], function () {
+  gulp.task("watch", ["nodemon", "node:build"], () => {
     $.browserSync({
       proxy: "http://localhost:3000/",
       port: 7000

@@ -2,21 +2,21 @@
 
 var exec = require("child_process").exec;
 
-module.exports = function (gulp, $) {
+module.exports = (gulp) => {
 
-  function runCommand(command) {
-    return function (cb) {
-      exec(command, function (err, stdout, stderr) {
+  const runCommand = (command) => {
+    return (cb) => {
+      exec(command, (err, stdout, stderr) => {
         console.log(stdout);
         console.log(stderr);
         cb(err);
       });
     }
-  }
+  };
 
-  gulp.task("mongod", function () {
+  gulp.task("mongod", () => {
     var f = runCommand("mongod");
-    f(function (err) {
+    f((err) => {
       if (err) {
         console.log("Error in mongod. Already started?");
         console.log(err);

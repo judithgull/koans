@@ -10,7 +10,7 @@ const pug = require("gulp-pug");
 module.exports = (gulp, $) => {
   var isProd = $.yargs.argv.stage === "prod";
 
-  gulp.task("node:build", function () {
+  gulp.task("node:build", () => {
     var tsFilter = $.filter("**/*.ts");
     const tsProject = ts.createProject("tsconfig.json");
     return gulp.src(config.server.scriptFiles)
@@ -23,17 +23,17 @@ module.exports = (gulp, $) => {
   });
 
   // compile markup files and copy into build directory
-  gulp.task("markup", function () {
+  gulp.task("markup", () => {
     return gulp.src(config.client.markupFiles)
       .pipe(pug())
       .pipe(gulp.dest(config.client.out.root));
   });
 
   // compile styles and copy into build directory
-  gulp.task("styles", function () {
+  gulp.task("styles", () => {
     return gulp.src(config.client.styleFiles)
       .pipe($.plumber({
-        errorHandler: function (err) {
+        errorHandler: (err) => {
           $.notify.onError({
             title: "Error linting at " + err.plugin,
             subtitle: " ", // overrides defaults
@@ -54,7 +54,7 @@ module.exports = (gulp, $) => {
 
 
   // compile scripts and copy into build directory
-  gulp.task("scripts", ["analyze", "markup"], function () {
+  gulp.task("scripts", ["analyze", "markup"], () => {
     var htmlFilter = $.filter("**/*.html")
       , jsFilter = $.filter("**/*.js")
       , tsFilter = $.filter("**/*.ts");
@@ -89,7 +89,7 @@ module.exports = (gulp, $) => {
   });
 
   // inject custom CSS and JavaScript into index.html
-  gulp.task("inject", ["markup", "styles", "scripts"], function () {
+  gulp.task("inject", ["markup", "styles", "scripts"], () => {
     var jsFilter = $.filter("**/*.js");
 
     return gulp.src(config.client.out.index)
@@ -107,12 +107,12 @@ module.exports = (gulp, $) => {
       .pipe(gulp.dest(config.client.out.root));
   });
 
-  gulp.task("bowerCopyCss", ["inject"], function () {
+  gulp.task("bowerCopyCss", ["inject"], () => {
     var cssFilter = $.filter("**/*.css");
     return gulp.src($.mainBowerFiles(), {base: config.bowerDir})
       .pipe(cssFilter)
       .pipe($.if(isProd, $.modifyCssUrls({
-        modify: function (url, filePath) {
+        modify: (url, filePath) => {
           if (url.indexOf("http") !== 0 && url.indexOf("data:") !== 0) {
             filePath = path.dirname(filePath) + path.sep;
             filePath = filePath.substring(filePath.indexOf(config.bowerDir) + config.bowerDir.length,
@@ -129,7 +129,7 @@ module.exports = (gulp, $) => {
       .pipe(gulp.dest(config.client.out.vendorDir))
   });
 
-  gulp.task("bowerCopyAce", ["inject"], function () {
+  gulp.task("bowerCopyAce", ["inject"], () => {
     var aceFilter = $.filter("ace-builds/**/*.js");
     return gulp.src($.mainBowerFiles(), {base: config.bowerDir})
       .pipe(aceFilter)
@@ -137,7 +137,7 @@ module.exports = (gulp, $) => {
   });
 
   // copy bower components into build directory
-  gulp.task("bowerCopy", ["inject", "bowerCopyCss", "bowerCopyAce"], function () {
+  gulp.task("bowerCopy", ["inject", "bowerCopyCss", "bowerCopyAce"], () => {
     var jsNoAceFilter = $.filter(["**/*.js", "!ace-builds/**"]);
     return gulp.src($.mainBowerFiles(), {base: config.bowerDir})
       .pipe(jsNoAceFilter)
@@ -150,7 +150,7 @@ module.exports = (gulp, $) => {
   });
 
   // inject bower components into index.html
-  gulp.task("bowerInject", ["bowerCopy"], function () {
+  gulp.task("bowerInject", ["bowerCopy"], () => {
     if (isProd) {
       return gulp.src(config.client.out.index)
         .pipe($.inject(gulp.src([
@@ -178,11 +178,11 @@ module.exports = (gulp, $) => {
           fileTypes: {
             html: {
               replace: {
-                css: function (filePath) {
+                css: (filePath) => {
                   return "<link rel='stylesheet' href='" + config.client.out.vendorDir.replace(config.client.out.root, "") +
                     filePath + "'>";
                 },
-                js: function (filePath) {
+                js: (filePath) => {
                   return "<script src='" + config.client.out.vendorDir.replace(config.client.out.root, "") +
                     filePath + "'></script>";
                 }
@@ -194,7 +194,7 @@ module.exports = (gulp, $) => {
     }
   });
 
-  gulp.task("frontend:build",  ["bowerInject"]);
+  gulp.task("frontend:build", ["bowerInject"]);
 
   gulp.task("build", ["node:build", "frontend:build"]);
 
