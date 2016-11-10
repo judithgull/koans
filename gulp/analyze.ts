@@ -1,12 +1,12 @@
 "use strict";
 
 import * as tslint from "gulp-tslint";
-import {global} from "../build.config";
+import * as config from "../build.config";
 
 module.exports = (gulp) => {
 
   gulp.task("analyze", () => {
-    return gulp.src(global.tsFiles)
+    return gulp.src(config.tsFiles)
       .pipe(tslint())
       .pipe(tslint.report());
   });

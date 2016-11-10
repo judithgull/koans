@@ -1,6 +1,6 @@
 "use strict";
 
-import {config} from "./build.config";
+import * as config from "./build.config";
 var gulp:any = require("gulp"),
   gulpFiles = require("require-dir")("./gulp"),
   key,

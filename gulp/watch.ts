@@ -1,13 +1,15 @@
 "use strict";
 
-module.exports = function (gulp, $, config) {
+import * as config from "../build.config";
+
+module.exports = function (gulp, $) {
 
   // use nodemon to watch node server
   gulp.task("nodemon", ["build"], function (cb) {
     var started = false;
 
     return $.nodemon({
-      script: config.server
+      script: config.server.out.app
     }).on("start", function () {
       // to avoid nodemon being started multiple times
       if (!started) {
@@ -29,10 +31,10 @@ module.exports = function (gulp, $, config) {
       port: 7000
     });
     gulp.watch([
-      config.appScriptFiles,
-      config.appMarkupFiles,
-      config.appStyleFiles,
-      "!" + config.unitTestFiles], ["browserSync"]);
+      config.client.scriptFiles,
+      config.client.markupFiles,
+      config.client.styleFiles,
+      "!" + config.client.unitTestFiles], ["browserSync"]);
   });
 
 };

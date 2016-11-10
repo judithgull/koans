@@ -2,33 +2,36 @@
 
 import * as _ from "underscore.string";
 import * as path from "path";
-import {global} from "../build.config";
+import * as config from "../build.config";
+import * as ts from "gulp-typescript";
+
 const pug = require("gulp-pug");
 
-module.exports = (gulp, $, config) => {
+module.exports = (gulp, $) => {
   var isProd = $.yargs.argv.stage === "prod";
 
   gulp.task("node:build", function () {
     var tsFilter = $.filter("**/*.ts");
-    return gulp.src(config.appNodeScriptFiles)
+    const tsProject = ts.createProject("tsconfig.json");
+    return gulp.src(config.server.scriptFiles)
       .pipe($.if(!isProd, $.sourcemaps.init()))
       .pipe(tsFilter)
-      .pipe($.typescript(config.tsProject))
+      .pipe($.typescript(tsProject))
       .pipe(tsFilter.restore())
       .pipe($.if(!isProd, $.sourcemaps.write(".")))
-      .pipe(gulp.dest(config.buildNodeJs))
+      .pipe(gulp.dest(config.server.out.root))
   });
 
   // compile markup files and copy into build directory
   gulp.task("markup", function () {
-    return gulp.src(config.appMarkupFiles)
+    return gulp.src(config.client.markupFiles)
       .pipe(pug())
-      .pipe(gulp.dest(config.buildDir));
+      .pipe(gulp.dest(config.client.out.root));
   });
 
   // compile styles and copy into build directory
   gulp.task("styles", function () {
-    return gulp.src(config.appStyleFiles)
+    return gulp.src(config.client.styleFiles)
       .pipe($.plumber({
         errorHandler: function (err) {
           $.notify.onError({
@@ -46,7 +49,7 @@ module.exports = (gulp, $, config) => {
       .pipe($.if(isProd, $.concat("app.css")))
       .pipe($.if(isProd, $.cssmin()))
       .pipe($.if(isProd, $.rev()))
-      .pipe(gulp.dest(config.buildCss));
+      .pipe(gulp.dest(config.client.out.styleDir));
   });
 
 
@@ -55,16 +58,17 @@ module.exports = (gulp, $, config) => {
     var htmlFilter = $.filter("**/*.html")
       , jsFilter = $.filter("**/*.js")
       , tsFilter = $.filter("**/*.ts");
+    const tsProject = ts.createProject("tsconfig.json");
 
     return gulp.src([
-      config.appScriptFiles,
-      config.buildDir + "**/*.html",
+      config.client.scriptFiles,
+      config.client.out.markupFiles,
       "!**/*_test.*",
       "!**/index.html"
     ])
       .pipe($.sourcemaps.init())
       .pipe(tsFilter)
-      .pipe($.typescript(config.tsProject))
+      .pipe($.typescript(tsProject))
       .pipe(tsFilter.restore())
       .pipe($.if(isProd, htmlFilter))
       .pipe($.if(isProd, $.ngHtml2js({
@@ -80,7 +84,7 @@ module.exports = (gulp, $, config) => {
       .pipe($.if(isProd, $.uglify()))
       .pipe($.if(isProd, $.rev()))
       .pipe($.sourcemaps.write("."))
-      .pipe(gulp.dest(config.buildJs))
+      .pipe(gulp.dest(config.client.out.jsDir))
       .pipe(jsFilter.restore());
   });
 
@@ -88,30 +92,30 @@ module.exports = (gulp, $, config) => {
   gulp.task("inject", ["markup", "styles", "scripts"], function () {
     var jsFilter = $.filter("**/*.js");
 
-    return gulp.src(config.buildDir + "index.html")
+    return gulp.src(config.client.out.index)
       .pipe($.inject(gulp.src([
-          config.buildCss + "**/*",
-          config.buildJs + "**/*"
+          config.client.out.styleDir + "/**/*",
+          config.client.out.jsDir + "/**/*"
         ])
           .pipe(jsFilter)
           .pipe($.angularFilesort())
           .pipe(jsFilter.restore()), {
           addRootSlash: false,
-          ignorePath: config.buildDir
+          ignorePath: config.client.out.root
         })
       )
-      .pipe(gulp.dest(config.buildDir));
+      .pipe(gulp.dest(config.client.out.root));
   });
 
   gulp.task("bowerCopyCss", ["inject"], function () {
     var cssFilter = $.filter("**/*.css");
-    return gulp.src($.mainBowerFiles(), {base: global.bowerDir})
+    return gulp.src($.mainBowerFiles(), {base: config.bowerDir})
       .pipe(cssFilter)
       .pipe($.if(isProd, $.modifyCssUrls({
         modify: function (url, filePath) {
           if (url.indexOf("http") !== 0 && url.indexOf("data:") !== 0) {
             filePath = path.dirname(filePath) + path.sep;
-            filePath = filePath.substring(filePath.indexOf(global.bowerDir) + global.bowerDir.length,
+            filePath = filePath.substring(filePath.indexOf(config.bowerDir) + config.bowerDir.length,
               filePath.length);
           }
           url = path.normalize(filePath + url);
@@ -122,85 +126,75 @@ module.exports = (gulp, $, config) => {
       .pipe($.if(isProd, $.concat("vendor.css")))
       .pipe($.if(isProd, $.cssmin()))
       .pipe($.if(isProd, $.rev()))
-      .pipe(gulp.dest(config.extDir))
+      .pipe(gulp.dest(config.client.out.vendorDir))
   });
 
   gulp.task("bowerCopyAce", ["inject"], function () {
     var aceFilter = $.filter("ace-builds/**/*.js");
-    return gulp.src($.mainBowerFiles(), {base: global.bowerDir})
+    return gulp.src($.mainBowerFiles(), {base: config.bowerDir})
       .pipe(aceFilter)
-      .pipe(gulp.dest(config.extDir));
+      .pipe(gulp.dest(config.client.out.vendorDir));
   });
 
   // copy bower components into build directory
   gulp.task("bowerCopy", ["inject", "bowerCopyCss", "bowerCopyAce"], function () {
     var jsNoAceFilter = $.filter(["**/*.js", "!ace-builds/**"]);
-    return gulp.src($.mainBowerFiles(), {base: global.bowerDir})
+    return gulp.src($.mainBowerFiles(), {base: config.bowerDir})
       .pipe(jsNoAceFilter)
       .pipe($.if(isProd, $.concat("vendor.js")))
       .pipe($.if(isProd, $.uglify({
         preserveComments: $.uglifySaveLicense
       })))
       .pipe($.if(isProd, $.rev()))
-      .pipe(gulp.dest(config.extDir));
+      .pipe(gulp.dest(config.client.out.vendorDir));
   });
 
   // inject bower components into index.html
   gulp.task("bowerInject", ["bowerCopy"], function () {
     if (isProd) {
-      return gulp.src(config.buildDir + "index.html")
+      return gulp.src(config.client.out.index)
         .pipe($.inject(gulp.src([
-          config.extDir + "vendor*.css",
-          config.extDir + "**/ace-builds/**/*ace.js",
-          config.extDir + "vendor*.js",
-          config.extDir + "**/ace-builds/**/mode-**.js"
+          config.client.out.vendorDir + "/vendor*.css",
+          config.client.out.vendorDir + "/**/ace-builds/**/*ace.js",
+          config.client.out.vendorDir + "/vendor*.js",
+          config.client.out.vendorDir + "/**/ace-builds/**/mode-**.js"
         ], {
           read: false
         }), {
           starttag: "<!-- bower:{{ext}} -->",
           endtag: "<!-- endbower -->",
           addRootSlash: false,
-          ignorePath: config.buildDir
+          ignorePath: config.client.out.root
         }))
         .pipe($.htmlmin({
           collapseWhitespace: true,
           removeComments: true
         }))
-        .pipe(gulp.dest(config.buildDir));
+        .pipe(gulp.dest(config.client.out.root));
     } else {
-      return gulp.src(config.buildDir + "index.html")
+      return gulp.src(config.client.out.index)
         .pipe($.wiredep.stream({
-          ignorePath: "../../" + global.bowerDir.replace(/\\/g, "/"),
+          ignorePath: "../../" + config.bowerDir.replace(/\\/g, "/"),
           fileTypes: {
             html: {
               replace: {
                 css: function (filePath) {
-                  return "<link rel='stylesheet' href='" + config.extDir.replace(config.buildDir, "") +
+                  return "<link rel='stylesheet' href='" + config.client.out.vendorDir.replace(config.client.out.root, "") +
                     filePath + "'>";
                 },
                 js: function (filePath) {
-                  return "<script src='" + config.extDir.replace(config.buildDir, "") +
+                  return "<script src='" + config.client.out.vendorDir.replace(config.client.out.root, "") +
                     filePath + "'></script>";
                 }
               }
             }
           }
         }))
-        .pipe(gulp.dest(config.buildDir));
+        .pipe(gulp.dest(config.client.out.root));
     }
   });
 
-  gulp.task("copyTemplates", ["bowerInject"], function () {
-    // always copy templates to testBuild directory
-    var stream = $.streamqueue({objectMode: true});
-
-    stream.queue(gulp.src([config.buildDirectiveTemplateFiles]));
-
-    return stream.done()
-      .pipe(gulp.dest(config.buildTestDirectiveTemplatesDir));
-  });
-
-  gulp.task("frontend:build", ["copyTemplates"]);
+  gulp.task("frontend:build",  ["bowerInject"]);
 
   gulp.task("build", ["node:build", "frontend:build"]);
 

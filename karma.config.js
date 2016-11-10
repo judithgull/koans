@@ -1,18 +1,17 @@
 "use strict";
-var c = require("./build.config"),
-  buildConfig = c.config,
+var config = require("./build.config"),
   preprocessors = {},
   buildTestDir, templateDir
   , jsDir;
 
-buildTestDir = buildConfig.buildTestDir;
+buildTestDir = config.testDir;
 // add slash if missing to properly strip prefix from directive templates
 if (buildTestDir[buildTestDir.length - 1] !== "/") {
   buildTestDir = buildTestDir + "/";
 }
 templateDir = buildTestDir + "templates/";
 
-jsDir = buildConfig.buildJs;
+jsDir = config.client.out.jsDir;
 // add slash if missing to properly strip prefix from directive templates
 if (jsDir[jsDir.length - 1] !== "/") {
   jsDir = jsDir + "/";

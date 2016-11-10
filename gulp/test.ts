@@ -1,26 +1,29 @@
 "use strict";
 import * as del from "del";
+import * as config from "../build.config";
+import * as ts from "gulp-typescript";
 
 var karmaConf = require("../karma.config");
 var gulpFilter = require("gulp-filter");
 
 karmaConf.files = [];
 
-module.exports = function (gulp, $, config) {
+module.exports = function (gulp, $) {
 
   gulp.task("clean:test", function (cb) {
-    return del(config.buildTestDir, cb);
+    return del(config.testDir, cb);
   });
 
   gulp.task("buildTests", ["clean:test", "build"], function () {
     var testFilter = gulpFilter("**/*_test.js");
+    const tsProject = ts.createProject("tsconfig.json");
     return gulp.src([
-        config.unitTestFiles,
-        config.appScriptFiles
+        config.client.unitTestFiles,
+        config.client.scriptFiles
       ])
-      .pipe($.typescript(config.tsProject))
+      .pipe($.typescript(tsProject))
       .pipe(testFilter)
-      .pipe(gulp.dest(config.buildUnitTestsDir));
+      .pipe(gulp.dest(config.client.out.unitTestDir));
   });
 
   // inject scripts in karma.config.js
@@ -33,17 +36,17 @@ module.exports = function (gulp, $, config) {
     }).js));
 
     // add application templates
-    stream.queue(gulp.src([config.buildTestDirectiveTemplateFiles]));
+    stream.queue(gulp.src([config.client.out.directives]));
 
     // add application javascript
     stream.queue(gulp.src([
-        config.buildJsFiles,
+        config.client.out.jsFiles,
         "!**/*_test.*"
       ])
       .pipe($.angularFilesort()));
 
     // add unit tests
-    stream.queue(gulp.src([config.buildUnitTestFiles]));
+    stream.queue(gulp.src([config.client.out.unitTestFiles]));
 
     return stream.done()
       .on("data", function (file) {
