@@ -1,14 +1,16 @@
 "use strict";
 
 import * as config from "../build.config";
+const nodemon = require("nodemon");
+const browserSync = require("browser-sync");
 
-module.exports = (gulp, $) => {
+module.exports = (gulp) => {
 
   // use nodemon to watch node server
   gulp.task("nodemon", ["build"], (cb) => {
     var started = false;
 
-    return $.nodemon({
+    return nodemon({
       script: config.server.out.app
     }).on("start", () => {
       // to avoid nodemon being started multiple times
@@ -21,12 +23,12 @@ module.exports = (gulp, $) => {
 
 
   gulp.task("browserSync", ["frontend:build"], () => {
-    $.browserSync.reload();
+    browserSync.reload();
   });
 
   // watch frontend/backend
   gulp.task("watch", ["nodemon", "node:build"], () => {
-    $.browserSync({
+    browserSync({
       proxy: "http://localhost:3000/",
       port: 7000
     });

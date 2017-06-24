@@ -2,13 +2,15 @@
 
 import * as del from "del";
 import * as config from "../build.config";
+import * as g$if from "gulp-if";
 
 const favicons = require("gulp-favicons");
 const imagemin = require("gulp-imagemin");
-const jade = require("gulp-jade");
+const pug = require("gulp-pug");
+const yargs = require("yargs");
 
-module.exports = (gulp, $) => {
-  var isProd = $.yargs.argv.stage === "prod";
+module.exports = (gulp) => {
+  var isProd = yargs.argv.stage === "prod";
 
   // copy patched libraries into bower_components dir
   gulp.task("patchLibs", () =>
@@ -24,7 +26,7 @@ module.exports = (gulp, $) => {
   // copy and optimize images into build directory
   gulp.task("assets", ["clean"],  () =>
     gulp.src(config.client.assetFiles)
-      .pipe($.if(isProd, imagemin()))
+      .pipe(g$if(isProd, imagemin()))
       .pipe(gulp.dest(config.client.out.assetDir))
   );
 
@@ -43,7 +45,7 @@ module.exports = (gulp, $) => {
   // compile index.jade and copy into build directory
   gulp.task("index", ["clean"],  () =>
     gulp.src(config.client.indexFile)
-      .pipe(jade())
+      .pipe(pug())
       .pipe(gulp.dest(config.client.out.root))
   );
 

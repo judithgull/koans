@@ -18,7 +18,6 @@
   "lib",
   "bower_components",
   "Gulpfile.ts",
-  "build.config.ts",
-  "gulp"
+  "build.config.ts"
 ]
 }

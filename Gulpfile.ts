@@ -1,9 +1,7 @@
 "use strict";
 
-import * as config from "./build.config";
 var gulp:any = require("gulp"),
   gulpFiles = require("require-dir")("./gulp"),
-  key,
   $$:any = require("gulp-load-plugins")({
   pattern: [
     "browser-sync",
@@ -20,8 +18,8 @@ var gulp:any = require("gulp"),
   ]
   });
 
-for (key in gulpFiles) {
-  gulpFiles[key](gulp, $$, config);
+for (let key of Object.keys(gulpFiles)) {
+  gulpFiles[key](gulp, $$);
 }
 
 gulp.task("dev", ["pre-build"],  ()  => {

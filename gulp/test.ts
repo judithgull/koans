@@ -5,10 +5,14 @@ import * as ts from "gulp-typescript";
 
 var karmaConf = require("../karma.config");
 var gulpFilter = require("gulp-filter");
+const angularFilesort = require("gulp-angular-filesort");
+const streamqueue = require("streamqueue");
+const karma = require("karma");
+const wiredep = require("wiredep");
 
 karmaConf.files = [];
 
-module.exports = (gulp, $) => {
+module.exports = (gulp) => {
 
   gulp.task("clean:test", (cb) => {
     return del(config.testDir, cb);
@@ -21,17 +25,17 @@ module.exports = (gulp, $) => {
       config.client.unitTestFiles,
       config.client.scriptFiles
     ])
-      .pipe($.typescript(tsProject))
+      .pipe(ts(tsProject))
       .pipe(testFilter)
       .pipe(gulp.dest(config.client.out.unitTestDir));
   });
 
   // inject scripts in karma.config.js
   gulp.task("karmaFiles", ["buildTests"], () => {
-    var stream = $.streamqueue({objectMode: true});
+    var stream = streamqueue({objectMode: true});
 
     // add bower javascript
-    stream.queue(gulp.src($.wiredep({
+    stream.queue(gulp.src(wiredep({
       devDependencies: true
     }).js));
 
@@ -43,7 +47,7 @@ module.exports = (gulp, $) => {
       config.client.out.jsFiles,
       "!**/*_test.*"
     ])
-      .pipe($.angularFilesort()));
+      .pipe(angularFilesort()));
 
     // add unit tests
     stream.queue(gulp.src([config.client.out.unitTestFiles]));
@@ -56,7 +60,7 @@ module.exports = (gulp, $) => {
 
   // run unit tests
   gulp.task("unitTest", ["karmaFiles"], (done) => {
-    $.karma.server.start(karmaConf, (exitCode) => {
+    karma.server.start(karmaConf, (exitCode) => {
       console.log("Karma has exited with " + exitCode);
       done(exitCode);
     });
