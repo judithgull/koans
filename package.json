@@ -64,11 +64,7 @@
     "typescript": "^1.8.10",
     "typings": "^1.4.0",
     "uglify-save-license": "^0.4.1",
-    "wiredep": "^2.2.0"
-  },
-  "devDependencies": {
-    "browser-sync": "^2.17.5",
-    "chai": "^3.4.1",
+    "wiredep": "^2.2.0",
     "karma": "^0.12.37",
     "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^0.5.3",
@@ -81,14 +77,18 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-sinon": "^1.0.5",
     "karma-typescript": "^2.0.6",
+    "chai": "^3.4.1",
     "mocha": "^2.3.3",
     "multi-glob": "^0.4.0",
     "phantomjs-prebuilt": "^2.1.13",
     "protractor": "^2.5.1",
     "run-sequence": "^1.0.2",
     "sinon": "^1.17.6",
-    "supertest": "^1.1.0",
     "underscore.string": "^3.3.4",
     "yargs": "^3.4.5"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.17.5",
+    "supertest": "^1.1.0"
   }
 }
