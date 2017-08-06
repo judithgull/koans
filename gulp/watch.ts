@@ -1,14 +1,18 @@
 "use strict";
 
-module.exports = function (gulp, $, config) {
+import * as config from "../build.config";
+const nodemon = require("nodemon");
+const browserSync = require("browser-sync");
 
-  //use nodemon to watch node server
-  gulp.task("nodemon", ["build"], function (cb) {
+module.exports = (gulp) => {
+
+  // use nodemon to watch node server
+  gulp.task("nodemon", ["build"], (cb) => {
     var started = false;
 
-    return $.nodemon({
-      script: config.server
-    }).on("start", function () {
+    return nodemon({
+      script: config.server.out.app
+    }).on("start", () => {
       // to avoid nodemon being started multiple times
       if (!started) {
         cb();
@@ -18,21 +22,21 @@ module.exports = function (gulp, $, config) {
   });
 
 
-  gulp.task("browserSync", ["frontend:build"], function () {
-    $.browserSync.reload();
+  gulp.task("browserSync", ["frontend:build"], () => {
+    browserSync.reload();
   });
 
-  //watch frontend/backend
-  gulp.task("watch", ["nodemon", "node:build"], function () {
-    $.browserSync({
+  // watch frontend/backend
+  gulp.task("watch", ["nodemon", "node:build"], () => {
+    browserSync({
       proxy: "http://localhost:3000/",
       port: 7000
     });
     gulp.watch([
-      config.appScriptFiles,
-      config.appMarkupFiles,
-      config.appStyleFiles,
-      "!" + config.unitTestFiles], ["browserSync"]);
+      config.client.scriptFiles,
+      config.client.markupFiles,
+      config.client.styleFiles,
+      "!" + config.client.unitTestFiles], ["browserSync"]);
   });
 
 };
