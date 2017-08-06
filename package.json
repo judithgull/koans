@@ -32,7 +32,6 @@
     "gulp-if": "^1.2.4",
     "gulp-imagemin": "^2.4.0",
     "gulp-inject": "^1.0.2",
-    "gulp-load-plugins": "^0.10.0",
     "gulp-modify-css-urls": "^0.2.0",
     "gulp-ng-annotate": "~0.5.0",
     "gulp-ng-html2js": "^0.2.0",

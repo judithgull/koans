@@ -37,10 +37,14 @@ app/**/*.js
 app/**/*.js.map
 app-node/**/*.js
 app-node/**/*.js.map
+gulp/**/*.js
+gulp/**/*.js.map
 config/**/*.js
 config/**/*.js.map
 Gulpfile.js
 Gulpfile.js.map
+build.config.js
+build.config.js.map
 
 # Generated css files
 app/**/*.css
