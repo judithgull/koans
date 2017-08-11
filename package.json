@@ -88,6 +88,7 @@
     "browser-sync": "^2.17.5",
     "supertest": "^1.1.0",
     "bonescss": "0.7.3",
-    "sensible": "0.8.2"
+    "sensible": "0.8.2",
+    "toastr": "~2.1.2"
   }
 }

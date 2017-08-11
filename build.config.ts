@@ -51,7 +51,10 @@ const tsLibDir            = path.join("node_modules", "typescript/lib"); // dir 
 
 export const tsFiles      = [clientTsFiles, serverTsFiles, gulpTsFiles];
 export const bowerDir     = "bower_components";
+
 export const libFiles     = path.join("lib", "**/*.js");
 export const typings      = path.join("typings", "**/*.ts"); // installed typings
 export const typingsStd   = path.join(tsLibDir, "lib.d.ts"); // standard library typings
 export const tsServicesFiles = path.join(tsLibDir, "typescriptServices.js");
+
+export const cssVendorDirs = ["toastr"];

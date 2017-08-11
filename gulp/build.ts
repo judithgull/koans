@@ -114,9 +114,9 @@ module.exports = (gulp) => {
       .pipe(gulp.dest(config.client.out.root));
   });
 
-  gulp.task("bowerCopyCss", ["inject"], () => {
+  gulp.task("copyVendorCss", ["inject"], () => {
     var cssFilter = filter("**/*.css");
-    return gulp.src(mainBowerFiles(), {base: config.bowerDir})
+    return gulp.src(config.cssVendorDirs, {base: "node_modules"})
       .pipe(cssFilter)
       .pipe(g$if(isProd, modifyCssUrls({
         modify: (url, filePath) => {
@@ -144,7 +144,7 @@ module.exports = (gulp) => {
   });
 
   // copy bower components into build directory
-  gulp.task("bowerCopy", ["inject", "bowerCopyCss", "bowerCopyAce"], () => {
+  gulp.task("bowerCopy", ["inject", "copyVendorCss", "bowerCopyAce"], () => {
     var jsNoAceFilter = filter(["**/*.js", "!ace-builds/**"]);
     return gulp.src(mainBowerFiles(), {base: config.bowerDir})
       .pipe(jsNoAceFilter)
