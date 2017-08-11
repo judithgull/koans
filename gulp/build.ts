@@ -10,7 +10,6 @@ import * as uglify from "gulp-uglify";
 import * as ngAnnotate from "gulp-ng-annotate";
 import * as htmlmin from "gulp-htmlmin";
 import * as rev from "gulp-rev";
-import * as plumber from "gulp-plumber";
 import * as concat from "gulp-concat";
 import * as autoprefixer from "gulp-autoprefixer";
 import * as inject from "gulp-inject";
@@ -21,7 +20,6 @@ const yargs = require("yargs");
 const filter = require("gulp-filter");
 const cssmin = require("gulp-cssmin");
 const uglifySaveLicense = require("uglify-save-license");
-const notify = require("gulp-notify");
 const sourcemaps = require("gulp-sourcemaps");
 const ngHtml2js = require("gulp-ng-html2js");
 const angularFilesort = require("gulp-angular-filesort");
@@ -53,18 +51,6 @@ module.exports = (gulp) => {
   // compile styles and copy into build directory
   gulp.task("styles", () => {
     return gulp.src(config.client.styleFiles)
-      .pipe(plumber({
-        errorHandler: (err) => {
-          notify.onError({
-            title: "Error linting at " + err.plugin,
-            subtitle: " ", // overrides defaults
-            message: err.message.replace(/\u001b\[.*?m/g, ""),
-            sound: " " // overrides defaults
-          })(err);
-
-          this.emit("end");
-        }
-      }))
       .pipe(sass())
       .pipe(autoprefixer())
       .pipe(g$if(isProd, concat("app.css")))

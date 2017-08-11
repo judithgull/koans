@@ -17,7 +17,6 @@
     "gulp-if": "registry:dt/gulp-if#0.0.0+20160316155526",
     "gulp-inject": "registry:dt/gulp-inject#0.0.0+20160316155526",
     "gulp-ng-annotate": "registry:dt/gulp-ng-annotate#0.0.0+20160316155526",
-    "gulp-plumber": "registry:dt/gulp-plumber#0.0.0+20160316155526",
     "gulp-rev": "registry:dt/gulp-rev#5.0.1+20160316155526",
     "gulp-sass": "registry:dt/gulp-sass#0.0.0+20160316155526",
     "gulp-tslint": "registry:dt/gulp-tslint#3.6.0+20160316155526",
