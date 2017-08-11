@@ -24,7 +24,7 @@ var hasValidTocken = (req) => {
 
 var getUserId = (req):String => {
   var payload = decodeToken(req);
-  return payload.sub.toHexString();
+  return payload.sub;
 };
 
 
