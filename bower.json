@@ -9,8 +9,6 @@
     "angular-ui-router": "~0.2.*",
     "chai": "~3.3.0",
     "rxjs": "~4.0.0",
-    "bonescss": "~0.7.3",
-    "sensible": "^0.8.2",
     "angular-aria": "~1.4.8",
     "angular-ellipsis": "~0.1.6",
     "toastr": "~2.1.2",
