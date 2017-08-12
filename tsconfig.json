@@ -9,14 +9,12 @@
   },
   "filesGlob": [
     "./**/*.ts",
-    "!./node_modules/**/*.ts",
-    "!./bower_components/**/*.ts"
+    "!./node_modules/**/*.ts"
   ],
   "exclude": [
   "node_modules",
   "build",
   "lib",
-  "bower_components",
   "Gulpfile.ts",
   "build.config.ts"
 ]

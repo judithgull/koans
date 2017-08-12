@@ -70,7 +70,7 @@ Move to the project home (location of the cloned repo):
 cd <path_to_cloned_project>/koans
 ```
 
-Run `npm install` to install all dependencies. (npm, bower, patched libraries)
+Run `npm install` to install all dependencies. (npm, patched libraries)
 
 #### 5. Run in production mode
 
