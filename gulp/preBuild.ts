@@ -11,13 +11,11 @@ const yargs = require("yargs");
 
 module.exports = (gulp) => {
   var isProd = yargs.argv.stage === "prod";
-
-  // copy patched libraries into bower_components dir
+  // copy patched libraries into node_modules dir
   gulp.task("patchLibs", () =>
-    gulp.src(config.libFiles)
-      .pipe(gulp.dest(config.bowerDir))
-  );
-
+  gulp.src(config.libFiles)
+    .pipe(gulp.dest("node_modules"))
+);
   // clean
   gulp.task("clean", (done) => del(config.client.out.root, done));
 

@@ -116,7 +116,7 @@ module.exports = (gulp) => {
 
   gulp.task("copyVendorCss", ["inject"], () => {
     var cssFilter = filter("**/*.css");
-    return gulp.src(config.cssVendorDirs, {base: "node_modules"})
+    return gulp.src(["toastr"], {base: "node_modules"})
       .pipe(cssFilter)
       .pipe(g$if(isProd, modifyCssUrls({
         modify: (url, filePath) => {
@@ -136,15 +136,20 @@ module.exports = (gulp) => {
       .pipe(gulp.dest(config.client.out.vendorDir))
   });
 
-  gulp.task("bowerCopyAce", ["inject"], () => {
-    var aceFilter = filter("ace-builds/**/*.js");
-    return gulp.src(mainBowerFiles(), {base: config.bowerDir})
-      .pipe(aceFilter)
+  gulp.task("copyAce", ["inject"], () => {
+    return gulp.src([
+      "node_modules/ace-builds/src-min-noconflict/ace.js",
+      "node_modules/ace-builds/src-min-noconflict/mode-typescript.js",
+      "node_modules/ace-builds/src-min-noconflict/mode-javascript.js",
+      "node_modules/ace-builds/src-min-noconflict/theme-tomorrow_night_bright.js",
+      "node_modules/ace-builds/src-min-noconflict/worker-javascript.js",
+      "node_modules/ace-builds/src-min-noconflict/worker-typescript.js"
+       ], {base: "node_modules"})
       .pipe(gulp.dest(config.client.out.vendorDir));
   });
 
   // copy bower components into build directory
-  gulp.task("bowerCopy", ["inject", "copyVendorCss", "bowerCopyAce"], () => {
+  gulp.task("bowerCopy", ["inject", "copyVendorCss", "copyAce"], () => {
     var jsNoAceFilter = filter(["**/*.js", "!ace-builds/**"]);
     return gulp.src(mainBowerFiles(), {base: config.bowerDir})
       .pipe(jsNoAceFilter)
