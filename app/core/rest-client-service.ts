@@ -49,7 +49,7 @@ module core {
         (response) => {
           return response.data;
         }
-      );
+      ) as ng.IPromise<Array<core.ITopic>>;
     }
 
     getTopic(id:number):ng.IPromise<core.ITopic> {
@@ -65,7 +65,7 @@ module core {
       } else {
         deferred.resolve(this.topicData);
       }
-      return deferred.promise;
+      return deferred.promise as ng.IPromise<core.ITopic>;
     }
 
     createTopic(topic:core.ITopic):ng.IPromise<any> {
@@ -89,7 +89,7 @@ module core {
       } else {
         deferred.resolve(this.topicData);
       }
-      return deferred.promise;
+      return deferred.promise as ng.IPromise<core.ITopic>;
     }
 
     getExercise(topicId:number, exerciseId:number):ng.IPromise<core.IExercise> {

@@ -1,13 +1,11 @@
 "use strict";
 
 import * as _ from "underscore.string";
-import * as config from "./build.config";
 import * as ts from "gulp-typescript";
 import * as g$if from "gulp-if";
 import * as sass from "gulp-sass";
 import * as uglify from "gulp-uglify";
 import * as ngAnnotate from "gulp-ng-annotate";
-import * as htmlmin from "gulp-htmlmin";
 import * as rev from "gulp-rev";
 import * as concat from "gulp-concat";
 import * as autoprefixer from "gulp-autoprefixer";
@@ -15,6 +13,7 @@ import * as inject from "gulp-inject";
 import * as gulp from "gulp";
 import * as tslint from "gulp-tslint";
 import * as del from "del";
+import * as config from "./build.config";
 
 const nodemon = require("nodemon");
 const browserSync = require("browser-sync");
@@ -48,10 +47,10 @@ gulp.task("patchLibs", () =>
     .pipe(gulp.dest("node_modules"))
 );
 // clean all
-gulp.task("clean", (done) => del(config.client.out.root, done));
+gulp.task("clean", () => del(config.client.out.root));
 
 // clean node
-gulp.task("node:clean", (done) => del(config.server.out.root, done));
+gulp.task("node:clean", () => del(config.server.out.root));
 
 // copy and optimize images into build directory
 gulp.task("assets", () =>
@@ -171,7 +170,7 @@ gulp.task("scripts", ["analyze"], () => {
   ])
     .pipe(sourcemaps.init())
     .pipe(tsFilter)
-    .pipe(ts(tsProject))
+    .pipe(tsProject())
     .pipe(tsFilter.restore())
     .pipe(g$if(isProd, htmlFilter))
     .pipe(g$if(isProd, ngHtml2js({
@@ -223,7 +222,7 @@ gulp.task("node:build", () => {
   return gulp.src(config.server.scriptFiles)
     .pipe(g$if(!isProd, sourcemaps.init()))
     .pipe(tsFilter)
-    .pipe(ts(tsProject))
+    .pipe(tsProject())
     .pipe(tsFilter.restore())
     .pipe(g$if(!isProd, sourcemaps.write(".")))
     .pipe(gulp.dest(config.server.out.root))
@@ -328,7 +327,7 @@ gulp.task("watch", ["nodemon", "node:build"], () => {
     config.client.scriptFiles,
     config.client.markupFiles,
     config.client.styleFiles,
-    "!" + config.client.unitTestFiles], ["browserSync"]);
+    "!" + config.client.unitTestFiles]);
 });
 
 gulp.task("stop-mongo", runCommand("mongo --eval 'db.getSiblingDB(\"admin\").shutdownServer()'"));
