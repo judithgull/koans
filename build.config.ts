@@ -48,10 +48,11 @@ const clientTsFiles       =  path.join(client.root, tsFilter);
 const serverTsFiles       =  path.join("app-node", tsFilter);
 const gulpTsFiles         =  path.join("gulp", tsFilter);
 const tsLibDir            = path.join("node_modules", "typescript/lib"); // dir of typescript library
+const nodeTypesDir        = path.join("node_modules","@types");
 
 export const tsFiles      = [clientTsFiles, serverTsFiles, gulpTsFiles];
 
 export const libFiles     = path.join("lib", "**/*.js");
-export const typings      = path.join("typings", "**/*.ts"); // installed typings
+export const typings      = path.join(nodeTypesDir, "**/*.ts"); // installed typings
 export const typingsStd   = path.join(tsLibDir, "lib.d.ts"); // standard library typings
 export const tsServicesFiles = path.join(tsLibDir, "typescriptServices.js");

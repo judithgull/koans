@@ -1,3 +1,5 @@
+import {IAuthService} from "../auth-service"
+
 module auth.account {
   "use strict";
 

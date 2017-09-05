@@ -100,7 +100,7 @@ module core {
      * return the default libraries
      * */
     getDefaultLibs():ng.IPromise<Array<core.ILibrary>> {
-      return this.getLibs(["typescripts/lib.d.ts", "typescripts/globals/chai/index.d.ts", "typescripts/globals/angular/index.d.ts"]);
+      return this.getLibs(["typescripts/lib.d.ts", "typescripts/chai/index.d.ts", "typescripts/angular/index.d.ts"]);
     }
 
     getLibs(names:string[]):ng.IPromise<Array<core.ILibrary>> {

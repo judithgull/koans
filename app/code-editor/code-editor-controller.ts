@@ -31,7 +31,7 @@ module codeEditor {
      *
      * */
     selectEditMark = () => {
-      var range = this.editor.find(this.editMark.mark, {
+      var range:any = this.editor.find(this.editMark.mark, {
         backwards: false,
         wrap: true,
         caseSensitive: false,

@@ -1,6 +1,5 @@
 "use strict";
 
-import * as _ from "underscore.string";
 import * as ts from "gulp-typescript";
 import * as g$if from "gulp-if";
 import * as sass from "gulp-sass";
@@ -11,27 +10,26 @@ import * as concat from "gulp-concat";
 import * as autoprefixer from "gulp-autoprefixer";
 import * as inject from "gulp-inject";
 import * as gulp from "gulp";
-import * as tslint from "gulp-tslint";
+import tslint from "gulp-tslint";
 import * as del from "del";
 import * as config from "./build.config";
-
-const nodemon = require("nodemon");
-const browserSync = require("browser-sync");
-const pug = require("gulp-pug");
-const yargs = require("yargs");
-const filter = require("gulp-filter");
-const cssmin = require("gulp-cssmin");
-const uglifySaveLicense = require("uglify-save-license");
-const sourcemaps = require("gulp-sourcemaps");
-const ngHtml2js = require("gulp-ng-html2js");
-const angularFilesort = require("gulp-angular-filesort");
-const favicons = require("gulp-favicons");
-const imagemin = require("gulp-imagemin");
-const karmaConf = require("./karma.config");
-const gulpFilter = require("gulp-filter");
-const streamqueue = require("streamqueue");
-const karma = require("karma");
-const exec = require("child_process").exec;
+import * as nodemon from "nodemon";
+import * as browserSync from "browser-sync";
+import * as pug from "gulp-pug";
+import * as yargs from "yargs";
+import * as filter from "gulp-filter";
+import * as cssmin from "gulp-cssmin";
+import * as uglifySaveLicense from "uglify-save-license";
+import * as sourcemaps from "gulp-sourcemaps";
+import * as ngHtml2js from "gulp-ng-html2js";
+import * as angularFilesort from "gulp-angular-filesort";
+import * as favicons from "gulp-favicons";
+import * as imagemin from "gulp-imagemin";
+import * as karmaConf from "./karma.config";
+import * as gulpFilter from "gulp-filter";
+import * as streamqueue from "streamqueue";
+import * as karma from "karma";
+import * as exec from "gulp-exec";
 
 var isProd = yargs.argv.stage === "prod";
 var htmlFilter = filter("**/*.html"),
@@ -160,7 +158,7 @@ gulp.task("analyze", () => {
 
 // compile scripts and copy into build directory
 gulp.task("scripts", ["analyze"], () => {
-  const tsProject = ts.createProject("tsconfig.json");
+  const tsProject = ts.createProject("tsconfig-frontend.json");
 
   return gulp.src([
     config.client.scriptFiles,
@@ -174,8 +172,7 @@ gulp.task("scripts", ["analyze"], () => {
     .pipe(tsFilter.restore())
     .pipe(g$if(isProd, htmlFilter))
     .pipe(g$if(isProd, ngHtml2js({
-      // lower camel case all app names
-      moduleName: _.camelize(_.slugify(_.humanize(require("./package.json").name))),
+      moduleName: "koans",
       declareModule: false
     })))
     .pipe(g$if(isProd, htmlFilter.restore()))
@@ -224,7 +221,7 @@ gulp.task("node:build", () => {
     .pipe(tsFilter)
     .pipe(tsProject())
     .pipe(tsFilter.restore())
-    .pipe(g$if(!isProd, sourcemaps.write(".")))
+    .pipe(g$if(!isProd, sourcemaps.write(".",{})))
     .pipe(gulp.dest(config.server.out.root))
 });
 
@@ -236,7 +233,7 @@ gulp.task("buildTests", ["build"], () => {
     config.client.scriptFiles
   ])
     .pipe(testFilter)
-    .pipe(ts(tsProject))
+    .pipe(tsProject())
     .pipe(testFilter.restore())
     .pipe(gulp.dest(config.client.out.unitTestDir));
 });

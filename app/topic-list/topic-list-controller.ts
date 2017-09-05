@@ -1,3 +1,5 @@
+import {IAuthService} from "../auth/auth-service";
+
 module topicList {
   "use strict";
 
@@ -23,7 +25,7 @@ module topicList {
     ];
 
     constructor(private RestClient:core.IRestClient,
-                private authService:auth.IAuthService,
+                private authService:IAuthService,
                 private searchParamsService:core.SearchParamsService) {
 
       this.isLoggedIn = authService.isLoggedIn();

@@ -7,12 +7,20 @@
     "node": "6.9.1"
   },
   "scripts": {
-    "postinstall": "typings install; gulp patchLibs",
+    "postinstall": "gulp patchLibs",
     "test": "gulp clean;gulp pre-build; NODE_ENV=test mocha --compilers ts:ts-node/register,tsx:ts-node/register app-node/**/*test.ts;gulp unitTest",
     "prestart": "gulp clean; gulp pre-build",
     "start": "gulp build --stage prod;node build/app-node/app.js"
   },
   "dependencies": {
+    "@types/ace": "0.0.35",
+    "@types/angular": "^1.6.32",
+    "@types/angular-ui-router": "^1.1.37",
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^8.0.26",
+    "@types/rx-lite": "^4.0.4",
+    "@types/toastr": "^2.1.35",
     "ace-builds": "^1.2.8",
     "angular": "~1.5.*",
     "angular-animate": "~1.5.*",
@@ -96,9 +104,7 @@
     "ts-node": "^3.3.0",
     "tslint": "^3.15.1",
     "typescript": "^2.5.2",
-    "typings": "^1.4.0",
     "uglify-save-license": "^0.4.1",
-    "underscore.string": "^3.3.4",
     "yargs": "^3.4.5"
   },
   "devDependencies": {

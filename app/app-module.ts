@@ -1,4 +1,5 @@
-///<reference path="../typings/index.d.ts" />
+"use strict";
+
 module app {
   "use strict";
 

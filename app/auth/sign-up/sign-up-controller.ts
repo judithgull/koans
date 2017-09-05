@@ -1,3 +1,5 @@
+import {IAuthService} from "../auth-service";
+
 module auth.signUp {
   "use strict";
 
@@ -6,7 +8,7 @@ module auth.signUp {
 
     static $inject = ["AuthService", "$state"];
 
-    constructor(private authService:auth.IAuthService,
+    constructor(private authService:IAuthService,
                 private $state:angular.ui.IStateService,
                 public user:core.IUser) {
       this.user = new core.User();

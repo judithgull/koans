@@ -1,3 +1,8 @@
+declare global {
+  const angular: ng.IAngularStatic;
+}
+import {TokenStorage} from "./token-storage-service";
+
 module auth {
   "use strict";
 

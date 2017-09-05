@@ -1,0 +1,24 @@
+{
+    "version": "1.6.2",
+    "compilerOptions": {
+      "target": "es5",
+      "module": "es6",
+      "moduleResolution": "node",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "sourceMap": true,
+      "allowJs": true
+    },
+    "filesGlob": [
+      "./**/*.ts",
+      "!./node_modules/**/*.ts"
+    ],
+    "exclude": [
+    "node_modules",
+    "build",
+    "lib",
+    "Gulpfile.ts",
+    "build.config.ts"
+  ]
+  }
+  

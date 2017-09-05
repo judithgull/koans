@@ -1,3 +1,7 @@
+import {TokenStorage} from "./token-storage-service";
+
+export type IAuthService = auth.IAuthService;
+
 module auth {
   "use strict";
 

@@ -1,3 +1,5 @@
+export type TokenStorage = auth.TokenStorage;
+
 module auth {
   "use strict";
 
