@@ -1,6 +1,5 @@
 import {config} from "./config/config";
 
-
 var http = require("http"),
   express = require("express"),
   bodyParser = require("body-parser"),

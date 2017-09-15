@@ -1,5 +1,11 @@
-module topic {
-  "use strict";
+import * as angular from "angular";
+import uirouter from 'angular-ui-router';
+import core from "../core/core-module";
+import exercise from "./exercise/exercise-module";
+import { topicRoutes } from "./topic-routes";
+import { TopicCtrl } from "./topic-controller";
+
+export default "topic";
 
   /** @ngdoc object
    * @name topic
@@ -8,7 +14,9 @@ module topic {
    */
   angular
     .module("topic", [
-      "core",
-      "topic.exercise"
-    ]);
-}
+      core,
+      exercise
+    ])
+    .config(topicRoutes)
+    .controller("TopicCtrl", TopicCtrl);
+

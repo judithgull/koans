@@ -1,3 +1,8 @@
+import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
+import * as angular from "angular-mocks";
+import * as sinon from "sinon";
+import {AccountCtrl} from "./account-controller"
+
 module auth.account {
   /* global describe, beforeEach, it, expect, inject, module */
   "use strict";

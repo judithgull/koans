@@ -1,5 +1,8 @@
-module header {
-  "use strict";
+import * as angular from "angular";
+import uirouter from 'angular-ui-router';
+import auth from '../auth/auth-module';
+
+export default "header";
 
   /** @ngdoc object
    * @name header
@@ -9,6 +12,5 @@ module header {
   angular
     .module("header", [
       "ui.router",
-      "auth"
+      auth
     ]);
-}

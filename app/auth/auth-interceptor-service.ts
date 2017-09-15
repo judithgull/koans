@@ -1,10 +1,5 @@
-declare global {
-  const angular: ng.IAngularStatic;
-}
+import * as angular from "angular";
 import {TokenStorage} from "./token-storage-service";
-
-module auth {
-  "use strict";
 
   export class AuthInterceptor implements ng.IHttpInterceptor {
 
@@ -22,18 +17,3 @@ module auth {
     };
 
   }
-
-  /**
-   * @ngdoc service
-   * @name auth.service:AuthInterceptor
-   *
-   * @description interceptor for http request to send token
-   *
-   **/
-  angular
-    .module("auth")
-    .service("AuthInterceptor", AuthInterceptor)
-    .config(($httpProvider:ng.IHttpProvider) => {
-      $httpProvider.interceptors.push("AuthInterceptor");
-    });
-}

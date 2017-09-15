@@ -1,24 +1,33 @@
 "use strict";
 
+// TODO: watchers: disable on prod mode
+// TODO: sass: separate file
+// TODO: sass: minify
+// TODO: sass: sourcemaps ? concat in dev mode? 
+// TODO: sass autoprefixer: add vendor prefixes from can I use: postcss-loader'
+// TODO: analyze tslint
+// TODO: use patched ace build
+// TODO: tests
+// TODO: account module
+// TODO: topic module
+// TODO: editTopic module
+// TODO: {{signUp.duplicatedEmailError}}
+
+
 import * as ts from "gulp-typescript";
 import * as g$if from "gulp-if";
-import * as sass from "gulp-sass";
 import * as uglify from "gulp-uglify";
 import * as ngAnnotate from "gulp-ng-annotate";
 import * as rev from "gulp-rev";
 import * as concat from "gulp-concat";
-import * as autoprefixer from "gulp-autoprefixer";
 import * as inject from "gulp-inject";
 import * as gulp from "gulp";
-import tslint from "gulp-tslint";
 import * as del from "del";
 import * as config from "./build.config";
 import * as nodemon from "nodemon";
-import * as browserSync from "browser-sync";
 import * as pug from "gulp-pug";
 import * as yargs from "yargs";
 import * as filter from "gulp-filter";
-import * as cssmin from "gulp-cssmin";
 import * as uglifySaveLicense from "uglify-save-license";
 import * as sourcemaps from "gulp-sourcemaps";
 import * as ngHtml2js from "gulp-ng-html2js";
@@ -30,6 +39,9 @@ import * as gulpFilter from "gulp-filter";
 import * as streamqueue from "streamqueue";
 import * as karma from "karma";
 import * as exec from "gulp-exec";
+import * as webpack from "webpack-stream";
+import * as named from "vinyl-named";
+import * as webpackconfig from "./webpack.config";
 
 var isProd = yargs.argv.stage === "prod";
 var htmlFilter = filter("**/*.html"),
@@ -119,103 +131,62 @@ gulp.src(config.client.indexFile)
 );
 
 // copy and favicons and add to index.html
-gulp.task("favicons", ["index"], () => {
-  gulp.src(config.client.favicon).pipe(favicons({
-    display: "standalone",
-    orientation: "portrait",
-    version: 1.0,
-    logging: false,
-    online: false,
-    html: config.client.out.index
-  })).pipe(gulp.dest(config.client.out.root));
-});
+// gulp.task("favicons", ["index"], () => {
+//   gulp.src(config.client.favicon).pipe(favicons({
+//     display: "standalone",
+//     orientation: "portrait",
+//     version: 1.0,
+//     logging: false,
+//     online: false,
+//     html: config.client.out.index
+//   })).pipe(gulp.dest(config.client.out.root));
+// });
 
-gulp.task("pre-build", ["copy", "favicons"]);
-
-// compile styles and copy into build directory
-gulp.task("styles", () => {
-  return gulp.src(config.client.styleFiles)
-    .pipe(sass())
-    .pipe(autoprefixer())
-    .pipe(g$if(isProd, concat("app.css")))
-    .pipe(g$if(isProd, cssmin()))
-    .pipe(g$if(isProd, rev()))
-    .pipe(gulp.dest(config.client.out.styleDir));
-});
-
-// compile markup files and copy into build directory
-gulp.task("markup", () => {
-  return gulp.src(config.client.markupFiles)
-    .pipe(pug())
-    .pipe(gulp.dest(config.client.out.root));
-});
+gulp.task("pre-build", ["copy"]);
 
 gulp.task("analyze", () => {
-  return gulp.src(config.tsFiles)
-    .pipe(tslint())
-    .pipe(tslint.report());
+  // return gulp.src(config.tsFiles)
+  //   .pipe(tslint())
+  //   .pipe(tslint.report());
 });
 
 // compile scripts and copy into build directory
-gulp.task("scripts", ["analyze"], () => {
-  const tsProject = ts.createProject("tsconfig-frontend.json");
-
-  return gulp.src([
-    config.client.scriptFiles,
-    config.client.out.markupFiles,
-    "!**/*_test.*",
-    "!**/index.html"
-  ])
-    .pipe(sourcemaps.init())
-    .pipe(tsFilter)
-    .pipe(tsProject())
-    .pipe(tsFilter.restore())
-    .pipe(g$if(isProd, htmlFilter))
-    .pipe(g$if(isProd, ngHtml2js({
-      moduleName: "koans",
-      declareModule: false
-    })))
-    .pipe(g$if(isProd, htmlFilter.restore()))
-    .pipe(jsFilter)
-    .pipe(g$if(isProd, angularFilesort()))
-    .pipe(g$if(isProd, concat("app.js")))
-    .pipe(g$if(isProd, ngAnnotate()))
-    .pipe(g$if(isProd, uglify()))
-    .pipe(g$if(isProd, rev()))
-    .pipe(sourcemaps.write("."))
-    .pipe(gulp.dest(config.client.out.jsDir))
-    .pipe(jsFilter.restore());
-});
-
-// inject CSS and JavaScript into index.html
-gulp.task("inject", ["markup", "styles", "scripts"], () => {
-  var jsFilter = filter("**/*.js");
-
+gulp.task("scripts", ["analyze", "index"], () => {
   return gulp
-    .src(config.client.out.index)
-    .pipe(inject(
-      gulp.src(config.client.out.vendorDir + "/**/*"), {
-        name: "vendor",
-        addRootSlash: false,
-        ignorePath: config.client.out.root
-      }))
-    .pipe(inject(gulp.src([
-      config.client.out.styleDir + "/**/*",
-      config.client.out.jsDir + "/**/*"
-    ])
-      .pipe(jsFilter)
-      .pipe(angularFilesort())
-      .pipe(jsFilter.restore()), {
-        addRootSlash: false,
-        ignorePath: config.client.out.root
-      })
-    )
-    .pipe(gulp.dest(config.client.out.root));
+  .src(config.client.scriptEntry)
+  .pipe(webpack(webpackconfig))
+  .pipe(gulp.dest(config.client.out.jsDir));
+
+  // return gulp.src([
+  //   config.client.scriptFiles,
+  //   config.client.out.markupFiles,
+  //   "!**/*_test.*",
+  //   "!**/index.html"
+  // ])
+  //   .pipe(sourcemaps.init())
+  //   .pipe(tsFilter)
+  //   .pipe(tsProject())
+  //   .pipe(tsFilter.restore())
+  //   .pipe(g$if(isProd, htmlFilter))
+  //   .pipe(g$if(isProd, ngHtml2js({
+  //     moduleName: "koans",
+  //     declareModule: false
+  //   })))
+  //   .pipe(g$if(isProd, htmlFilter.restore()))
+  //   .pipe(jsFilter)
+  //   .pipe(g$if(isProd, angularFilesort()))
+  //   .pipe(g$if(isProd, concat("app.js")))
+  //   .pipe(g$if(isProd, ngAnnotate()))
+  //   .pipe(g$if(isProd, uglify()))
+  //   .pipe(g$if(isProd, rev()))
+  //   .pipe(sourcemaps.write("."))
+  //   .pipe(gulp.dest(config.client.out.jsDir))
+  //   .pipe(jsFilter.restore());
 });
 
 gulp.task("node:build", () => {
   var tsFilter = filter("**/*.ts");
-  const tsProject = ts.createProject("tsconfig.json");
+  const tsProject = ts.createProject("tsconfig-node.json");
   return gulp.src(config.server.scriptFiles)
     .pipe(g$if(!isProd, sourcemaps.init()))
     .pipe(tsFilter)
@@ -227,7 +198,7 @@ gulp.task("node:build", () => {
 
 gulp.task("buildTests", ["build"], () => {
   var testFilter = gulpFilter("**/**");
-  const tsProject = ts.createProject("tsconfig.json");
+  const tsProject = ts.createProject("tsconfig-frontend.json");
   return gulp.src([
     config.client.unitTestFiles,
     config.client.scriptFiles
@@ -260,6 +231,7 @@ gulp.task("karmaFiles", ["buildTests"], () => {
 
   return stream.done()
     .on("data", (file) => {
+      console.log(file.path);
       karmaConf.files.push(file.path);
     });
 });
@@ -283,19 +255,9 @@ const runCommand = (command) => {
   }
 };
 
-gulp.task("mongod", () => {
-  var f = runCommand("mongod");
-  f((err) => {
-    if (err) {
-      console.log("Error in mongod. Already started?");
-      console.log(err);
-    }
-  });
-});
-
 
 // use nodemon to watch node server
-gulp.task("nodemon", ["build"], (cb) => {
+gulp.task("nodemon", ["node:build"], (cb) => {
   var started = false;
 
   return nodemon({
@@ -309,22 +271,10 @@ gulp.task("nodemon", ["build"], (cb) => {
   });
 });
 
-
-gulp.task("browserSync", ["frontend:build"], () => {
-  browserSync.reload();
-});
-
 // watch frontend/backend
-gulp.task("watch", ["nodemon", "node:build"], () => {
-  browserSync({
-    proxy: "http://localhost:3000/",
-    port: 7000
-  });
-  gulp.watch([
-    config.client.scriptFiles,
-    config.client.markupFiles,
-    config.client.styleFiles,
-    "!" + config.client.unitTestFiles]);
+gulp.task("watch", ["node:build"], () => {
+  gulp.start("frontend:build");
+  gulp.start("nodemon");
 });
 
 gulp.task("stop-mongo", runCommand("mongo --eval 'db.getSiblingDB(\"admin\").shutdownServer()'"));
@@ -332,11 +282,11 @@ gulp.task("stop-mongo", runCommand("mongo --eval 'db.getSiblingDB(\"admin\").shu
 // export current db
 gulp.task("mongo-export", runCommand("mongoexport --db koans --collection topics --out app-node/sample-data/topics.bson"));
 
-gulp.task("frontend:build", ["inject"]);
+gulp.task("frontend:build", ["scripts", "analyze", "index"]);
 
 gulp.task("build", ["node:build", "frontend:build"]);
 
-gulp.task("dev", ["pre-build", "watch", "mongod"]);
+gulp.task("dev", ["pre-build", "watch"]);
 
 gulp.task("default", ["dev"]);
 

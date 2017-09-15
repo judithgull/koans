@@ -1,13 +1,11 @@
+import {ITopic} from "../topic";
 /* tslint:disable:max-line-length */
 /**
  * Some test data frequently used in tests.
  * */
-module core.testUtil {
-  "use strict";
-
   export class MockData {
 
-    static getTopic():core.ITopic {
+    static getTopic():ITopic {
       return {
         "_id": 1,
         "title": "Typescript Intro - Types",
@@ -41,7 +39,7 @@ module core.testUtil {
       };
     }
 
-    static getTopics():Array<core.ITopic> {
+    static getTopics():Array<ITopic> {
       return [
         {
           "_id": 1,
@@ -101,5 +99,3 @@ module core.testUtil {
 
     }
   }
-
-}

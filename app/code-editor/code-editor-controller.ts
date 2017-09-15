@@ -1,21 +1,25 @@
-module codeEditor {
-  "use strict";
+import {SuccessStatus, taskType,  ErrorStatus,   PendingStatus,    IStatus} from "../core/topic";
+import {JsWorkerExt, TsWorkerExt,  IWorkerExtension} from "./worker-extension";
+import {ICodeEditorScope} from "./code-editor-directive";
+import {EditMark} from "./editMark/edit-mark-service";
+import * as Rx from "rx";
+import * as angular from "angular";
 
-  export interface  ICodeEditorModel {
-    editor:AceAjax.Editor;
+export interface  ICodeEditorModel {
+    editor:any;
     handleChange:Function;
     load:Function;
   }
 
-  class CodeEditorCtrl implements ICodeEditorModel {
+export  class CodeEditorCtrl implements ICodeEditorModel {
 
-    editor:AceAjax.Editor;
+    editor:any;
     private selectionProcessed = false;
 
     public static $inject = ["$scope", "EditMark"];
 
     constructor(private $scope:ICodeEditorScope,
-                private editMark:editMark.EditMark) {
+                private editMark:EditMark) {
 
     }
 
@@ -62,7 +66,7 @@ module codeEditor {
       }]);
     };
 
-    private processResults = (allEvents:Rx.Observable<core.IStatus>) => {
+    private processResults = (allEvents:Rx.Observable<IStatus>) => {
       var successEvents = allEvents.filter(s => s.success);
       var errorEvents = allEvents.filter(s => !s.success);
 
@@ -81,7 +85,7 @@ module codeEditor {
 
     private isRun = () => this.isSuccessDefined() || (this.$scope.onError && this.$scope.onError());
 
-    load = (editor:AceAjax.Editor) => {
+    load = (editor:any) => {
       this.editor = editor;
       this.initProperties();
       var libs = this.$scope.libsLoader();
@@ -100,16 +104,16 @@ module codeEditor {
       }
     };
 
-    start = (worker:IWorkerExtension):Rx.Observable<core.IStatus> => {
-      var subject = new Rx.Subject<core.IStatus>();
-      subject.onNext(new core.PendingStatus(core.taskType.compile));
+    start = (worker:IWorkerExtension):Rx.Observable<IStatus> => {
+      var subject = new Rx.Subject<IStatus>();
+      subject.onNext(new PendingStatus(taskType.compile));
       this.editor.getSession().on("changeAnnotation", () => this.emitAnnotationError(subject));
       worker.addRunEventListener(this.editor.getSession(), (v) => this.startRun(subject, v));
       return subject;
     };
 
 
-    emitAnnotationError = (subject:Rx.Subject<core.IStatus>) => {
+    emitAnnotationError = (subject:Rx.Subject<IStatus>) => {
       if (this.hasAnnotations()) {
         var errors = this.editor.getSession().getAnnotations().map((a) => {
           return {
@@ -117,7 +121,7 @@ module codeEditor {
             line: a.row + 1
           };
         });
-        subject.onNext(new core.ErrorStatus(core.taskType.compile, errors));
+        subject.onNext(new ErrorStatus(taskType.compile, errors));
       }
     };
 
@@ -125,17 +129,17 @@ module codeEditor {
       return this.editor.getSession().getAnnotations().length > 0;
     };
 
-    private startRun = (subject:Rx.Subject<core.IStatus>, script:string):void => {
+    private startRun = (subject:Rx.Subject<IStatus>, script:string):void => {
       if (!this.hasAnnotations()) {
         var preparedScript = "chai.should();var expect = chai.expect;var assert = chai.assert;\n" + script;
 
         if (this.$scope.hiddenText) {
           preparedScript = preparedScript + "\n" + this.$scope.hiddenText;
         }
-        var taskType = core.taskType.run;
+        var taskType = taskType.run;
         try {
           eval(preparedScript);
-          subject.onNext(new core.SuccessStatus(taskType));
+          subject.onNext(new SuccessStatus(taskType));
         } catch (e) {
           let message = "Runtime Error: Incorrect implementation";
           var err = {message: message, line: -1};
@@ -145,22 +149,10 @@ module codeEditor {
             text: message,
             type: "error"
           }]);
-          subject.onNext(new core.ErrorStatus(taskType, [err]));
+          subject.onNext(new ErrorStatus(taskType, [err]));
         }
       }
     }
 
   }
 
-
-  /**
-   * @ngdoc object
-   * @name codeEditor.controller:CodeEditorCtrl
-   *
-   * @description Handles code editor setup
-   *
-   */
-  angular
-    .module("codeEditor")
-    .controller("CodeEditorCtrl", CodeEditorCtrl);
-}

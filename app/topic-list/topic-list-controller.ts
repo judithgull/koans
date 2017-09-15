@@ -1,21 +1,24 @@
+import {IUser} from '../core/user';
+import {ITopic} from "../core/topic";
+import {SearchParamsService} from "../core/search-param-service";
+import {IRestClient, RestClient} from "../core/rest-client-service";
 import {IAuthService} from "../auth/auth-service";
+import * as toastr from "toastr";
+import * as angular from "angular";
 
-module topicList {
-  "use strict";
-
-  export interface ITopicListCtrl {
-    topics: Array<core.ITopic>;
+export interface ITopicListCtrl {
+    topics: Array<ITopic>;
     deleteTopic: Function;
     equalsUser: Function;
-  }
+}
 
 
-  class TopicListCtrl implements ITopicListCtrl {
+  export class TopicListCtrl implements ITopicListCtrl {
     errorMessage:string = null;
-    user:core.IUser;
+    user:IUser;
     isShowAll:boolean;
     isLoggedIn:boolean;
-    topics:Array<core.ITopic> = [];
+    topics:Array<ITopic> = [];
     searchText:string;
 
     public static $inject = [
@@ -24,9 +27,9 @@ module topicList {
       "SearchParamsService"
     ];
 
-    constructor(private RestClient:core.IRestClient,
+    constructor(private RestClient:IRestClient,
                 private authService:IAuthService,
-                private searchParamsService:core.SearchParamsService) {
+                private searchParamsService:SearchParamsService) {
 
       this.isLoggedIn = authService.isLoggedIn();
       this.user = this.authService.getLoggedInUser();
@@ -82,16 +85,3 @@ module topicList {
       });
     }
   }
-
-
-  /**
-   * @ngdoc object
-   * @name topicList.controller:TopicListCtrl
-   *
-   * @description Controller for list of topics
-   *
-   */
-  angular
-    .module("topicList")
-    .controller("TopicListCtrl", TopicListCtrl);
-}

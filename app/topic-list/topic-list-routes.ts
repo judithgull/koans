@@ -1,15 +1,15 @@
-module topicList {
-  "use strict";
+import * as angular from "angular";
+import {IUrlRouterProvider, IStateProvider} from "angular-ui-router";
 
-  angular
-    .module("topicList")
-    .config(($stateProvider:ng.ui.IStateProvider) => {
+declare const require:any;
+
+export const topicListRoutes = 
+($stateProvider) => {
       $stateProvider
         .state("main.home.topicList", {
           url: "/topic-list",
-          templateUrl: "topic-list/topic-list.tpl.html",
+          template: require("./topic-list.tpl"),
           controller: "TopicListCtrl",
           controllerAs: "topicList"
-        });
-    });
-}
+        })
+      };

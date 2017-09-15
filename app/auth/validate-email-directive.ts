@@ -1,5 +1,3 @@
-module auth {
-  "use strict";
 
   /**
    * @ngdoc directive
@@ -30,4 +28,4 @@ module auth {
         }
       };
     });
-}
+

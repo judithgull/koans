@@ -1,7 +1,5 @@
 import {IAuthService} from "../auth-service";
-
-module auth.login {
-  "use strict";
+import * as angular from "angular";
 
   export class LoginCtrl {
 
@@ -27,16 +25,3 @@ module auth.login {
       );
     }
   }
-
-
-  /**
-   * @ngdoc object
-   * @name auth.login.controller:LoginCtrl
-   *
-   * @description Controller for login
-   *
-   */
-  angular
-    .module("auth.login")
-    .controller("LoginCtrl", LoginCtrl);
-}

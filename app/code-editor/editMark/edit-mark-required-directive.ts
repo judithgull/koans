@@ -1,6 +1,5 @@
-module codeEditor.editMark {
-  "use strict";
-
+import {EditMark} from "./edit-mark-service";
+import * as angular from "angular";
   /**
    * @ngdoc directive
    * @name editTopic.directive:editMarkRequired
@@ -27,4 +26,4 @@ module codeEditor.editMark {
         }
       };
     }]);
-}
+

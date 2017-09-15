@@ -1,8 +1,6 @@
 /**
  * Classes and interfaces regarding user.
  */
-module core {
-  "use strict";
 
   export interface IUser {
     _id?: string,
@@ -17,5 +15,3 @@ module core {
                 public password:string = null) {
     }
   }
-
-}

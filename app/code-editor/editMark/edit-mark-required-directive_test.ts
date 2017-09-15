@@ -1,3 +1,7 @@
+import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
+
+import * as angular from "angular-mocks";
+
 module codeEditor.editMark {
   "use strict";
 

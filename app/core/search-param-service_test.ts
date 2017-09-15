@@ -1,3 +1,7 @@
+import {SearchParamsService} from "./search-param-service";
+import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
+import * as angular from "angular-mocks";
+
 module core {
   "use strict";
 

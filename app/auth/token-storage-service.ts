@@ -1,7 +1,4 @@
-export type TokenStorage = auth.TokenStorage;
-
-module auth {
-  "use strict";
+import * as angular from "angular";
 
   export class TokenStorage {
     private authTokenKey = "authToken";
@@ -12,15 +9,3 @@ module auth {
 
     clear = () => localStorage.removeItem(this.authTokenKey);
   }
-
-  /**
-   * @ngdoc service
-   * @name auth.service:TokenStorage
-   *
-   * @description Service for storing the token.
-   *
-   **/
-  angular
-    .module("auth")
-    .service("TokenStorage", TokenStorage);
-}

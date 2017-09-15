@@ -1,3 +1,10 @@
+import {User, IUser} from '../../core/user';
+import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
+import * as sinon from "sinon";
+import * as angular from "angular-mocks";
+import {SignUpCtrl} from "./sign-up-controller";
+import {IAuthService} from "../auth-service";
+
 module auth.signUp {
   "use strict";
 
@@ -12,8 +19,8 @@ module auth.signUp {
       submitUserSpy = sinon.spy();
       deferred = $q.defer();
 
-      var mockAuthService:auth.IAuthService = {
-        signUp: (user:core.IUser):ng.IPromise<void> => {
+      var mockAuthService:IAuthService = {
+        signUp: (user:IUser):ng.IPromise<void> => {
           submitUserSpy(user);
           return deferred.promise;
         },
@@ -41,11 +48,11 @@ module auth.signUp {
       it("should call submit user once", ()  => {
         ctrl.submit();
         sinon.assert.calledOnce(submitUserSpy);
-        sinon.assert.calledWith(submitUserSpy, new core.User());
+        sinon.assert.calledWith(submitUserSpy, new User());
       });
 
       it("should call submit user once with correct values", ()  => {
-        const testUser = new core.User();
+        const testUser = new User();
         testUser.name = "testName";
         testUser.email = "testEmail";
         testUser.password = "testPwd";

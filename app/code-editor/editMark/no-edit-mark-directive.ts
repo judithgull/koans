@@ -1,7 +1,5 @@
-module codeEditor.editMark {
-  "use strict";
-
-
+  import {EditMark, CustomAnnotation} from "./edit-mark-service";
+  import * as angular from "angular";
   /**
    * @ngdoc Validates, if no edit mark is available in the ng.Model value
    * @name codeEditor.directive:noEditMark
@@ -25,13 +23,13 @@ module codeEditor.editMark {
         require: ["^codeEditor", "ngModel"],
         link: (scope:ng.IScope, elm:JQuery, attrs:ng.IAttributes, controllers:any[]) => {
 
-          let editor:AceAjax.Editor = controllers[0].editor;
-          let session:AceAjax.IEditSession = editor.getSession();
+          let editor:any = controllers[0].editor;
+          let session:any = editor.getSession();
           let errorText = "Please replace ??? with the correct answer!";
 
           controllers[1].$validators["noMark"] = (value) => !editMarker.containsMark(value);
 
-          let getMarkers = ():AceAjax.Annotation[] => {
+          let getMarkers = ():any[] => {
             var ranges = editMarker.getEditMarks(session.getValue());
             return ranges.map((r) => new CustomAnnotation(r.row, r.column, errorText));
           };
@@ -49,4 +47,4 @@ module codeEditor.editMark {
         }
       };
     }]);
-}
+

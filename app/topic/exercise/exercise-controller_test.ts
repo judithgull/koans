@@ -1,9 +1,14 @@
+import {MockData} from "../../core/test-util/test-util";
+import {ExerciseCtrl} from "./exercise-controller";
+import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
+import * as angular from "angular-mocks";
+
 module topic.exercise {
   "use strict";
 
   describe("ExerciseCtrl", function () {
     var ctrl:ExerciseCtrl;
-    var topic = core.testUtil.MockData.getTopic();
+    var topic = MockData.getTopic();
 
     beforeEach(angular.mock.module("topic.exercise"));
 

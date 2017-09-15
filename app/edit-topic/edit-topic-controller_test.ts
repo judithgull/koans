@@ -1,16 +1,21 @@
+import {Topic, ITopic} from "../core/topic";
+import {IEditTopicModel} from "./edit-topic-controller";
+import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
+import * as angular from "angular-mocks";
+
 module editTopic {
   "use strict";
 
   describe("EditTopicCtrl", () => {
     var ctrl:IEditTopicModel;
-    var testTopic:core.ITopic;
-    var topic:core.ITopic;
+    var testTopic:ITopic;
+    var topic:ITopic;
 
     beforeEach(angular.mock.module("editTopic"));
 
     beforeEach(inject(($rootScope, $controller) => {
       const rc = {
-        createTopic: (topic:core.ITopic) => {
+        createTopic: (topic:ITopic) => {
           testTopic = topic;
         }
       };
@@ -19,7 +24,7 @@ module editTopic {
         {
           "RestClient": rc,
           "libs": libs,
-          topic: new core.Topic(),
+          topic: new Topic(),
           "$scope": $rootScope
         });
       topic = ctrl.topic;

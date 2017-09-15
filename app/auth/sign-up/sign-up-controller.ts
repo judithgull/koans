@@ -1,7 +1,6 @@
+import {User, IUser} from '../../core/user';
 import {IAuthService} from "../auth-service";
-
-module auth.signUp {
-  "use strict";
+import * as angular from "angular";
 
   export class SignUpCtrl {
     duplicatedEmailError = null;
@@ -10,8 +9,8 @@ module auth.signUp {
 
     constructor(private authService:IAuthService,
                 private $state:angular.ui.IStateService,
-                public user:core.IUser) {
-      this.user = new core.User();
+                public user:IUser) {
+      this.user = new User();
     }
 
     submit = () => {
@@ -23,16 +22,3 @@ module auth.signUp {
       );
     }
   }
-
-
-  /**
-   * @ngdoc object
-   * @name auth.signUp.controller:SignUpCtrl
-   *
-   * @description sign-up controller
-   *
-   */
-  angular
-    .module("auth.signUp")
-    .controller("SignUpCtrl", SignUpCtrl);
-}

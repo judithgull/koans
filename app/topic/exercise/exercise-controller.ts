@@ -1,13 +1,14 @@
-module topic.exercise {
-  "use strict";
-  import IExercise = core.IExercise;
+import * as toastr from 'toastr';
+import {ITopic, IError,  IExercise} from "../../core/topic";
+import {EditMark} from "../../code-editor/editMark/edit-mark-service";
+import * as angular from "angular";
 
   export class ExerciseCtrl {
     currentExercise:IExercise;
     content:string;
     hidden:string;
 
-    errors:Array<core.IError> = [];
+    errors:Array<IError> = [];
     successMessage:string = "Great job!!!";
     success = false;
     id:number;
@@ -16,12 +17,12 @@ module topic.exercise {
 
     static $inject = ["topicData", "$state", "$scope", "libs", "$timeout", "EditMark"];
 
-    constructor(private topicData:core.ITopic,
+    constructor(private topicData:ITopic,
                 private $state:angular.ui.IStateService,
                 private $scope:ng.IScope,
                 private libs,
                 private $timeout:ng.ITimeoutService,
-                private editMark:codeEditor.editMark.EditMark) {
+                private editMark:EditMark) {
       this.id = this.$state.params["exerciseId"] - 1;
       this.currentExercise = this.getCurrentExercise();
       this.exerciseCount = topicData.items.length;
@@ -37,7 +38,7 @@ module topic.exercise {
 
     libsLoader = () => this.libs;
 
-    onError = (errors:Array<core.IError>) => {
+    onError = (errors:Array<IError>) => {
       this.success = false;
       this.errors = errors;
       this.$timeout(() => {
@@ -122,14 +123,4 @@ module topic.exercise {
     isSolution = () => this.$state.is("main.topic.exercise.solution");
   }
 
-  /**
-   * @ngdoc object
-   * @name topic.exercise.controller:ExerciseCtrl
-   *
-   * @description Controller for exercise (run, validate and show errors and success)
-   *
-   */
-  angular
-    .module("topic.exercise")
-    .controller("ExerciseCtrl", ExerciseCtrl);
-}
+

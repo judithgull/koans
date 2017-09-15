@@ -1,29 +1,31 @@
-module editTopic {
-  "use strict";
+import { } from './edit-topic-module';
+import {Topic} from "../core/topic";
+import {IRestClient} from "../core/rest-client-service";
+import * as angular from 'angular';
 
-  angular
-    .module("editTopic")
-    .config(($stateProvider:ng.ui.IStateProvider) => {
+declare const require:any;
+
+export const editTopicRoutes =  ($stateProvider) => {
       $stateProvider
         .state("main.editTopic", {
           url: "/edit-topic/:id?",
-          templateUrl: "edit-topic/edit-topic.tpl.html",
+          template: require("./edit-topic.tpl"),
           controller: "EditTopicCtrl",
           controllerAs: "editTopic",
           resolve: {
-            libs: function (RestClient:core.IRestClient) {
+            libs: function (RestClient:IRestClient) {
               return RestClient.getDefaultLibs();
             },
-            topic: (RestClient:core.IRestClient, $stateParams, $q:ng.IQService) => {
+            topic: (RestClient:IRestClient, $stateParams, $q) => {
               if ($stateParams.id) {
                 return RestClient.getTopic($stateParams.id);
               } else {
                 var deferred = $q.defer();
-                deferred.resolve(new core.Topic());
+                deferred.resolve(new Topic());
                 return deferred.promise;
               }
             }
           }
         });
-    });
-}
+    };
+

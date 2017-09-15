@@ -1,8 +1,11 @@
-module core {
-  "use strict";
+import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
+import {MockData} from "./test-util/test-util";
+import {TOPICS_URL, IRestClient} from "./rest-client-service";
+import * as angular from "angular-mocks";
+
 
   describe("RestClient", () => {
-    var restClient:core.IRestClient;
+    var restClient:IRestClient;
     var $httpBackend;
     var tsLibName = "typescripts/lib.d.ts";
 
@@ -17,7 +20,7 @@ module core {
 
     describe("getTopic(id)", () => {
 
-      var topic = core.testUtil.MockData.getTopic();
+      var topic = MockData.getTopic();
       var testID = topic._id;
 
       beforeEach(()  => {
@@ -72,7 +75,7 @@ module core {
 
     describe("getExercise", () => {
 
-      var topic = core.testUtil.MockData.getTopic();
+      var topic = MockData.getTopic();
 
       it("should return an exercise with the correct attributes", () => {
         var expectedUrl = TOPICS_URL + topic._id;
@@ -118,10 +121,10 @@ module core {
 
     describe("createTopic", () => {
 
-      var topic = core.testUtil.MockData.getTopic();
+      var topic = MockData.getTopic();
 
       it("should store a topic", () => {
-        $httpBackend.expectPOST(core.TOPICS_URL);
+        $httpBackend.expectPOST(TOPICS_URL);
         $httpBackend.whenPOST().respond(200);
         restClient.createTopic(topic);
         $httpBackend.flush();
@@ -129,4 +132,3 @@ module core {
     });
 
   });
-}

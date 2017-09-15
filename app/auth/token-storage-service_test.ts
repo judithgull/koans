@@ -1,3 +1,7 @@
+import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
+import * as angular from "angular-mocks";
+import {TokenStorage} from "./token-storage-service";
+
 module auth {
   "use strict";
 

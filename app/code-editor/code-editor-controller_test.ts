@@ -1,10 +1,17 @@
+import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
+import * as angular from "angular-mocks";
+import {ICodeEditorModel} from "./code-editor-controller";
+import {ICodeEditorScope} from "./code-editor-directive";
+
+declare var ace: any;
+
 module codeEditor {
   "use strict";
 
   describe("Code Editor Controller", function () {
     var ctrl:ICodeEditorModel;
     var scope:ICodeEditorScope;
-    var testEditor:AceAjax.Editor;
+    var testEditor:any;
 
     var createTestEditor = () => {
       var doc = angular.element(document);

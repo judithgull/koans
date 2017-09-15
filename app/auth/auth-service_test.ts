@@ -1,11 +1,16 @@
+import {User} from '../core/user';
+import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
+import * as angular from "angular-mocks";
+import {IAuthService} from "./auth-service";
+
 module auth {
   "use strict";
 
   describe("AuthService", () => {
-    var service:AuthService;
-    var $httpBackend:ng.IHttpBackendService;
+    var service:IAuthService;
+    var $httpBackend:any;
     var testToken = "testToken";
-    var user = new core.User("testName", "testEmail", "testPwd");
+    var user = new User("testName", "testEmail", "testPwd");
     var testUserResponse = {
       _id: "id",
       name: user.name,
@@ -32,7 +37,7 @@ module auth {
     });
 
     it("successful signup should login", () => {
-      respondTokenWhenPost(auth.USERS_URL);
+      respondTokenWhenPost("/users/");
       var res = service.signUp(user);
       $httpBackend.flush();
       expect(res).toBeDefined();
@@ -41,7 +46,7 @@ module auth {
     });
 
     it("successful login should login", () => {
-      respondTokenWhenPost(auth.LOGIN_URL);
+      respondTokenWhenPost("/login/");
       var res = service.login(user.email, user.password);
       $httpBackend.flush();
       expect(res).toBeDefined();
@@ -49,7 +54,7 @@ module auth {
     });
 
     it("should logout", () => {
-      respondTokenWhenPost(auth.LOGIN_URL);
+      respondTokenWhenPost("/login/");
       service.login(user.email, user.password);
       $httpBackend.flush();
       service.logout();

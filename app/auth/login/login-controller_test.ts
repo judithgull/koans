@@ -1,3 +1,9 @@
+import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
+import * as angular from "angular-mocks";
+import * as sinon from "sinon";
+import {LoginCtrl} from "./login-controller";
+import {IAuthService} from "../auth-service";
+
 module auth.login {
   "use strict";
 
@@ -13,7 +19,7 @@ module auth.login {
       loginSpy = sinon.spy();
       deferred = $q.defer();
 
-      var mockAuthService:auth.IAuthService = {
+      var mockAuthService:IAuthService = {
         signUp: () => null,
         logout: () => undefined,
         isLoggedIn: () => false,

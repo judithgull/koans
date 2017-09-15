@@ -1,5 +1,4 @@
-module core {
-  "use strict";
+import * as angular from "angular";
 
   export interface ISearchParam {
     authorId?:string
@@ -54,15 +53,3 @@ module core {
     }
 
   }
-
-  /**
-   * @ngdoc service
-   * @name core.service:SearchParamsService
-   *
-   * @description Handles search query parameters (stores current state in local storage).
-   *
-   */
-  angular
-    .module("core")
-    .service("SearchParamsService", SearchParamsService);
-}

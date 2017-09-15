@@ -1,14 +1,11 @@
 /**
  * Classes and interfaces regarding topic.
  */
-module core {
-  "use strict";
-
   export interface ITopic {
     _id: number;
     title: string;
     programmingLanguage: string;
-    items: Array<core.IExercise>;
+    items: Array<IExercise>;
   }
 
   export interface IExercise {
@@ -90,4 +87,4 @@ module core {
                 public running = true) {
     }
   }
-}
+

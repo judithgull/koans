@@ -1,5 +1,12 @@
-module editTopic {
-  "use strict";
+import * as angular from "angular";
+import uirouter from 'angular-ui-router';
+import core from "../core/core-module";
+import ngMessages from "angular-messages";
+import codeEditor from "../code-editor/code-editor-module";
+import 'angular-messages';
+import { editTopicRoutes } from "./edit-topic-routes";
+
+export default "editTopic";
 
   /** @ngdoc object
    * @name edit-topic
@@ -9,7 +16,7 @@ module editTopic {
     .module("editTopic", [
       "ui.router",
       "ngMessages",
-      "core",
-      "codeEditor"
-    ]);
-}
+      core,
+      codeEditor
+    ]).config(editTopicRoutes);
+

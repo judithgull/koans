@@ -16,6 +16,7 @@ client.indexFile          = path.join(client.root, "**/index.jade");
 client.markupFiles        = path.join(client.root, "**/*.jade");
 client.styleFiles         = path.join(client.root, "**/*.scss");
 client.scriptFiles        = path.join(client.root, "**/*.ts");
+client.scriptEntry        = path.join(client.root, "app-module.ts");
 client.unitTestFiles      = path.join(client.root, "**/*_test.ts");
 
 client.out                = {};

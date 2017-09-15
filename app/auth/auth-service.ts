@@ -1,18 +1,16 @@
+import {IUser} from '../core/user';
 import {TokenStorage} from "./token-storage-service";
+import * as angular from "angular";
 
-export type IAuthService = auth.IAuthService;
-
-module auth {
-  "use strict";
 
   export const USERS_URL = "/users/";
   export const LOGIN_URL = "/login/";
 
   export interface IAuthService {
-    signUp(user:core.IUser):ng.IPromise<void>;
+    signUp(user:IUser):ng.IPromise<void>;
     logout():void;
     isLoggedIn():boolean;
-    getLoggedInUser():core.IUser;
+    getLoggedInUser():IUser;
     login(email:string, password:string):ng.IPromise<void>;
   }
 
@@ -46,7 +44,7 @@ module auth {
       );
     };
 
-    signUp = (user:core.IUser):ng.IPromise<void> => {
+    signUp = (user:IUser):ng.IPromise<void> => {
       return this.handleTokenRequest(
         this.$http.post(USERS_URL, user)
       );
@@ -78,15 +76,3 @@ module auth {
       }
     }
   }
-
-  /**
-   * @ngdoc service
-   * @name auth.service:AuthService
-   *
-   * @description Service for authentication (sign-up, login, logout)
-   *
-   */
-  angular
-    .module("auth")
-    .service("AuthService", AuthService);
-}

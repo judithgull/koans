@@ -1,34 +1,13 @@
-module auth.account {
-  "use strict";
+import * as angular from "angular";
 
-  /**
-   * @ngdoc directive
-   * @name auth.account.directive:account
-   * @restrict E
-   * @element account
-   *
-   * @description
-   * Account component with sign-up, login, logout
-   *
-   * @example
-   <example module="auth">
-    <file name="index.html">
-      <account></account>
-    </file>
-   </example>
-   *
-   */
-  angular
-    .module("auth")
-    .directive("account", account);
+declare const require:any;
 
-  function account():ng.IDirective {
+export  function account(){
     return {
       restrict: "E",
       scope: {},
-      templateUrl: "auth/account/account.tpl.html",
+      template: require("./account.tpl"),
       controllerAs: "account",
       controller: "AccountCtrl"
     };
   }
-}

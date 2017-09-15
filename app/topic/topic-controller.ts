@@ -1,5 +1,5 @@
-module topic {
-  "use strict";
+import {ITopic} from "../core/topic";
+import * as angular from "angular";
 
   export interface ITopicCtrl {
     programmingLanguage:string;
@@ -14,14 +14,14 @@ module topic {
     exerciseId:number;
   }
 
-  class TopicCtrl implements ITopicCtrl {
+  export class TopicCtrl implements ITopicCtrl {
     programmingLanguage:string;
     title:string;
     private exerciseCount:number;
 
     static $inject = ["topicData", "$state"];
 
-    constructor(public topicData:core.ITopic, private $state:ITopicStateService) {
+    constructor(public topicData:ITopic, private $state:ITopicStateService) {
       this.title = topicData.title;
       this.programmingLanguage = topicData.programmingLanguage;
       this.exerciseCount = topicData.items.length;
@@ -30,16 +30,3 @@ module topic {
     getExerciseId = () => this.$state.params.exerciseId;
 
   }
-
-
-  /**
-   * @ngdoc object
-   * @name topic.controller:TopicCtrl
-   *
-   * @description
-   *
-   */
-  angular
-    .module("topic")
-    .controller("TopicCtrl", TopicCtrl);
-}

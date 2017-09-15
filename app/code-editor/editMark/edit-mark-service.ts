@@ -1,7 +1,6 @@
-module codeEditor.editMark {
-  "use strict";
+import * as angular from "angular";
 
-  export class EditMark {
+export class EditMark {
     mark = "???";
 
     setAnnotations = (newMarkerAnnotations, session, errorText) => {
@@ -38,11 +37,11 @@ module codeEditor.editMark {
       return res;
     };
 
-    equals = (a1:AceAjax.Annotation[], a2:AceAjax.Annotation[]) => {
+    equals = (a1:any[], a2:any[]) => {
       if (a1.length !== a2.length) {
         return false;
       }
-      var annotationEquals = (a1:AceAjax.Annotation, a2:AceAjax.Annotation) => {
+      var annotationEquals = (a1:any, a2:any) => {
         return a1.column === a2.column && a1.row === a2.row && a1.text === a1.text;
       };
       for (let i = 0; i < a1.length; i++) {
@@ -126,7 +125,7 @@ module codeEditor.editMark {
 
   }
 
-  export class CustomAnnotation implements AceAjax.Annotation {
+  export class CustomAnnotation {
     public type = "error";
     public custom = true;
 
@@ -146,14 +145,4 @@ module codeEditor.editMark {
     column:number
   }
 
-  /**
-   * @ngdoc service
-   * @name codeEditor.service:EditMark
-   *
-   * @description Helper methods for editMark
-   *
-   */
-  angular
-    .module("codeEditor")
-    .service("EditMark", EditMark);
-}
+

@@ -1,8 +1,13 @@
+import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
+import {MockData} from "../core/test-util/test-util";
+import {ITopicListCtrl} from "./topic-list-controller";
+import * as angular from "angular-mocks";
+
 module topicList {
   "use strict";
 
   describe("Topic List Controller", () => {
-    var topics = core.testUtil.MockData.getTopics();
+    var topics = MockData.getTopics();
     var ctrl:ITopicListCtrl;
     var rs;
 

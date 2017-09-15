@@ -1,4 +1,6 @@
-/* global describe, beforeEach, it, expect, inject, module */
+import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
+import * as angular from "angular-mocks";
+
 module auth.account {
   "use strict";
 
