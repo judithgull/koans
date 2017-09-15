@@ -11,9 +11,9 @@ module codeEditor.editMark {
 
     beforeEach(angular.mock.module("codeEditor"));
 
-    beforeEach(inject( ($compile, $rootScope) => {
+    beforeEach(inject(($compile, $rootScope) => {
       scope = $rootScope.$new();
-      var element = angular.element(
+      const element = angular.element(
         "<form name='form'>" +
         "<input name='text' ng-model='model.text' edit-mark-required>" +
         "</form>"

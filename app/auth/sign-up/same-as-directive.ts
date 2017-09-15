@@ -1,5 +1,3 @@
-module auth.signUp {
-  "use strict";
 
   /**
    * @ngdoc directive
@@ -19,9 +17,7 @@ module auth.signUp {
    </example>
    *
    **/
-  angular
-    .module("auth.signUp")
-    .directive("sameAs", ():ng.IDirective => {
+ export const sameAsDirective = ():ng.IDirective => {
       return {
         restrict: "A",
         require: "ngModel",
@@ -34,5 +30,5 @@ module auth.signUp {
 
         }
       };
-    });
-}
+    };
+

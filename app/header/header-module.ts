@@ -1,6 +1,6 @@
 import * as angular from "angular";
-import uirouter from 'angular-ui-router';
-import auth from '../auth/auth-module';
+import uirouter from "angular-ui-router";
+import auth from "../auth/auth-module";
 
 export default "header";
 
@@ -9,7 +9,7 @@ export default "header";
    * @description header module containing logo and account module.
    *
    */
-  angular
+angular
     .module("header", [
       "ui.router",
       auth

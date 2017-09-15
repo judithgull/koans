@@ -1,4 +1,4 @@
-import {IUser} from '../core/user';
+import {IUser} from "../core/user";
 import {ITopic} from "../core/topic";
 import {SearchParamsService} from "../core/search-param-service";
 import {IRestClient, RestClient} from "../core/rest-client-service";
@@ -7,18 +7,18 @@ import * as toastr from "toastr";
 import * as angular from "angular";
 
 export interface ITopicListCtrl {
-    topics: Array<ITopic>;
-    deleteTopic: Function;
-    equalsUser: Function;
+    topics: ITopic[];
+    deleteTopic: any;
+    equalsUser: any;
 }
 
 
-  export class TopicListCtrl implements ITopicListCtrl {
+export class TopicListCtrl implements ITopicListCtrl {
     errorMessage:string = null;
     user:IUser;
     isShowAll:boolean;
     isLoggedIn:boolean;
-    topics:Array<ITopic> = [];
+    topics:ITopic[] = [];
     searchText:string;
 
     public static $inject = [
@@ -35,7 +35,7 @@ export interface ITopicListCtrl {
       this.user = this.authService.getLoggedInUser();
       this.searchText = this.searchParamsService.getSearchText();
       this.reload();
-      (<Toastr>toastr).clear();
+      (toastr as Toastr).clear();
     }
 
     deleteTopic = (id:number, index:number) => {
@@ -79,8 +79,8 @@ export interface ITopicListCtrl {
 
     private reload = () => {
       this.isShowAll = !this.searchParamsService.getAuthorId();
-      var queryParams = this.searchParamsService.getSearchParam();
-      this.RestClient.getTopics(queryParams).then(topics => {
+      const queryParams = this.searchParamsService.getSearchParam();
+      this.RestClient.getTopics(queryParams).then((topics) => {
         this.topics = topics;
       });
     }

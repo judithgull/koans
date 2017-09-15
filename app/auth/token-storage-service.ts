@@ -1,6 +1,6 @@
 import * as angular from "angular";
 
-  export class TokenStorage {
+export class TokenStorage {
     private authTokenKey = "authToken";
 
     set = (token:string) => localStorage.setItem(this.authTokenKey, token);

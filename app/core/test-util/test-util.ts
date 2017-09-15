@@ -3,7 +3,7 @@ import {ITopic} from "../topic";
 /**
  * Some test data frequently used in tests.
  * */
-  export class MockData {
+export class MockData {
 
     static getTopic():ITopic {
       return {
@@ -39,7 +39,7 @@ import {ITopic} from "../topic";
       };
     }
 
-    static getTopics():Array<ITopic> {
+    static getTopics():ITopic[] {
       return [
         {
           "_id": 1,

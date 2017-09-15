@@ -1,7 +1,7 @@
-import { } from './edit-topic-module';
+import { } from "./edit-topic-module";
 import {Topic} from "../core/topic";
 import {IRestClient} from "../core/rest-client-service";
-import * as angular from 'angular';
+import * as angular from "angular";
 
 declare const require:any;
 
@@ -13,14 +13,14 @@ export const editTopicRoutes =  ($stateProvider) => {
           controller: "EditTopicCtrl",
           controllerAs: "editTopic",
           resolve: {
-            libs: function (RestClient:IRestClient) {
+            libs: function(RestClient:IRestClient) {
               return RestClient.getDefaultLibs();
             },
             topic: (RestClient:IRestClient, $stateParams, $q) => {
               if ($stateParams.id) {
                 return RestClient.getTopic($stateParams.id);
               } else {
-                var deferred = $q.defer();
+                const deferred = $q.defer();
                 deferred.resolve(new Topic());
                 return deferred.promise;
               }

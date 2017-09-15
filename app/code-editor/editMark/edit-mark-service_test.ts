@@ -6,13 +6,13 @@ import {EditMark, CustomAnnotation} from "./edit-mark-service";
 module codeEditor.editMark {
   "use strict";
 
-  describe("EditMark", function () {
+  describe("EditMark", function() {
     var service:EditMark;
-    var testText = "Please replace ??? with the correct answer!";
+    const testText = "Please replace ??? with the correct answer!";
 
     beforeEach(angular.mock.module("codeEditor"));
 
-    beforeEach(inject(function (EditMark) {
+    beforeEach(inject(function(EditMark) {
       service = EditMark;
     }));
 
@@ -84,26 +84,26 @@ module codeEditor.editMark {
     describe("Annotation arrays", () => {
 
       it("should not be equal, for different lengths", () => {
-        var a1 = [new CustomAnnotation(0, 0, testText)];
-        var a2 = [];
+        const a1 = [new CustomAnnotation(0, 0, testText)];
+        const a2 = [];
         expect(service.equals(a1, a2)).toBe(false);
       });
 
       it("should be equal, for the same annotations ", () => {
-        var a1 = [new CustomAnnotation(0, 0, testText)];
-        var a2 = [new CustomAnnotation(0, 0, testText)];
+        const a1 = [new CustomAnnotation(0, 0, testText)];
+        const a2 = [new CustomAnnotation(0, 0, testText)];
         expect(service.equals(a1, a2)).toBe(true);
       });
 
       it("should not be equal, for one different annotation ", () => {
-        var a1 = [new CustomAnnotation(0, 0, testText)];
-        var a2 = [new CustomAnnotation(0, 1, testText)];
+        const a1 = [new CustomAnnotation(0, 0, testText)];
+        const a2 = [new CustomAnnotation(0, 1, testText)];
         expect(service.equals(a1, a2)).toBe(false);
       });
 
       it("should not be equal, for one different annotation (multiple values)", () => {
-        var a1 = [new CustomAnnotation(0, 0, testText), new CustomAnnotation(0, 0, testText)];
-        var a2 = [new CustomAnnotation(0, 0, testText), new CustomAnnotation(1, 0, testText)];
+        const a1 = [new CustomAnnotation(0, 0, testText), new CustomAnnotation(0, 0, testText)];
+        const a2 = [new CustomAnnotation(0, 0, testText), new CustomAnnotation(1, 0, testText)];
         expect(service.equals(a1, a2)).toBe(false);
       });
 

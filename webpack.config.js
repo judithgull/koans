@@ -17,15 +17,15 @@ module.exports = {
     entry: './app/app-module.ts',
     module: {
       loaders:[
-        // {
-        //   test: /\.ts$/,
-        //   include: [
-        //     path.resolve(__dirname, "app"),
-        //   ],
-        //   enforce: 'pre',
-        //   exclude: /node_modules/,
-        //   loader: 'tslint-loader'
-        // },
+        {
+          test: /\.ts$/,
+          include: [
+            path.resolve(__dirname, "app"),
+          ],
+          enforce: 'pre',
+          exclude: /node_modules/,
+          loader: 'tslint-loader'
+        },
         {
           test: /\.ts$/,
           include: [

@@ -10,7 +10,7 @@ module auth {
 
     beforeEach(inject(($compile, $rootScope) => {
       scope = $rootScope;
-      var element = angular.element(
+      const element = angular.element(
         "<form name='form'>" +
         "<input name='text' ng-model='model.text' type='email' validate-email>" +
         "</form>"

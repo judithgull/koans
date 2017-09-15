@@ -7,7 +7,7 @@ module auth {
 
   describe("TokenStorage", () => {
     var service:TokenStorage;
-    var testToken = "blubbr";
+    const testToken = "blubbr";
 
     beforeEach(angular.mock.module("auth"));
 

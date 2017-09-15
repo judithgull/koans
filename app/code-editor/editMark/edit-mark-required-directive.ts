@@ -15,9 +15,7 @@ import * as angular from "angular";
    </example>
    *
    */
-  angular
-    .module("codeEditor")
-    .directive("editMarkRequired", ["EditMark", (editMarker:EditMark):ng.IDirective => {
+export const editMarkRequiredDirective = (editMarker:EditMark):ng.IDirective => {
       return {
         restrict: "A",
         require: "ngModel",
@@ -25,5 +23,5 @@ import * as angular from "angular";
           ngModel.$validators["editMarkRequired"] = (value) => editMarker.containsMark(value);
         }
       };
-    }]);
+    };
 

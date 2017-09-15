@@ -5,7 +5,7 @@
     _id: number;
     title: string;
     programmingLanguage: string;
-    items: Array<IExercise>;
+    items: IExercise[];
   }
 
   export interface IExercise {
@@ -22,7 +22,7 @@
 
   export class Topic implements ITopic {
     _id:number;
-    items:Array<IExercise> = [];
+    items:IExercise[] = [];
 
     constructor(public title:string = "",
                 public programmingLanguage:string = "typescript") {
@@ -59,7 +59,7 @@
 
   export interface IStatus {
     success:boolean;
-    errors:Array<IError>;
+    errors:IError[];
     running:boolean;
     type:taskType
   }
@@ -80,6 +80,7 @@
     }
   }
 
+  // tslint:disable-next-line:max-classes-per-file
   export class PendingStatus implements IStatus {
     constructor(public type:taskType,
                 public errors = [],

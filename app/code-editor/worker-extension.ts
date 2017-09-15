@@ -2,12 +2,12 @@ import {ILibrary} from "../core/topic";
 /**
  * Programming language specific functionality  appart from built-in worker
  * */
-  export interface IWorkerExtension {
+export interface IWorkerExtension {
 
     /**
      * Add libraries to ace editor
      * */
-    addLibs(session:any, libs:Array<ILibrary>);
+    addLibs(session:any, libs:ILibrary[]);
 
     /**
      * Adds a listener to start running the code
@@ -16,12 +16,12 @@ import {ILibrary} from "../core/topic";
 
   }
 
-  export class TsWorkerExt implements IWorkerExtension {
+export class TsWorkerExt implements IWorkerExtension {
 
-    addLibs(session:any, libs:Array<ILibrary>) {
+    addLibs(session:any, libs:ILibrary[]) {
       libs.forEach(
-        lib => {
-          (<any>session).$worker.emit("addLibrary", {data: lib});
+        (lib) => {
+          (session as any).$worker.emit("addLibrary", {data: lib});
         }
       );
     }
@@ -31,9 +31,9 @@ import {ILibrary} from "../core/topic";
     }
   }
 
-  export class JsWorkerExt implements IWorkerExtension {
+export class JsWorkerExt implements IWorkerExtension {
 
-    addLibs(session:any, libs:Array<ILibrary>) {
+    addLibs(session:any, libs:ILibrary[]) {
       // nop
     }
 

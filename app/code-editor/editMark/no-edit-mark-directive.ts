@@ -16,27 +16,26 @@
    </example>
    *
    */
-  angular.module("codeEditor")
-    .directive("noEditMark", ["EditMark", (editMarker:EditMark):ng.IDirective => {
+  export const noEditMarkDirective = (editMarker:EditMark):ng.IDirective => {
       return {
         restrict: "A",
         require: ["^codeEditor", "ngModel"],
         link: (scope:ng.IScope, elm:JQuery, attrs:ng.IAttributes, controllers:any[]) => {
 
-          let editor:any = controllers[0].editor;
-          let session:any = editor.getSession();
-          let errorText = "Please replace ??? with the correct answer!";
+          const editor:any = controllers[0].editor;
+          const session:any = editor.getSession();
+          const errorText = "Please replace ??? with the correct answer!";
 
           controllers[1].$validators["noMark"] = (value) => !editMarker.containsMark(value);
 
-          let getMarkers = ():any[] => {
-            var ranges = editMarker.getEditMarks(session.getValue());
+          const getMarkers = ():any[] => {
+            const ranges = editMarker.getEditMarks(session.getValue());
             return ranges.map((r) => new CustomAnnotation(r.row, r.column, errorText));
           };
 
           let markerAnnotations = [];
-          let updateMarkers = () => {
-            let newMarkers = getMarkers();
+          const updateMarkers = () => {
+            const newMarkers = getMarkers();
             if (!editMarker.equals(newMarkers, markerAnnotations)) {
               markerAnnotations = newMarkers;
               editMarker.setAnnotations(newMarkers, session, errorText);
@@ -46,5 +45,5 @@
           session.on("changeAnnotation", updateMarkers);
         }
       };
-    }]);
+    };
 

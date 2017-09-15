@@ -2,7 +2,7 @@ import * as angular from "angular";
 
 declare const require:any;
 
-export  function account(){
+export  function account() {
     return {
       restrict: "E",
       scope: {},

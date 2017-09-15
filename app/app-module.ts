@@ -14,11 +14,13 @@ import account from "./auth/account/account-module";
 import header from "./header/header-module";
 import authSignup from "./auth/sign-up/sign-up-module";
 import login from "./auth/login/login-module";
-import {appRoutes} from './app-routes';
-import 'angular-ui-router';
-import 'angular-animate';
+import {appRoutes} from "./app-routes";
+import "angular-ui-router";
+// tslint:disable-next-line:no-duplicate-imports
+import "angular-animate";
 import "angular-aria"
-import './topic-list/topic-list-module';
+// tslint:disable-next-line:no-duplicate-imports
+import "./topic-list/topic-list-module";
 
 declare const require:any;
 
@@ -50,20 +52,20 @@ export let app = angular
 //     "ngAnimate"
 //   ]);
 
-  app.run(["$rootScope", "$log", function ($rootScope, $log) {
-    $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
+app.run(["$rootScope", "$log", function($rootScope, $log) {
+    $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
         $log.error("statechange error: " + error);
         $log.error(error);
         $log.error(toState);
         $log.error(toParams);
         if (error.status && error.status === 404) {
           toastr.error(error.statusText);
-          //setTimeout(function () {
+          // setTimeout(function () {
           //  window.location.reload();
-          //}, 1000);
+          // }, 1000);
         }
       }
     );
   }]);
-  
-  
+
+

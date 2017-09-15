@@ -34,7 +34,6 @@ import * as angularFilesort from "gulp-angular-filesort";
 import * as favicons from "gulp-favicons";
 import * as imagemin from "gulp-imagemin";
 import * as karmaConf from "./karma.config";
-import * as gulpFilter from "gulp-filter";
 import * as streamqueue from "streamqueue";
 import * as karma from "karma";
 import * as exec from "gulp-exec";
@@ -42,13 +41,12 @@ import * as webpack from "webpack-stream";
 import * as named from "vinyl-named";
 import * as webpackconfig from "./webpack.config";
 
-var isProd = yargs.argv.stage === "prod";
-var htmlFilter = filter("**/*.html"),
+const isProd = yargs.argv.stage === "prod";
+const htmlFilter = filter("**/*.html"),
   jsFilter = filter("**/*.js"),
   tsFilter = filter("**/*.ts");
 
 karmaConf.files = [];
-
 
 // copy patched libraries into node_modules dir
 gulp.task("patchLibs", () =>
@@ -80,7 +78,6 @@ gulp.src(config.tsServicesFiles)
   .pipe(gulp.dest(config.client.out.aceSrc))
 );
 
-
 gulp.task("copyAce", ["copyTsServices"], () => {
   return gulp.src([
     "node_modules/ace-builds/src-min-noconflict/ace.js",
@@ -93,34 +90,7 @@ gulp.task("copyAce", ["copyTsServices"], () => {
     .pipe(gulp.dest(config.client.out.vendorDir));
 });
 
-// copy third party components into build directory ,
-gulp.task("vendorCopy",["copyAce"], () => {
-  var jsNoAceFilter = filter(["**/*.js", "!ace-builds/**"]);
-  return gulp.src(
-    ["node_modules/jquery/dist/jquery.min.js",
-      "node_modules/angular/angular.min.js",
-      "node_modules/angular-messages/angular-messages.min.js",
-      "node_modules/angular-sanitize/angular-sanitize.min.js",
-      "node_modules/angular-ui-ace/src/ui-ace.js",
-      "node_modules/angular-ui-router/release/angular-ui-router.min.js",
-      "node_modules/chai/chai.js",
-      "node_modules/rx-lite/rx.lite.min.js",
-      "node_modules/angular-aria/angular-aria.min.js",
-      "node_modules/angular-ellipsis/src/angular-ellipsis.min.js",
-      "node_modules/toastr/build/toastr.min.js",
-      "node_modules/angular-animate/angular-animate.min.js"],
-    { base: "node_modules" })
-    .pipe(jsNoAceFilter)
-    .pipe(g$if(isProd, concat("vendor.js")))
-    .pipe(g$if(isProd, uglify({
-      preserveComments: uglifySaveLicense
-    })))
-    .pipe(g$if(isProd, rev()))
-    .pipe(gulp.dest(config.client.out.vendorDir));
-});
-
-gulp.task("copy",["assets", "copyTypeDefinitions", "vendorCopy"]);
-
+gulp.task("copy",["assets", "copyTypeDefinitions", "copyAce"]);
 
 // compile index.jade and copy into build directory
 gulp.task("index", () =>
@@ -184,7 +154,7 @@ gulp.task("scripts", ["analyze", "index"], () => {
 });
 
 gulp.task("node:build", () => {
-  var tsFilter = filter("**/*.ts");
+  const tsFilter = filter("**/*.ts");
   const tsProject = ts.createProject("tsconfig-node.json");
   return gulp.src(config.server.scriptFiles)
     .pipe(g$if(!isProd, sourcemaps.init()))
@@ -196,7 +166,7 @@ gulp.task("node:build", () => {
 });
 
 gulp.task("buildTests", ["build"], () => {
-  var testFilter = gulpFilter("**/**");
+  const testFilter = filter("**/**");
   const tsProject = ts.createProject("tsconfig-frontend.json");
   return gulp.src([
     config.client.unitTestFiles,
@@ -210,7 +180,7 @@ gulp.task("buildTests", ["build"], () => {
 
 // inject scripts in karma.config.js
 gulp.task("karmaFiles", ["buildTests"], () => {
-  var stream = streamqueue({ objectMode: true });
+  const stream = streamqueue({ objectMode: true });
 
   // add vendor javascript
   stream.queue(gulp.src(config.client.out.vendorDir + "/**/*.js"));

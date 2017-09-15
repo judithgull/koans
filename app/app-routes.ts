@@ -3,7 +3,7 @@ import {IUrlRouterProvider, IStateProvider} from "angular-ui-router";
 
 declare const require:any;
 
- export const appRoutes = ($urlRouterProvider, $stateProvider) => {
+export const appRoutes = ($urlRouterProvider, $stateProvider) => {
       $urlRouterProvider.otherwise("topic-list");
       $stateProvider
         .state("main", {

@@ -1,14 +1,14 @@
-import * as toastr from 'toastr';
+import * as toastr from "toastr";
 import {ITopic, IError,  IExercise} from "../../core/topic";
 import {EditMark} from "../../code-editor/editMark/edit-mark-service";
 import * as angular from "angular";
 
-  export class ExerciseCtrl {
+export class ExerciseCtrl {
     currentExercise:IExercise;
     content:string;
     hidden:string;
 
-    errors:Array<IError> = [];
+    errors:IError[] = [];
     successMessage:string = "Great job!!!";
     success = false;
     id:number;
@@ -27,7 +27,7 @@ import * as angular from "angular";
       this.currentExercise = this.getCurrentExercise();
       this.exerciseCount = topicData.items.length;
 
-      let hidable = this.editMark.splitVisible(this.currentExercise.exercise);
+      const hidable = this.editMark.splitVisible(this.currentExercise.exercise);
       this.hidden = hidable.hidden;
       this.content = hidable.visible;
 
@@ -38,7 +38,7 @@ import * as angular from "angular";
 
     libsLoader = () => this.libs;
 
-    onError = (errors:Array<IError>) => {
+    onError = (errors:IError[]) => {
       this.success = false;
       this.errors = errors;
       this.$timeout(() => {
@@ -57,7 +57,7 @@ import * as angular from "angular";
         } else if (this.finished()) {
           this.showSolveMoreToast("You finished all exercises.");
         } else {
-          (<Toastr>toastr).success("Great job!");
+          (toastr as Toastr).success("Great job!");
         }
 
         this.$timeout(() => {
@@ -67,13 +67,13 @@ import * as angular from "angular";
     };
 
     private showSolveMoreToast = (message:string) => {
-      let popup = "<div>" +
+      const popup = "<div>" +
         "<p class='t-paragraph'>" + message + "</p>" +
         "<p class='t-paragraph'>Solve more exercises?</p>" +
         "<a href='#/topic-list' class='button button--light'>Ok</a>" +
         "<button class='button button--light'>Cancel</button>" +
         "</div>";
-      (<Toastr>toastr).success(popup, "", {timeOut: 0});
+      (toastr as Toastr).success(popup, "", {timeOut: 0});
     };
 
     finished = () => this.topicData.items.every((exercise) => exercise.solved || exercise.solutionRequested);

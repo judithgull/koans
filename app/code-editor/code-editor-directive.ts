@@ -4,13 +4,12 @@ import * as angular from "angular";
 export interface ICodeEditorScope extends ng.IScope {
     language:string;
     hiddenText?:string;
-    libsLoader:Function;
-    onError:Function;
-    onSuccess:Function;
+    libsLoader;
+    onError;
+    onSuccess;
     codeEditor:ICodeEditorModel;
-    handleEditorChange:Function;
+    handleEditorChange;
 }
-
 
 declare const require:any;
 
@@ -31,7 +30,7 @@ declare const require:any;
    </example>
    *
    */
-  export const codeEditorDirective = ()=> {
+export const codeEditorDirective = ()=> {
       return {
         restrict: "E",
         scope: {
@@ -45,9 +44,9 @@ declare const require:any;
         template: require("./code-editor.tpl"),
         controllerAs: "codeEditor",
         controller: "CodeEditorCtrl",
-        link: function (scope:ICodeEditorScope, el, attrs, ngModelCtrl:ng.INgModelController) {
+        link: function(scope:ICodeEditorScope, el, attrs, ngModelCtrl:ng.INgModelController) {
           ngModelCtrl.$render = () => {
-            var editor:any= scope.codeEditor.editor;
+            const editor:any= scope.codeEditor.editor;
             editor.setValue(ngModelCtrl.$viewValue || "");
           };
 

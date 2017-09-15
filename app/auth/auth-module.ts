@@ -1,6 +1,6 @@
-import {AuthInterceptor} from './auth-interceptor-service';
-import {TokenStorage} from './token-storage-service';
-import {AuthService} from './auth-service';
+import {AuthInterceptor} from "./auth-interceptor-service";
+import {TokenStorage} from "./token-storage-service";
+import {AuthService} from "./auth-service";
 import * as angular from "angular";
 
 export default "auth";
@@ -11,7 +11,7 @@ export default "auth";
    * @description authentication module
    *
    **/
-  angular
+angular
     .module("auth", [])
     .service("AuthService", AuthService)
     .service("TokenStorage", TokenStorage)

@@ -1,8 +1,8 @@
 import {IAuthService, AuthService} from "../auth-service";
 import * as angular from "angular";
-import {IStateService, IStateProvider} from 'angular-ui-router';
+import {IStateService, IStateProvider} from "angular-ui-router";
 
-  export class AccountCtrl {
+export class AccountCtrl {
 
     isLoggedIn:boolean;
     loginName:string;

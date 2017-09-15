@@ -1,7 +1,7 @@
 import {IAuthService} from "../auth-service";
 import * as angular from "angular";
 
-  export class LoginCtrl {
+export class LoginCtrl {
 
     email:string = null;
     password:string = null;

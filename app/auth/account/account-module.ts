@@ -1,6 +1,6 @@
-import {AccountCtrl} from './account-controller';
+import {AccountCtrl} from "./account-controller";
 import * as angular from "angular";
-import uirouter from 'angular-ui-router';
+import uirouter from "angular-ui-router";
 import {account} from "./account-directive";
 
 export default "auth.account";
@@ -10,7 +10,7 @@ export default "auth.account";
    * @description account overview (sign-up, login, logout)
    *
    **/
-  angular
+angular
     .module("auth.account",
       ["ui.router"]
     )

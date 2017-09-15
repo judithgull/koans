@@ -1,7 +1,7 @@
 import * as angular from "angular";
 import {TokenStorage} from "./token-storage-service";
 
-  export class AuthInterceptor implements ng.IHttpInterceptor {
+export class AuthInterceptor implements ng.IHttpInterceptor {
 
     public static $inject = ["TokenStorage"];
 
@@ -9,7 +9,7 @@ import {TokenStorage} from "./token-storage-service";
     }
 
     request = (config:ng.IRequestConfig):ng.IRequestConfig => {
-      var token = this.tokenStorage.get();
+      const token = this.tokenStorage.get();
       if (token && config.headers) {
         config.headers["authorization"] = "Bearer " + token;
       }

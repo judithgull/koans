@@ -1,6 +1,7 @@
+import { sameAsDirective } from "./same-as-directive";
 import * as angular from "angular";
-import uirouter from 'angular-ui-router';
-import auth from '../auth-module';
+import uirouter from "angular-ui-router";
+import auth from "../auth-module";
 import { SignUpCtrl } from "./sign-up-controller";
 import { signUpRoutes } from "./sign-up-routes";
 
@@ -11,10 +12,11 @@ export default "auth.signUp";
    * @description account sign-up
    *
    **/
-  angular
+angular
     .module("auth.signUp", [
       "ui.router",
       auth
     ])
     .controller("SignUpCtrl", SignUpCtrl)
+    .directive("sameAs", sameAsDirective)
     .config(signUpRoutes);

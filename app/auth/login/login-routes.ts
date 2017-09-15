@@ -2,7 +2,7 @@ import * as angular from "angular";
 
 declare const require:any;
 
- export const loginRoutes = ($stateProvider) => {
+export const loginRoutes = ($stateProvider) => {
       $stateProvider
         .state("main.login", {
           url: "/login",

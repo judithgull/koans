@@ -1,8 +1,8 @@
-import {User, IUser} from '../../core/user';
+import {User, IUser} from "../../core/user";
 import {IAuthService} from "../auth-service";
 import * as angular from "angular";
 
-  export class SignUpCtrl {
+export class SignUpCtrl {
     duplicatedEmailError = null;
 
     static $inject = ["AuthService", "$state"];

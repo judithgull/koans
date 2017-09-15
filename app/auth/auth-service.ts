@@ -1,12 +1,12 @@
-import {IUser} from '../core/user';
+import {IUser} from "../core/user";
 import {TokenStorage} from "./token-storage-service";
 import * as angular from "angular";
 
 
-  export const USERS_URL = "/users/";
-  export const LOGIN_URL = "/login/";
+export const USERS_URL = "/users/";
+export const LOGIN_URL = "/login/";
 
-  export interface IAuthService {
+export interface IAuthService {
     signUp(user:IUser):ng.IPromise<void>;
     logout():void;
     isLoggedIn():boolean;
@@ -14,7 +14,7 @@ import * as angular from "angular";
     login(email:string, password:string):ng.IPromise<void>;
   }
 
-  export class AuthService implements IAuthService {
+export class AuthService implements IAuthService {
 
     private userKey = "user";
 
@@ -51,7 +51,7 @@ import * as angular from "angular";
     };
 
     private handleTokenRequest = (request) => {
-      var deferred:ng.IDeferred<void> = <ng.IDeferred<any>>this.$q.defer();
+      const deferred:ng.IDeferred<void> = this.$q.defer() as ng.IDeferred<any>;
       this.$q.when(
         request
           .then((response) => {
@@ -66,8 +66,8 @@ import * as angular from "angular";
 
 
     private saveLoginData = (response) => {
-      var token = response.data["token"];
-      var user = response.data["user"];
+      const token = response.data["token"];
+      const user = response.data["user"];
       if (token && user) {
         this.tokenStorage.set(token);
         localStorage.setItem(this.userKey, JSON.stringify(user));

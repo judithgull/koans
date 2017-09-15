@@ -7,7 +7,7 @@ import {IAuthService} from "../auth-service";
 module auth.login {
   "use strict";
 
-  describe("LoginCtrl", function () {
+  describe("LoginCtrl", function() {
     var ctrl:LoginCtrl;
     var loginSpy;
     var deferred;
@@ -19,7 +19,7 @@ module auth.login {
       loginSpy = sinon.spy();
       deferred = $q.defer();
 
-      var mockAuthService:IAuthService = {
+      const mockAuthService:IAuthService = {
         signUp: () => null,
         logout: () => undefined,
         isLoggedIn: () => false,

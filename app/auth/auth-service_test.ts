@@ -1,4 +1,4 @@
-import {User} from '../core/user';
+import {User} from "../core/user";
 import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
 import * as angular from "angular-mocks";
 import {IAuthService} from "./auth-service";
@@ -9,15 +9,15 @@ module auth {
   describe("AuthService", () => {
     var service:IAuthService;
     var $httpBackend:any;
-    var testToken = "testToken";
-    var user = new User("testName", "testEmail", "testPwd");
-    var testUserResponse = {
+    const testToken = "testToken";
+    const user = new User("testName", "testEmail", "testPwd");
+    const testUserResponse = {
       _id: "id",
       name: user.name,
       email: user.email
     };
 
-    var respondTokenWhenPost = (url:string) => {
+    const respondTokenWhenPost = (url:string) => {
       $httpBackend.expectPOST(url);
       $httpBackend.whenPOST(url).respond({
         token: testToken,
@@ -38,7 +38,7 @@ module auth {
 
     it("successful signup should login", () => {
       respondTokenWhenPost("/users/");
-      var res = service.signUp(user);
+      const res = service.signUp(user);
       $httpBackend.flush();
       expect(res).toBeDefined();
       expect(service.isLoggedIn()).toBe(true);
@@ -47,7 +47,7 @@ module auth {
 
     it("successful login should login", () => {
       respondTokenWhenPost("/login/");
-      var res = service.login(user.email, user.password);
+      const res = service.login(user.email, user.password);
       $httpBackend.flush();
       expect(res).toBeDefined();
       expect(service.isLoggedIn()).toBe(true);

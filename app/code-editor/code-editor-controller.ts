@@ -7,8 +7,8 @@ import * as angular from "angular";
 
 export interface  ICodeEditorModel {
     editor:any;
-    handleChange:Function;
-    load:Function;
+    handleChange;
+    load;
   }
 
 export  class CodeEditorCtrl implements ICodeEditorModel {
@@ -35,7 +35,7 @@ export  class CodeEditorCtrl implements ICodeEditorModel {
      *
      * */
     selectEditMark = () => {
-      var range:any = this.editor.find(this.editMark.mark, {
+      const range:any = this.editor.find(this.editMark.mark, {
         backwards: false,
         wrap: true,
         caseSensitive: false,
@@ -67,8 +67,8 @@ export  class CodeEditorCtrl implements ICodeEditorModel {
     };
 
     private processResults = (allEvents:Rx.Observable<IStatus>) => {
-      var successEvents = allEvents.filter(s => s.success);
-      var errorEvents = allEvents.filter(s => !s.success);
+      const successEvents = allEvents.filter((s) => s.success);
+      const errorEvents = allEvents.filter((s) => !s.success);
 
       if (this.isSuccessDefined()) {
         successEvents.forEach(() => {
@@ -76,7 +76,7 @@ export  class CodeEditorCtrl implements ICodeEditorModel {
         });
       }
 
-      errorEvents.forEach(s => {
+      errorEvents.forEach((s) => {
         this.$scope.onError()(s.errors);
       });
     };
@@ -88,8 +88,8 @@ export  class CodeEditorCtrl implements ICodeEditorModel {
     load = (editor:any) => {
       this.editor = editor;
       this.initProperties();
-      var libs = this.$scope.libsLoader();
-      let worker = this.getWorkerExt(this.$scope.language);
+      const libs = this.$scope.libsLoader();
+      const worker = this.getWorkerExt(this.$scope.language);
       worker.addLibs(editor.getSession(), libs());
       if (this.isRun()) {
         this.processResults(this.start(worker));
@@ -105,7 +105,7 @@ export  class CodeEditorCtrl implements ICodeEditorModel {
     };
 
     start = (worker:IWorkerExtension):Rx.Observable<IStatus> => {
-      var subject = new Rx.Subject<IStatus>();
+      const subject = new Rx.Subject<IStatus>();
       subject.onNext(new PendingStatus(taskType.compile));
       this.editor.getSession().on("changeAnnotation", () => this.emitAnnotationError(subject));
       worker.addRunEventListener(this.editor.getSession(), (v) => this.startRun(subject, v));
@@ -115,7 +115,7 @@ export  class CodeEditorCtrl implements ICodeEditorModel {
 
     emitAnnotationError = (subject:Rx.Subject<IStatus>) => {
       if (this.hasAnnotations()) {
-        var errors = this.editor.getSession().getAnnotations().map((a) => {
+        const errors = this.editor.getSession().getAnnotations().map((a) => {
           return {
             message: a.text,
             line: a.row + 1
@@ -136,20 +136,19 @@ export  class CodeEditorCtrl implements ICodeEditorModel {
         if (this.$scope.hiddenText) {
           preparedScript = preparedScript + "\n" + this.$scope.hiddenText;
         }
-        var taskType = taskType.run;
         try {
           eval(preparedScript);
-          subject.onNext(new SuccessStatus(taskType));
+          subject.onNext(new SuccessStatus(taskType.run));
         } catch (e) {
-          let message = "Runtime Error: Incorrect implementation";
-          var err = {message: message, line: -1};
+          const message = "Runtime Error: Incorrect implementation";
+          const err = {message: message, line: -1};
           this.editor.getSession().setAnnotations([{
             row: 0,
             column: 0,
             text: message,
             type: "error"
           }]);
-          subject.onNext(new ErrorStatus(taskType, [err]));
+          subject.onNext(new ErrorStatus(taskType.run, [err]));
         }
       }
     }

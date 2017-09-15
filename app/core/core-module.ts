@@ -1,5 +1,5 @@
 import * as angular from "angular";
-import uirouter from 'angular-ui-router';
+import uirouter from "angular-ui-router";
 import {RestClient} from "./rest-client-service";
 import {SearchParamsService} from "./search-param-service";
 export default "core";
@@ -9,7 +9,7 @@ export default "core";
    * @description core functionality used in other modules.
    *
    **/
-  angular
+angular
     .module("core",
     ["ui.router"]
   ).config(($urlMatcherFactoryProvider) => {

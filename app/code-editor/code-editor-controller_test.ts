@@ -13,10 +13,10 @@ module codeEditor {
     var scope:ICodeEditorScope;
     var testEditor:any;
 
-    var createTestEditor = () => {
-      var doc = angular.element(document);
+    const createTestEditor = () => {
+      const doc = angular.element(document);
       doc.find("body").append("<div  id='#test'></div>");
-      var element = doc.find("#test");
+      const element = doc.find("#test");
       testEditor = ace.edit(element.get(0));
     };
 

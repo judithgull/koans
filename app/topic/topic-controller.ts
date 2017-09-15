@@ -1,20 +1,20 @@
 import {ITopic} from "../core/topic";
 import * as angular from "angular";
 
-  export interface ITopicCtrl {
+export interface ITopicCtrl {
     programmingLanguage:string;
     title:string;
   }
 
-  export interface ITopicStateService extends angular.ui.IStateService {
+export interface ITopicStateService extends angular.ui.IStateService {
     params: ITopicParams;
   }
 
-  export interface ITopicParams extends angular.ui.IStateParamsService {
+export interface ITopicParams extends angular.ui.IStateParamsService {
     exerciseId:number;
   }
 
-  export class TopicCtrl implements ITopicCtrl {
+export class TopicCtrl implements ITopicCtrl {
     programmingLanguage:string;
     title:string;
     private exerciseCount:number;

@@ -27,6 +27,7 @@
     "variable-name":false,
     "no-reference":false,
     "ordered-imports":false,
-    "no-var-requires":false
+    "no-var-requires":false,
+    "max-classes-per-file":false
   }
 }
