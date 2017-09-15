@@ -1,9 +1,8 @@
 "use strict";
 
-// TODO: watchers: disable on prod mode
 // TODO: sass: separate file
 // TODO: sass: minify
-// TODO: sass: sourcemaps ? concat in dev mode? 
+// TODO: sass: sourcemaps ? concat in dev mode?
 // TODO: sass autoprefixer: add vendor prefixes from can I use: postcss-loader'
 // TODO: analyze tslint
 // TODO: use patched ace build
