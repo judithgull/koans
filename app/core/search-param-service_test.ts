@@ -1,7 +1,6 @@
 import {SearchParamsService} from "./search-param-service";
 import {} from "jasmine";
 import * as angular from "angular";
-import "angular-mocks";
 
 module core {
   "use strict";

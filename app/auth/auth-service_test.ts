@@ -1,7 +1,6 @@
 import {User} from "../core/user";
 import {} from "jasmine";
 import * as angular from "angular";
-import "angular-mocks";
 import {IAuthService} from "./auth-service";
 
 module auth {

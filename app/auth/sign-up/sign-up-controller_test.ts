@@ -2,7 +2,6 @@ import {User, IUser} from "../../core/user";
 import {} from "jasmine";
 import * as sinon from "sinon";
 import * as angular from "angular";
-import "angular-mocks";
 import {SignUpCtrl} from "./sign-up-controller";
 import {IAuthService} from "../auth-service";
 

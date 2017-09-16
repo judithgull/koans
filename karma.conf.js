@@ -24,8 +24,7 @@ module.exports = function(config) {config.set({
         './app/app-module.ts',
         "./node_modules/angular/angular.js",
         "./node_modules/angular-mocks/angular-mocks.js",
-        './app/topic/topic-controller_test.ts',
-        './app/topic/exercise/exercise-controller_test.ts',
+        './app/**/*_test.ts'
       ],
   
   preprocessors: {

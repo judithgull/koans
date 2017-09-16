@@ -1,11 +1,7 @@
 import {} from "jasmine";
 import * as angular from "angular";
-import "angular-mocks";
 
-module codeEditor.editMark {
-  "use strict";
-
-  describe("editMarkRequired", () => {
+describe("editMarkRequired", () => {
     let scope,
         form;
 
@@ -38,4 +34,4 @@ module codeEditor.editMark {
 
 
   });
-}
+

@@ -2,7 +2,6 @@ import {} from "jasmine";
 import {MockData} from "../core/test-util/test-util";
 import {ITopicListCtrl} from "./topic-list-controller";
 import * as angular from "angular";
-import "angular-mocks";
 
 module topicList {
   "use strict";

@@ -2,7 +2,6 @@ import {Topic, ITopic} from "../core/topic";
 import {IEditTopicModel} from "./edit-topic-controller";
 import {} from "jasmine";
 import * as angular from "angular";
-import "angular-mocks";
 
 module editTopic {
   "use strict";

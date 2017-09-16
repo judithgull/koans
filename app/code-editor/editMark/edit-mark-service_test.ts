@@ -1,6 +1,5 @@
 import {} from "jasmine";
 import * as angular from "angular";
-import "angular-mocks";
 import {EditMark, CustomAnnotation} from "./edit-mark-service";
 
 

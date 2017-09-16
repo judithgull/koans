@@ -1,14 +1,10 @@
 import {} from "jasmine";
 import * as angular from "angular";
-import "angular-mocks";
 import * as sinon from "sinon";
 import {LoginCtrl} from "./login-controller";
 import {IAuthService} from "../auth-service";
 
-module auth.login {
-  "use strict";
-
-  describe("LoginCtrl", function() {
+describe("LoginCtrl", function() {
     var ctrl:LoginCtrl;
     var loginSpy;
     var deferred;
@@ -57,4 +53,3 @@ module auth.login {
     });
 
   });
-}

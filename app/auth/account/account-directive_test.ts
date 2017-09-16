@@ -1,13 +1,10 @@
 import {} from "jasmine";
 import * as angular from "angular";
-import "angular-mocks";
-
-module auth.account {
-  "use strict";
 
   /**
    * Account logic is tested in controller. Only verify setup here.
    * */
+  // tslint:disable-next-line:align
   describe("account", () => {
     let scope:ng.IRootScopeService,
       element;
@@ -26,4 +23,3 @@ module auth.account {
 
   });
 
-}

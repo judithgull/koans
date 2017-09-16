@@ -1,6 +1,5 @@
 import {} from "jasmine";
 import * as angular from "angular";
-import "angular-mocks";
 import {ICodeEditorModel} from "./code-editor-controller";
 import {ICodeEditorScope} from "./code-editor-directive";
 

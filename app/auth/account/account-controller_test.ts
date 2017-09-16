@@ -1,14 +1,12 @@
 import {} from "jasmine";
 import * as angular from "angular";
-import "angular-mocks";
 import * as sinon from "sinon";
-import {AccountCtrl} from "./account-controller"
-import account from "./account-module";
+import {AccountCtrl} from "./account-controller";
 
 describe("AccountCtrl", () => {
     var $ctrl;
 
-    beforeEach(()=> angular.mock.module(account));
+    beforeEach(()=> angular.mock.module("auth.account"));
 
     beforeEach(inject(($rootScope, $controller) => {
       $ctrl = $controller;

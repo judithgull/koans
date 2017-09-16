@@ -2,7 +2,6 @@ import {} from "jasmine";
 import {MockData} from "./test-util/test-util";
 import {TOPICS_URL, IRestClient} from "./rest-client-service";
 import * as angular from "angular";
-import "angular-mocks";
 
 
 describe("RestClient", () => {
