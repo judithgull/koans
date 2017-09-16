@@ -1,13 +1,14 @@
-import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
+import {} from "jasmine";
 import {MockData} from "../core/test-util/test-util";
 import {ITopicListCtrl} from "./topic-list-controller";
-import * as angular from "angular-mocks";
+import * as angular from "angular";
+import "angular-mocks";
 
 module topicList {
   "use strict";
 
   describe("Topic List Controller", () => {
-    var topics = MockData.getTopics();
+    const topics = MockData.getTopics();
     var ctrl:ITopicListCtrl;
     var rs;
 
@@ -16,13 +17,13 @@ module topicList {
     beforeEach(inject(($rootScope, $controller, $q) => {
       rs = $rootScope;
 
-      var ds = {
-        getTopics: function () {
+      const ds = {
+        getTopics: function() {
           return $q.when(topics);
         }
       };
 
-      var authService = {
+      const authService = {
         getLoggedInUser: () => undefined,
         isLoggedIn: () => true
       };

@@ -1,18 +1,19 @@
 import {MockData} from "../core/test-util/test-util";
 import {ITopicStateService, ITopicCtrl} from "./topic-controller";
-import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
-import * as angular from "angular-mocks";
+import {} from "jasmine";
+import * as angular from "angular";
+import "angular-mocks";
 
-  describe("Topic Controller", () => {
-    var ctrl:ITopicCtrl;
-    var topic = MockData.getTopic();
+describe("Topic Controller", () => {
+    let ctrl:ITopicCtrl;
+    const topic = MockData.getTopic();
 
     beforeEach(angular.mock.module("topic"));
 
     beforeEach(inject(($controller:ng.IControllerService, $state:ITopicStateService) => {
-      var state = $state;
+      const state = $state;
       state.params.exerciseId = topic.items[0].sortOrder;
-      ctrl = <ITopicCtrl>$controller("TopicCtrl", {topicData: topic, $state: state});
+      ctrl = $controller("TopicCtrl", {topicData: topic, $state: state}) as ITopicCtrl;
     }));
 
     it("should be defined", () => {

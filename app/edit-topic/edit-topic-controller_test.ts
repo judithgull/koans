@@ -1,7 +1,8 @@
 import {Topic, ITopic} from "../core/topic";
 import {IEditTopicModel} from "./edit-topic-controller";
-import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
-import * as angular from "angular-mocks";
+import {} from "jasmine";
+import * as angular from "angular";
+import "angular-mocks";
 
 module editTopic {
   "use strict";

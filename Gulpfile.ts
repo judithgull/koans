@@ -11,31 +11,25 @@
 // TODO: topic module
 // TODO: editTopic module
 // TODO: {{signUp.duplicatedEmailError}}
+// favicons
+// ts-node-dev?
 
 
 import * as ts from "gulp-typescript";
 import * as g$if from "gulp-if";
-import * as uglify from "gulp-uglify";
-import * as ngAnnotate from "gulp-ng-annotate";
 import * as rev from "gulp-rev";
 import * as concat from "gulp-concat";
 import * as inject from "gulp-inject";
 import * as gulp from "gulp";
 import * as del from "del";
 import * as config from "./build.config";
-import * as nodemon from "nodemon";
 import * as pug from "gulp-pug";
 import * as yargs from "yargs";
 import * as filter from "gulp-filter";
-import * as uglifySaveLicense from "uglify-save-license";
 import * as sourcemaps from "gulp-sourcemaps";
-import * as ngHtml2js from "gulp-ng-html2js";
-import * as angularFilesort from "gulp-angular-filesort";
 import * as favicons from "gulp-favicons";
 import * as imagemin from "gulp-imagemin";
-import * as karmaConf from "./karma.config";
 import * as streamqueue from "streamqueue";
-import * as karma from "karma";
 import * as exec from "gulp-exec";
 import * as webpack from "webpack-stream";
 import * as named from "vinyl-named";
@@ -45,8 +39,6 @@ const isProd = yargs.argv.stage === "prod";
 const htmlFilter = filter("**/*.html"),
   jsFilter = filter("**/*.js"),
   tsFilter = filter("**/*.ts");
-
-karmaConf.files = [];
 
 // copy patched libraries into node_modules dir
 gulp.task("patchLibs", () =>
@@ -125,44 +117,6 @@ gulp.task("scripts", ["analyze", "index"], () => {
   .src(config.client.scriptEntry)
   .pipe(webpack(webpackconfig))
   .pipe(gulp.dest(config.client.out.jsDir));
-
-  // return gulp.src([
-  //   config.client.scriptFiles,
-  //   config.client.out.markupFiles,
-  //   "!**/*_test.*",
-  //   "!**/index.html"
-  // ])
-  //   .pipe(sourcemaps.init())
-  //   .pipe(tsFilter)
-  //   .pipe(tsProject())
-  //   .pipe(tsFilter.restore())
-  //   .pipe(g$if(isProd, htmlFilter))
-  //   .pipe(g$if(isProd, ngHtml2js({
-  //     moduleName: "koans",
-  //     declareModule: false
-  //   })))
-  //   .pipe(g$if(isProd, htmlFilter.restore()))
-  //   .pipe(jsFilter)
-  //   .pipe(g$if(isProd, angularFilesort()))
-  //   .pipe(g$if(isProd, concat("app.js")))
-  //   .pipe(g$if(isProd, ngAnnotate()))
-  //   .pipe(g$if(isProd, uglify()))
-  //   .pipe(g$if(isProd, rev()))
-  //   .pipe(sourcemaps.write("."))
-  //   .pipe(gulp.dest(config.client.out.jsDir))
-  //   .pipe(jsFilter.restore());
-});
-
-gulp.task("node:build", () => {
-  const tsFilter = filter("**/*.ts");
-  const tsProject = ts.createProject("tsconfig-node.json");
-  return gulp.src(config.server.scriptFiles)
-    .pipe(g$if(!isProd, sourcemaps.init()))
-    .pipe(tsFilter)
-    .pipe(tsProject())
-    .pipe(tsFilter.restore())
-    .pipe(g$if(!isProd, sourcemaps.write(".",{})))
-    .pipe(gulp.dest(config.server.out.root))
 });
 
 gulp.task("buildTests", ["build"], () => {
@@ -178,42 +132,6 @@ gulp.task("buildTests", ["build"], () => {
     .pipe(gulp.dest(config.client.out.unitTestDir));
 });
 
-// inject scripts in karma.config.js
-gulp.task("karmaFiles", ["buildTests"], () => {
-  const stream = streamqueue({ objectMode: true });
-
-  // add vendor javascript
-  stream.queue(gulp.src(config.client.out.vendorDir + "/**/*.js"));
-  stream.queue(gulp.src("node_modules/angular-mocks/angular-mocks.js"));
-  // add application templates
-  stream.queue(gulp.src([config.client.out.directives]));
-
-  // add application javascript
-  stream.queue(gulp.src([
-    config.client.out.jsFiles,
-    "!**/*_test.*"
-  ])
-    .pipe(angularFilesort()));
-
-  // add unit tests
-  stream.queue(gulp.src(config.client.out.unitTestFiles));
-
-  return stream.done()
-    .on("data", (file) => {
-      console.log(file.path);
-      karmaConf.files.push(file.path);
-    });
-});
-
-// run unit tests
-gulp.task("unitTest", ["karmaFiles"], (done: any) => {
-  karma.server.start(karmaConf, (exitCode) => {
-    console.log("Karma has exited with " + exitCode);
-    done(exitCode);
-  });
-});
-
-
 const runCommand = (command) => {
   return (cb) => {
     exec(command, (err, stdout, stderr) => {
@@ -224,26 +142,9 @@ const runCommand = (command) => {
   }
 };
 
-
-// use nodemon to watch node server
-gulp.task("nodemon", ["node:build"], (cb) => {
-  var started = false;
-
-  return nodemon({
-    script: config.server.out.app
-  }).on("start", () => {
-    // to avoid nodemon being started multiple times
-    if (!started) {
-      cb();
-      started = true;
-    }
-  });
-});
-
 // watch frontend/backend
-gulp.task("watch", ["node:build"], () => {
-  gulp.start("frontend:build");
-  gulp.start("nodemon");
+gulp.task("watch", () => {
+  gulp.start("build");
 });
 
 gulp.task("stop-mongo", runCommand("mongo --eval 'db.getSiblingDB(\"admin\").shutdownServer()'"));
@@ -251,9 +152,7 @@ gulp.task("stop-mongo", runCommand("mongo --eval 'db.getSiblingDB(\"admin\").shu
 // export current db
 gulp.task("mongo-export", runCommand("mongoexport --db koans --collection topics --out app-node/sample-data/topics.bson"));
 
-gulp.task("frontend:build", ["scripts", "analyze", "index"]);
-
-gulp.task("build", ["node:build", "frontend:build"]);
+gulp.task("build", ["scripts", "analyze", "index"]);
 
 gulp.task("dev", ["pre-build", "watch"]);
 

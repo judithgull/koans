@@ -1,5 +1,3 @@
-"use strict";
-
 import * as request from "supertest";
 import {expect} from "chai";
 import * as serverModule from "../app";
@@ -42,7 +40,7 @@ describe("Topic Api", () => {
       .end((err, res) => {
         if (err) {
           console.log(res.text);
-          return done(err);
+          return done();
         }
         done();
       });

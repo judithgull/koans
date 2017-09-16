@@ -1,5 +1,7 @@
-import {describe,beforeEach,it,inject,expect} from "jasmine";
-import * as angular from "angular-mocks";
+import {} from "jasmine";
+import * as angular from "angular";
+import "angular-mocks";
+
 module auth {
   "use strict";
 

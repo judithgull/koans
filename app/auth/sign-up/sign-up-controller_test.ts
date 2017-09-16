@@ -1,7 +1,8 @@
-import {User, IUser} from '../../core/user';
-import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
+import {User, IUser} from "../../core/user";
+import {} from "jasmine";
 import * as sinon from "sinon";
-import * as angular from "angular-mocks";
+import * as angular from "angular";
+import "angular-mocks";
 import {SignUpCtrl} from "./sign-up-controller";
 import {IAuthService} from "../auth-service";
 
@@ -19,7 +20,7 @@ module auth.signUp {
       submitUserSpy = sinon.spy();
       deferred = $q.defer();
 
-      var mockAuthService:IAuthService = {
+      const mockAuthService:IAuthService = {
         signUp: (user:IUser):ng.IPromise<void> => {
           submitUserSpy(user);
           return deferred.promise;

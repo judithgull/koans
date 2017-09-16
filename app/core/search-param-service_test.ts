@@ -1,6 +1,7 @@
 import {SearchParamsService} from "./search-param-service";
-import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
-import * as angular from "angular-mocks";
+import {} from "jasmine";
+import * as angular from "angular";
+import "angular-mocks";
 
 module core {
   "use strict";
@@ -23,13 +24,13 @@ module core {
     });
 
     it("should return a query with author, if an author is set", () => {
-      var testId = "testId";
+      const testId = "testId";
       service.setAuthorId(testId);
       expect(service.getSearchParam().authorId).toEqual(testId);
     });
 
     it("should return a query with a search text, if an searchText is set", () => {
-      var testSearch = "mySearch";
+      const testSearch = "mySearch";
       service.setSearchText(testSearch);
       expect(service.getSearchParam().search).toEqual(testSearch);
     });

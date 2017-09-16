@@ -1,20 +1,21 @@
 import {MockData} from "../../core/test-util/test-util";
 import {ExerciseCtrl} from "./exercise-controller";
-import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
-import * as angular from "angular-mocks";
+import {} from "jasmine";
+import * as angular from "angular";
+import "angular-mocks";
 
 module topic.exercise {
   "use strict";
 
-  describe("ExerciseCtrl", function () {
+  describe("ExerciseCtrl", function() {
     var ctrl:ExerciseCtrl;
-    var topic = MockData.getTopic();
+    const topic = MockData.getTopic();
 
     beforeEach(angular.mock.module("topic.exercise"));
 
-    beforeEach(inject(function ($rootScope:ng.IRootScopeService, $controller) {
-      var scope = $rootScope.$new();
-      ctrl = <ExerciseCtrl>$controller("ExerciseCtrl", {
+    beforeEach(inject(function($rootScope:ng.IRootScopeService, $controller) {
+      const scope = $rootScope.$new();
+      ctrl = $controller("ExerciseCtrl", {
         topicData: topic,
         $state: {
           params: {
@@ -23,7 +24,7 @@ module topic.exercise {
         },
         $scope: scope,
         libs: {}
-      });
+      }) as ExerciseCtrl;
     }));
 
     it("should initially not have a previous exercise", () => {

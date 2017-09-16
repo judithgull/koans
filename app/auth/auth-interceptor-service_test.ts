@@ -1,5 +1,6 @@
-import {describe,beforeEach,it,inject,expect} from "jasmine";
-import * as angular from "angular-mocks";
+import {} from "jasmine";
+import * as angular from "angular";
+import "angular-mocks";
 import {TokenStorage} from "./token-storage-service";
 import {AuthInterceptor} from "./auth-interceptor-service";
 

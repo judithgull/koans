@@ -1,16 +1,15 @@
-import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
-import * as angular from "angular-mocks";
+import {} from "jasmine";
+import * as angular from "angular";
+import "angular-mocks";
 import * as sinon from "sinon";
 import {AccountCtrl} from "./account-controller"
+import account from "./account-module";
 
-module auth.account {
-  /* global describe, beforeEach, it, expect, inject, module */
-  "use strict";
 
-  describe("AccountCtrl", () => {
+describe("AccountCtrl", () => {
     var $ctrl;
 
-    beforeEach(()=> angular.mock.module("auth.account"));
+    beforeEach(()=> angular.mock.module(account));
 
     beforeEach(inject(($rootScope, $controller) => {
       $ctrl = $controller;
@@ -18,26 +17,26 @@ module auth.account {
 
     describe("login", () => {
 
-      let getCtrl = (mockAuthService):AccountCtrl => {
+      const getCtrl = (mockAuthService):AccountCtrl => {
         return $ctrl("AccountCtrl", {AuthService: mockAuthService});
       };
 
       it("should inititially not be logged in", () => {
-        var authService = {
+        const authService = {
           isLoggedIn: () => false
         };
-        var ctrl = getCtrl(authService);
+        const ctrl = getCtrl(authService);
         expect(ctrl.isLoggedIn).toBe(false);
       });
 
       it("should be logged in, if user is logged in", () => {
-        var authService = {
+        const authService = {
           isLoggedIn: () => true,
           getLoggedInUser: () => {
             return {name: "testname"};
           }
         };
-        var ctrl = getCtrl(authService);
+        const ctrl = getCtrl(authService);
         expect(ctrl.isLoggedIn).toBe(true);
       });
 
@@ -46,9 +45,9 @@ module auth.account {
     describe("logout", () => {
 
       it("should be logged out, if user is logged out", () => {
-        var logoutSpy = sinon.spy();
-        var stateSpy = sinon.spy();
-        var authService = {
+        const logoutSpy = sinon.spy();
+        const stateSpy = sinon.spy();
+        const authService = {
           isLoggedIn: () => true,
           logout: logoutSpy,
           getLoggedInUser: () => {
@@ -56,7 +55,7 @@ module auth.account {
           }
         };
 
-        var ctrl = $ctrl("AccountCtrl", {
+        const ctrl = $ctrl("AccountCtrl", {
           AuthService: authService,
           $state: {
             go: stateSpy
@@ -69,6 +68,5 @@ module auth.account {
       });
 
     });
-
   });
-}
+

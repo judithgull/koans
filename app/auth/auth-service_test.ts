@@ -1,6 +1,7 @@
 import {User} from "../core/user";
-import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
-import * as angular from "angular-mocks";
+import {} from "jasmine";
+import * as angular from "angular";
+import "angular-mocks";
 import {IAuthService} from "./auth-service";
 
 module auth {
@@ -14,7 +15,8 @@ module auth {
     const testUserResponse = {
       _id: "id",
       name: user.name,
-      email: user.email
+      email: user.email,
+      password:"pass"
     };
 
     const respondTokenWhenPost = (url:string) => {

@@ -33,17 +33,18 @@ describe("TopicModel", () => {
         (t) => {
           try {
             expect(t.title).to.equal("title");
+            // tslint:disable-next-line:no-unused-expression
             expect(t._id).to.not.be.null;
             done();
           } catch (e) {
-            done(e);
+            done();
           }
         }
       );
   });
 
   describe("query", () => {
-    let testId = mongoose.Types.ObjectId.createFromTime(0);
+    const testId = mongoose.Types.ObjectId.createFromTime(0);
 
     beforeEach((done) => {
       testTopic["_id"] = testId;
@@ -53,7 +54,7 @@ describe("TopicModel", () => {
         .onReject((reason) => done(reason));
     });
 
-    it("gets a topic by id", done => {
+    it("gets a topic by id", (done) => {
       topicModel
         .get(testId.toHexString())
         .onFulfill((found) => {
@@ -62,13 +63,13 @@ describe("TopicModel", () => {
             expect(found._id.toHexString()).to.equal(testId.toHexString());
             done();
           } catch (e) {
-            done(e);
+            done();
           }
         })
-        .onReject((reason) => done(reason));
+        .onReject((reason) => done());
     });
 
-    it("find one topic by search", done => {
+    it("find one topic by search", (done) => {
       topicModel
         .find()
         .onFulfill((topics) => {
@@ -76,10 +77,10 @@ describe("TopicModel", () => {
             expect(topics.length).to.equal(1);
             done();
           } catch (e) {
-            done(e);
+            done();
           }
         })
-        .onReject((reason) => done(reason));
+        .onReject((reason) => done());
     });
 
   });

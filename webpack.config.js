@@ -32,7 +32,10 @@ module.exports = {
             path.resolve(__dirname, "app"),
           ],
           exclude: /node_modules/,
-          loader: 'ts-loader'
+          loader: 'ts-loader',
+          options: {
+            configFile: 'tsconfig-frontend.json'
+          }
         },
         { test: /\.jade$/, 
           exclude: /node_modules/,

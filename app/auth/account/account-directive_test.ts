@@ -1,5 +1,6 @@
-import {describe,beforeEach,afterEach,it,inject,expect} from "jasmine";
-import * as angular from "angular-mocks";
+import {} from "jasmine";
+import * as angular from "angular";
+import "angular-mocks";
 
 module auth.account {
   "use strict";
@@ -9,7 +10,7 @@ module auth.account {
    * */
   describe("account", () => {
     let scope:ng.IRootScopeService,
-        element;
+      element;
 
     beforeEach(angular.mock.module("auth.account"));
 
