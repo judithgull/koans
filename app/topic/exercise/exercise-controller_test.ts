@@ -1,13 +1,10 @@
+import * as angular from "angular";
 import {MockData} from "../../core/test-util/test-util";
 import {ExerciseCtrl} from "./exercise-controller";
 import {} from "jasmine";
-import * as angular from "angular";
-import "angular-mocks";
 
-module topic.exercise {
-  "use strict";
 
-  describe("ExerciseCtrl", function() {
+describe("ExerciseCtrl", function() {
     var ctrl:ExerciseCtrl;
     const topic = MockData.getTopic();
 
@@ -36,5 +33,4 @@ module topic.exercise {
     });
 
   });
-}
 

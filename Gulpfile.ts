@@ -14,7 +14,6 @@
 // favicons
 // ts-node-dev?
 
-
 import * as ts from "gulp-typescript";
 import * as g$if from "gulp-if";
 import * as rev from "gulp-rev";

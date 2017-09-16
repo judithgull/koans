@@ -11,11 +11,12 @@
     "test": "gulp clean;gulp pre-build; karma start;NODE_ENV=test mocha --compilers ts:ts-node/register,tsx:ts-node/register app-node/**/*test.ts",
     "prestart": "gulp clean; gulp pre-build",
     "start": "gulp build --stage prod;ts-node app-node/app.ts",
-    "dev": "concurrently --kill-others 'ts-node app-node/app.ts' 'gulp build'"
+    "dev": "concurrently --kill-others 'ts-node app-node/app.ts' 'gulp build'",
+    "karma": "karma start"
   },
   "dependencies": {
     "@types/ace": "0.0.35",
-    "@types/angular": "^1.6.32",
+    "@types/angular": "1.6.32",
     "@types/angular-ui-router": "^1.1.37",
     "@types/chai": "^4.0.4",
     "@types/jasmine": "^2.6.0",
@@ -109,9 +110,9 @@
     "yargs": "^3.4.5"
   },
   "devDependencies": {
-    "@types/angular-mocks": "^1.5.11",
+    "@types/angular-mocks": "~1.5.*",
     "@types/sinon": "^2.3.4",
-    "angular-mocks": "^1.5.11",
+    "angular-mocks": "~1.5.*",
     "concurrently": "^3.5.0",
     "karma": "^1.7.1",
     "karma-chrome-launcher": "^2.2.0",

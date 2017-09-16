@@ -1,8 +1,7 @@
+import * as angular from "angular";
 import {MockData} from "../core/test-util/test-util";
 import {ITopicStateService, ITopicCtrl} from "./topic-controller";
 import {} from "jasmine";
-import * as angular from "angular";
-import "angular-mocks";
 
 describe("Topic Controller", () => {
     let ctrl:ITopicCtrl;

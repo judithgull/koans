@@ -5,7 +5,6 @@ import * as sinon from "sinon";
 import {AccountCtrl} from "./account-controller"
 import account from "./account-module";
 
-
 describe("AccountCtrl", () => {
     var $ctrl;
 

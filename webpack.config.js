@@ -48,7 +48,7 @@ module.exports = {
         }
       ]
     },
-    watch: !isProd,
+    watch: false,
     plugins: plugins,
     resolve: {
       extensions: [ ".ts", ".js", ".scss",".jade"]
@@ -57,4 +57,5 @@ module.exports = {
       filename: 'bundle.js',
       path: path.resolve(__dirname, 'build/app/js')
     }
+
   };
