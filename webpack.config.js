@@ -1,11 +1,14 @@
 const path = require('path');
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-var yargs = require("yargs");
 
-var isProd = yargs.argv.stage === "prod";
+export const env = process.env.NODE_ENV || "development";
+export const isDevelopment = env === "development";
+
+console.log("Webpack config: ", env);
+
 
 var plugins = [];
-if(!isProd){
+if(isDevelopment){
 plugins.push(new BrowserSyncPlugin({
   host: 'localhost',
   port: 3001,
@@ -48,7 +51,7 @@ module.exports = {
         }
       ]
     },
-    watch: false,
+    watch: isDevelopment,
     plugins: plugins,
     resolve: {
       extensions: [ ".ts", ".js", ".scss",".jade"]

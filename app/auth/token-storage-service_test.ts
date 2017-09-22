@@ -1,4 +1,5 @@
 import {} from "jasmine";
+import {} from "angular-mocks";
 import * as angular from "angular";
 import {TokenStorage} from "./token-storage-service";
 

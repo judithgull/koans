@@ -9,13 +9,12 @@ module.exports = function(config) {config.set({
   reporters: ['progress'],
   port: 9876,
   logLevel: config.LOG_INFO,
-  autoWatch: true,
-  singleRun: false,
+  autoWatch: webpackConfig.isDevelopment,
+  singleRun: !webpackConfig.isDevelopment,
   autoWatchBatchDelay: 300,
   exclude: [
   ],
   webpack: {
-    // entry: webpackConfig.entry,
     module: webpackConfig.module,
     resolve: webpackConfig.resolve
   },
@@ -28,7 +27,6 @@ module.exports = function(config) {config.set({
       ],
   
   preprocessors: {
-        './app/app-module.ts': ['webpack'],
         './app/**/*.ts': ['webpack']
       },
   node: {

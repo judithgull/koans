@@ -1,5 +1,3 @@
-"use strict";
-
 import * as mongoose from "mongoose";
 import * as topicModel from "./topic-model";
 import * as env from "../config/config";
@@ -44,14 +42,14 @@ describe("TopicModel", () => {
   });
 
   describe("query", () => {
-    const testId = mongoose.Types.ObjectId.createFromTime(0);
+    const testId = mongoose.Types.ObjectId.createFromTime();
 
     beforeEach((done) => {
       testTopic["_id"] = testId;
       topicModel
         .create(testTopic)
         .onFulfill(() => done())
-        .onReject((reason) => done(reason));
+        .onReject((reason) => done());
     });
 
     it("gets a topic by id", (done) => {

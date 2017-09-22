@@ -1,15 +1,16 @@
 "use strict";
+// sourcemaps
+// watch in dev mode
+// TODO: topic module
+// TODO: editTopic module
+// TODO: use patched ace build
 
+// watch
 // TODO: sass: separate file
 // TODO: sass: minify
 // TODO: sass: sourcemaps ? concat in dev mode?
 // TODO: sass autoprefixer: add vendor prefixes from can I use: postcss-loader'
-// TODO: analyze tslint
-// TODO: use patched ace build
-// TODO: tests
-// TODO: account module
-// TODO: topic module
-// TODO: editTopic module
+// TODO: analyze tslint server
 // TODO: {{signUp.duplicatedEmailError}}
 // favicons
 // ts-node-dev?
@@ -46,9 +47,6 @@ gulp.task("patchLibs", () =>
 );
 // clean all
 gulp.task("clean", () => del(config.client.out.root));
-
-// clean node
-gulp.task("node:clean", () => del(config.server.out.root));
 
 // copy and optimize images into build directory
 gulp.task("assets", () =>
@@ -116,19 +114,6 @@ gulp.task("scripts", ["analyze", "index"], () => {
   .src(config.client.scriptEntry)
   .pipe(webpack(webpackconfig))
   .pipe(gulp.dest(config.client.out.jsDir));
-});
-
-gulp.task("buildTests", ["build"], () => {
-  const testFilter = filter("**/**");
-  const tsProject = ts.createProject("tsconfig-frontend.json");
-  return gulp.src([
-    config.client.unitTestFiles,
-    config.client.scriptFiles
-  ])
-    .pipe(testFilter)
-    .pipe(tsProject())
-    .pipe(testFilter.restore())
-    .pipe(gulp.dest(config.client.out.unitTestDir));
 });
 
 const runCommand = (command) => {

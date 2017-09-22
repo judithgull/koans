@@ -60,9 +60,9 @@ app.run(["$rootScope", "$log", function($rootScope, $log) {
         $log.error(toParams);
         if (error.status && error.status === 404) {
           toastr.error(error.statusText);
-          // setTimeout(function () {
-          //  window.location.reload();
-          // }, 1000);
+          setTimeout(function() {
+           window.location.reload();
+          }, 1000);
         }
       }
     );
