@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 export const env = process.env.NODE_ENV || "development";
 export const isDevelopment = env === "development";
@@ -12,6 +13,7 @@ export const isProduction = env === "production";
 
 console.log("Webpack config: ", env);
 
+const acePath = 'node_modules/ace-builds/src-min-noconflict/'
 
 const plugins = [
   new webpack.LoaderOptionsPlugin({
@@ -24,7 +26,33 @@ const plugins = [
   new FaviconsWebpackPlugin('./app/assets/favicon.png'),
   new HtmlWebpackPlugin({
     template: 'app/index.jade'
-  })
+  }),
+  new CopyWebpackPlugin([{
+     from: 'lib/ace-builds/src-min-noconflict'
+  }]),
+  new CopyWebpackPlugin([{
+    from: 
+    acePath + '*javascript.js',
+    to: '[name].[ext]'
+ }]),
+ new CopyWebpackPlugin([{
+  from: 
+  acePath + 'theme-tomorrow_night_bright.js',
+  to: '[name].[ext]'
+}]),
+new CopyWebpackPlugin([{
+ from: 
+ acePath + 'ace.js',
+ to: '[name].[ext]'
+}]),
+new CopyWebpackPlugin([{
+  from: 'node_modules/typescript/lib/typescriptServices.js',
+  to: '[name].[ext]'
+}]),
+new CopyWebpackPlugin([{
+  from: 'node_modules/chai/chai.js',
+  to: '[name].[ext]'
+}])
 ];
 
 if(isDevelopment){

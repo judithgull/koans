@@ -4,8 +4,6 @@ import "angular-ui-ace";
 import { CodeEditorCtrl } from "./code-editor-controller";
 import { EditMark } from "./editMark/edit-mark-service";
 import { codeEditorDirective } from "./code-editor-directive";
-// tslint:disable-next-line:no-submodule-imports
-import "ace-builds/src-min-noconflict/ace";
 import { sameAsExceptEditMarkDirective } from "./editMark/same-as-except-edit-mark-directive";
 import { editMarkRequiredDirective } from "./editMark/edit-mark-required-directive";
 import { noEditMarkDirective } from "./editMark/no-edit-mark-directive";
