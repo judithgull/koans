@@ -11,7 +11,6 @@
 // TODO: sass: sourcemaps ? concat in dev mode?
 // TODO: sass autoprefixer: add vendor prefixes from can I use: postcss-loader'
 // TODO: analyze tslint server
-// favicons
 // watch tests
 
 import * as ts from "gulp-typescript";
@@ -26,7 +25,6 @@ import * as pug from "gulp-pug";
 import * as yargs from "yargs";
 import * as filter from "gulp-filter";
 import * as sourcemaps from "gulp-sourcemaps";
-import * as favicons from "gulp-favicons";
 import * as streamqueue from "streamqueue";
 import * as exec from "gulp-exec";
 import * as webpack from "webpack-stream";
@@ -72,23 +70,11 @@ gulp.task("copyAce", ["copyTsServices"], () => {
 gulp.task("copy",["copyTypeDefinitions", "copyAce"]);
 
 // compile index.jade and copy into build directory
-gulp.task("index", () =>
-gulp.src(config.client.indexFile)
-  .pipe(pug())
-  .pipe(gulp.dest(config.client.out.root))
-);
-
-// copy and favicons and add to index.html
-// gulp.task("favicons", ["index"], () => {
-//   gulp.src(config.client.favicon).pipe(favicons({
-//     display: "standalone",
-//     orientation: "portrait",
-//     version: 1.0,
-//     logging: false,
-//     online: false,
-//     html: config.client.out.index
-//   })).pipe(gulp.dest(config.client.out.root));
-// });
+// gulp.task("index", () =>
+// gulp.src(config.client.indexFile)
+//   .pipe(pug())
+//   .pipe(gulp.dest(config.client.out.root))
+// );
 
 gulp.task("pre-build", ["copy"]);
 
@@ -99,11 +85,11 @@ gulp.task("analyze", () => {
 });
 
 // compile scripts and copy into build directory
-gulp.task("scripts", ["index"], () => {
+gulp.task("scripts", () => {
   return gulp
   .src(config.client.scriptEntry)
   .pipe(webpack(webpackconfig))
-  .pipe(gulp.dest(config.client.out.jsDir));
+  .pipe(gulp.dest(config.client.out.root));
 });
 
 const runCommand = (command) => {
@@ -126,7 +112,7 @@ gulp.task("stop-mongo", runCommand("mongo --eval 'db.getSiblingDB(\"admin\").shu
 // export current db
 gulp.task("mongo-export", runCommand("mongoexport --db koans --collection topics --out app-node/sample-data/topics.bson"));
 
-gulp.task("build", ["scripts", "analyze", "index"]);
+gulp.task("build", ["scripts", "analyze"]);
 
 gulp.task("dev", ["pre-build", "watch"]);
 

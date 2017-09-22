@@ -3,6 +3,8 @@ var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer')
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 export const env = process.env.NODE_ENV || "development";
 export const isDevelopment = env === "development";
@@ -11,14 +13,19 @@ export const isProduction = env === "production";
 console.log("Webpack config: ", env);
 
 
-const plugins = [];
-plugins.push(new webpack.LoaderOptionsPlugin({
+const plugins = [
+  new webpack.LoaderOptionsPlugin({
   options: {
     postcss: [
       autoprefixer()
     ]
    }
-}));
+  }),
+  new FaviconsWebpackPlugin('./app/assets/favicon.png'),
+  new HtmlWebpackPlugin({
+    template: 'app/index.jade'
+  })
+];
 
 if(isDevelopment){
  plugins.push(new BrowserSyncPlugin({
@@ -71,7 +78,7 @@ const webpackConfig = {
           loader: 'file-loader',
           options: {
             name: '[name].[ext]',
-            outputPath: '../assets/'
+            outputPath: 'assets/'
           }
         },
       ]
@@ -83,7 +90,7 @@ const webpackConfig = {
     },
     output: {
       filename: 'bundle.js',
-      path: path.resolve(__dirname, 'build/app/js')
+      path: path.resolve(__dirname, 'build/app')
     }
   };
 
