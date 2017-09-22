@@ -1,22 +1,38 @@
 const path = require('path');
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer')
 
 export const env = process.env.NODE_ENV || "development";
 export const isDevelopment = env === "development";
+export const isProduction = env === "production";
 
 console.log("Webpack config: ", env);
 
 
-var plugins = [];
-if(isDevelopment){
-plugins.push(new BrowserSyncPlugin({
-  host: 'localhost',
-  port: 3001,
-  proxy: 'http://localhost:3000/'
+const plugins = [];
+plugins.push(new webpack.LoaderOptionsPlugin({
+  options: {
+    postcss: [
+      autoprefixer()
+    ]
+   }
 }));
+
+if(isDevelopment){
+ plugins.push(new BrowserSyncPlugin({
+   host: 'localhost',
+   port: 3001,
+   proxy: 'http://localhost:3000/'
+}));
+} else if(isProduction){
+  // TODO
+  // plugins.push(new UglifyJSPlugin());
 }
 
-module.exports = {
+
+const webpackConfig = {
     entry: './app/app-module.ts',
     module: {
       loaders:[
@@ -48,17 +64,31 @@ module.exports = {
           test: /\.scss$/,
           exclude: /node_modules/,
           loader: 'style-loader!css-loader!sass-loader'
-        }
+        },
+        {
+          test: /\.svg$/,
+          exclude: /node_modules/,
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: '../assets/'
+          }
+        },
       ]
     },
     watch: isDevelopment,
     plugins: plugins,
     resolve: {
-      extensions: [ ".ts", ".js", ".scss",".jade"]
+      extensions: [ ".ts", ".js", ".scss",".jade", '.svg']
     },
     output: {
       filename: 'bundle.js',
       path: path.resolve(__dirname, 'build/app/js')
     }
-
   };
+
+  if(isDevelopment){
+    webpackConfig.devtool = 'inline-source-map'
+  }
+
+  module.exports = webpackConfig;

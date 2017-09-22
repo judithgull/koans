@@ -1,6 +1,6 @@
 "use strict";
-// sourcemaps
-// watch in dev mode
+
+
 // TODO: topic module
 // TODO: editTopic module
 // TODO: use patched ace build
@@ -11,9 +11,8 @@
 // TODO: sass: sourcemaps ? concat in dev mode?
 // TODO: sass autoprefixer: add vendor prefixes from can I use: postcss-loader'
 // TODO: analyze tslint server
-// TODO: {{signUp.duplicatedEmailError}}
 // favicons
-// ts-node-dev?
+// watch tests
 
 import * as ts from "gulp-typescript";
 import * as g$if from "gulp-if";
@@ -28,14 +27,12 @@ import * as yargs from "yargs";
 import * as filter from "gulp-filter";
 import * as sourcemaps from "gulp-sourcemaps";
 import * as favicons from "gulp-favicons";
-import * as imagemin from "gulp-imagemin";
 import * as streamqueue from "streamqueue";
 import * as exec from "gulp-exec";
 import * as webpack from "webpack-stream";
 import * as named from "vinyl-named";
 import * as webpackconfig from "./webpack.config";
 
-const isProd = yargs.argv.stage === "prod";
 const htmlFilter = filter("**/*.html"),
   jsFilter = filter("**/*.js"),
   tsFilter = filter("**/*.ts");
@@ -47,13 +44,6 @@ gulp.task("patchLibs", () =>
 );
 // clean all
 gulp.task("clean", () => del(config.client.out.root));
-
-// copy and optimize images into build directory
-gulp.task("assets", () =>
-  gulp.src(config.client.assetFiles)
-    .pipe(g$if(isProd, imagemin()))
-    .pipe(gulp.dest(config.client.out.assetDir))
-);
 
 // copy typescripts/lib.d.ts to build directory
 gulp.task("copyTypeDefinitions", () => {
@@ -79,7 +69,7 @@ gulp.task("copyAce", ["copyTsServices"], () => {
     .pipe(gulp.dest(config.client.out.vendorDir));
 });
 
-gulp.task("copy",["assets", "copyTypeDefinitions", "copyAce"]);
+gulp.task("copy",["copyTypeDefinitions", "copyAce"]);
 
 // compile index.jade and copy into build directory
 gulp.task("index", () =>
@@ -109,7 +99,7 @@ gulp.task("analyze", () => {
 });
 
 // compile scripts and copy into build directory
-gulp.task("scripts", ["analyze", "index"], () => {
+gulp.task("scripts", ["index"], () => {
   return gulp
   .src(config.client.scriptEntry)
   .pipe(webpack(webpackconfig))
