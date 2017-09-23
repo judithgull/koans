@@ -72,7 +72,7 @@ cd <path_to_cloned_project>/koans
 
 Run `npm install` to install all dependencies. (npm, patched libraries)
 
-#### 5. Run in production mode
+#### 5. Run
 
 Make sure mongodb is running:
 ```
@@ -89,12 +89,6 @@ Open browser with [http://localhost:3000] (http://localhost:3000)
 2. Make sure the appropriate typescript compiler is used >= 1.6.2: Preferences/Languages & Frameworks/Typescript
 - Compiler version (2.5 (bundeled)
 - Use tsconfig.json
-
-#### 2. Gulp Tasks
-- Start mongod
-- Run `gulp` to run the build task and setup the development environment
-- Run `gulp --stage prod` to build files for production
-- Run `gulp unitTest` to run unit tests: [http://localhost:9876](http://localhost:9876)
 
 ## Maintenance tasks
 
