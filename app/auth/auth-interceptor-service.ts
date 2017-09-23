@@ -1,7 +1,7 @@
-module auth {
-  "use strict";
+import * as angular from "angular";
+import {TokenStorage} from "./token-storage-service";
 
-  export class AuthInterceptor implements ng.IHttpInterceptor {
+export class AuthInterceptor implements ng.IHttpInterceptor {
 
     public static $inject = ["TokenStorage"];
 
@@ -9,7 +9,7 @@ module auth {
     }
 
     request = (config:ng.IRequestConfig):ng.IRequestConfig => {
-      var token = this.tokenStorage.get();
+      const token = this.tokenStorage.get();
       if (token && config.headers) {
         config.headers["authorization"] = "Bearer " + token;
       }
@@ -17,18 +17,3 @@ module auth {
     };
 
   }
-
-  /**
-   * @ngdoc service
-   * @name auth.service:AuthInterceptor
-   *
-   * @description interceptor for http request to send token
-   *
-   **/
-  angular
-    .module("auth")
-    .service("AuthInterceptor", AuthInterceptor)
-    .config(($httpProvider:ng.IHttpProvider) => {
-      $httpProvider.interceptors.push("AuthInterceptor");
-    });
-}

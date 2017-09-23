@@ -1,13 +1,13 @@
-/* global describe, beforeEach, it, expect, inject, module */
-module auth.account {
-  "use strict";
+import {} from "jasmine";
+import * as angular from "angular";
 
   /**
    * Account logic is tested in controller. Only verify setup here.
    * */
+  // tslint:disable-next-line:align
   describe("account", () => {
     let scope:ng.IRootScopeService,
-        element;
+      element;
 
     beforeEach(angular.mock.module("auth.account"));
 
@@ -23,4 +23,3 @@ module auth.account {
 
   });
 
-}

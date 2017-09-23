@@ -1,13 +1,14 @@
-module topic.exercise {
-  "use strict";
-  import IExercise = core.IExercise;
+import * as toastr from "toastr";
+import {ITopic, IError,  IExercise} from "../../core/topic";
+import {EditMark} from "../../code-editor/editMark/edit-mark-service";
+import * as angular from "angular";
 
-  export class ExerciseCtrl {
+export class ExerciseCtrl {
     currentExercise:IExercise;
     content:string;
     hidden:string;
 
-    errors:Array<core.IError> = [];
+    errors:IError[] = [];
     successMessage:string = "Great job!!!";
     success = false;
     id:number;
@@ -16,17 +17,17 @@ module topic.exercise {
 
     static $inject = ["topicData", "$state", "$scope", "libs", "$timeout", "EditMark"];
 
-    constructor(private topicData:core.ITopic,
+    constructor(private topicData:ITopic,
                 private $state:angular.ui.IStateService,
                 private $scope:ng.IScope,
                 private libs,
                 private $timeout:ng.ITimeoutService,
-                private editMark:codeEditor.editMark.EditMark) {
+                private editMark:EditMark) {
       this.id = this.$state.params["exerciseId"] - 1;
       this.currentExercise = this.getCurrentExercise();
       this.exerciseCount = topicData.items.length;
 
-      let hidable = this.editMark.splitVisible(this.currentExercise.exercise);
+      const hidable = this.editMark.splitVisible(this.currentExercise.exercise);
       this.hidden = hidable.hidden;
       this.content = hidable.visible;
 
@@ -37,7 +38,7 @@ module topic.exercise {
 
     libsLoader = () => this.libs;
 
-    onError = (errors:Array<core.IError>) => {
+    onError = (errors:IError[]) => {
       this.success = false;
       this.errors = errors;
       this.$timeout(() => {
@@ -56,7 +57,7 @@ module topic.exercise {
         } else if (this.finished()) {
           this.showSolveMoreToast("You finished all exercises.");
         } else {
-          (<Toastr>toastr).success("Great job!");
+          (toastr as Toastr).success("Great job!");
         }
 
         this.$timeout(() => {
@@ -66,13 +67,13 @@ module topic.exercise {
     };
 
     private showSolveMoreToast = (message:string) => {
-      let popup = "<div>" +
+      const popup = "<div>" +
         "<p class='t-paragraph'>" + message + "</p>" +
         "<p class='t-paragraph'>Solve more exercises?</p>" +
         "<a href='#/topic-list' class='button button--light'>Ok</a>" +
         "<button class='button button--light'>Cancel</button>" +
         "</div>";
-      (<Toastr>toastr).success(popup, "", {timeOut: 0});
+      (toastr as Toastr).success(popup, "", {timeOut: 0});
     };
 
     finished = () => this.topicData.items.every((exercise) => exercise.solved || exercise.solutionRequested);
@@ -122,14 +123,4 @@ module topic.exercise {
     isSolution = () => this.$state.is("main.topic.exercise.solution");
   }
 
-  /**
-   * @ngdoc object
-   * @name topic.exercise.controller:ExerciseCtrl
-   *
-   * @description Controller for exercise (run, validate and show errors and success)
-   *
-   */
-  angular
-    .module("topic.exercise")
-    .controller("ExerciseCtrl", ExerciseCtrl);
-}
+

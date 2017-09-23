@@ -1,28 +1,30 @@
-module editTopic {
-  "use strict";
+import {Exercise, ILibrary,  IError,   ITopic} from "../core/topic";
+import {SearchParamsService} from "../core/search-param-service";
+import {IRestClient} from "../core/rest-client-service";
+import * as angular from "angular";
 
-  export interface IEditTopicModel {
-    submit: Function;
-    addExercise:Function;
-    removeExercise:Function;
-    topic: core.ITopic;
+export interface IEditTopicModel {
+    submit: any;
+    addExercise:any;
+    removeExercise:any;
+    topic: ITopic;
   }
 
-  class EditTopicCtrl implements IEditTopicModel {
+export class EditTopicCtrl implements IEditTopicModel {
 
     public static $inject = ["RestClient", "$state", "$scope", "libs", "SearchParamsService", "topic", "$timeout"];
 
-    constructor(private RestClient:core.IRestClient,
+    constructor(private RestClient:IRestClient,
                 private $state:angular.ui.IStateService,
                 private $scope:ng.IScope,
-                private libs:Array<core.ILibrary>,
-                private searchParamsService:core.SearchParamsService,
-                public topic:core.ITopic,
+                private libs:ILibrary[],
+                private searchParamsService:SearchParamsService,
+                public topic:ITopic,
                 private $timeout:ng.ITimeoutService) {
     }
 
     errorMessage:string = null;
-    solutionErrors:core.IError[][] = [];
+    solutionErrors:IError[][] = [];
 
     libsLoader = () => this.libs;
 
@@ -35,8 +37,8 @@ module editTopic {
     submit = () => {
       this.updateSortOrder();
 
-      var isNew = !this.topic._id;
-      var submitFunction = (isNew) ? (t)=>this.RestClient.createTopic(t) : (t)=>this.RestClient.updateTopic(t);
+      const isNew = !this.topic._id;
+      const submitFunction = (isNew) ? (t)=>this.RestClient.createTopic(t) : (t)=>this.RestClient.updateTopic(t);
       submitFunction(this.topic).then(
         ()=> {
           if (isNew) {
@@ -56,14 +58,14 @@ module editTopic {
     };
 
     addExercise = () => {
-      this.topic.items.push(new core.Exercise());
+      this.topic.items.push(new Exercise());
     };
 
     removeExercise = (index:number) => {
       this.topic.items.splice(index, 1);
     };
 
-    onExerciseError = (element:ng.INgModelController) => (errors:Array<core.IError>) => {
+    onExerciseError = (element:ng.INgModelController) => (errors:IError[]) => {
       this.setValidity(element, "exerciseCompileAndRun", true);
     };
 
@@ -71,7 +73,7 @@ module editTopic {
       this.setValidity(element, "exerciseCompileAndRun", false);
     };
 
-    onSolutionError = (index:number, element:ng.INgModelController) => (errors:Array<core.IError>) => {
+    onSolutionError = (index:number, element:ng.INgModelController) => (errors:IError[]) => {
       this.solutionErrors[index] = errors;
       this.setValidity(element, "solutionCompileAndRun", false);
     };
@@ -92,16 +94,3 @@ module editTopic {
       }
     }
   }
-
-
-  /**
-   * @ngdoc object
-   * @name editTopic.controller:EditTopicCtrl
-   *
-   * @description Controller for editing existing and new topics
-   *
-   */
-  angular
-    .module("editTopic")
-    .controller("EditTopicCtrl", EditTopicCtrl);
-}

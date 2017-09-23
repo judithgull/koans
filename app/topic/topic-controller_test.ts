@@ -1,17 +1,18 @@
-/*global describe, beforeEach, it, expect, inject, module*/
-module topic {
-  "use strict";
+import * as angular from "angular";
+import {MockData} from "../core/test-util/test-util";
+import {ITopicStateService, ITopicCtrl} from "./topic-controller";
+import {} from "jasmine";
 
-  describe("Topic Controller", () => {
-    var ctrl:topic.ITopicCtrl;
-    var topic = core.testUtil.MockData.getTopic();
+describe("Topic Controller", () => {
+    let ctrl:ITopicCtrl;
+    const topic = MockData.getTopic();
 
     beforeEach(angular.mock.module("topic"));
 
-    beforeEach(inject(($controller:ng.IControllerService, $state:topic.ITopicStateService) => {
-      var state = $state;
+    beforeEach(inject(($controller:ng.IControllerService, $state:ITopicStateService) => {
+      const state = $state;
       state.params.exerciseId = topic.items[0].sortOrder;
-      ctrl = <topic.ITopicCtrl>$controller("TopicCtrl", {topicData: topic, $state: state});
+      ctrl = $controller("TopicCtrl", {topicData: topic, $state: state}) as ITopicCtrl;
     }));
 
     it("should be defined", () => {
@@ -25,4 +26,4 @@ module topic {
 
 
   });
-}
+

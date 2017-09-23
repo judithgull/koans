@@ -1,19 +1,19 @@
-module topic {
-  "use strict";
+import {IRestClient} from "../core/rest-client-service";
+import * as angular from "angular";
 
-  angular
-    .module("topic")
-    .config(($stateProvider:ng.ui.IStateProvider) => {
+declare const require:any;
+
+export const topicRoutes = ($stateProvider:ng.ui.IStateProvider) => {
       $stateProvider
         .state("main.topic", {
           abstract: true,
           url: "/topic/{topicId}",
-          templateUrl: "topic/topic.tpl.html",
+          template: require("./topic.tpl"),
           controller: "TopicCtrl",
           controllerAs: "topic",
           resolve: {
-            topicData: (RestClient:core.IRestClient, $stateParams) => RestClient.getTopic($stateParams.topicId),
-            libs: (RestClient:core.IRestClient) => RestClient.getDefaultLibs()
+            topicData: (RestClient:IRestClient, $stateParams) => RestClient.getTopic($stateParams.topicId),
+            libs: (RestClient:IRestClient) => RestClient.getDefaultLibs()
           }
         })
         .state("main.topic.exercise", {
@@ -22,23 +22,22 @@ module topic {
           params: {
             exerciseId: 1
           },
-          templateUrl: "topic/exercise/exercise.tpl.html",
+          template: require("./exercise/exercise.tpl"),
           controller: "ExerciseCtrl",
           controllerAs: "exercise",
           resolve: {
-            exData: (RestClient:core.IRestClient, $stateParams) => RestClient.getExercise($stateParams.topicId, $stateParams.exerciseId)
+            exData: (RestClient:IRestClient, $stateParams) => RestClient.getExercise($stateParams.topicId, $stateParams.exerciseId)
           }
         })
         .state("main.topic.exercise.solution", {
           url: "/solution",
-          templateUrl: "topic/exercise/solution/solution.tpl.html",
+          template: require("./exercise/solution/solution.tpl"),
           controller: "SolutionCtrl",
           controllerAs: "solution"
         })
         .state("main.topic.exercise.details", {
           url: "",
-          templateUrl: "topic/exercise/details/details.tpl.html"
+          template: require("./exercise/details/details.tpl")
         });
-    });
+    };
 
-}

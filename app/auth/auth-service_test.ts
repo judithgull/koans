@@ -1,18 +1,24 @@
+import {User} from "../core/user";
+import {} from "jasmine";
+import * as angular from "angular";
+import {IAuthService} from "./auth-service";
+
 module auth {
   "use strict";
 
   describe("AuthService", () => {
-    var service:AuthService;
-    var $httpBackend:ng.IHttpBackendService;
-    var testToken = "testToken";
-    var user = new core.User("testName", "testEmail", "testPwd");
-    var testUserResponse = {
+    var service:IAuthService;
+    var $httpBackend:any;
+    const testToken = "testToken";
+    const user = new User("testName", "testEmail", "testPwd");
+    const testUserResponse = {
       _id: "id",
       name: user.name,
-      email: user.email
+      email: user.email,
+      password:"pass"
     };
 
-    var respondTokenWhenPost = (url:string) => {
+    const respondTokenWhenPost = (url:string) => {
       $httpBackend.expectPOST(url);
       $httpBackend.whenPOST(url).respond({
         token: testToken,
@@ -32,8 +38,8 @@ module auth {
     });
 
     it("successful signup should login", () => {
-      respondTokenWhenPost(auth.USERS_URL);
-      var res = service.signUp(user);
+      respondTokenWhenPost("/users/");
+      const res = service.signUp(user);
       $httpBackend.flush();
       expect(res).toBeDefined();
       expect(service.isLoggedIn()).toBe(true);
@@ -41,15 +47,15 @@ module auth {
     });
 
     it("successful login should login", () => {
-      respondTokenWhenPost(auth.LOGIN_URL);
-      var res = service.login(user.email, user.password);
+      respondTokenWhenPost("/login/");
+      const res = service.login(user.email, user.password);
       $httpBackend.flush();
       expect(res).toBeDefined();
       expect(service.isLoggedIn()).toBe(true);
     });
 
     it("should logout", () => {
-      respondTokenWhenPost(auth.LOGIN_URL);
+      respondTokenWhenPost("/login/");
       service.login(user.email, user.password);
       $httpBackend.flush();
       service.logout();

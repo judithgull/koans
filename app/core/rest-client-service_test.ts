@@ -1,10 +1,13 @@
-module core {
-  "use strict";
+import {} from "jasmine";
+import {MockData} from "./test-util/test-util";
+import {TOPICS_URL, IRestClient} from "./rest-client-service";
+import * as angular from "angular";
 
-  describe("RestClient", () => {
-    var restClient:core.IRestClient;
-    var $httpBackend;
-    var tsLibName = "typescripts/lib.d.ts";
+
+describe("RestClient", () => {
+    let restClient:IRestClient;
+    let $httpBackend;
+    const tsLibName = "typescripts/lib.d.ts";
 
 
     beforeEach(angular.mock.module("core"));
@@ -17,11 +20,11 @@ module core {
 
     describe("getTopic(id)", () => {
 
-      var topic = core.testUtil.MockData.getTopic();
-      var testID = topic._id;
+      const topic = MockData.getTopic();
+      const testID = topic._id;
 
       beforeEach(()  => {
-        var expectedUrl = TOPICS_URL + testID;
+        const expectedUrl = TOPICS_URL + testID;
         $httpBackend.when("GET", expectedUrl).respond(topic);
         $httpBackend.expectGET(expectedUrl);
       });
@@ -31,7 +34,7 @@ module core {
       });
 
       it("should return a topic with the correct attributes", () => {
-        var topicPromise = restClient.getTopic(testID);
+        const topicPromise = restClient.getTopic(testID);
         topicPromise.then(
           (data) => {
             expect(data).toEqual(topic);
@@ -43,7 +46,7 @@ module core {
       describe("Topic Cache", () => {
 
         it("Topic should change if the cache is not cleared", () => {
-          var topicPromise = restClient.getTopic(testID);
+          const topicPromise = restClient.getTopic(testID);
           topicPromise.then(
             (data) => {
               data.title = "New Title";
@@ -55,7 +58,7 @@ module core {
         });
 
         it("Topic should not change if the cache is cleared", () => {
-          var topicPromise = restClient.getTopic(testID);
+          const topicPromise = restClient.getTopic(testID);
           topicPromise.then(
             (data) => {
               data.title = "New Title";
@@ -72,14 +75,14 @@ module core {
 
     describe("getExercise", () => {
 
-      var topic = core.testUtil.MockData.getTopic();
+      const topic = MockData.getTopic();
 
       it("should return an exercise with the correct attributes", () => {
-        var expectedUrl = TOPICS_URL + topic._id;
-        var exercise = topic.items[0];
+        const expectedUrl = TOPICS_URL + topic._id;
+        const exercise = topic.items[0];
         $httpBackend.when("GET", expectedUrl).respond(topic);
         $httpBackend.expectGET(expectedUrl);
-        var exercisePromise = restClient.getExercise(topic._id, exercise.sortOrder);
+        const exercisePromise = restClient.getExercise(topic._id, exercise.sortOrder);
         exercisePromise.then(
           (data) => {
             expect(data).toEqual(exercise);
@@ -91,7 +94,7 @@ module core {
 
     it("should return the typescript default library ", () => {
       $httpBackend.expectGET(tsLibName);
-      var libPromise = restClient.getLib(tsLibName);
+      const libPromise = restClient.getLib(tsLibName);
 
       libPromise.then(
         (lib) => {
@@ -104,7 +107,7 @@ module core {
 
     it("should return an Array with the typescript default library ", () => {
       $httpBackend.expectGET(tsLibName);
-      var libsPromise = restClient.getLibs([tsLibName]);
+      const libsPromise = restClient.getLibs([tsLibName]);
 
       libsPromise.then(
         (libs) => {
@@ -118,10 +121,10 @@ module core {
 
     describe("createTopic", () => {
 
-      var topic = core.testUtil.MockData.getTopic();
+      const topic = MockData.getTopic();
 
       it("should store a topic", () => {
-        $httpBackend.expectPOST(core.TOPICS_URL);
+        $httpBackend.expectPOST(TOPICS_URL);
         $httpBackend.whenPOST().respond(200);
         restClient.createTopic(topic);
         $httpBackend.flush();
@@ -129,4 +132,3 @@ module core {
     });
 
   });
-}

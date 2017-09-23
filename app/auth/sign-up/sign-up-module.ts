@@ -1,14 +1,22 @@
-module auth.signUp {
-  "use strict";
+import { sameAsDirective } from "./same-as-directive";
+import * as angular from "angular";
+import uirouter from "angular-ui-router";
+import auth from "../auth-module";
+import { SignUpCtrl } from "./sign-up-controller";
+import { signUpRoutes } from "./sign-up-routes";
+
+export default "auth.signUp";
 
   /** @ngdoc object
    * @name auth.sign-up
    * @description account sign-up
    *
    **/
-  angular
+angular
     .module("auth.signUp", [
       "ui.router",
-      "auth"
-    ]);
-}
+      auth
+    ])
+    .controller("SignUpCtrl", SignUpCtrl)
+    .directive("sameAs", sameAsDirective)
+    .config(signUpRoutes);

@@ -1,3 +1,6 @@
+import {} from "jasmine";
+import * as angular from "angular";
+
 module auth.signUp {
   "use strict";
 
@@ -11,7 +14,7 @@ module auth.signUp {
 
     beforeEach(inject(($compile, $rootScope) => {
       scope = $rootScope;
-      var element = angular.element(
+      const element = angular.element(
         "<form name='form'>" +
         "<input name='password' ng-model='model.password' type='password'>" +
         "<input name='passwordRepeated' ng-model='model.passwordRepeated' type='password' same-as='model.password'>" +

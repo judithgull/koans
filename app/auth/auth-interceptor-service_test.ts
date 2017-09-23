@@ -1,3 +1,8 @@
+import {} from "jasmine";
+import * as angular from "angular";
+import {TokenStorage} from "./token-storage-service";
+import {AuthInterceptor} from "./auth-interceptor-service";
+
 module auth {
   "use strict";
 
@@ -5,8 +10,8 @@ module auth {
     var interceptor:AuthInterceptor;
     var tokenStorage:TokenStorage;
 
-    var testHeaders:ng.IHttpRequestConfigHeaders = {};
-    var testConfig:ng.IRequestConfig = {
+    const testHeaders:ng.IHttpRequestConfigHeaders = {};
+    const testConfig:ng.IRequestConfig = {
       method: "GET",
       url: "testUrl",
       headers: testHeaders
@@ -24,14 +29,14 @@ module auth {
     });
 
     it("should not change the config, if no token is available", () => {
-      var intercepted = interceptor.request(testConfig);
+      const intercepted = interceptor.request(testConfig);
       expect(intercepted).toEqual(testConfig);
       expect(intercepted.headers["authorization"]).not.toBeDefined();
     });
 
     it("should add a header, if a token is available", () => {
       tokenStorage.set("testToken");
-      var intercepted = interceptor.request(testConfig);
+      const intercepted = interceptor.request(testConfig);
       expect(intercepted).toEqual(testConfig);
       expect(intercepted.headers["authorization"]).toEqual("Bearer testToken");
     });

@@ -1,9 +1,14 @@
+import {} from "jasmine";
+import {} from "angular-mocks";
+import * as angular from "angular";
+import {TokenStorage} from "./token-storage-service";
+
 module auth {
   "use strict";
 
   describe("TokenStorage", () => {
     var service:TokenStorage;
-    var testToken = "blubbr";
+    const testToken = "blubbr";
 
     beforeEach(angular.mock.module("auth"));
 

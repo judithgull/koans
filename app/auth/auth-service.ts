@@ -1,18 +1,20 @@
-module auth {
-  "use strict";
+import {IUser} from "../core/user";
+import {TokenStorage} from "./token-storage-service";
+import * as angular from "angular";
 
-  export const USERS_URL = "/users/";
-  export const LOGIN_URL = "/login/";
 
-  export interface IAuthService {
-    signUp(user:core.IUser):ng.IPromise<void>;
+export const USERS_URL = "/users/";
+export const LOGIN_URL = "/login/";
+
+export interface IAuthService {
+    signUp(user:IUser):ng.IPromise<void>;
     logout():void;
     isLoggedIn():boolean;
-    getLoggedInUser():core.IUser;
+    getLoggedInUser():IUser;
     login(email:string, password:string):ng.IPromise<void>;
   }
 
-  export class AuthService implements IAuthService {
+export class AuthService implements IAuthService {
 
     private userKey = "user";
 
@@ -42,14 +44,14 @@ module auth {
       );
     };
 
-    signUp = (user:core.IUser):ng.IPromise<void> => {
+    signUp = (user:IUser):ng.IPromise<void> => {
       return this.handleTokenRequest(
         this.$http.post(USERS_URL, user)
       );
     };
 
     private handleTokenRequest = (request) => {
-      var deferred:ng.IDeferred<void> = <ng.IDeferred<any>>this.$q.defer();
+      const deferred:ng.IDeferred<void> = this.$q.defer() as ng.IDeferred<any>;
       this.$q.when(
         request
           .then((response) => {
@@ -64,8 +66,8 @@ module auth {
 
 
     private saveLoginData = (response) => {
-      var token = response.data["token"];
-      var user = response.data["user"];
+      const token = response.data["token"];
+      const user = response.data["user"];
       if (token && user) {
         this.tokenStorage.set(token);
         localStorage.setItem(this.userKey, JSON.stringify(user));
@@ -74,15 +76,3 @@ module auth {
       }
     }
   }
-
-  /**
-   * @ngdoc service
-   * @name auth.service:AuthService
-   *
-   * @description Service for authentication (sign-up, login, logout)
-   *
-   */
-  angular
-    .module("auth")
-    .service("AuthService", AuthService);
-}

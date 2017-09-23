@@ -1,27 +1,14 @@
-module SolutionCtrl {
-  "use strict";
+import {IExercise} from "../../../core/topic";
+import * as angular from "angular";
 
-  class SolutionCtrl {
+export class SolutionCtrl {
 
     content:string;
 
     public static $inject = ["exData"];
 
-    constructor(exData:core.IExercise) {
+    constructor(exData:IExercise) {
       this.content = exData.solution;
     }
 
   }
-
-
-  /**
-   * @ngdoc object
-   * @name topic.exercise.solution.controller:SolutionCtrl
-   *
-   * @description Controller for showing solution
-   *
-   */
-  angular
-    .module("topic.exercise")
-    .controller("SolutionCtrl", SolutionCtrl);
-}

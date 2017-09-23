@@ -48,7 +48,7 @@ export const create = (t: ITopic): mongoose.Promise<ITopicModel> => {
 };
 
 export const remove = (id: string): mongoose.Promise<ITopicModel> => {
-  return Topic.remove({_id: id}).exec();
+  return Topic.remove({_id: id}).exec() as mongoose.Promise<ITopicModel>;
 };
 
 export const find = (authorId?: string, searchText?: string): mongoose.Promise<ITopicModel[]> => {

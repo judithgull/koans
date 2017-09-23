@@ -1,19 +1,24 @@
-module topicList {
-  "use strict";
+import {IUser} from "../core/user";
+import {ITopic} from "../core/topic";
+import {SearchParamsService} from "../core/search-param-service";
+import {IRestClient, RestClient} from "../core/rest-client-service";
+import {IAuthService} from "../auth/auth-service";
+import * as toastr from "toastr";
+import * as angular from "angular";
 
-  export interface ITopicListCtrl {
-    topics: Array<core.ITopic>;
-    deleteTopic: Function;
-    equalsUser: Function;
-  }
+export interface ITopicListCtrl {
+    topics: ITopic[];
+    deleteTopic: any;
+    equalsUser: any;
+}
 
 
-  class TopicListCtrl implements ITopicListCtrl {
+export class TopicListCtrl implements ITopicListCtrl {
     errorMessage:string = null;
-    user:core.IUser;
+    user:IUser;
     isShowAll:boolean;
     isLoggedIn:boolean;
-    topics:Array<core.ITopic> = [];
+    topics:ITopic[] = [];
     searchText:string;
 
     public static $inject = [
@@ -22,15 +27,15 @@ module topicList {
       "SearchParamsService"
     ];
 
-    constructor(private RestClient:core.IRestClient,
-                private authService:auth.IAuthService,
-                private searchParamsService:core.SearchParamsService) {
+    constructor(private RestClient:IRestClient,
+                private authService:IAuthService,
+                private searchParamsService:SearchParamsService) {
 
       this.isLoggedIn = authService.isLoggedIn();
       this.user = this.authService.getLoggedInUser();
       this.searchText = this.searchParamsService.getSearchText();
       this.reload();
-      (<Toastr>toastr).clear();
+      (toastr as Toastr).clear();
     }
 
     deleteTopic = (id:number, index:number) => {
@@ -74,22 +79,9 @@ module topicList {
 
     private reload = () => {
       this.isShowAll = !this.searchParamsService.getAuthorId();
-      var queryParams = this.searchParamsService.getSearchParam();
-      this.RestClient.getTopics(queryParams).then(topics => {
+      const queryParams = this.searchParamsService.getSearchParam();
+      this.RestClient.getTopics(queryParams).then((topics) => {
         this.topics = topics;
       });
     }
   }
-
-
-  /**
-   * @ngdoc object
-   * @name topicList.controller:TopicListCtrl
-   *
-   * @description Controller for list of topics
-   *
-   */
-  angular
-    .module("topicList")
-    .controller("TopicListCtrl", TopicListCtrl);
-}

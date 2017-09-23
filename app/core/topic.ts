@@ -1,14 +1,11 @@
 /**
  * Classes and interfaces regarding topic.
  */
-module core {
-  "use strict";
-
   export interface ITopic {
     _id: number;
     title: string;
     programmingLanguage: string;
-    items: Array<core.IExercise>;
+    items: IExercise[];
   }
 
   export interface IExercise {
@@ -25,7 +22,7 @@ module core {
 
   export class Topic implements ITopic {
     _id:number;
-    items:Array<IExercise> = [];
+    items:IExercise[] = [];
 
     constructor(public title:string = "",
                 public programmingLanguage:string = "typescript") {
@@ -62,7 +59,7 @@ module core {
 
   export interface IStatus {
     success:boolean;
-    errors:Array<IError>;
+    errors:IError[];
     running:boolean;
     type:taskType
   }
@@ -83,6 +80,7 @@ module core {
     }
   }
 
+  // tslint:disable-next-line:max-classes-per-file
   export class PendingStatus implements IStatus {
     constructor(public type:taskType,
                 public errors = [],
@@ -90,4 +88,4 @@ module core {
                 public running = true) {
     }
   }
-}
+

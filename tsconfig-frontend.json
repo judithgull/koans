@@ -1,15 +1,17 @@
 {
   "version": "1.6.2",
   "compilerOptions": {
-    "declaration": false,
+    "target": "es5",
+    "module": "commonjs",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "mapRoot": "./",
-    "module": "commonjs",
-    "moduleResolution": "node",
     "sourceMap": true,
-    "target": "es5",
-    "allowJs": true
+    "allowJs": true,
+    "moduleResolution": "node",
+    "typeRoots": [
+      "../node_modules/@types"
+    ],
+    "lib" : ["es2015", "es2015.iterable", "dom"]
   },
   "filesGlob": [
     "./**/*.ts",
@@ -17,6 +19,7 @@
   ],
   "exclude": [
   "node_modules",
+  "app-node",
   "build",
   "lib",
   "Gulpfile.ts",

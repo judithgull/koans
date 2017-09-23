@@ -1,7 +1,10 @@
-module auth.login {
-  "use strict";
+import {} from "jasmine";
+import * as angular from "angular";
+import * as sinon from "sinon";
+import {LoginCtrl} from "./login-controller";
+import {IAuthService} from "../auth-service";
 
-  describe("LoginCtrl", function () {
+describe("LoginCtrl", function() {
     var ctrl:LoginCtrl;
     var loginSpy;
     var deferred;
@@ -13,7 +16,7 @@ module auth.login {
       loginSpy = sinon.spy();
       deferred = $q.defer();
 
-      var mockAuthService:auth.IAuthService = {
+      const mockAuthService:IAuthService = {
         signUp: () => null,
         logout: () => undefined,
         isLoggedIn: () => false,
@@ -50,4 +53,3 @@ module auth.login {
     });
 
   });
-}

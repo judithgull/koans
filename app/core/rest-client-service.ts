@@ -1,24 +1,24 @@
-module core {
-  "use strict";
+import {ILibrary, IExercise,  ITopic} from "./topic";
+import * as angular from "angular";
 
-  export const TOPICS_URL = "/topics/";
+export const TOPICS_URL = "/topics/";
 
-  export interface IRestClient {
-    getTopic(id:number): ng.IPromise<core.ITopic>;
-    getExercise(topicId:number, exerciseId:number):ng.IPromise<core.IExercise>;
-    getDefaultLibs():ng.IPromise<Array<core.ILibrary>>;
-    getLib(name:string):ng.IPromise<core.ILibrary>;
-    getLibs(names:string[]):ng.IPromise<Array<core.ILibrary>>;
-    getTopics(queryParams?):ng.IPromise<Array<core.ITopic>>;
-    createTopic(topic:core.ITopic):ng.IPromise<any>;
-    updateTopic(topic:core.ITopic):ng.IPromise<any>;
-    deleteTopic(id:number): ng.IPromise<core.ITopic>;
+export interface IRestClient {
+    getTopic(id:number): ng.IPromise<ITopic>;
+    getExercise(topicId:number, exerciseId:number):ng.IPromise<IExercise>;
+    getDefaultLibs():ng.IPromise<ILibrary[]>;
+    getLib(name:string):ng.IPromise<ILibrary>;
+    getLibs(names:string[]):ng.IPromise<ILibrary[]>;
+    getTopics(queryParams?):ng.IPromise<ITopic[]>;
+    createTopic(topic:ITopic):ng.IPromise<any>;
+    updateTopic(topic:ITopic):ng.IPromise<any>;
+    deleteTopic(id:number): ng.IPromise<ITopic>;
     clearCachedTopic():void;
   }
 
-  class RestClient implements IRestClient {
+export class RestClient implements IRestClient {
 
-    topicData:core.ITopic;
+    topicData:ITopic;
 
     public static $inject = [
       "$http",
@@ -30,7 +30,7 @@ module core {
     }
 
     private getGlobals = (libName:string) => {
-      if (libName === "typescripts/globals/chai/index.d.ts") {
+      if (libName === "typescripts/chai/index.d.ts") {
         return "chai.should();var expect = chai.expect;var assert = chai.assert;";
       }
       return "";
@@ -40,7 +40,7 @@ module core {
       this.topicData = null;
     };
 
-    getTopics(queryParams?):ng.IPromise<Array<core.ITopic>> {
+    getTopics(queryParams?):ng.IPromise<ITopic[]> {
       return this.$http({
         url: TOPICS_URL,
         method: "GET",
@@ -49,65 +49,65 @@ module core {
         (response) => {
           return response.data;
         }
-      );
+      ) as ng.IPromise<ITopic[]>;
     }
 
-    getTopic(id:number):ng.IPromise<core.ITopic> {
-      var deferred = this.$q.defer();
+    getTopic(id:number):ng.IPromise<ITopic> {
+      const deferred = this.$q.defer();
 
       if (!this.topicData || this.topicData._id !== id) {
-        this.$http.get(TOPICS_URL + id).then(response => {
-          this.topicData = <core.ITopic> response.data;
+        this.$http.get(TOPICS_URL + id).then((response) => {
+          this.topicData = response.data as ITopic;
           deferred.resolve(this.topicData);
-        }).catch(reason => {
+        }).catch((reason) => {
           deferred.reject(reason);
         });
       } else {
         deferred.resolve(this.topicData);
       }
-      return deferred.promise;
+      return deferred.promise as ng.IPromise<ITopic>;
     }
 
-    createTopic(topic:core.ITopic):ng.IPromise<any> {
+    createTopic(topic:ITopic):ng.IPromise<any> {
       return this.$http.post(TOPICS_URL, topic);
     }
 
-    updateTopic(topic:core.ITopic):ng.IPromise<any> {
+    updateTopic(topic:ITopic):ng.IPromise<any> {
       return this.$http.put(TOPICS_URL + topic._id, topic);
     }
 
-    deleteTopic(id:number):ng.IPromise<core.ITopic> {
-      var deferred = this.$q.defer();
+    deleteTopic(id:number):ng.IPromise<ITopic> {
+      const deferred = this.$q.defer();
 
       if (!this.topicData || this.topicData._id !== id) {
-        this.$http.delete(TOPICS_URL + id).then(response => {
-          this.topicData = <core.ITopic> response.data;
+        this.$http.delete(TOPICS_URL + id).then((response) => {
+          this.topicData = response.data as ITopic;
           deferred.resolve(this.topicData);
-        }).catch(reason => {
+        }).catch((reason) => {
           deferred.reject(reason);
         });
       } else {
         deferred.resolve(this.topicData);
       }
-      return deferred.promise;
+      return deferred.promise as ng.IPromise<ITopic>;
     }
 
-    getExercise(topicId:number, exerciseId:number):ng.IPromise<core.IExercise> {
+    getExercise(topicId:number, exerciseId:number):ng.IPromise<IExercise> {
       return this.getTopic(topicId).then(() => this.topicData.items[exerciseId - 1]);
     }
 
     /**
      * return the default libraries
      * */
-    getDefaultLibs():ng.IPromise<Array<core.ILibrary>> {
-      return this.getLibs(["typescripts/lib.d.ts", "typescripts/globals/chai/index.d.ts", "typescripts/globals/angular/index.d.ts"]);
+    getDefaultLibs():ng.IPromise<ILibrary[]> {
+      return this.getLibs(["typescripts/lib.d.ts", "typescripts/chai/index.d.ts", "typescripts/angular/index.d.ts"]);
     }
 
-    getLibs(names:string[]):ng.IPromise<Array<core.ILibrary>> {
-      return this.$q.all(names.map(name => this.getLib(name)));
+    getLibs(names:string[]):ng.IPromise<ILibrary[]> {
+      return this.$q.all(names.map((name) => this.getLib(name)));
     }
 
-    getLib(libName:string):ng.IPromise<core.ILibrary> {
+    getLib(libName:string):ng.IPromise<ILibrary> {
       return this.$http.get(libName).then(
         (response) => {
           return {
@@ -118,16 +118,4 @@ module core {
       );
     }
 
-}
-
-  /**
-   * @ngdoc service
-   * @name core.service:RestClient
-   *
-   * @description Connect to the REST Backend.
-   *
-   */
-  angular
-    .module("core")
-    .service("RestClient", RestClient);
 }

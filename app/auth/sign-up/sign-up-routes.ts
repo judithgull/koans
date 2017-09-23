@@ -1,15 +1,13 @@
-module auth.signUp {
-  "use strict";
+import * as angular from "angular";
+import {IUrlRouterProvider, IStateProvider} from "angular-ui-router";
 
-  angular
-    .module("auth.signUp")
-    .config(($stateProvider:ng.ui.IStateProvider) => {
+declare const require:any;
+
+export const signUpRoutes = ($stateProvider) => {
       $stateProvider
         .state("main.signUp", {
           url: "/sign-up",
-          templateUrl: "auth/sign-up/sign-up.tpl.html",
+          template: require("./sign-up.tpl"),
           controller: "SignUpCtrl",
           controllerAs: "signUp"
-        });
-    });
-}
+        })};

@@ -1,15 +1,13 @@
-module auth.login {
-  "use strict";
+import * as angular from "angular";
 
-  angular
-    .module("auth.login")
-    .config(($stateProvider:ng.ui.IStateProvider) => {
+declare const require:any;
+
+export const loginRoutes = ($stateProvider) => {
       $stateProvider
         .state("main.login", {
           url: "/login",
-          templateUrl: "auth/login/login.tpl.html",
+          template: require("./login.tpl"),
           controller: "LoginCtrl",
           controllerAs: "login"
         });
-    });
-}
+    };

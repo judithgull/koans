@@ -1,13 +1,12 @@
-module core {
-  "use strict";
+import * as angular from "angular";
 
-  export interface ISearchParam {
+export interface ISearchParam {
     authorId?:string
     search?:string
   }
 
 
-  export class SearchParamsService {
+export class SearchParamsService {
     private AUTHOR_ID_KEY = "queryAuthorId";
     private SEARCH_TEXT_KEY = "querySearchText";
 
@@ -41,12 +40,12 @@ module core {
     };
 
     getSearchParam = ():ISearchParam => {
-      var authorId = this.getAuthorId();
-      var query:ISearchParam = {};
+      const authorId = this.getAuthorId();
+      const query:ISearchParam = {};
       if (authorId) {
         query.authorId = authorId;
       }
-      var search = this.getSearchText();
+      const search = this.getSearchText();
       if (search) {
         query.search = search;
       }
@@ -54,15 +53,3 @@ module core {
     }
 
   }
-
-  /**
-   * @ngdoc service
-   * @name core.service:SearchParamsService
-   *
-   * @description Handles search query parameters (stores current state in local storage).
-   *
-   */
-  angular
-    .module("core")
-    .service("SearchParamsService", SearchParamsService);
-}

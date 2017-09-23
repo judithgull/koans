@@ -72,7 +72,7 @@ cd <path_to_cloned_project>/koans
 
 Run `npm install` to install all dependencies. (npm, patched libraries)
 
-#### 5. Run in production mode
+#### 5. Run
 
 Make sure mongodb is running:
 ```
@@ -87,13 +87,8 @@ Open browser with [http://localhost:3000] (http://localhost:3000)
 #### 1. Webstorm
 1. Use the latest Webstorm 11.0 or higher
 2. Make sure the appropriate typescript compiler is used >= 1.6.2: Preferences/Languages & Frameworks/Typescript
-- Compiler version (1.7.3 (bundeled)
+- Compiler version (2.5 (bundeled)
 - Use tsconfig.json
-
-#### 2. Gulp Tasks
-- Run `gulp` to run the build task and setup the development environment (starts mongodb as well)
-- Run `gulp --stage prod` to build files for production
-- Run `gulp unitTest` to run unit tests: [http://localhost:9876](http://localhost:9876)
 
 ## Maintenance tasks
 

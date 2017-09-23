@@ -1,5 +1,5 @@
-module codeEditor.editMark {
-  "use strict";
+import {EditMark, CustomAnnotation} from "./edit-mark-service";
+import * as angular from "angular";
 
   /**
    * @ngdoc directive
@@ -18,16 +18,14 @@ module codeEditor.editMark {
    </example>
    *
    */
-  angular
-    .module("codeEditor")
-    .directive("sameAsExceptEditMark", ["EditMark", (editMark:EditMark):ng.IDirective => {
+export const sameAsExceptEditMarkDirective =  (editMark:EditMark):ng.IDirective => {
       return {
         restrict: "A",
         require: ["^codeEditor", "ngModel"],
         link: (scope:ng.IScope, elm:JQuery, attrs:ng.IAttributes, controllers:any[]) => {
-          let ngModel = controllers[1];
-          let editor:AceAjax.Editor = controllers[0].editor;
-          let session = editor.getSession();
+          const ngModel = controllers[1];
+          const editor:any = controllers[0].editor;
+          const session = editor.getSession();
 
 
           const otherModel = attrs["sameAsExceptEditMark"];
@@ -37,9 +35,9 @@ module codeEditor.editMark {
           scope.$watch(otherModel, ngModel.$validate);
 
 
-          let errorText = "Do not change anything other than " + editMark.mark + "!";
-          let getMarkers = ():AceAjax.Annotation[] => {
-            let changed = editMark.hasOnlyMarkChanged(scope.$eval(otherModel), session.getValue());
+          const errorText = "Do not change anything other than " + editMark.mark + "!";
+          const getMarkers = ():any[] => {
+            const changed = editMark.hasOnlyMarkChanged(scope.$eval(otherModel), session.getValue());
             if (!changed) {
               return [new CustomAnnotation(0, 0, errorText)];
             } else {
@@ -49,8 +47,8 @@ module codeEditor.editMark {
 
 
           let markerAnnotations = [];
-          let updateMarkers = () => {
-            let newMarkers = getMarkers();
+          const updateMarkers = () => {
+            const newMarkers = getMarkers();
             if (!editMark.equals(newMarkers, markerAnnotations)) {
               markerAnnotations = newMarkers;
               editMark.setAnnotations(newMarkers, session, errorText);
@@ -61,5 +59,4 @@ module codeEditor.editMark {
 
         }
       };
-    }]);
-}
+    };

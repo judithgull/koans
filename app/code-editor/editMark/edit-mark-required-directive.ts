@@ -1,6 +1,5 @@
-module codeEditor.editMark {
-  "use strict";
-
+import {EditMark} from "./edit-mark-service";
+import * as angular from "angular";
   /**
    * @ngdoc directive
    * @name editTopic.directive:editMarkRequired
@@ -16,9 +15,7 @@ module codeEditor.editMark {
    </example>
    *
    */
-  angular
-    .module("codeEditor")
-    .directive("editMarkRequired", ["EditMark", (editMarker:EditMark):ng.IDirective => {
+export const editMarkRequiredDirective = (editMarker:EditMark):ng.IDirective => {
       return {
         restrict: "A",
         require: "ngModel",
@@ -26,5 +23,5 @@ module codeEditor.editMark {
           ngModel.$validators["editMarkRequired"] = (value) => editMarker.containsMark(value);
         }
       };
-    }]);
-}
+    };
+

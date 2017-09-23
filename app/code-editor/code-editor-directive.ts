@@ -1,15 +1,17 @@
-module codeEditor {
-  "use strict";
+import {ICodeEditorModel} from "./code-editor-controller";
+import * as angular from "angular";
 
-  export interface ICodeEditorScope extends ng.IScope {
+export interface ICodeEditorScope extends ng.IScope {
     language:string;
     hiddenText?:string;
-    libsLoader:Function;
-    onError:Function;
-    onSuccess:Function;
+    libsLoader;
+    onError;
+    onSuccess;
     codeEditor:ICodeEditorModel;
-    handleEditorChange:Function;
-  }
+    handleEditorChange;
+}
+
+declare const require:any;
 
   /**
    * @ngdoc directive
@@ -28,9 +30,7 @@ module codeEditor {
    </example>
    *
    */
-  angular
-    .module("codeEditor")
-    .directive("codeEditor", ():ng.IDirective => {
+export const codeEditorDirective = ()=> {
       return {
         restrict: "E",
         scope: {
@@ -41,16 +41,16 @@ module codeEditor {
           hiddenText: "=?"
         },
         require: "ngModel",
-        templateUrl: "code-editor/code-editor.tpl.html",
+        template: require("./code-editor.tpl"),
         controllerAs: "codeEditor",
         controller: "CodeEditorCtrl",
-        link: function (scope:ICodeEditorScope, el, attrs, ngModelCtrl:ng.INgModelController) {
+        link: function(scope:ICodeEditorScope, el, attrs, ngModelCtrl:ng.INgModelController) {
           ngModelCtrl.$render = () => {
-            var editor:AceAjax.Editor = scope.codeEditor.editor;
+            const editor:any= scope.codeEditor.editor;
             editor.setValue(ngModelCtrl.$viewValue || "");
           };
 
-          scope.handleEditorChange = (editor:AceAjax.Editor) => {
+          scope.handleEditorChange = (editor:any) => {
             ngModelCtrl.$setViewValue(editor.getValue());
           };
 
@@ -60,5 +60,4 @@ module codeEditor {
           });
         }
       };
-    });
-}
+    };
