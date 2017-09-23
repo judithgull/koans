@@ -86,13 +86,13 @@
     "uglifyjs-webpack-plugin": "^0.4.6",
     "url-loader": "^0.5.9",
     "webpack": "^3.6.0",
-    "webpack-stream": "^4.0.0"
+    "webpack-stream": "^4.0.0",
+    "concurrently": "^3.5.0"
   },
   "devDependencies": {
     "@types/angular-mocks": "~1.5.*",
     "@types/sinon": "^2.3.4",
     "angular-mocks": "~1.5.*",
-    "concurrently": "^3.5.0",
     "karma": "^1.7.1",
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^1.1.0",
