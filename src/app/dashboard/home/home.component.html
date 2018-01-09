@@ -1,0 +1,9 @@
+<div class="header">
+  <app-logo></app-logo>
+  <app-account class="header-chunk" [isLoggedIn]="isLoggedIn" [userName]="user?.name" (logoutChanges)="logout()"></app-account>
+  <div class="intro">
+    <h1 class="t-paragraph">Programming exercises in typescript and javascript</h1>
+    <p class="t-paragraph">Search and solve interesting exercises or login and create your own!</p>
+  </div>
+  <app-series-search [isLoggedIn]="isLoggedIn" [userId]="user?._id"></app-series-search>
+</div>

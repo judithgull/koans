@@ -1,0 +1,23 @@
+@import "../../../common-styles/_0.settings.colors";
+@import "../../../common-styles/_0.settings.sizes";
+@import "../../../common-styles/_0.settings.typography";
+
+.feedback {
+  line-height: 1.25;
+  margin-bottom: s(small);
+  &-line {
+    margin-right: s(small);
+  }
+  &-error {
+    background-color: c(error);
+    display: inline;
+  }
+  &-success {
+    background-color: c(success);
+    display: inline;
+  }
+  &-info {
+    background-color: c(warning);
+    display: inline;
+  }
+}

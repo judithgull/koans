@@ -1,0 +1,30 @@
+@import "../../../common-styles/_0.settings.sizes";
+@import "../../../common-styles/_0.settings.colors";
+@import "../../../common-styles/_0.settings.typography";
+
+.main-wrap {
+  background-color: c(light-grey);
+  padding: s(large) s(medium);
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.header {
+  margin-bottom: s(huge);
+  position: relative;
+}
+
+.header-chunk {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.intro {
+  max-width: 500px;
+  display: block;
+  margin: 0 auto s(huge);
+  text-align: center;
+}
+
+

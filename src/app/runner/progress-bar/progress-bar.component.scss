@@ -1,0 +1,48 @@
+@import "../../../common-styles/_0.settings.colors";
+@import "../../../common-styles/_0.settings.sizes";
+@import "../../../common-styles/_0.settings.typography";
+
+.progress-bar {
+  &-item {
+    display: inline-block;
+    width: s(large);
+    height: s(large);
+    margin: 0 s(medium) s(medium) 0;
+
+    &--link {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+
+      background-color: c(grey);
+
+      border: 3px solid c(grey);
+      transition: border-color 200ms;
+      border-radius: 100%;
+      box-shadow: 0 0 0 1px c(grey);
+
+      color: c(light-grey);
+      line-height: 1.6;
+      text-decoration: none;
+
+      &.isSolved {
+        background-color: c(success);
+        border-color: c(success);
+        box-shadow: 0 0 0 1px c(success);
+      }
+      &.isNotSolved {
+        background-color: c(error);
+        border-color: c(error);
+        box-shadow: 0 0 0 1px c(error);
+      }
+      &.isActive,
+      &:hover {
+        border-color: c(light-grey);
+      }
+      &.isActive {
+        cursor: default;
+      }
+    }
+  }
+}

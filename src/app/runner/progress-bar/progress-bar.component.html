@@ -1,0 +1,7 @@
+<div class="progress-bar">
+  <div class="progress-bar-item" *ngFor="let ex of exercises; let i = index">
+    <a class="progress-bar-item--link" [routerLink]="['e', i + 1]" [routerLinkActive]="['isActive']" [ngClass]="{isSolved: ex.solved, isNotSolved: ex.solutionRequested}">
+      <span class="l-centred">{{ i + 1 }}</span>
+    </a>
+  </div>
+</div>

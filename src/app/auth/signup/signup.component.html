@@ -1,0 +1,29 @@
+<form (ngSubmit)='signup()' [formGroup]='form' novalidate>
+  <fieldset>
+    <div class='field-row'>
+      <label class='label t-label' for='name'> Name *</label>
+      <input class='input' id='name' type='text' formControlName='name' [(ngModel)]='user.name' />
+      <app-validation-messages [control]='form.get("name")' validationKey='name'></app-validation-messages>
+    </div>
+    <div class='field-row'>
+      <label class='label t-label' for='email'> E-mail *</label>
+      <input class='input' id='email' type='email' formControlName='email' [(ngModel)]='user.email' />
+    </div>
+    <app-validation-messages [control]='form.get("email")' validationKey='email'></app-validation-messages>
+    <span formGroupName='passwordGroup'>
+      <div class='field-row'>
+        <label class='label t-label' for='password'> Password *</label>
+        <input class='input' id='password' type='password' formControlName='password' [(ngModel)]='user.password' />
+      </div>
+      <app-validation-messages [control]='form.get("passwordGroup.password")' validationKey='password'></app-validation-messages>
+      <div class='field-row'>
+        <label class='label t-label' for='confirmPassword'> Confirm Password *</label>
+        <input class='input' id='confirmPassword' type='password' formControlName='confirmPassword' />
+      </div>
+      <app-validation-messages [control]='form.get("passwordGroup.confirmPassword")'></app-validation-messages>
+      <app-validation-messages [control]='form.get("passwordGroup")'></app-validation-messages>
+    </span>
+    <button class='button' type='submit' [disabled]='!form.valid'>Submit</button>
+    <button class='button' routerLink="/">Cancel</button>
+  </fieldset>
+</form>

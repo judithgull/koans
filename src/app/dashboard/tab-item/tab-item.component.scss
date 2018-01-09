@@ -1,0 +1,18 @@
+@import "../../../common-styles/_0.settings.colors";
+@import "../../../common-styles/_0.settings.sizes";
+
+.filter-tabs {
+  margin-bottom: 0;
+  padding: 0;
+  &--item {
+    display: inline-block;
+    text-decoration: none;
+    &-link {
+      display: block;
+      padding: s(small) s(medium);
+    }
+    &.isActive {
+      background-color: c(black);
+    }
+  }
+}

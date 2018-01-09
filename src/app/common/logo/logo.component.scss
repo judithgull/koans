@@ -1,0 +1,14 @@
+.logo {
+  margin: 0;
+
+  a {
+    display: inline-block;
+    width: 250px;
+    height: 98px;
+    background: url(../../../assets/logo.svg) no-repeat left top;
+    background-size: 100%;
+    & span {
+      display: none;
+    }
+  }
+}

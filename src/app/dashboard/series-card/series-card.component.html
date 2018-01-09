@@ -1,0 +1,8 @@
+<div class="topic-item programming-lang-wrap">
+  <a class="t-link" (click)="showDetails(series._id)">
+    <h2 class="topic-title-wrap t-title topic-title" ellipsis ellipsis-resize-detection="element-resize-detector">{{series.title}}</h2>
+    <img class="programming-lang programming-lang--dark" [src]="getIcon(series.programmingLanguage)" />
+  </a>
+  <button class="button" (click)="delete(series._id)" *ngIf="isEditable(series.authorId)">Delete</button>
+  <button class="button" (click)="edit(series._id)" *ngIf="isEditable(series.authorId)">Edit</button>
+</div>

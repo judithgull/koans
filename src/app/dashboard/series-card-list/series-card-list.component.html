@@ -1,0 +1,6 @@
+<div class="l-grid topic-list">
+  <h1 class="is-visuallyhidden">List of Exercises Series</h1>
+  <app-series-card class="l-grid-cell l-one-third l-tablet-one-half l-mobile-one-whole" *ngFor="let series of seriesList" [series]='series'
+    (remove)="onRemove($event)" [userId]="userId">
+  </app-series-card>
+</div>

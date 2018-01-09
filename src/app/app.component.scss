@@ -1,0 +1,10 @@
+@import "../common-styles/_0.settings.sizes";
+@import "../common-styles/_0.settings.colors";
+@import "../common-styles/_0.settings.typography";
+
+.main-wrap {
+  background-color: c(light-grey);
+  padding: s(large) s(medium);
+  min-height: 100vh;
+  box-sizing: border-box;
+}

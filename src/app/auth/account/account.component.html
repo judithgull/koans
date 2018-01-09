@@ -1,0 +1,6 @@
+<div class="account">
+    <a [hidden]="isLoggedIn" class="t-link" routerLink="/login">Login</a>
+    <a [hidden]="isLoggedIn" class="t-link" routerLink="signup">Signup</a>
+    <p [hidden]="!isLoggedIn" class="login-name">{{userName}}</p>
+    <a [hidden]="!isLoggedIn" class="t-link" (click)="logout()">Logout</a>
+</div>

@@ -1,0 +1,8 @@
+<p class="feedback t-paragraph feedback-info">
+  <span *ngIf="feedback?.startLineNumber" class="t-label feedback-line">
+    Line {{feedback.startLineNumber}}:
+  </span>
+  <span class="t-paragraph">
+    {{feedback?.message}}
+  </span>
+</p>
