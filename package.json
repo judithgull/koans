@@ -9,7 +9,7 @@
   "scripts": {
     "ng": "ng",
     "prestart": "gulp clean; gulp pre-build",
-    "start": "concurrently 'gulp build' 'ts-node app-node/app.ts' ",
+    "start": "concurrently 'ng serve' 'ts-node app-node/app.ts' ",
     "prodclient":
       "gulp clean && gulp pre-build && concurrently 'NODE_ENV=production gulp build' 'ts-node app-node/app.ts' ",
     "clienttests": "NODE_ENV=test karma start",
