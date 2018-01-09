@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { ToastModule } from 'ng2-toastr';
 
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
@@ -11,17 +11,19 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { EditorModule } from './editor/editor.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RunnerModule } from './runner/runner.module';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { storeFreeze } from 'ngrx-store-freeze';
+import { MetaReducer, StoreModule } from '@ngrx/store';
 
 const routes: Routes = [
   // { path: '**', component: NotFoundComponent }
 ];
 
+// not used in production -- REMOVE
+export const metaReducers: Array<MetaReducer<any>> = [storeFreeze];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NotFoundComponent
-  ],
+  declarations: [AppComponent, NotFoundComponent],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
@@ -32,8 +34,9 @@ const routes: Routes = [
     EditorModule,
     ToastModule.forRoot(),
     RouterModule.forRoot(routes),
+    StoreModule.forRoot({}, { metaReducers })
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

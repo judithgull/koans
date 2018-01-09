@@ -29,6 +29,13 @@
     "ordered-imports": false,
     "no-var-requires": false,
     "max-classes-per-file": false,
-    "quotemark": [true, "single"]
+    "quotemark": [true, "single"],
+    "no-submodule-imports": [
+      true,
+      "rxjs",
+      "@angular/platform-browser",
+      "@angular/core/testing"
+    ],
+    "arrow-parens": [true, "ban-single-arg-parens"]
   }
 }

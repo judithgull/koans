@@ -9,13 +9,16 @@ import {
   group,
   animateChild
 } from '@angular/animations';
+import { ISeries, Series } from '../../common/model/series';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 
-import { Series } from '../../common/model/series';
 import { SeriesService } from '../../common/series.service';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { ProgrammingLanguage } from '../../common/model/programming-language';
+import { Store } from '@ngrx/store';
+import * as st from '../../store';
+import { Observable } from 'rx-lite';
 
 @Component({
   selector: 'app-series-runner',
@@ -31,6 +34,7 @@ import { ProgrammingLanguage } from '../../common/model/programming-language';
 })
 export class SeriesRunnerComponent implements OnInit {
   series: Series;
+  series$: Store<ISeries>;
 
   animationInProgress = false;
   lastExId = '';
@@ -38,6 +42,7 @@ export class SeriesRunnerComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private seriesServies: SeriesService,
+    private store: Store<st.RunnerState>,
     private router: Router
   ) {}
 
@@ -47,14 +52,7 @@ export class SeriesRunnerComponent implements OnInit {
       .subscribe((series: Series) => {
         this.series = series;
       });
-
-    this.router.events
-      .filter(e => e.constructor.name === 'RoutesRecognized')
-      .pairwise()
-      .subscribe((e: any[]) => {
-        console.log(e);
-        //            this.storage.set('referrer', e[0].urlAfterRedirects);
-      });
+    this.series$ = this.store.select(st.getSeries);
   }
 
   getIcon(programmingLanguage: string) {
@@ -81,9 +79,5 @@ export class SeriesRunnerComponent implements OnInit {
     } else {
       return outlet.activatedRoute.params['value']['exId'];
     }
-    // console.log(window.location.pathname);
-    // return;
-    // return outlet.activatedRouteData['animation'] || 'firstPage';
-    // return 'fadeIn';
   }
 }

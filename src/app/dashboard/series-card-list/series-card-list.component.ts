@@ -9,15 +9,15 @@ import { SeriesService } from '../../common/series.service';
   templateUrl: './series-card-list.component.html'
 })
 export class SeriesCardListComponent {
+  @Input() userId: string;
 
-  @Input()
-  userId: string;
+  @Input() seriesList: Series[];
 
-  @Input()
-  seriesList: Series[];
-
-  constructor(private seriesService: SeriesService,
-    private toastr: ToastsManager, vcr: ViewContainerRef) {
+  constructor(
+    private seriesService: SeriesService,
+    private toastr: ToastsManager,
+    vcr: ViewContainerRef
+  ) {
     this.toastr.setRootViewContainerRef(vcr);
   }
 
@@ -30,14 +30,11 @@ export class SeriesCardListComponent {
    * @param id
    */
   onRemove(id: number) {
-    this.seriesService
-      .delete(id)
-      .subscribe(
-      (observer) => {
-        this.seriesList = this.seriesList.filter((item) => item._id !== id);
+    this.seriesService.delete(id).subscribe(
+      observer => {
+        this.seriesList = this.seriesList.filter(item => item._id !== id);
       },
-      (error) => this.showError(error)
-      );
+      error => this.showError(error)
+    );
   }
-
 }

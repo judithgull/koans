@@ -10,6 +10,8 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { RunExerciseCardComponent } from './run-exercise-card/run-exercise-card.component';
 import { SeriesRunnerComponent } from './series-runner/series-runner.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from '../store';
 
 const routes: Routes = [
   {
@@ -47,7 +49,8 @@ const routes: Routes = [
     CodeEditorModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    StoreModule.forFeature('runner', reducers)
   ],
   providers: [ExerciseResolve],
   declarations: [
