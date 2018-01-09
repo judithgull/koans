@@ -12,8 +12,8 @@
 
       <div class="l-grid-cell l-one-half l-mobile-one-whole">
         <app-code-editor *ngIf="solutionVisible" [language]='exercise?.programmingLanguage' [ngModel]='exercise?.solution'></app-code-editor>
-        <div *ngIf="!solutionVisible" *ngFor="let f of feedback">
-          <app-exercise-feedback [feedback]='f'></app-exercise-feedback>
+        <div *ngIf="!solutionVisible">
+          <app-exercise-feedback *ngFor="let f of feedback" [feedback]='f'></app-exercise-feedback>
         </div>
       </div>
     </div>
