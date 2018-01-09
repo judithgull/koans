@@ -83,7 +83,7 @@ export class RunExerciseCardComponent implements OnInit {
     if (isSuccess) {
       this.exercise.solved = true;
       if (this.exercise.hasNext) {
-        this.navigate(this.exercise.sortOrder + 1);
+        this.next();
       }
     }
   }
