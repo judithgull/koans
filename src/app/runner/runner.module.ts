@@ -11,7 +11,8 @@ import { RunExerciseCardComponent } from './run-exercise-card/run-exercise-card.
 import { SeriesRunnerComponent } from './series-runner/series-runner.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from '../store';
+import { reducers, effects } from '../store';
+import { EffectsModule } from '@ngrx/effects';
 
 const routes: Routes = [
   {
@@ -50,7 +51,8 @@ const routes: Routes = [
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    StoreModule.forFeature('runner', reducers)
+    StoreModule.forFeature('runner', reducers),
+    EffectsModule.forFeature(effects)
   ],
   providers: [ExerciseResolve],
   declarations: [

@@ -9,16 +9,14 @@ import {
   group,
   animateChild
 } from '@angular/animations';
-import { ISeries, Series } from '../../common/model/series';
+import { ISeries } from '../../common/model/series';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 
-import { SeriesService } from '../../common/series.service';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { ProgrammingLanguage } from '../../common/model/programming-language';
 import { Store } from '@ngrx/store';
 import * as st from '../../store';
-import { Observable } from 'rx-lite';
 
 @Component({
   selector: 'app-series-runner',
@@ -33,25 +31,18 @@ import { Observable } from 'rx-lite';
   ]
 })
 export class SeriesRunnerComponent implements OnInit {
-  series: Series;
   series$: Store<ISeries>;
-
-  animationInProgress = false;
-  lastExId = '';
 
   constructor(
     private route: ActivatedRoute,
-    private seriesServies: SeriesService,
-    private store: Store<st.RunnerState>,
-    private router: Router
+    private router: Router,
+    private store: Store<st.RunnerState>
   ) {}
 
   ngOnInit() {
-    this.route.params
-      .switchMap((data: { id: string }) => this.seriesServies.get(data.id))
-      .subscribe((series: Series) => {
-        this.series = series;
-      });
+    this.route.params.subscribe((data: { id: string }) =>
+      this.store.dispatch(new st.LoadSeries(data.id))
+    );
     this.series$ = this.store.select(st.getSeries);
   }
 

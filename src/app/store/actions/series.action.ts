@@ -8,6 +8,7 @@ export const LOAD_SERIES_SUCCESS = 'LOAD SERIES SUCCESS';
 
 export class LoadSeries implements Action {
   readonly type = LOAD_SERIES;
+  constructor(public id: string) {}
 }
 
 export class LoadSeriesFail implements Action {

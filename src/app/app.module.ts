@@ -14,6 +14,7 @@ import { RunnerModule } from './runner/runner.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { MetaReducer, StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 const routes: Routes = [
   // { path: '**', component: NotFoundComponent }
@@ -34,7 +35,8 @@ export const metaReducers: Array<MetaReducer<any>> = [storeFreeze];
     EditorModule,
     ToastModule.forRoot(),
     RouterModule.forRoot(routes),
-    StoreModule.forRoot({}, { metaReducers })
+    StoreModule.forRoot({}, { metaReducers }),
+    EffectsModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]

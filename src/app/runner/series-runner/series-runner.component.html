@@ -2,13 +2,12 @@
   <div class="l-site-width">
     <div class="header">
       <app-logo></app-logo>
-      s: {{series$ | async}}
       <a class="button button-prev" routerLink="/">Overview</a>
-      <h1 class="t-title main-title">{{series?.title}}</h1>
-      <app-progress-bar *ngIf="series" [exercises]="series.items">
+      <h1 class="t-title main-title">{{(series$ | async) ?.title}}</h1>
+      <app-progress-bar *ngIf="(series$ | async)" [exercises]="(series$ | async).items">
       </app-progress-bar>
       <div class="programming-lang-wrap" [@cardTransition]='prepRouteState(o)'>
-        <img class="programming-lang programming-lang--light" [src]="getIcon(series?.programmingLanguage)" />
+        <img class="programming-lang programming-lang--light" [src]="getIcon((series$ | async)?.programmingLanguage)" />
         <router-outlet #o="outlet"></router-outlet>
       </div>
     </div>

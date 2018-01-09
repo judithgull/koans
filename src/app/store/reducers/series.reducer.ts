@@ -25,10 +25,12 @@ export function reducer(
       };
     }
     case sa.LOAD_SERIES_SUCCESS: {
+      const data = action.payload;
       return {
         ...state,
         loading: false,
-        loaded: true
+        loaded: true,
+        data
       };
     }
     case sa.LOAD_SERIES_FAIL: {
