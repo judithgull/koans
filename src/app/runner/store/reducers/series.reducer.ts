@@ -1,4 +1,4 @@
-import { ISeries } from '../../common/model/series';
+import { ISeries } from '../../../common/model/series';
 import * as sa from '../actions/series.action';
 
 export interface SeriesState {

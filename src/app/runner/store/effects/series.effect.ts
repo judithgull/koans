@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import * as sa from '../actions';
 import { switchMap, map, catchError } from 'rxjs/operators';
-import { SeriesService } from '../../common/series.service';
+import { SeriesService } from '../../../common/series.service';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()

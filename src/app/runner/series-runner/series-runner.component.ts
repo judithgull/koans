@@ -16,7 +16,7 @@ import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { ProgrammingLanguage } from '../../common/model/programming-language';
 import { Store } from '@ngrx/store';
-import * as st from '../../store';
+import * as st from '../store';
 
 @Component({
   selector: 'app-series-runner',

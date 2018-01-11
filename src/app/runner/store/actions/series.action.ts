@@ -1,4 +1,4 @@
-import { ISeries } from '../../common/model/series';
+import { ISeries } from '../../../common/model/series';
 import { Action } from '@ngrx/store';
 
 // load series
