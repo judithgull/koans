@@ -27,6 +27,7 @@
     "@angular/router": "^5.1.2",
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^4.1.1",
+    "@ngrx/router-store": "^4.1.1",
     "@ngrx/store": "^4.1.1",
     "@types/chai": "^4.0.4",
     "@types/jasmine": "^2.6.0",

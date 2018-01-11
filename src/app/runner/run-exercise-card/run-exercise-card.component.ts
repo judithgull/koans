@@ -1,3 +1,4 @@
+import { Store } from '@ngrx/store';
 import {
   animate,
   query,
@@ -9,7 +10,7 @@ import {
 import { Feedback, FeedbackType } from '../../common/model/feedback';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import * as st from '../store';
 import { Exercise, ExerciseInfo } from '../../common/model/exercise';
 
 const cardTransition = trigger('cardTransition', [
@@ -33,6 +34,7 @@ const cardTransition = trigger('cardTransition', [
 })
 export class RunExerciseCardComponent implements OnInit {
   exercise: ExerciseInfo;
+  ex$: Store<Exercise>;
 
   solutionVisible = false;
   userSolution = '';
@@ -41,9 +43,14 @@ export class RunExerciseCardComponent implements OnInit {
 
   private editableMarkerFeedback: Feedback[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store<st.RunnerState>
+  ) {}
 
   ngOnInit(): void {
+    this.ex$ = this.store.select(st.getSelectedExercise);
     this.route.data.subscribe((data: { exercise: ExerciseInfo }) => {
       this.exercise = data.exercise;
       this.userSolution = data.exercise.exercise;
