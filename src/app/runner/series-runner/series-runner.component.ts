@@ -11,12 +11,13 @@ import {
 } from '@angular/animations';
 import { ISeries } from '../../common/model/series';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { ProgrammingLanguage } from '../../common/model/programming-language';
 import { Store } from '@ngrx/store';
 import * as st from '../store';
+import { LoadExerciseUserState } from '../store/actions/exercise.action';
 
 @Component({
   selector: 'app-series-runner',
@@ -35,14 +36,13 @@ export class SeriesRunnerComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private store: Store<st.RunnerState>
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe((data: { id: string }) =>
-      this.store.dispatch(new st.LoadSeries(data.id))
-    );
+    this.route.params.subscribe((data: { id: string }) => {
+      this.store.dispatch(new st.LoadSeries(data.id));
+    });
     this.series$ = this.store.select(st.getSeries);
   }
 

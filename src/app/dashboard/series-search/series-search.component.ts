@@ -11,12 +11,9 @@ import { SeriesService } from '../../common/series.service';
   providers: [SeriesService]
 })
 export class SeriesSearchComponent implements OnInit {
+  @Input() isLoggedIn;
 
-  @Input()
-  isLoggedIn;
-
-  @Input()
-  userId: string;
+  @Input() userId: string;
 
   seriesList: ISeries[];
   message = '';
@@ -24,13 +21,10 @@ export class SeriesSearchComponent implements OnInit {
   authorId: string;
   searchParamChange = new EventEmitter<HttpParams>();
 
-  constructor(private seriesService: SeriesService) {
-  }
+  constructor(private seriesService: SeriesService) {}
 
   ngOnInit() {
-    this.searchParamChange
-      .debounceTime(500)
-      .subscribe(e => this.search(e));
+    this.searchParamChange.debounceTime(500).subscribe(e => this.search(e));
     this.search(this.getSearchParams());
   }
 
@@ -38,8 +32,8 @@ export class SeriesSearchComponent implements OnInit {
     this.seriesService
       .getSeries(params)
       .subscribe(
-      (seriesList) => this.seriesList = seriesList,
-      (err) => this.message = 'Error: Data cannot be loaded.'
+        seriesList => (this.seriesList = seriesList),
+        err => (this.message = 'Error: Data cannot be loaded.')
       );
   }
 
@@ -49,21 +43,17 @@ export class SeriesSearchComponent implements OnInit {
   }
 
   emitParamChange() {
-    this
-      .searchParamChange
-      .emit(this.getSearchParams());
+    this.searchParamChange.emit(this.getSearchParams());
   }
 
   getSearchParams(): HttpParams {
     let params = new HttpParams();
 
     if (this.searchText) {
-      params = params
-        .append('search', this.searchText);
+      params = params.append('search', this.searchText);
     }
     if (this.authorId) {
-      params = params
-        .append('authorId', this.authorId);
+      params = params.append('authorId', this.authorId);
     }
 
     return params;
@@ -73,5 +63,4 @@ export class SeriesSearchComponent implements OnInit {
     this.searchText = searchText;
     this.emitParamChange();
   }
-
 }

@@ -10,10 +10,11 @@ export class ExerciseInfo {
   solved = false;
   solutionRequested = false;
 
-  constructor(e: Exercise,
+  constructor(
+    e: Exercise,
     public programmingLanguage: string,
     public hasPrevious: boolean,
-    public hasNext: boolean,
+    public hasNext: boolean
   ) {
     this._id = e._id;
     this.sortOrder = e.sortOrder;
@@ -34,4 +35,11 @@ export class Exercise {
   solution: string;
   solved?: boolean;
   solutionRequested?: boolean;
+}
+
+export interface ExerciseUserProgress {
+  id: number;
+  userSolution: string;
+  solved: boolean;
+  solutionRequested: boolean;
 }
