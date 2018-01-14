@@ -58,6 +58,19 @@ export function reducer(
         loaded: false
       };
     }
+    case ea.EXERCISE_SOLVED: {
+      const exState = action.payload;
+      console.log(exState);
+      return {
+        ...state,
+        [exState.id]: exState
+      };
+    }
   }
   return state;
 }
+
+export const getUserStateLoading = (state: ExerciseUserState) => state.loading;
+export const getUserStateLoaded = (state: ExerciseUserState) => state.loaded;
+export const getUserStateEntities = (state: ExerciseUserState) =>
+  state.entities;

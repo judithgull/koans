@@ -11,8 +11,11 @@ import { Feedback, FeedbackType } from '../../common/model/feedback';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as st from '../store';
-import { Exercise, ExerciseInfo } from '../../common/model/exercise';
-import { ExerciseUserState } from '../store/reducers/exercise.reducer';
+import {
+  Exercise,
+  ExerciseInfo,
+  ExerciseUserProgress
+} from '../../common/model/exercise';
 
 const cardTransition = trigger('cardTransition', [
   transition('* -> *', [
@@ -36,7 +39,7 @@ const cardTransition = trigger('cardTransition', [
 export class RunExerciseCardComponent implements OnInit {
   exercise: ExerciseInfo;
   ex$: Store<Exercise>;
-  userState$: Store<ExerciseUserState>;
+  userState$: Store<ExerciseUserProgress>;
 
   solutionVisible = false;
   userSolution = '';
@@ -53,7 +56,7 @@ export class RunExerciseCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.ex$ = this.store.select(st.getSelectedExercise);
-    this.userState$ = this.store.select(st.getExerciseUserState);
+    this.userState$ = this.store.select(st.getSelectedUserState);
 
     this.route.data.subscribe((data: { exercise: ExerciseInfo }) => {
       this.exercise = data.exercise;
@@ -93,6 +96,15 @@ export class RunExerciseCardComponent implements OnInit {
       f => f.type === FeedbackType.Info && f.message === 'Success'
     );
     if (isSuccess) {
+      const exId = this.route.snapshot.params.exId;
+      this.store.dispatch(
+        new st.ExerciseSolved({
+          id: exId,
+          userSolution: this.userSolution,
+          solved: true,
+          solutionRequested: false
+        })
+      );
       this.exercise.solved = true;
       if (this.exercise.hasNext) {
         this.next();
