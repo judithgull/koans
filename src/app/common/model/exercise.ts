@@ -6,8 +6,6 @@ export class ExerciseInfo {
   exercise: string;
   solution: string;
 
-  userSolution?: string;
-
   constructor(
     e: Exercise,
     public programmingLanguage: string,
@@ -29,7 +27,6 @@ export class Exercise {
   title: string;
   description: string;
   exercise: string;
-  userSolution?: string;
   solution: string;
 }
 

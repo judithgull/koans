@@ -5,8 +5,7 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { ExerciseInfo } from '../common/model/exercise';
-import { Injectable, state } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ISeries } from '../common/model/series';
 
 @Injectable()

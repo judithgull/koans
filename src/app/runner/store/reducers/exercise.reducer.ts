@@ -80,7 +80,7 @@ export function reducer(
           ...state.entities,
           [exState.id]: {
             ...state.entities[exState.id],
-            solutionRequested: true
+            solutionRequested: !state.entities[exState.id].solved
           }
         }
       };
