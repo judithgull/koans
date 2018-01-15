@@ -41,7 +41,6 @@ export class RunExerciseCardComponent implements OnInit {
   ex$: Store<Exercise>;
   userState$: Store<ExerciseUserProgress>;
 
-  solutionVisible = false;
   userSolution = '';
 
   feedback: Feedback[] = [];
@@ -86,10 +85,9 @@ export class RunExerciseCardComponent implements OnInit {
   }
 
   toggleSolution() {
-    this.solutionVisible = !this.solutionVisible;
     const exId = this.route.snapshot.params.exId;
     this.store.dispatch(
-      new st.ExerciseSolutionRequested({
+      new st.ToggleSolutionVisible({
         id: exId
       })
     );

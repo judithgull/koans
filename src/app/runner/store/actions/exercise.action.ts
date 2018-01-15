@@ -6,7 +6,7 @@ export const LOAD_EXERCISE_USER_STATE_FAIL = 'LOAD EXERCISE USER STATE FAIL';
 export const LOAD_EXERCISE_USER_STATE_SUCCESS =
   'LOAD EXERCISE USER STATE SUCCESS';
 export const EXERCISE_SOLVED = 'EXERCISE SOLVED';
-export const EXERCISE_SOLUTION_REQUESTED = 'EXERCISE SOLUTION REQUESTED';
+export const TOGGLE_SOLUTION_VISIBLE = 'TOGGLE_SOLUTION_VISIBLE';
 
 export class LoadExerciseUserState implements Action {
   readonly type = LOAD_EXERCISE_USER_STATE;
@@ -33,8 +33,8 @@ export class ExerciseSolved implements Action {
   ) {}
 }
 
-export class ExerciseSolutionRequested implements Action {
-  readonly type = EXERCISE_SOLUTION_REQUESTED;
+export class ToggleSolutionVisible implements Action {
+  readonly type = TOGGLE_SOLUTION_VISIBLE;
   constructor(
     public payload: {
       id: number;
@@ -47,4 +47,4 @@ export type ExersiseUserStateAction =
   | LoadExerciseUserStateFail
   | LoadExerciseUserStateSuccess
   | ExerciseSolved
-  | ExerciseSolutionRequested;
+  | ToggleSolutionVisible;

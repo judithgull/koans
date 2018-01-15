@@ -73,7 +73,7 @@ export function reducer(
         }
       };
     }
-    case ea.EXERCISE_SOLUTION_REQUESTED: {
+    case ea.TOGGLE_SOLUTION_VISIBLE: {
       const exState = action.payload;
       const previousExState = state.entities[exState.id];
       return {
@@ -82,7 +82,8 @@ export function reducer(
           ...state.entities,
           [exState.id]: {
             ...previousExState,
-            solutionRequested: !previousExState.solved
+            solutionRequested: !previousExState.solved,
+            solutionVisible: !previousExState.solutionVisible
           }
         }
       };

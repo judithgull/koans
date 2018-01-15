@@ -34,7 +34,8 @@ export class SeriesEffects {
             id: e.sortOrder,
             userSolution: e.exercise,
             solved: false,
-            solutionRequested: false
+            solutionRequested: false,
+            solutionVisible: false
           };
         }
       );

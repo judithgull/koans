@@ -35,4 +35,5 @@ export interface ExerciseUserProgress {
   userSolution: string;
   solved: boolean;
   solutionRequested: boolean;
+  solutionVisible: boolean;
 }
