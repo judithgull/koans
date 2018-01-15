@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { reducers, effects } from './store';
 import { EffectsModule } from '@ngrx/effects';
+import { ExerciseTextComponent } from './exercise-text/exercise-text.component';
 
 const routes: Routes = [
   {
@@ -58,7 +59,8 @@ const routes: Routes = [
   declarations: [
     SeriesRunnerComponent,
     ProgressBarComponent,
-    RunExerciseCardComponent
+    RunExerciseCardComponent,
+    ExerciseTextComponent
   ]
 })
 export class RunnerModule {}

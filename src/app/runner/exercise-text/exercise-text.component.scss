@@ -5,8 +5,16 @@
 .exercise-card {
   background-color: c(black);
   padding: s(huge) s(small);
+  &-info {
+    max-width: 500px;
+    display: block;
+
+    margin: s(small) auto s(huge);
+    text-align: center;
+  }
 }
 
-.code-editor-wrap {
-  margin-bottom: s(medium);
+.exercise-title,
+.exercise-description {
+  color: c(light-grey);
 }
