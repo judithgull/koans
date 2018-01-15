@@ -105,7 +105,6 @@ export class RunExerciseCardComponent implements OnInit {
           solutionRequested: false
         })
       );
-      this.exercise.solved = true;
       if (this.exercise.hasNext) {
         this.next();
       }

@@ -7,7 +7,6 @@ export class ExerciseInfo {
   solution: string;
 
   userSolution?: string;
-  solved = false;
   solutionRequested = false;
 
   constructor(
@@ -33,7 +32,6 @@ export class Exercise {
   exercise: string;
   userSolution?: string;
   solution: string;
-  solved?: boolean;
   solutionRequested?: boolean;
 }
 
