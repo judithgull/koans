@@ -96,13 +96,12 @@ export class RunExerciseCardComponent implements OnInit {
       f => f.type === FeedbackType.Info && f.message === 'Success'
     );
     if (isSuccess) {
+      // TODO get user solution from feedback
       const exId = this.route.snapshot.params.exId;
       this.store.dispatch(
         new st.ExerciseSolved({
           id: exId,
-          userSolution: this.userSolution,
-          solved: true,
-          solutionRequested: false
+          userSolution: this.userSolution
         })
       );
       if (this.exercise.hasNext) {

@@ -63,7 +63,12 @@ export function reducer(
       return {
         entities: {
           ...state.entities,
-          [exState.id]: exState
+          [exState.id]: {
+            ...state.entities[exState.id],
+            id: exState.id,
+            userSolution: exState.userSolution,
+            solved: true
+          }
         },
         loaded: state.loaded,
         loading: state.loading

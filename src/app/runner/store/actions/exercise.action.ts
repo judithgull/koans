@@ -24,7 +24,12 @@ export class LoadExerciseUserStateSuccess implements Action {
 
 export class ExerciseSolved implements Action {
   readonly type = EXERCISE_SOLVED;
-  constructor(public payload: ExerciseUserProgress) {}
+  constructor(
+    public payload: {
+      id: number;
+      userSolution: string;
+    }
+  ) {}
 }
 
 export type ExersiseUserStateAction =
