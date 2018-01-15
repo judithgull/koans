@@ -87,7 +87,12 @@ export class RunExerciseCardComponent implements OnInit {
 
   toggleSolution() {
     this.solutionVisible = !this.solutionVisible;
-    this.exercise.solutionRequested = true;
+    const exId = this.route.snapshot.params.exId;
+    this.store.dispatch(
+      new st.ExerciseSolutionRequested({
+        id: exId
+      })
+    );
   }
 
   updateFeedback(feedback: Feedback[]) {

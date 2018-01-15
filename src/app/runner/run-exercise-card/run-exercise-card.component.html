@@ -21,6 +21,6 @@
   </div>
   <button class="button" (click)="toggleSolution()">{{!solutionVisible && "Show" || "Hide"}} solution</button>
   <button class="button button-prev" *ngIf="exercise?.hasPrevious" type="button" (click)="previous()">Previous</button>
-  <button class="button button-next" *ngIf="exercise?.hasNext && ((userState$ | async)?.solved || exercise?.solutionRequested)"
+  <button class="button button-next" *ngIf="exercise?.hasNext && ((userState$ | async)?.solved || (userState$ | async)?.solutionRequested)"
     type="button" (click)="next()">Next</button>
 </div>

@@ -7,7 +7,6 @@ export class ExerciseInfo {
   solution: string;
 
   userSolution?: string;
-  solutionRequested = false;
 
   constructor(
     e: Exercise,
@@ -32,7 +31,6 @@ export class Exercise {
   exercise: string;
   userSolution?: string;
   solution: string;
-  solutionRequested?: boolean;
 }
 
 export interface ExerciseUserProgress {
