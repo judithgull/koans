@@ -60,27 +60,29 @@ export function reducer(
     }
     case ea.EXERCISE_SOLVED: {
       const exState = action.payload;
+      const previousExState = state.entities[exState.id];
       return {
         ...state,
         entities: {
           ...state.entities,
           [exState.id]: {
-            ...state.entities[exState.id],
+            ...previousExState,
             userSolution: exState.userSolution,
-            solved: true
+            solved: !previousExState.solutionRequested
           }
         }
       };
     }
     case ea.EXERCISE_SOLUTION_REQUESTED: {
       const exState = action.payload;
+      const previousExState = state.entities[exState.id];
       return {
         ...state,
         entities: {
           ...state.entities,
           [exState.id]: {
-            ...state.entities[exState.id],
-            solutionRequested: !state.entities[exState.id].solved
+            ...previousExState,
+            solutionRequested: !previousExState.solved
           }
         }
       };
