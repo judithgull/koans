@@ -18,6 +18,7 @@ import { ProgrammingLanguage } from '../../common/model/programming-language';
 import { Store } from '@ngrx/store';
 import * as st from '../store';
 import { LoadExerciseUserState } from '../store/actions/exercise.action';
+import { ExerciseUserProgress } from '../../common/model/exercise';
 
 @Component({
   selector: 'app-series-runner',
@@ -33,6 +34,7 @@ import { LoadExerciseUserState } from '../store/actions/exercise.action';
 })
 export class SeriesRunnerComponent implements OnInit {
   series$: Store<ISeries>;
+  userStates$: Store<{ [id: string]: ExerciseUserProgress }>;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,6 +46,7 @@ export class SeriesRunnerComponent implements OnInit {
       this.store.dispatch(new st.LoadSeries(data.id));
     });
     this.series$ = this.store.select(st.getSeries);
+    this.userStates$ = this.store.select(st.getExerciseUserProgress);
   }
 
   getIcon(programmingLanguage: string) {

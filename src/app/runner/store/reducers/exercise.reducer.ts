@@ -60,10 +60,13 @@ export function reducer(
     }
     case ea.EXERCISE_SOLVED: {
       const exState = action.payload;
-      console.log(exState);
       return {
-        ...state,
-        [exState.id]: exState
+        entities: {
+          ...state.entities,
+          [exState.id]: exState
+        },
+        loaded: state.loaded,
+        loading: state.loading
       };
     }
   }
