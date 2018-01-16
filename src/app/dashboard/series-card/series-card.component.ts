@@ -31,14 +31,4 @@ export class SeriesCardComponent {
   showDetails(id: string) {
     this.router.navigate(['series', id]);
   }
-
-  getIcon(programmingLanguage: string) {
-    if (
-      ProgrammingLanguage.typescript ===
-      ProgrammingLanguage[programmingLanguage]
-    ) {
-      return 'assets/icon-typescript.svg';
-    }
-    return 'assets/icon-javascript.svg';
-  }
 }

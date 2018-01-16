@@ -11,21 +11,6 @@
   position: relative;
 }
 
-.programming-lang {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
-  width: 3rem;
-  height: 3rem;
-  &--light {
-    background-color: c(light-grey);
-  }
-  &--dark {
-    background-color: c(black);
-  }
-}
-
 .main-title {
   display: inline-block;
   margin-left: s(large);

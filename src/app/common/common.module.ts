@@ -11,18 +11,21 @@ import { ValidationMessagesComponent } from './validation-messages/validation-me
 import { ValidationService } from './validation-messages/validation.service';
 import { EditableMarkerService } from './editable-marker.service';
 import { ExerciseFeedbackComponent } from './exercise-feedback/exercise-feedback.component';
+import { SeriesIconComponent } from './series-icon/series-icon.component';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule],
   declarations: [
     ValidationMessagesComponent,
     LogoComponent,
-    ExerciseFeedbackComponent
+    ExerciseFeedbackComponent,
+    SeriesIconComponent
   ],
   exports: [
     ValidationMessagesComponent,
     LogoComponent,
-    ExerciseFeedbackComponent
+    ExerciseFeedbackComponent,
+    SeriesIconComponent
   ],
   providers: [
     ValidationService,
