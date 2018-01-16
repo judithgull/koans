@@ -11,31 +11,27 @@ import {
 } from '@angular/animations';
 import { ISeries } from '../../common/model/series';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 
 import { ProgrammingLanguage } from '../../common/model/programming-language';
 import { Store } from '@ngrx/store';
 import * as st from '../store';
-import { ExerciseUserProgress } from '../../common/model/exercise';
+import { ExerciseUserProgress, Exercise } from '../../common/model/exercise';
 
 @Component({
   selector: 'app-series-runner',
   templateUrl: './series-runner.component.html',
-  styleUrls: ['./series-runner.component.scss'],
-  animations: [
-    trigger('cardTransition', [
-      transition('1 -> 2', [
-        style({ transform: 'translateX(200px)', opacity: 0 })
-      ])
-    ])
-  ]
+  styleUrls: ['./series-runner.component.scss']
 })
 export class SeriesRunnerComponent implements OnInit {
   series$: Store<ISeries>;
   userStates$: Store<{ [id: string]: ExerciseUserProgress }>;
+  ex$: Store<Exercise>;
+  userState$: Store<ExerciseUserProgress>;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private store: Store<st.RunnerState>
   ) {}
 
@@ -45,6 +41,8 @@ export class SeriesRunnerComponent implements OnInit {
     });
     this.series$ = this.store.select(st.getSeries);
     this.userStates$ = this.store.select(st.getExerciseUserProgress);
+    this.ex$ = this.store.select(st.getSelectedExercise);
+    this.userState$ = this.store.select(st.getSelectedUserState);
   }
 
   getIcon(programmingLanguage: string) {
@@ -55,21 +53,5 @@ export class SeriesRunnerComponent implements OnInit {
       return 'assets/icon-typescript.svg';
     }
     return 'assets/icon-javascript.svg';
-  }
-
-  public getRouterOutletState(outlet) {
-    return outlet.isActivated ? outlet.activatedRoute : '';
-  }
-
-  getAnimation() {
-    return 'fadeIn';
-  }
-
-  prepRouteState(outlet: RouterOutlet) {
-    if (!outlet.isActivated) {
-      console.log('empty');
-    } else {
-      return outlet.activatedRoute.params['value']['exId'];
-    }
   }
 }

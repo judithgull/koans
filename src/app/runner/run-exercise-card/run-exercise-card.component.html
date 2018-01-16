@@ -1,23 +1,18 @@
-<div class="exercise-card">
-  <app-exercise-text [ex]="ex$ | async"></app-exercise-text>
-  <div class="l-grid-wrap">
-    <div class="l-grid code-editor-wrap">
+<app-exercise-text [ex]="ex$ | async"></app-exercise-text>
+<div class="l-grid-wrap">
+  <div class="l-grid code-editor-wrap">
 
-      <div class="l-grid-cell l-one-half l-mobile-one-whole">
-        <app-code-editor [language]='exercise?.programmingLanguage' [(ngModel)]='userSolution' (errorMarkerChanges)="updateFeedback($event)"></app-code-editor>
-      </div>
-
-      <div class="l-grid-cell l-one-half l-mobile-one-whole">
-        <app-code-editor *ngIf="(userState$ | async)?.solutionVisible" [language]='exercise?.programmingLanguage' [ngModel]='exercise?.solution'></app-code-editor>
-        <div *ngIf="!(userState$ | async)?.solutionVisible">
-          <app-exercise-feedback *ngFor="let f of feedback" [feedback]='f'></app-exercise-feedback>
-        </div>
-      </div>
+    <div class="l-grid-cell l-one-half l-mobile-one-whole">
+      <app-code-editor [language]='exercise?.programmingLanguage' [(ngModel)]='userSolution' (errorMarkerChanges)="updateFeedback($event)"></app-code-editor>
     </div>
 
+    <div class="l-grid-cell l-one-half l-mobile-one-whole">
+      <app-code-editor *ngIf="(userState$ | async)?.solutionVisible" [language]='exercise?.programmingLanguage' [ngModel]='exercise?.solution'></app-code-editor>
+      <div *ngIf="!(userState$ | async)?.solutionVisible">
+        <app-exercise-feedback *ngFor="let f of feedback" [feedback]='f'></app-exercise-feedback>
+      </div>
+    </div>
   </div>
-  <button class="button" (click)="toggleSolution()">{{!(userState$ | async)?.solutionVisible && "Show" || "Hide"}} solution</button>
-  <button class="button button-prev" *ngIf="exercise?.hasPrevious" type="button" (click)="previous()">Previous</button>
-  <button class="button button-next" *ngIf="exercise?.hasNext && ((userState$ | async)?.solved || (userState$ | async)?.solutionRequested)"
-    type="button" (click)="next()">Next</button>
+
 </div>
+<button class="button" (click)="toggleSolution()">{{!(userState$ | async)?.solutionVisible && "Show" || "Hide"}} solution</button>

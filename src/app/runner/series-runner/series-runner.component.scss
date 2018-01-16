@@ -1,6 +1,11 @@
-@import "../../../common-styles/_0.settings.colors";
-@import "../../../common-styles/_0.settings.sizes";
-@import "../../../common-styles/_0.settings.typography";
+@import '../../../common-styles/_0.settings.colors';
+@import '../../../common-styles/_0.settings.sizes';
+@import '../../../common-styles/_0.settings.typography';
+
+.exercise-card {
+  background-color: c(black);
+  padding: s(huge) s(small);
+}
 
 .programming-lang-wrap {
   position: relative;

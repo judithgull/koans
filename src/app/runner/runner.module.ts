@@ -14,6 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, effects } from './store';
 import { EffectsModule } from '@ngrx/effects';
 import { ExerciseTextComponent } from './exercise-text/exercise-text.component';
+import { ExerciseNavButtonsComponent } from './exercise-nav-buttons/exercise-nav-buttons.component';
 
 const routes: Routes = [
   {
@@ -60,7 +61,8 @@ const routes: Routes = [
     SeriesRunnerComponent,
     ProgressBarComponent,
     RunExerciseCardComponent,
-    ExerciseTextComponent
+    ExerciseTextComponent,
+    ExerciseNavButtonsComponent
   ]
 })
 export class RunnerModule {}

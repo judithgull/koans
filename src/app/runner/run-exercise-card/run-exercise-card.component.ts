@@ -1,12 +1,4 @@
 import { Store } from '@ngrx/store';
-import {
-  animate,
-  query,
-  style,
-  transition,
-  trigger,
-  keyframes
-} from '@angular/animations';
 import { Feedback, FeedbackType } from '../../common/model/feedback';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,30 +8,18 @@ import {
   ExerciseInfo,
   ExerciseUserProgress
 } from '../../common/model/exercise';
-
-const cardTransition = trigger('cardTransition', [
-  transition('* -> *', [
-    animate(
-      10000,
-      keyframes([
-        style({ opacity: 1, transform: 'translateX(-500%)', offset: 0.49 }),
-        style({ opacity: 0, transform: 'translateX(500%)', offset: 0.5 }),
-        style({ opacity: 1, transform: 'translateX(-500%)', offset: 0.51 })
-      ])
-    )
-  ])
-]);
+import { ISeries } from '../../common/model/series';
 
 @Component({
   selector: 'app-run-exercise-card',
   templateUrl: './run-exercise-card.component.html',
-  styleUrls: ['./run-exercise-card.component.scss'],
-  animations: [cardTransition]
+  styleUrls: ['./run-exercise-card.component.scss']
 })
 export class RunExerciseCardComponent implements OnInit {
   exercise: ExerciseInfo;
   ex$: Store<Exercise>;
   userState$: Store<ExerciseUserProgress>;
+  series$: Store<ISeries>;
 
   userSolution = '';
 
@@ -56,6 +36,7 @@ export class RunExerciseCardComponent implements OnInit {
   ngOnInit(): void {
     this.ex$ = this.store.select(st.getSelectedExercise);
     this.userState$ = this.store.select(st.getSelectedUserState);
+    this.series$ = this.store.select(st.getSeries);
 
     this.route.data.subscribe((data: { exercise: ExerciseInfo }) => {
       this.exercise = data.exercise;

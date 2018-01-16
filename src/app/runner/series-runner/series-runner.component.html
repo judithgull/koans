@@ -6,9 +6,12 @@
       <h1 class="t-title main-title">{{(series$ | async) ?.title}}</h1>
       <app-progress-bar *ngIf="(series$ | async)" [exercises]="(series$ | async).items" [userProgress]="(userStates$ | async)">
       </app-progress-bar>
-      <div class="programming-lang-wrap" [@cardTransition]='prepRouteState(o)'>
+      <div class="programming-lang-wrap">
         <img class="programming-lang programming-lang--light" [src]="getIcon((series$ | async)?.programmingLanguage)" />
-        <router-outlet #o="outlet"></router-outlet>
+        <div class="exercise-card">
+          <router-outlet #o="outlet"></router-outlet>
+          <app-exercise-nav-buttons [userProgress]="(userState$ | async)" [exId]="(ex$ | async)?.sortOrder" [exerciseCount]="(series$ | async)?.items.length"></app-exercise-nav-buttons>
+        </div>
       </div>
     </div>
   </div>
