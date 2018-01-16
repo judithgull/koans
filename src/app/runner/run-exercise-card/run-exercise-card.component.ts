@@ -8,7 +8,7 @@ import {
   keyframes
 } from '@angular/animations';
 import { Feedback, FeedbackType } from '../../common/model/feedback';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as st from '../store';
 import {

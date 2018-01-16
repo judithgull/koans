@@ -13,11 +13,9 @@ import { ISeries } from '../../common/model/series';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { ProgrammingLanguage } from '../../common/model/programming-language';
 import { Store } from '@ngrx/store';
 import * as st from '../store';
-import { LoadExerciseUserState } from '../store/actions/exercise.action';
 import { ExerciseUserProgress } from '../../common/model/exercise';
 
 @Component({

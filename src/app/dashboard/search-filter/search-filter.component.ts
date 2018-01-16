@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-search-filter',
@@ -6,14 +6,14 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./search-filter.component.scss']
 })
 export class SearchFilterComponent {
-
   selectedTabId = 0;
 
-  @Input()
-  userId: string;
+  @Input() userId: string;
 
   @Output()
-  valueChange: EventEmitter<{ authorId?: string }> = new EventEmitter<{ authorId?: string }>();
+  valueChange: EventEmitter<{ authorId?: string }> = new EventEmitter<{
+    authorId?: string;
+  }>();
 
   handleSelectionChange() {
     if (this.selectedTabId === 0) {
