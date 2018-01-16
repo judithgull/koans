@@ -1,4 +1,4 @@
-import { Exercise, ExerciseInfo } from './model/exercise';
+import { Exercise } from './model/exercise';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -25,22 +25,6 @@ export class SeriesService {
       return Observable.throw('invalid id');
     }
     return this.http.get(`${URL_SERIES}${id}`).catch(this.handleError);
-  }
-
-  getExercise(seriesId: string, exSortOrder: number): Observable<ExerciseInfo> {
-    return this.get(seriesId).map(s => {
-      const res = {} as ExerciseInfo;
-      const item = this.getItem(s, exSortOrder);
-      if (item) {
-        return new ExerciseInfo(
-          item,
-          s.programmingLanguage,
-          item.sortOrder > 1,
-          item.sortOrder < s.items.length
-        );
-      }
-      return null;
-    });
   }
 
   private getItem(series: ISeries, exSortOrder: number): Exercise {

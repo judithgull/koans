@@ -3,11 +3,7 @@ import { Feedback, FeedbackType } from '../../common/model/feedback';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as st from '../store';
-import {
-  Exercise,
-  ExerciseInfo,
-  ExerciseUserProgress
-} from '../../common/model/exercise';
+import { Exercise, ExerciseUserProgress } from '../../common/model/exercise';
 import { ISeries } from '../../common/model/series';
 
 @Component({
@@ -16,14 +12,15 @@ import { ISeries } from '../../common/model/series';
   styleUrls: ['./run-exercise-card.component.scss']
 })
 export class RunExerciseCardComponent implements OnInit {
-  exercise: ExerciseInfo;
   ex$: Store<Exercise>;
   userState$: Store<ExerciseUserProgress>;
   series$: Store<ISeries>;
 
   userSolution = '';
+  programmingLanguage;
 
   feedback: Feedback[] = [];
+  seriesLength: number = 0;
 
   private editableMarkerFeedback: Feedback[] = [];
 
@@ -38,9 +35,18 @@ export class RunExerciseCardComponent implements OnInit {
     this.userState$ = this.store.select(st.getSelectedUserState);
     this.series$ = this.store.select(st.getSeries);
 
-    this.route.data.subscribe((data: { exercise: ExerciseInfo }) => {
-      this.exercise = data.exercise;
-      this.userSolution = data.exercise.exercise;
+    this.series$.subscribe(s => {
+      if (s) {
+        this.seriesLength = s.items.length;
+        this.programmingLanguage = s.programmingLanguage;
+      }
+    });
+
+    // TODO get user solution from store
+    this.ex$.subscribe((ex: Exercise) => {
+      if (ex) {
+        this.userSolution = ex.exercise;
+      }
     });
 
     this.feedback.push({
@@ -51,14 +57,6 @@ export class RunExerciseCardComponent implements OnInit {
     });
   }
 
-  next() {
-    this.navigate(this.exercise.sortOrder + 1);
-  }
-
-  previous() {
-    this.navigate(this.exercise.sortOrder - 1);
-  }
-
   navigate(exId: number) {
     this.router.navigate(['e', exId], {
       relativeTo: this.route.parent
@@ -66,12 +64,15 @@ export class RunExerciseCardComponent implements OnInit {
   }
 
   toggleSolution() {
-    const exId = this.route.snapshot.params.exId;
     this.store.dispatch(
       new st.ToggleSolutionVisible({
-        id: exId
+        id: this.getExId()
       })
     );
+  }
+
+  private getExId(): number {
+    return parseInt(this.route.snapshot.params.exId, 10);
   }
 
   updateFeedback(feedback: Feedback[]) {
@@ -81,15 +82,15 @@ export class RunExerciseCardComponent implements OnInit {
     );
     if (isSuccess) {
       // TODO get user solution from feedback
-      const exId = this.route.snapshot.params.exId;
+      const exId = this.getExId();
       this.store.dispatch(
         new st.ExerciseSolved({
           id: exId,
           userSolution: this.userSolution
         })
       );
-      if (this.exercise.hasNext) {
-        this.next();
+      if (exId < this.seriesLength) {
+        this.navigate(exId + 1);
       }
     }
   }

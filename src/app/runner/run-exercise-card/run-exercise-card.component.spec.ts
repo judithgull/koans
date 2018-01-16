@@ -20,7 +20,7 @@ describe('RunExerciseCardComponent', () => {
   class ActivatedRouteMock {
     snapshot = {
       data: {
-        exercise: new ExerciseInfo(e, testLanguage, true, false)
+        exercise: new ExerciseInfo(e, testLanguage)
       }
     };
   }

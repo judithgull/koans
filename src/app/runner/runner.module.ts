@@ -5,7 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CodeEditorModule } from '../code-editor/code-editor.module';
 import { AppCommonModule } from '../common/common.module';
-import { ExerciseResolve } from './exercise.resolve';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { RunExerciseCardComponent } from './run-exercise-card/run-exercise-card.component';
 import { SeriesRunnerComponent } from './series-runner/series-runner.component';
@@ -24,16 +23,7 @@ const routes: Routes = [
       {
         pathMatch: 'full',
         path: 'e/:exId',
-        component: RunExerciseCardComponent,
-
-        resolve: {
-          exercise: ExerciseResolve
-        },
-        data: {
-          animation: {
-            value: ':exId'
-          }
-        }
+        component: RunExerciseCardComponent
       },
       {
         pathMatch: 'full',
@@ -56,7 +46,6 @@ const routes: Routes = [
     StoreModule.forFeature('runner', reducers),
     EffectsModule.forFeature(effects)
   ],
-  providers: [ExerciseResolve],
   declarations: [
     SeriesRunnerComponent,
     ProgressBarComponent,
