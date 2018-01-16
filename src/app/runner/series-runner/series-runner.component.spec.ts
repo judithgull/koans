@@ -1,4 +1,3 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import '../../../rx-index';
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -22,8 +21,7 @@ describe('SeriesRunnerComponent', () => {
       ],
       imports: [
         AppCommonModule,
-        RouterTestingModule,
-        BrowserAnimationsModule
+        RouterTestingModule
       ],
       providers: [
         {

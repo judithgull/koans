@@ -1,7 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { ToastModule } from 'ng2-toastr';
 
@@ -31,7 +30,6 @@ export const metaReducers: Array<MetaReducer<any>> = [storeFreeze];
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
   imports: [
-    BrowserAnimationsModule,
     BrowserModule,
     DashboardModule,
     HttpClientModule,
