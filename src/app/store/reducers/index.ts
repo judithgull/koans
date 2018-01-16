@@ -31,10 +31,15 @@ export class CustomSerializer
     const { queryParams } = routerState.root;
 
     let state: ActivatedRouteSnapshot = routerState.root;
+
+    let params = {};
     while (state.firstChild) {
       state = state.firstChild;
+      params = {
+        ...params,
+        ...state.params
+      };
     }
-    const { params } = state;
 
     return { url, queryParams, params };
   }

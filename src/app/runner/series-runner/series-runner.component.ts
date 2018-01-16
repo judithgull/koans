@@ -28,7 +28,7 @@ export class SeriesRunnerComponent implements OnInit {
       this.store.dispatch(new st.LoadSeries(data.id));
     });
     this.series$ = this.store.select(st.getSeries);
-    this.userStates$ = this.store.select(st.getExerciseUserProgress);
+    this.userStates$ = this.store.select(st.getSelectedSeriesState);
     this.ex$ = this.store.select(st.getSelectedExercise);
     this.userState$ = this.store.select(st.getSelectedUserState);
   }

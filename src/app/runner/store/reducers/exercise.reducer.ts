@@ -1,13 +1,17 @@
 import { ExerciseUserProgress } from '../../../common/model/exercise';
 import * as ea from '../actions/exercise.action';
 
-export interface ExerciseUserState {
-  entities: { [id: string]: ExerciseUserProgress };
+export interface SeriesUserState {
+  [id: string]: ExerciseUserProgress;
+}
+
+export interface SeriesUserStates {
+  entities: { [id: string]: SeriesUserState };
   loaded: boolean;
   loading: boolean;
 }
 
-export const initialState: ExerciseUserState = {
+export const initialState: SeriesUserStates = {
   entities: {},
   loaded: false,
   loading: false
@@ -16,7 +20,7 @@ export const initialState: ExerciseUserState = {
 export function reducer(
   state = initialState,
   action: ea.ExersiseUserStateAction
-): ExerciseUserState {
+): SeriesUserStates {
   switch (action.type) {
     case ea.LOAD_EXERCISE_USER_STATE: {
       return {
@@ -26,9 +30,10 @@ export function reducer(
       };
     }
     case ea.LOAD_EXERCISE_USER_STATE_SUCCESS: {
-      const exStates = action.payload;
+      const exProgress = action.payload.userProgress;
+      const id = action.payload.seriesId;
 
-      const entities = exStates.reduce(
+      const exEntities = exProgress.reduce(
         (
           entities: { [id: string]: ExerciseUserProgress },
           ex: ExerciseUserProgress
@@ -39,15 +44,17 @@ export function reducer(
           };
         },
         {
-          ...state.entities
+          ...state.entities[id]
         }
       );
 
       return {
-        ...state,
         loading: false,
         loaded: true,
-        entities
+        entities: {
+          ...state.entities,
+          [id]: exEntities
+        }
       };
     }
 
@@ -60,31 +67,46 @@ export function reducer(
     }
     case ea.EXERCISE_SOLVED: {
       const exState = action.payload;
-      const previousExState = state.entities[exState.id];
+      const seriesId = exState.seriesId;
+      const previousSeries = state.entities[seriesId];
+      const previousExState = previousSeries[exState.id];
+      const newEntity: ExerciseUserProgress = {
+        ...previousExState,
+        userSolution: exState.userSolution,
+        solved: !previousExState.solutionRequested
+      };
+      const newSeries: SeriesUserState = {
+        ...previousSeries,
+        [exState.id]: newEntity
+      };
       return {
         ...state,
         entities: {
           ...state.entities,
-          [exState.id]: {
-            ...previousExState,
-            userSolution: exState.userSolution,
-            solved: !previousExState.solutionRequested
-          }
+          [seriesId]: newSeries
         }
       };
     }
     case ea.TOGGLE_SOLUTION_VISIBLE: {
+      // TODO refactor
       const exState = action.payload;
-      const previousExState = state.entities[exState.id];
+      const seriesId = exState.seriesId;
+      const previousSeries = state.entities[seriesId];
+      const previousExState = previousSeries[exState.id];
+      const newEntity: ExerciseUserProgress = {
+        ...previousExState,
+        solutionRequested: !previousExState.solved,
+        solutionVisible: !previousExState.solutionVisible
+      };
+      const newSeries: SeriesUserState = {
+        ...previousSeries,
+        [exState.id]: newEntity
+      };
       return {
         ...state,
         entities: {
           ...state.entities,
-          [exState.id]: {
-            ...previousExState,
-            solutionRequested: !previousExState.solved,
-            solutionVisible: !previousExState.solutionVisible
-          }
+          [seriesId]: newSeries
         }
       };
     }
@@ -92,7 +114,6 @@ export function reducer(
   return state;
 }
 
-export const getUserStateLoading = (state: ExerciseUserState) => state.loading;
-export const getUserStateLoaded = (state: ExerciseUserState) => state.loaded;
-export const getUserStateEntities = (state: ExerciseUserState) =>
-  state.entities;
+export const getUserStateLoading = (state: SeriesUserStates) => state.loading;
+export const getUserStateLoaded = (state: SeriesUserStates) => state.loaded;
+export const getUserStateEntities = (state: SeriesUserStates) => state.entities;

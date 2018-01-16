@@ -1,6 +1,7 @@
+import { Subscription } from 'rxjs/Rx';
 import { Store } from '@ngrx/store';
 import { Feedback, FeedbackType } from '../../common/model/feedback';
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as st from '../store';
 import { Exercise, ExerciseUserProgress } from '../../common/model/exercise';
@@ -11,16 +12,17 @@ import { ISeries } from '../../common/model/series';
   templateUrl: './run-exercise-card.component.html',
   styleUrls: ['./run-exercise-card.component.scss']
 })
-export class RunExerciseCardComponent implements OnInit {
+export class RunExerciseCardComponent implements OnInit, OnDestroy {
   ex$: Store<Exercise>;
   userState$: Store<ExerciseUserProgress>;
   series$: Store<ISeries>;
 
-  userSolution = '';
+  userValue = '';
   programmingLanguage;
 
   feedback: Feedback[] = [];
   seriesLength: number = 0;
+  subs: Subscription[];
 
   private editableMarkerFeedback: Feedback[] = [];
 
@@ -35,19 +37,19 @@ export class RunExerciseCardComponent implements OnInit {
     this.userState$ = this.store.select(st.getSelectedUserState);
     this.series$ = this.store.select(st.getSeries);
 
-    this.series$.subscribe(s => {
-      if (s) {
-        this.seriesLength = s.items.length;
-        this.programmingLanguage = s.programmingLanguage;
-      }
-    });
-
-    // TODO get user solution from store
-    this.ex$.subscribe((ex: Exercise) => {
-      if (ex) {
-        this.userSolution = ex.exercise;
-      }
-    });
+    this.subs = [
+      this.series$.subscribe(s => {
+        if (s) {
+          this.seriesLength = s.items.length;
+          this.programmingLanguage = s.programmingLanguage;
+        }
+      }),
+      this.userState$.subscribe(userState => {
+        if (userState) {
+          this.userValue = userState.userSolution;
+        }
+      })
+    ];
 
     this.feedback.push({
       type: FeedbackType.Error,
@@ -55,6 +57,10 @@ export class RunExerciseCardComponent implements OnInit {
       source: '???',
       startLineNumber: 0
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.subs.map(s => s.unsubscribe());
   }
 
   navigate(exId: number) {
@@ -66,6 +72,7 @@ export class RunExerciseCardComponent implements OnInit {
   toggleSolution() {
     this.store.dispatch(
       new st.ToggleSolutionVisible({
+        seriesId: this.getSeriesId(),
         id: this.getExId()
       })
     );
@@ -73,6 +80,10 @@ export class RunExerciseCardComponent implements OnInit {
 
   private getExId(): number {
     return parseInt(this.route.snapshot.params.exId, 10);
+  }
+
+  private getSeriesId() {
+    return this.route.parent.snapshot.params.id;
   }
 
   updateFeedback(feedback: Feedback[]) {
@@ -85,8 +96,9 @@ export class RunExerciseCardComponent implements OnInit {
       const exId = this.getExId();
       this.store.dispatch(
         new st.ExerciseSolved({
+          seriesId: this.getSeriesId(),
           id: exId,
-          userSolution: this.userSolution
+          userSolution: this.userValue
         })
       );
       if (exId < this.seriesLength) {

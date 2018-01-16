@@ -20,13 +20,19 @@ export class LoadExerciseUserStateFail implements Action {
 
 export class LoadExerciseUserStateSuccess implements Action {
   readonly type = LOAD_EXERCISE_USER_STATE_SUCCESS;
-  constructor(public payload: ExerciseUserProgress[]) {}
+  constructor(
+    public payload: {
+      seriesId: number;
+      userProgress: ExerciseUserProgress[];
+    }
+  ) {}
 }
 
 export class ExerciseSolved implements Action {
   readonly type = EXERCISE_SOLVED;
   constructor(
     public payload: {
+      seriesId: number;
       id: number;
       userSolution: string;
     }
@@ -37,6 +43,7 @@ export class ToggleSolutionVisible implements Action {
   readonly type = TOGGLE_SOLUTION_VISIBLE;
   constructor(
     public payload: {
+      seriesId: number;
       id: number;
     }
   ) {}

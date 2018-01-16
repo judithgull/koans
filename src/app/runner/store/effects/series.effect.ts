@@ -28,7 +28,7 @@ export class SeriesEffects {
   @Effect()
   loadSuccess$ = this.actions$.ofType(sa.LOAD_SERIES_SUCCESS).pipe(
     map((a: sa.LoadSeriesSuccess) => {
-      const initialUserState: ExerciseUserProgress[] = a.payload.items.map(
+      const initialUserProgress: ExerciseUserProgress[] = a.payload.items.map(
         e => {
           return {
             id: e.sortOrder,
@@ -39,7 +39,10 @@ export class SeriesEffects {
           };
         }
       );
-      return new sa.LoadExerciseUserStateSuccess(initialUserState);
+      return new sa.LoadExerciseUserStateSuccess({
+        seriesId: a.payload._id,
+        userProgress: initialUserProgress
+      });
     })
   );
 }

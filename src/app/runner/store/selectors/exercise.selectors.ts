@@ -4,32 +4,44 @@ import * as root from '../../../store';
 import * as r from '../reducers';
 import * as er from '../reducers/exercise.reducer';
 
-export const getExerciseUserState = createSelector(
+export const getSeriesUserStates = createSelector(
   r.getRunnerState,
-  (state: r.RunnerState) => state.exerciseUserState
+  (state: r.RunnerState) => state.userState
 );
 
-export const getExerciseUserProgress = createSelector(
-  getExerciseUserState,
+export const getSeriesUserStateEntities = createSelector(
+  getSeriesUserStates,
   er.getUserStateEntities
 );
 
 export const getExerciseUserStateLoading = createSelector(
-  getExerciseUserState,
+  getSeriesUserStates,
   er.getUserStateLoading
 );
 export const getExerciseUserStateLoaded = createSelector(
-  getExerciseUserState,
+  getSeriesUserStates,
   er.getUserStateLoading
 );
 
-export const getSelectedUserState = createSelector(
-  getExerciseUserProgress,
+export const getSelectedSeriesState = createSelector(
+  getSeriesUserStateEntities,
   root.getRouterState,
   (entities, router) => {
     if (entities && router.state) {
+      const seriesId = router.state.params.id;
+      return entities[seriesId];
+    }
+    return null;
+  }
+);
+
+export const getSelectedUserState = createSelector(
+  getSelectedSeriesState,
+  root.getRouterState,
+  (seriesUserState: er.SeriesUserState, router) => {
+    if (seriesUserState && router.state) {
       const exId = router.state.params.exId;
-      return entities[exId];
+      return seriesUserState[exId];
     }
     return null;
   }
