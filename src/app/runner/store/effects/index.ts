@@ -1,5 +1,5 @@
-import { SeriesEffects } from './series.effect';
+import { UserStateEffects } from './user-state.effects';
 
-export const effects: any[] = [SeriesEffects];
+export const effects: any[] = [UserStateEffects];
 
-export * from './series.effect';
+export * from './user-state.effects';

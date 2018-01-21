@@ -3,7 +3,8 @@ import { Store } from '@ngrx/store';
 import { Feedback, FeedbackType } from '../../common/model/feedback';
 import { Component, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as st from '../store';
+import * as st from '../../store';
+import * as rst from '../store';
 import { Exercise, ExerciseUserProgress } from '../../common/model/exercise';
 import { ISeries } from '../../common/model/series';
 
@@ -29,12 +30,12 @@ export class RunExerciseCardComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<st.RunnerState>
+    private store: Store<st.State>
   ) {}
 
   ngOnInit(): void {
     this.ex$ = this.store.select(st.getSelectedExercise);
-    this.userState$ = this.store.select(st.getSelectedUserState);
+    this.userState$ = this.store.select(rst.getSelectedUserState);
     this.series$ = this.store.select(st.getSeries);
 
     this.subs = [
@@ -71,7 +72,7 @@ export class RunExerciseCardComponent implements OnInit, OnDestroy {
 
   toggleSolution() {
     this.store.dispatch(
-      new st.ToggleSolutionVisible({
+      new rst.ToggleSolutionVisible({
         seriesId: this.getSeriesId(),
         id: this.getExId()
       })
@@ -95,7 +96,7 @@ export class RunExerciseCardComponent implements OnInit, OnDestroy {
       // TODO get user solution from feedback
       const exId = this.getExId();
       this.store.dispatch(
-        new st.ExerciseSolved({
+        new rst.ExerciseSolved({
           seriesId: this.getSeriesId(),
           id: exId,
           userSolution: this.userValue
