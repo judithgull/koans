@@ -1,5 +1,6 @@
 import { ISeries } from '../../common/model/series';
 import * as sa from '../actions/series.action';
+import { createEntities } from '../helpers';
 
 export interface SeriesEntities {
   entities: { [id: string]: ISeries };
@@ -38,7 +39,8 @@ export function reducer(
         }
       };
     }
-    case sa.LOAD_SERIES_FAIL: {
+    case sa.LOAD_SERIES_FAIL:
+    case sa.QUERY_SERIES_FAIL: {
       return {
         ...state,
         loading: false,
@@ -46,7 +48,7 @@ export function reducer(
       };
     }
     case sa.QUERY_SERIES_SUCCESS: {
-      const entities = createEntityObject(
+      const entities = createEntities(
         action.payload,
         s => s._id,
         state.entities
@@ -61,24 +63,6 @@ export function reducer(
     }
   }
   return state;
-}
-
-function createEntityObject<T>(
-  a: T[],
-  extractId: (T) => string,
-  initialEntities: { [id: string]: T }
-): { [id: string]: T } {
-  return a.reduce(
-    (entities: { [id: string]: T }, s: T) => {
-      return {
-        ...entities,
-        [extractId(s)]: s
-      };
-    },
-    {
-      ...initialEntities
-    }
-  );
 }
 
 export const getSeriesLoading = (state: SeriesEntities) => state.loading;

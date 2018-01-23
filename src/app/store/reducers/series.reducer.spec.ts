@@ -1,5 +1,5 @@
 import { initialState, reducer } from './series.reducer';
-import { QuerySeries, QuerySeriesSuccess } from '../index';
+import { QuerySeries, QuerySeriesSuccess, QuerySeriesFail } from '../index';
 import { mockSeries } from '../../common/test/series.mock';
 
 describe('Series Reducer', () => {
@@ -16,6 +16,19 @@ describe('Series Reducer', () => {
       const action = new QuerySeries({});
       const state = reducer(initialState, action);
       expect(state.loading).toBe(true);
+      expect(state.loaded).toBe(false);
+      expect(state.entities).toEqual({});
+    });
+  });
+
+  describe('QUERY SERIES FAIL action', () => {
+    it('should set loaded false', () => {
+      const action = new QuerySeriesFail('message');
+      const state = reducer(
+        { loaded: true, loading: true, entities: {} },
+        action
+      );
+      expect(state.loading).toBe(false);
       expect(state.loaded).toBe(false);
       expect(state.entities).toEqual({});
     });
