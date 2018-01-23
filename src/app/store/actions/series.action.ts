@@ -40,10 +40,40 @@ export class LoadSeriesSuccess implements Action {
   constructor(public payload: ISeries) {}
 }
 
+// create
+export const CREATE_SERIES = 'CREATE SERIES';
+export const CREATE_SERIES_SUCCESS = 'CREATE SERIES SUCCESS';
+export const CREATE_SERIES_FAIL = 'CREATE SERIES FAIL';
+
+export class CreateSeries implements Action {
+  readonly type = CREATE_SERIES;
+  constructor(public payload: ISeries) {}
+}
+
+export class CreateSeriesSuccess implements Action {
+  readonly type = CREATE_SERIES_SUCCESS;
+  constructor(public payload: ISeries) {}
+}
+
+export class CreateSeriesFail implements Action {
+  readonly type = CREATE_SERIES_FAIL;
+  constructor(public payload: any) {}
+}
+
+export const UPDATE_SERIES = 'UPDATE SERIES';
+
+export class UpdateSeries implements Action {
+  readonly type = UPDATE_SERIES;
+  constructor(public series: ISeries) {}
+}
+
 export type SeriesAction =
   | LoadSeries
   | LoadSeriesFail
   | LoadSeriesSuccess
   | QuerySeries
   | QuerySeriesFail
-  | QuerySeriesSuccess;
+  | QuerySeriesSuccess
+  | CreateSeries
+  | CreateSeriesSuccess
+  | CreateSeriesFail;

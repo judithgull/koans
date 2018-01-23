@@ -26,7 +26,8 @@ export function reducer(
         loading: true
       };
     }
-    case sa.LOAD_SERIES_SUCCESS: {
+    case sa.LOAD_SERIES_SUCCESS:
+    case sa.CREATE_SERIES_SUCCESS: {
       const entity = action.payload;
       const id = entity._id;
 

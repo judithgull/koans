@@ -5,7 +5,12 @@ import {
   getSeriesLoaded,
   getSeriesLoading
 } from './series.reducer';
-import { QuerySeries, QuerySeriesSuccess, QuerySeriesFail } from '../index';
+import {
+  QuerySeries,
+  QuerySeriesSuccess,
+  QuerySeriesFail,
+  CreateSeriesSuccess
+} from '../index';
 import { mockSeries } from '../../common/test/series.mock';
 
 describe('Series Reducer', () => {
@@ -64,7 +69,16 @@ describe('Series Reducer', () => {
     });
   });
 
-  describe('Selectore', () => {
+  describe('CREATE SERIES SUCCESS action', () => {
+    it('should add new entity to entities', () => {
+      const action = new CreateSeriesSuccess(mockSeries[0]);
+      const state = reducer(initialState, action);
+
+      expect(state.entities).toEqual({ [mockSeries[0]._id]: mockSeries[0] });
+    });
+  });
+
+  describe('Selectors', () => {
     it('should select series entites', () => {
       const state = { ...initialState, entities };
       const selectedEntities = getSeriesEntities(state);

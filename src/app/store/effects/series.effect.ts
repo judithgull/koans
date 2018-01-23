@@ -6,6 +6,7 @@ import { SeriesService } from '../../common/series.service';
 import { of } from 'rxjs/observable/of';
 import { HttpParams } from '@angular/common/http';
 import { SearchParams } from '../../common/model/search.params';
+import { ISeries } from '../../common/model';
 
 @Injectable()
 export class SeriesEffects {
@@ -49,4 +50,19 @@ export class SeriesEffects {
     }
     return params;
   }
+
+  @Effect()
+  createSeries$ = this.actions$
+    .ofType(sa.CREATE_SERIES)
+    .pipe(map((a: sa.CreateSeries) => a.payload))
+    .pipe(
+      switchMap((series: ISeries) => {
+        return this.seriesService
+          .create(series)
+          .pipe(
+            map(series => new sa.CreateSeriesSuccess(series)),
+            catchError(error => of(new sa.QuerySeriesFail(error)))
+          );
+      })
+    );
 }

@@ -9,6 +9,8 @@ import { ProgrammingLanguages } from '../../common/model/programming-languages';
 import { Series } from '../../common/model/series';
 import { Feedback } from '../../common/model/feedback';
 import { ProgrammingLanguage } from '../../common/model/programming-language';
+import { State, CreateSeries } from '../../store/index';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-series-form',
@@ -35,7 +37,8 @@ export class SeriesFormComponent {
     private svc: SeriesService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastr: ToastsManager
+    private toastr: ToastsManager,
+    private store: Store<State>
   ) {
     const seriesData = this.route.snapshot.data.series;
     if (seriesData) {
@@ -67,6 +70,9 @@ export class SeriesFormComponent {
           err => this.showError(err)
         );
     } else {
+      this.store.dispatch(new CreateSeries(this.model));
+
+      // TODO remove
       this.svc
         .create(this.model)
         .subscribe(

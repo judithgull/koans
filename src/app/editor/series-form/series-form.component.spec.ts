@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppCommonModule } from '../../common/common.module';
 import { SeriesFormComponent } from './series-form.component';
 import { MockToastManager } from '../../common/test/toastmanager.mock';
+import { StoreModule } from '@ngrx/store';
+import * as rootStore from '../../store';
 
 describe('SeriesFormComponent', () => {
   let component: SeriesFormComponent;
@@ -27,7 +29,10 @@ describe('SeriesFormComponent', () => {
           AppCommonModule,
           CodeEditorModule,
           HttpClientModule,
-          RouterTestingModule
+          RouterTestingModule,
+          StoreModule.forRoot({
+            ...rootStore.reducers
+          })
         ],
         providers: [{ provide: ToastsManager, useClass: MockToastManager }]
       }).compileComponents();

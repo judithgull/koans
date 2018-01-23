@@ -3,7 +3,12 @@ import { Observable } from 'rxjs/Observable';
 import { TestBed } from '@angular/core/testing';
 
 import { mockSeries } from '../../common/test/index';
-import { QuerySeries, QuerySeriesSuccess } from '../index';
+import {
+  QuerySeries,
+  QuerySeriesSuccess,
+  CreateSeries,
+  CreateSeriesSuccess
+} from '../index';
 import { SeriesService } from '../../common/series.service';
 import { SeriesEffects } from './series.effect';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -58,6 +63,18 @@ describe('SeriesEffects', () => {
       const completionAction = new QuerySeriesSuccess(mockSeries);
       const expected = cold('-b', { b: completionAction });
       expect(effects.querySeries$).toBeObservable(expected);
+    });
+  });
+
+  describe('createSeries$', () => {
+    it('should create a series from CreateSeriesSuccess', () => {
+      const action = new CreateSeries(mockSeries[0]);
+
+      actions$.stream = hot('-a', { a: action });
+
+      const completionAction = new CreateSeriesSuccess(mockSeries[0]);
+      const expected = cold('-b', { b: completionAction });
+      expect(effects.createSeries$).toBeObservable(expected);
     });
   });
 });
