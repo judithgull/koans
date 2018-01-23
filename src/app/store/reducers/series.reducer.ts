@@ -18,7 +18,8 @@ export function reducer(
   action: sa.SeriesAction
 ): SeriesEntities {
   switch (action.type) {
-    case sa.LOAD_SERIES: {
+    case sa.LOAD_SERIES:
+    case sa.QUERY_SERIES: {
       return {
         ...state,
         loading: true
@@ -44,8 +45,40 @@ export function reducer(
         loaded: false
       };
     }
+    case sa.QUERY_SERIES_SUCCESS: {
+      const entities = createEntityObject(
+        action.payload,
+        s => s._id,
+        state.entities
+      );
+
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        entities
+      };
+    }
   }
   return state;
+}
+
+function createEntityObject<T>(
+  a: T[],
+  extractId: (T) => string,
+  initialEntities: { [id: string]: T }
+): { [id: string]: T } {
+  return a.reduce(
+    (entities: { [id: string]: T }, s: T) => {
+      return {
+        ...entities,
+        [extractId(s)]: s
+      };
+    },
+    {
+      ...initialEntities
+    }
+  );
 }
 
 export const getSeriesLoading = (state: SeriesEntities) => state.loading;
