@@ -3,6 +3,8 @@ import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 
 import { ISeries } from '../../common/model/series';
 import { SeriesService } from '../../common/series.service';
+import { Store } from '@ngrx/store';
+import * as st from '../../store';
 
 @Component({
   selector: 'app-series-search',
@@ -21,7 +23,10 @@ export class SeriesSearchComponent implements OnInit {
   authorId: string;
   searchParamChange = new EventEmitter<HttpParams>();
 
-  constructor(private seriesService: SeriesService) {}
+  constructor(
+    private seriesService: SeriesService,
+    private store: Store<st.State>
+  ) {}
 
   ngOnInit() {
     this.searchParamChange.debounceTime(500).subscribe(e => this.search(e));
@@ -29,6 +34,12 @@ export class SeriesSearchComponent implements OnInit {
   }
 
   private search(params: HttpParams) {
+    this.store.dispatch(
+      new st.QuerySeries({
+        searchText: this.searchText,
+        authorId: this.authorId
+      })
+    );
     this.seriesService
       .getSeries(params)
       .subscribe(

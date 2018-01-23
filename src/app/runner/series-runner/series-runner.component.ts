@@ -25,7 +25,7 @@ export class SeriesRunnerComponent implements OnInit {
     this.route.params.subscribe((data: { id: string }) => {
       this.store.dispatch(new st.LoadSeries(data.id));
     });
-    this.series$ = this.store.select(st.getSeries);
+    this.series$ = this.store.select(st.getSelectedSeries);
     this.userStates$ = this.store.select(rst.getSelectedSeriesState);
     this.ex$ = this.store.select(st.getSelectedExercise);
     this.userState$ = this.store.select(rst.getSelectedUserState);

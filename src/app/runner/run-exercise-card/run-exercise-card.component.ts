@@ -36,7 +36,7 @@ export class RunExerciseCardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.ex$ = this.store.select(st.getSelectedExercise);
     this.userState$ = this.store.select(rst.getSelectedUserState);
-    this.series$ = this.store.select(st.getSeries);
+    this.series$ = this.store.select(st.getSelectedSeries);
 
     this.subs = [
       this.series$.subscribe(s => {

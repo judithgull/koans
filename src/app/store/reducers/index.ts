@@ -5,7 +5,7 @@ import * as sr from './series.reducer';
 
 export interface State {
   routerReducer: RouterReducerState<RouterStateUrl>;
-  series: sr.SeriesState;
+  series: sr.SeriesEntities;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -17,4 +17,4 @@ export const getRouterState = createFeatureSelector<
   RouterReducerState<RouterStateUrl>
 >('routerReducer');
 
-export const getSeriesState = createFeatureSelector<sr.SeriesState>('series');
+export const getSeries = createFeatureSelector<sr.SeriesEntities>('series');

@@ -1,14 +1,14 @@
 import { ISeries } from '../../common/model/series';
 import * as sa from '../actions/series.action';
 
-export interface SeriesState {
-  data: ISeries;
+export interface SeriesEntities {
+  entities: { [id: string]: ISeries };
   loaded: boolean;
   loading: boolean;
 }
 
-export const initialState: SeriesState = {
-  data: null,
+export const initialState: SeriesEntities = {
+  entities: {},
   loaded: false,
   loading: false
 };
@@ -16,7 +16,7 @@ export const initialState: SeriesState = {
 export function reducer(
   state = initialState,
   action: sa.SeriesAction
-): SeriesState {
+): SeriesEntities {
   switch (action.type) {
     case sa.LOAD_SERIES: {
       return {
@@ -25,12 +25,16 @@ export function reducer(
       };
     }
     case sa.LOAD_SERIES_SUCCESS: {
-      const data = action.payload;
+      const entity = action.payload;
+      const id = entity._id;
+
       return {
-        ...state,
         loading: false,
         loaded: true,
-        data
+        entities: {
+          ...state.entities,
+          [id]: entity
+        }
       };
     }
     case sa.LOAD_SERIES_FAIL: {
@@ -44,6 +48,6 @@ export function reducer(
   return state;
 }
 
-export const getSeriesLoading = (state: SeriesState) => state.loading;
-export const getSeriesLoaded = (state: SeriesState) => state.loaded;
-export const getSeriesData = (state: SeriesState) => state.data;
+export const getSeriesLoading = (state: SeriesEntities) => state.loading;
+export const getSeriesLoaded = (state: SeriesEntities) => state.loaded;
+export const getSeriesEntities = (state: SeriesEntities) => state.entities;
