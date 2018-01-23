@@ -2,6 +2,7 @@ import { createSelector } from '@ngrx/store';
 
 import * as r from '../reducers';
 import * as sr from '../reducers/series.reducer';
+import { Selector } from '@ngrx/store/src/models';
 
 export const getSeriesEntities = createSelector(
   r.getSeries,
@@ -31,3 +32,13 @@ export const getSelectedExercise = createSelector(
     return null;
   }
 );
+
+export const getAllSeries = createSelector(getSeriesEntities, entities => {
+  return Object.keys(entities).map(id => entities[id]);
+});
+
+export function getOwnSeries(authorId: string) {
+  return createSelector(getAllSeries, series =>
+    series.filter(s => s.authorId === authorId)
+  );
+}

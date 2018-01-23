@@ -5,7 +5,7 @@ import { switchMap, map, catchError } from 'rxjs/operators';
 import { SeriesService } from '../../common/series.service';
 import { of } from 'rxjs/observable/of';
 import { HttpParams } from '@angular/common/http';
-import { SearchParams } from '../index';
+import { SearchParams } from '../../common/model/search.params';
 
 @Injectable()
 export class SeriesEffects {

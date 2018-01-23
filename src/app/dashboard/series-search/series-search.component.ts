@@ -1,51 +1,42 @@
-import { HttpParams } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 
-import { ISeries } from '../../common/model/series';
-import { SeriesService } from '../../common/series.service';
 import { Store } from '@ngrx/store';
 import * as st from '../../store';
+import { SearchParams } from '../../common/model/search.params';
+import { ISeries } from '../../common/model/series';
 
 @Component({
   selector: 'app-series-search',
   templateUrl: './series-search.component.html',
-  styleUrls: ['./series-search.component.scss'],
-  providers: [SeriesService]
+  styleUrls: ['./series-search.component.scss']
 })
 export class SeriesSearchComponent implements OnInit {
   @Input() isLoggedIn;
 
   @Input() userId: string;
 
-  seriesList: ISeries[];
   message = '';
   searchText: string;
   authorId: string;
-  searchParamChange = new EventEmitter<HttpParams>();
+  searchParamChange = new EventEmitter<SearchParams>();
+  showOwnSeries = false;
 
-  constructor(
-    private seriesService: SeriesService,
-    private store: Store<st.State>
-  ) {}
+  constructor(private store: Store<st.State>) {}
 
   ngOnInit() {
     this.searchParamChange.debounceTime(500).subscribe(e => this.search(e));
     this.search(this.getSearchParams());
   }
 
-  private search(params: HttpParams) {
-    this.store.dispatch(
-      new st.QuerySeries({
-        searchText: this.searchText,
-        authorId: this.authorId
-      })
-    );
-    this.seriesService
-      .getSeries(params)
-      .subscribe(
-        seriesList => (this.seriesList = seriesList),
-        err => (this.message = 'Error: Data cannot be loaded.')
-      );
+  private search(params: SearchParams) {
+    this.store.dispatch(new st.QuerySeries(params));
+  }
+
+  get seriesList$(): Store<ISeries[]> {
+    if (this.showOwnSeries) {
+      return this.store.select(st.getOwnSeries(this.authorId));
+    }
+    return this.store.select(st.getAllSeries);
   }
 
   updateSearchFilter(authEvent) {
@@ -54,20 +45,16 @@ export class SeriesSearchComponent implements OnInit {
   }
 
   emitParamChange() {
-    this.searchParamChange.emit(this.getSearchParams());
+    const params = this.getSearchParams();
+    this.searchParamChange.emit(params);
+    this.showOwnSeries = params.authorId ? true : false;
   }
 
-  getSearchParams(): HttpParams {
-    let params = new HttpParams();
-
-    if (this.searchText) {
-      params = params.append('search', this.searchText);
-    }
-    if (this.authorId) {
-      params = params.append('authorId', this.authorId);
-    }
-
-    return params;
+  getSearchParams(): SearchParams {
+    return {
+      searchText: this.searchText,
+      authorId: this.authorId
+    };
   }
 
   updateSearchText(searchText: string) {

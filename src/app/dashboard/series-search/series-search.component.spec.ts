@@ -13,28 +13,38 @@ import { SeriesCardListComponent } from '../series-card-list/series-card-list.co
 import { SeriesCardComponent } from '../series-card/series-card.component';
 import { TabItemComponent } from '../tab-item/tab-item.component';
 import { SeriesSearchComponent } from './series-search.component';
+import { SeriesIconComponent } from '../../common/series-icon/series-icon.component';
+import { StoreModule } from '@ngrx/store';
+import * as rootStore from '../../store';
 
 describe('SeriesSearchComponent', () => {
   let component: SeriesSearchComponent;
   let fixture: ComponentFixture<SeriesSearchComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [SeriesSearchComponent,
-        SearchFieldComponent,
-        SearchFilterComponent,
-        SeriesCardComponent,
-        SeriesCardListComponent,
-        TabItemComponent
-      ],
-      imports: [HttpClientTestingModule],
-      providers: [
-        { provide: SeriesService, useClass: MockSeriesService },
-        { provide: ToastsManager, useClass: MockToastManager },
-      ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [
+          SeriesIconComponent,
+          SeriesSearchComponent,
+          SearchFieldComponent,
+          SearchFilterComponent,
+          SeriesCardComponent,
+          SeriesCardListComponent,
+          TabItemComponent
+        ],
+        imports: [
+          StoreModule.forRoot({
+            ...rootStore.reducers
+          })
+        ],
+        providers: [
+          { provide: SeriesService, useClass: MockSeriesService },
+          { provide: ToastsManager, useClass: MockToastManager }
+        ]
+      }).compileComponents();
     })
-      .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SeriesSearchComponent);

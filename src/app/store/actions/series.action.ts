@@ -1,5 +1,6 @@
 import { ISeries } from '../../common/model/series';
 import { Action } from '@ngrx/store';
+import { SearchParams } from '../../common/model/search.params';
 
 export const LOAD_SERIES = 'LOAD SERIES';
 export const LOAD_SERIES_FAIL = 'LOAD SERIES FAIL';
@@ -8,11 +9,6 @@ export const LOAD_SERIES_SUCCESS = 'LOAD SERIES SUCCESS';
 export const QUERY_SERIES = 'QUERY SERIES';
 export const QUERY_SERIES_FAIL = 'QUERY SERIES FAIL';
 export const QUERY_SERIES_SUCCESS = 'QUERY SERIES SUCCESS';
-
-export interface SearchParams {
-  searchText?: string;
-  authorId?: string;
-}
 
 export class QuerySeries implements Action {
   readonly type = QUERY_SERIES;
