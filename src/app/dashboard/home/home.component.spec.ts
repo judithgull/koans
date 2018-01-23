@@ -1,3 +1,5 @@
+import '../../../rx-index';
+
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -13,32 +15,43 @@ import { SeriesCardComponent } from '../series-card/series-card.component';
 import { SeriesSearchComponent } from '../series-search/series-search.component';
 import { TabItemComponent } from '../tab-item/tab-item.component';
 import { HomeComponent } from './home.component';
+import { StoreModule } from '@ngrx/store';
+import * as rootStore from '../../store';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [HomeComponent,
-        SeriesSearchComponent,
-        SearchFieldComponent,
-        SearchFilterComponent,
-        SeriesCardComponent,
-        SeriesCardListComponent,
-        TabItemComponent],
-      imports: [
-        AppCommonModule,
-        AuthModule,
-        RouterTestingModule,
-        HttpClientTestingModule
-      ],
-      providers: [{
-        provide: ToastsManager, useClass: MockToastManager
-      }]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [
+          HomeComponent,
+          SeriesSearchComponent,
+          SearchFieldComponent,
+          SearchFilterComponent,
+          SeriesCardComponent,
+          SeriesCardListComponent,
+          TabItemComponent
+        ],
+        imports: [
+          AppCommonModule,
+          AuthModule,
+          RouterTestingModule,
+          HttpClientTestingModule,
+          StoreModule.forRoot({
+            ...rootStore.reducers
+          })
+        ],
+        providers: [
+          {
+            provide: ToastsManager,
+            useClass: MockToastManager
+          }
+        ]
+      }).compileComponents();
     })
-      .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);

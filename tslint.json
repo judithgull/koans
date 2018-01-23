@@ -35,7 +35,8 @@
       "rxjs",
       "@angular/platform-browser",
       "@angular/common/http",
-      "@angular/core/testing"
+      "@angular/core/testing",
+      "@angular/router/testing"
     ],
     "arrow-parens": [true, "ban-single-arg-parens"]
   }

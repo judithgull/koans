@@ -13,7 +13,7 @@ export const getSelectedSeries = createSelector(
   getSeriesEntities,
   r.getRouterState,
   (entities, router) => {
-    if (entities && router.state) {
+    if (entities && router && router.state) {
       const seriesId = router.state.params.id;
       return entities[seriesId];
     }

@@ -7,8 +7,12 @@ import { Observable } from 'rxjs/Rx';
 
 import { mockSeries } from '../../common/test/series.mock';
 import { RunExerciseCardComponent } from './run-exercise-card.component';
-import { ExerciseInfo, Exercise } from '../../common/model/exercise';
+import { Exercise } from '../../common/model/exercise';
 import { CodeEditorModule } from '../../code-editor/code-editor.module';
+
+import { StoreModule, combineReducers } from '@ngrx/store';
+import * as rootStore from '../../store';
+import * as runnerStore from '../store';
 
 describe('RunExerciseCardComponent', () => {
   let component: RunExerciseCardComponent;
@@ -16,14 +20,6 @@ describe('RunExerciseCardComponent', () => {
 
   const testLanguage = 'testLang';
   const e: Exercise = mockSeries[0].items[0];
-
-  class ActivatedRouteMock {
-    snapshot = {
-      data: {
-        exercise: new ExerciseInfo(e, testLanguage)
-      }
-    };
-  }
 
   beforeEach(
     async(() => {
@@ -33,13 +29,11 @@ describe('RunExerciseCardComponent', () => {
           RouterTestingModule,
           CodeEditorModule,
           ReactiveFormsModule,
-          FormsModule
-        ],
-        providers: [
-          {
-            provide: ActivatedRoute,
-            useClass: ActivatedRouteMock
-          }
+          FormsModule,
+          StoreModule.forRoot({
+            ...rootStore.reducers,
+            runner: combineReducers(runnerStore.reducers)
+          })
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
@@ -54,6 +48,5 @@ describe('RunExerciseCardComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(component.exercise.programmingLanguage).toEqual(testLanguage);
   });
 });

@@ -27,7 +27,7 @@ export const getSelectedSeriesState = createSelector(
   getSeriesUserStateEntities,
   root.getRouterState,
   (entities, router) => {
-    if (entities && router.state) {
+    if (entities && router && router.state) {
       const seriesId = router.state.params.id;
       return entities[seriesId];
     }
