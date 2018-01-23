@@ -1,8 +1,19 @@
-import { initialState, reducer } from './series.reducer';
+import {
+  initialState,
+  reducer,
+  getSeriesEntities,
+  getSeriesLoaded,
+  getSeriesLoading
+} from './series.reducer';
 import { QuerySeries, QuerySeriesSuccess, QuerySeriesFail } from '../index';
 import { mockSeries } from '../../common/test/series.mock';
 
 describe('Series Reducer', () => {
+  const entities = {
+    [mockSeries[0]._id]: mockSeries[0],
+    [mockSeries[1]._id]: mockSeries[1]
+  };
+
   describe('undefined action', () => {
     it('should return the default state', () => {
       const action: any = {};
@@ -49,7 +60,27 @@ describe('Series Reducer', () => {
 
       expect(state.loading).toBe(false);
       expect(state.loaded).toBe(true);
-      expect(state.entities[mockSeries[0]._id]).toEqual(mockSeries[0]);
+      expect(state.entities).toEqual(entities);
+    });
+  });
+
+  describe('Selectore', () => {
+    it('should select series entites', () => {
+      const state = { ...initialState, entities };
+      const selectedEntities = getSeriesEntities(state);
+      expect(entities).toBe(entities);
+    });
+
+    it('should select series loaded', () => {
+      const state = { loaded: true, loading: false, entities };
+      const loaded = getSeriesLoaded(state);
+      expect(loaded).toBe(true);
+    });
+
+    it('should select series loading', () => {
+      const state = { loaded: true, loading: false, entities };
+      const loading = getSeriesLoading(state);
+      expect(loading).toBe(false);
     });
   });
 });

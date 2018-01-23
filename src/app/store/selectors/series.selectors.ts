@@ -2,41 +2,46 @@ import { createSelector } from '@ngrx/store';
 
 import * as r from '../reducers';
 import * as sr from '../reducers/series.reducer';
-import { Selector } from '@ngrx/store/src/models';
 
+/**
+ * Get series as entities object
+ */
 export const getSeriesEntities = createSelector(
   r.getSeries,
   sr.getSeriesEntities
 );
 
+/** Series given by router state params */
 export const getSelectedSeries = createSelector(
   getSeriesEntities,
   r.getRouterState,
   (entities, router) => {
-    if (entities && router && router.state) {
-      const seriesId = router.state.params.id;
-      return entities[seriesId];
-    }
-    return null;
+    return (
+      entities && router && router.state && entities[router.state.params.id]
+    );
   }
 );
 
+/** Exercise given by router state params */
 export const getSelectedExercise = createSelector(
   getSelectedSeries,
   r.getRouterState,
   (series, router) => {
-    if (series && router.state) {
-      const exId = router.state.params.exId;
-      return series.items[exId - 1];
-    }
-    return null;
+    return (
+      series &&
+      router &&
+      router.state &&
+      series.items[router.state.params.exId - 1]
+    );
   }
 );
 
+/** All series as array*/
 export const getAllSeries = createSelector(getSeriesEntities, entities => {
   return Object.keys(entities).map(id => entities[id]);
 });
 
+/** All series by author*/
 export function getOwnSeries(authorId: string) {
   return createSelector(getAllSeries, series =>
     series.filter(s => s.authorId === authorId)
