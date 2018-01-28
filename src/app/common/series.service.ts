@@ -35,11 +35,11 @@ export class SeriesService {
     return null;
   }
 
-  create(series: ISeries): Observable<any> {
+  create(series: ISeries): Observable<ISeries> {
     return this.http.post(URL_SERIES, series).catch(this.handleError);
   }
 
-  update(series: ISeries): Observable<any> {
+  update(series: ISeries): Observable<ISeries> {
     return this.http
       .put(`${URL_SERIES}${series._id}`, series)
       .catch(this.handleError);

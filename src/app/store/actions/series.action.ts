@@ -60,11 +60,25 @@ export class CreateSeriesFail implements Action {
   constructor(public payload: any) {}
 }
 
+// update
+
 export const UPDATE_SERIES = 'UPDATE SERIES';
+export const UPDATE_SERIES_SUCCESS = 'UPDATE SERIES SUCCESS';
+export const UPDATE_SERIES_FAIL = 'UPDATE SERIES FAIL';
 
 export class UpdateSeries implements Action {
   readonly type = UPDATE_SERIES;
   constructor(public series: ISeries) {}
+}
+
+export class UpdateSeriesSuccess implements Action {
+  readonly type = UPDATE_SERIES_SUCCESS;
+  constructor(public series: ISeries) {}
+}
+
+export class UpdateSeriesFail implements Action {
+  readonly type = UPDATE_SERIES_FAIL;
+  constructor(public payload: any) {}
 }
 
 export type SeriesAction =
@@ -76,4 +90,7 @@ export type SeriesAction =
   | QuerySeriesSuccess
   | CreateSeries
   | CreateSeriesSuccess
-  | CreateSeriesFail;
+  | CreateSeriesFail
+  | UpdateSeries
+  | UpdateSeriesFail
+  | UpdateSeriesSuccess;

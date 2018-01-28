@@ -65,4 +65,19 @@ export class SeriesEffects {
           );
       })
     );
+
+  @Effect()
+  updateSeries$ = this.actions$
+    .ofType(sa.UPDATE_SERIES)
+    .pipe(map((a: sa.UpdateSeries) => a.series))
+    .pipe(
+      switchMap((series: ISeries) => {
+        return this.seriesService
+          .update(series)
+          .pipe(
+            map(series => new sa.UpdateSeriesSuccess(series)),
+            catchError(error => of(new sa.UpdateSeriesFail(error)))
+          );
+      })
+    );
 }

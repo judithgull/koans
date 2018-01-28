@@ -1,6 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
-import { SeriesService } from '../../common/series.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -9,7 +8,7 @@ import { ProgrammingLanguages } from '../../common/model/programming-languages';
 import { Series } from '../../common/model/series';
 import { Feedback } from '../../common/model/feedback';
 import { ProgrammingLanguage } from '../../common/model/programming-language';
-import { State, CreateSeries } from '../../store/index';
+import { State, CreateSeries, UpdateSeries } from '../../store/index';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -34,7 +33,6 @@ export class SeriesFormComponent {
 
   constructor(
     private fb: FormBuilder,
-    private svc: SeriesService,
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastsManager,
@@ -63,22 +61,17 @@ export class SeriesFormComponent {
 
   submit() {
     if (this.model._id) {
-      this.svc
-        .update(this.model)
-        .subscribe(
-          () => this.router.navigate(['/']),
-          err => this.showError(err)
-        );
+      this.store.dispatch(new UpdateSeries(this.model));
     } else {
       this.store.dispatch(new CreateSeries(this.model));
 
       // TODO remove
-      this.svc
+      /*      this.svc
         .create(this.model)
         .subscribe(
           () => this.router.navigate(['/']),
           err => this.showError(err)
-        );
+        ); */
     }
   }
 

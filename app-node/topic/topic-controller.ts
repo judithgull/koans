@@ -93,7 +93,7 @@ export const updateTopic = function(req, res) {
             res.status(401).send({ message: 'Not authorized' });
           } else {
             var body = req.body;
-            TopicModel.Topic.update(
+            TopicModel.Topic.findOneAndUpdate(
               { _id: req.params.id },
               {
                 $set: {
@@ -101,15 +101,13 @@ export const updateTopic = function(req, res) {
                   programmingLanguage: body.programmingLanguage,
                   items: body.items
                 }
+              }
+            ).then(
+              t => {
+                res.send(t);
               },
-              function(err) {
-                if (err) {
-                  res
-                    .status(401)
-                    .send({ message: 'Error updating Topic ' + req.params.id });
-                } else {
-                  res.status(200).send({ message: 'ok' });
-                }
+              e => {
+                res.status(401).send(e);
               }
             );
           }
@@ -128,8 +126,8 @@ export const postTopic = function(req, res) {
       if (!hasValidTocken(req)) {
         res.status(401).send({ message: 'Login Required!' });
       } else {
-        let body = req.body;
-        let newTopic: TopicModel.ITopic = {
+        const body = req.body;
+        const newTopic: TopicModel.ITopic = {
           title: body.title,
           programmingLanguage: body.programmingLanguage,
           authorId: getUserId(req),

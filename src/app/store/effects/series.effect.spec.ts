@@ -7,7 +7,9 @@ import {
   QuerySeries,
   QuerySeriesSuccess,
   CreateSeries,
-  CreateSeriesSuccess
+  CreateSeriesSuccess,
+  UpdateSeriesSuccess,
+  UpdateSeries
 } from '../index';
 import { SeriesService } from '../../common/series.service';
 import { SeriesEffects } from './series.effect';
@@ -75,6 +77,18 @@ describe('SeriesEffects', () => {
       const completionAction = new CreateSeriesSuccess(mockSeries[0]);
       const expected = cold('-b', { b: completionAction });
       expect(effects.createSeries$).toBeObservable(expected);
+    });
+  });
+
+  describe('updateSeries$', () => {
+    it('should update a series from UpdateSeriesSuccess', () => {
+      const action = new UpdateSeries(mockSeries[0]);
+
+      actions$.stream = hot('-a', { a: action });
+
+      const completionAction = new UpdateSeriesSuccess(mockSeries[0]);
+      const expected = cold('-b', { b: completionAction });
+      expect(effects.updateSeries$).toBeObservable(expected);
     });
   });
 });
