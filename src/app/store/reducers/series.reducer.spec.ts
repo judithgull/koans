@@ -9,7 +9,8 @@ import {
   QuerySeries,
   QuerySeriesSuccess,
   QuerySeriesFail,
-  CreateSeriesSuccess
+  CreateSeriesSuccess,
+  UpdateSeriesSuccess
 } from '../index';
 import { mockSeries } from '../../common/test/series.mock';
 
@@ -73,6 +74,23 @@ describe('Series Reducer', () => {
     it('should add new entity to entities', () => {
       const action = new CreateSeriesSuccess(mockSeries[0]);
       const state = reducer(initialState, action);
+
+      expect(state.entities).toEqual({ [mockSeries[0]._id]: mockSeries[0] });
+    });
+  });
+
+  describe('UPDATE SERIES SUCCESS action', () => {
+    it('should update exisiting entity', () => {
+      const action = new UpdateSeriesSuccess(mockSeries[0]);
+      const state = reducer(
+        {
+          ...initialState,
+          entities: {
+            [mockSeries[0]._id]: mockSeries[1]
+          }
+        },
+        action
+      );
 
       expect(state.entities).toEqual({ [mockSeries[0]._id]: mockSeries[0] });
     });

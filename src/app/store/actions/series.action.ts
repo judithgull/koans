@@ -68,12 +68,12 @@ export const UPDATE_SERIES_FAIL = 'UPDATE SERIES FAIL';
 
 export class UpdateSeries implements Action {
   readonly type = UPDATE_SERIES;
-  constructor(public series: ISeries) {}
+  constructor(public payload: ISeries) {}
 }
 
 export class UpdateSeriesSuccess implements Action {
   readonly type = UPDATE_SERIES_SUCCESS;
-  constructor(public series: ISeries) {}
+  constructor(public payload: ISeries) {}
 }
 
 export class UpdateSeriesFail implements Action {

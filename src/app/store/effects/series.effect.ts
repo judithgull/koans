@@ -69,7 +69,7 @@ export class SeriesEffects {
   @Effect()
   updateSeries$ = this.actions$
     .ofType(sa.UPDATE_SERIES)
-    .pipe(map((a: sa.UpdateSeries) => a.series))
+    .pipe(map((a: sa.UpdateSeries) => a.payload))
     .pipe(
       switchMap((series: ISeries) => {
         return this.seriesService
