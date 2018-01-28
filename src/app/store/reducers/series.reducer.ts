@@ -31,7 +31,6 @@ export function reducer(
     case sa.UPDATE_SERIES_SUCCESS: {
       const entity = action.payload;
       const id = entity._id;
-
       return {
         loading: false,
         loaded: true,
@@ -60,6 +59,14 @@ export function reducer(
         ...state,
         loading: false,
         loaded: true,
+        entities
+      };
+    }
+    case sa.DELETE_SERIES_SUCCESS: {
+      const id = action.payload;
+      const { [id]: removeEntities, ...entities } = state.entities;
+      return {
+        ...state,
         entities
       };
     }

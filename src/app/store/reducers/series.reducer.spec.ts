@@ -10,7 +10,8 @@ import {
   QuerySeriesSuccess,
   QuerySeriesFail,
   CreateSeriesSuccess,
-  UpdateSeriesSuccess
+  UpdateSeriesSuccess,
+  DeleteSeriesSuccess
 } from '../index';
 import { mockSeries } from '../../common/test/series.mock';
 
@@ -93,6 +94,23 @@ describe('Series Reducer', () => {
       );
 
       expect(state.entities).toEqual({ [mockSeries[0]._id]: mockSeries[0] });
+    });
+  });
+
+  describe('DELETE SERIES SUCCESS action', () => {
+    it('should delete exisiting entity', () => {
+      const action = new DeleteSeriesSuccess(mockSeries[0]._id + '');
+      const state = reducer(
+        {
+          ...initialState,
+          entities: {
+            [mockSeries[0]._id]: mockSeries[0]
+          }
+        },
+        action
+      );
+
+      expect(state.entities).toEqual({});
     });
   });
 

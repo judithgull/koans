@@ -66,7 +66,7 @@ export const deleteTopic = function(req, res) {
             res.status(401).send({ message: 'Not authorized' });
           } else {
             TopicModel.remove(req.params.id)
-              .onFulfill(() => res.status(200).send({ message: 'ok' }))
+              .onFulfill(() => res.status(200).send({ id: req.params.id }))
               .onReject(() =>
                 res
                   .status(401)

@@ -81,6 +81,27 @@ export class UpdateSeriesFail implements Action {
   constructor(public payload: any) {}
 }
 
+// delete
+
+export const DELETE_SERIES = 'DELETE SERIES';
+export const DELETE_SERIES_SUCCESS = 'DELETE SERIES SUCCESS';
+export const DELETE_SERIES_FAIL = 'DELETE SERIES FAIL';
+
+export class DeleteSeries implements Action {
+  readonly type = DELETE_SERIES;
+  constructor(public payload: string) {}
+}
+
+export class DeleteSeriesSuccess implements Action {
+  readonly type = DELETE_SERIES_SUCCESS;
+  constructor(public payload: string) {}
+}
+
+export class DeleteSeriesFail implements Action {
+  readonly type = DELETE_SERIES_FAIL;
+  constructor(public payload: any) {}
+}
+
 export type SeriesAction =
   | LoadSeries
   | LoadSeriesFail
@@ -93,4 +114,7 @@ export type SeriesAction =
   | CreateSeriesFail
   | UpdateSeries
   | UpdateSeriesFail
-  | UpdateSeriesSuccess;
+  | UpdateSeriesSuccess
+  | DeleteSeries
+  | DeleteSeriesFail
+  | DeleteSeriesSuccess;

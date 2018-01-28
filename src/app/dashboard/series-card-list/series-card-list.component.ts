@@ -3,6 +3,8 @@ import { ToastsManager } from 'ng2-toastr';
 
 import { Series } from '../../common/model/series';
 import { SeriesService } from '../../common/series.service';
+import { Store } from '@ngrx/store';
+import { State, DeleteSeries } from '../../store/index';
 
 @Component({
   selector: 'app-series-card-list',
@@ -16,7 +18,8 @@ export class SeriesCardListComponent {
   constructor(
     private seriesService: SeriesService,
     private toastr: ToastsManager,
-    vcr: ViewContainerRef
+    vcr: ViewContainerRef,
+    private store: Store<State>
   ) {
     this.toastr.setRootViewContainerRef(vcr);
   }
@@ -29,12 +32,15 @@ export class SeriesCardListComponent {
    * Remove item with id locally
    * @param id
    */
-  onRemove(id: number) {
-    this.seriesService.delete(id).subscribe(
+  onRemove(id: string) {
+    this.store.dispatch(new DeleteSeries(id));
+
+    /*    this.seriesService.delete(id).subscribe(
       observer => {
         this.seriesList = this.seriesList.filter(item => item._id !== id);
       },
       error => this.showError(error)
     );
+    */
   }
 }

@@ -15,7 +15,6 @@ export class SeriesEffects {
     private seriesService: SeriesService
   ) {}
 
-  @Effect()
   loadSeries$ = this.actions$.ofType(sa.LOAD_SERIES).pipe(
     switchMap((a: sa.LoadSeries) => {
       return this.seriesService
@@ -77,6 +76,21 @@ export class SeriesEffects {
           .pipe(
             map(series => new sa.UpdateSeriesSuccess(series)),
             catchError(error => of(new sa.UpdateSeriesFail(error)))
+          );
+      })
+    );
+
+  @Effect()
+  deleteSeries$ = this.actions$
+    .ofType(sa.DELETE_SERIES)
+    .pipe(map((a: sa.DeleteSeries) => a.payload))
+    .pipe(
+      switchMap((id: string) => {
+        return this.seriesService
+          .delete(id)
+          .pipe(
+            map(() => new sa.DeleteSeriesSuccess(id)),
+            catchError(error => of(new sa.DeleteSeriesFail(error)))
           );
       })
     );

@@ -45,7 +45,7 @@ export class SeriesService {
       .catch(this.handleError);
   }
 
-  delete(id: number): Observable<ISeries> {
+  delete(id: string): Observable<any> {
     return this.http.delete(`${URL_SERIES}${id}`).catch(this.handleError);
   }
 

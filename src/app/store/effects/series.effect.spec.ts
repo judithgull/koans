@@ -9,7 +9,9 @@ import {
   CreateSeries,
   CreateSeriesSuccess,
   UpdateSeriesSuccess,
-  UpdateSeries
+  UpdateSeries,
+  DeleteSeries,
+  DeleteSeriesSuccess
 } from '../index';
 import { SeriesService } from '../../common/series.service';
 import { SeriesEffects } from './series.effect';
@@ -53,7 +55,7 @@ describe('SeriesEffects', () => {
     spyOn(service, 'getSeries').and.returnValue(of(mockSeries));
     spyOn(service, 'create').and.returnValue(of(mockSeries[0]));
     spyOn(service, 'update').and.returnValue(of(mockSeries[0]));
-    spyOn(service, 'delete').and.returnValue(of(mockSeries[0]));
+    spyOn(service, 'delete').and.returnValue(of({ id: mockSeries[0]._id }));
   });
 
   describe('querySeries$', () => {
@@ -81,7 +83,7 @@ describe('SeriesEffects', () => {
   });
 
   describe('updateSeries$', () => {
-    it('should update a series from UpdateSeriesSuccess', () => {
+    it('should update a series from UpdateSeries', () => {
       const action = new UpdateSeries(mockSeries[0]);
 
       actions$.stream = hot('-a', { a: action });
@@ -89,6 +91,18 @@ describe('SeriesEffects', () => {
       const completionAction = new UpdateSeriesSuccess(mockSeries[0]);
       const expected = cold('-b', { b: completionAction });
       expect(effects.updateSeries$).toBeObservable(expected);
+    });
+  });
+
+  describe('deleteSeries$', () => {
+    it('should delete a series from DeleteSeries', () => {
+      const action = new DeleteSeries(mockSeries[0]._id);
+
+      actions$.stream = hot('-a', { a: action });
+
+      const completionAction = new DeleteSeriesSuccess(mockSeries[0]._id);
+      const expected = cold('-b', { b: completionAction });
+      expect(effects.deleteSeries$).toBeObservable(expected);
     });
   });
 });
