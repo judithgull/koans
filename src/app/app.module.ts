@@ -1,5 +1,4 @@
 import { effects } from './store/effects';
-import { CustomSerializer } from './store/reducers/custom-serializer';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,7 +15,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { reducers, SeriesEffects } from './store';
+import { reducers, SeriesEffects, CustomSerializer } from './store';
 import {
   StoreRouterConnectingModule,
   RouterStateSerializer

@@ -1,13 +1,14 @@
 import { createSelector } from '@ngrx/store';
 
-import * as r from '../reducers';
+import * as r from '../router';
 import * as sr from '../reducers/series.reducer';
+import * as series from '../reducers';
 
 /**
  * Get series as entities object
  */
 export const getSeriesEntities = createSelector(
-  r.getSeries,
+  series.getSeries,
   sr.getSeriesEntities
 );
 
