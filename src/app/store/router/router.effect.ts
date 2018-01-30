@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { GO, Go, BACK, Back } from './router.action';
+import { GO, Go, HOME } from './router.action';
 import { map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 
 @Injectable()
 export class RouterEffects {
-  constructor(
-    private actions$: Actions,
-    private router: Router,
-    private location: Location
-  ) {}
+  constructor(private actions$: Actions, private router: Router) {}
 
   @Effect({ dispatch: false })
   navigate$ = this.actions$.ofType(GO).pipe(
@@ -21,10 +16,6 @@ export class RouterEffects {
     })
   );
 
-  @Effect({ dispatch: false })
-  back$ = this.actions$.ofType(BACK).pipe(
-    tap(() => {
-      this.location.back();
-    })
-  );
+  @Effect()
+  home$ = this.actions$.ofType(HOME).pipe(map(() => new Go({ path: ['/'] })));
 }

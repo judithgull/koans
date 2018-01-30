@@ -2,58 +2,56 @@ import { RouterEffects } from './router.effect';
 import { TestBed } from '@angular/core/testing';
 import { Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
-import { empty } from 'rxjs/observable/empty';
+
 import { expand } from 'rxjs/operators/expand';
 import { hot, cold } from 'jasmine-marbles';
-import { Back } from './router.action';
+import { Home, Go } from './router.action';
 import { Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
-
-export class TestActions extends Actions {
-  constructor() {
-    super(empty());
-  }
-
-  set stream(source: Observable<any>) {
-    this.source = source;
-  }
-}
-
-export function getActions() {
-  return new TestActions();
-}
+import { TestActions, getActions } from '../test/test.actions';
+import { Router } from '@angular/router';
 
 describe('RouterEffects', () => {
   let actions$: TestActions;
   let effects: RouterEffects;
-  let location: Location;
+  let router: Router;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      providers: [
-        Location,
-        { provide: Actions, useFactory: getActions },
-        RouterEffects
-      ]
+      providers: [{ provide: Actions, useFactory: getActions }, RouterEffects]
     });
 
     actions$ = TestBed.get(Actions);
     effects = TestBed.get(RouterEffects);
-    location = TestBed.get(Location);
+    router = TestBed.get(Router);
 
-    spyOn(location, 'back');
+    spyOn(router, 'navigate');
   });
 
-  describe('back$', () => {
-    it('should navigate back', () => {
-      const action = new Back();
+  describe('home$', () => {
+    it('should navigate home', () => {
+      const action = new Home();
 
       actions$.stream = hot('-a', { a: action });
-      const expected = cold('-a', { a: action });
+      const expected = cold('-b', { b: new Go({ path: ['/'] }) });
 
-      expect(effects.back$).toBeObservable(expected);
-      expect(location.back).toHaveBeenCalled();
+      expect(effects.home$).toBeObservable(expected);
+    });
+  });
+
+  describe('navigate$', () => {
+    it('should navigate$', () => {
+      const path = [];
+      const action = new Go({ path });
+
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-b', { b: action.payload });
+
+      expect(effects.navigate$).toBeObservable(expected);
+      expect(router.navigate).toHaveBeenCalledWith(path, {
+        queryParams: undefined
+      });
     });
   });
 });

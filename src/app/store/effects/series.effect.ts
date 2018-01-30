@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import * as sa from '../actions';
-import { switchMap, map, catchError } from 'rxjs/operators';
+import { switchMap, map, catchError, tap } from 'rxjs/operators';
 import { SeriesService } from '../../common/series.service';
 import { of } from 'rxjs/observable/of';
 import { HttpParams } from '@angular/common/http';
 import { SearchParams } from '../../common/model/search.params';
 import { ISeries } from '../../common/model';
+import { Home } from '../router';
 
 @Injectable()
 export class SeriesEffects {
@@ -94,4 +95,9 @@ export class SeriesEffects {
           );
       })
     );
+
+  @Effect()
+  homeOnSuccess$ = this.actions$
+    .ofType(sa.CREATE_SERIES_SUCCESS, sa.UPDATE_SERIES_SUCCESS)
+    .pipe(map((a: sa.CreateSeriesSuccess) => new Home()));
 }

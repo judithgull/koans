@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import { NavigationExtras } from '@angular/router';
 
 export const GO = ' [router] GO';
-export const BACK = ' [router] BACK';
+export const HOME = ' [router] HOME';
 
 export class Go implements Action {
   readonly type = GO;
@@ -15,6 +15,6 @@ export class Go implements Action {
   ) {}
 }
 
-export class Back implements Action {
-  readonly type = BACK;
+export class Home implements Action {
+  readonly type = HOME;
 }

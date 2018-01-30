@@ -11,7 +11,8 @@ import {
   UpdateSeriesSuccess,
   UpdateSeries,
   DeleteSeries,
-  DeleteSeriesSuccess
+  DeleteSeriesSuccess,
+  Home
 } from '../index';
 import { SeriesService } from '../../common/series.service';
 import { SeriesEffects } from './series.effect';
@@ -19,20 +20,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs/observable/of';
 import { empty } from 'rxjs/observable/empty';
 import { hot, cold } from 'jasmine-marbles';
-
-export class TestActions extends Actions {
-  constructor() {
-    super(empty());
-  }
-
-  set stream(source: Observable<any>) {
-    this.source = source;
-  }
-}
-
-export function getActions() {
-  return new TestActions();
-}
+import { TestActions, getActions } from '../test/test.actions';
 
 describe('SeriesEffects', () => {
   let actions$: TestActions;
@@ -59,13 +47,14 @@ describe('SeriesEffects', () => {
   });
 
   describe('querySeries$', () => {
-    it('should return a collection from LoadSeriesSuccess', () => {
+    it('should return a collection from QuerySeriesSuccess', () => {
       const action = new QuerySeries({});
 
       actions$.stream = hot('-a', { a: action });
 
       const completionAction = new QuerySeriesSuccess(mockSeries);
       const expected = cold('-b', { b: completionAction });
+
       expect(effects.querySeries$).toBeObservable(expected);
     });
   });
@@ -103,6 +92,17 @@ describe('SeriesEffects', () => {
       const completionAction = new DeleteSeriesSuccess(mockSeries[0]._id + '');
       const expected = cold('-b', { b: completionAction });
       expect(effects.deleteSeries$).toBeObservable(expected);
+    });
+  });
+
+  describe('homeOnSuccess$', () => {
+    it('should navigate home on CreateSeriesSuccess', () => {
+      const action = new CreateSeriesSuccess(mockSeries[0]);
+      actions$.stream = hot('-a', { a: action });
+
+      const completionAction = new Home();
+      const expected = cold('-b', { b: completionAction });
+      expect(effects.homeOnSuccess$).toBeObservable(expected);
     });
   });
 });
