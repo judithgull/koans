@@ -1,5 +1,5 @@
 import { ISeries } from '../../common/model';
-import * as sa from '../actions/series.action';
+import * as sa from './series.action';
 import { createEntities } from '../helpers';
 
 export interface SeriesEntities {
@@ -14,7 +14,7 @@ export const initialState: SeriesEntities = {
   loading: false
 };
 
-export function reducer(
+export function seriesReducer(
   state = initialState,
   action: sa.SeriesAction
 ): SeriesEntities {
@@ -73,7 +73,3 @@ export function reducer(
   }
   return state;
 }
-
-export const getSeriesLoading = (state: SeriesEntities) => state.loading;
-export const getSeriesLoaded = (state: SeriesEntities) => state.loaded;
-export const getSeriesEntities = (state: SeriesEntities) => state.entities;

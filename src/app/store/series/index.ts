@@ -1,6 +1,7 @@
 import { SeriesEffects } from './series.effect';
 import { RouterEffects } from '../router/router.effect';
 
-export const effects: any[] = [SeriesEffects, RouterEffects];
-
 export * from './series.effect';
+export * from './series.reducer';
+export * from './series.action';
+export * from './series.selectors';

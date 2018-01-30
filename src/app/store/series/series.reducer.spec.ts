@@ -1,10 +1,4 @@
-import {
-  initialState,
-  reducer,
-  getSeriesEntities,
-  getSeriesLoaded,
-  getSeriesLoading
-} from './series.reducer';
+import { initialState, seriesReducer } from './series.reducer';
 import {
   QuerySeries,
   QuerySeriesSuccess,
@@ -24,7 +18,7 @@ describe('Series Reducer', () => {
   describe('undefined action', () => {
     it('should return the default state', () => {
       const action: any = {};
-      const state = reducer(undefined, action);
+      const state = seriesReducer(undefined, action);
       expect(state).toBe(initialState);
     });
   });
@@ -32,7 +26,7 @@ describe('Series Reducer', () => {
   describe('QUERY SERIES action', () => {
     it('should set loading true', () => {
       const action = new QuerySeries({});
-      const state = reducer(initialState, action);
+      const state = seriesReducer(initialState, action);
       expect(state.loading).toBe(true);
       expect(state.loaded).toBe(false);
       expect(state.entities).toEqual({});
@@ -42,7 +36,7 @@ describe('Series Reducer', () => {
   describe('QUERY SERIES FAIL action', () => {
     it('should set loaded false', () => {
       const action = new QuerySeriesFail('message');
-      const state = reducer(
+      const state = seriesReducer(
         { loaded: true, loading: true, entities: {} },
         action
       );
@@ -55,7 +49,7 @@ describe('Series Reducer', () => {
   describe('QUERY SERIES SUCCESS action', () => {
     it('should map empty array to entities', () => {
       const action = new QuerySeriesSuccess([]);
-      const state = reducer(initialState, action);
+      const state = seriesReducer(initialState, action);
       expect(state.loading).toBe(false);
       expect(state.loaded).toBe(true);
       expect(state.entities).toEqual({});
@@ -63,7 +57,7 @@ describe('Series Reducer', () => {
 
     it('should map non-empty array to entities', () => {
       const action = new QuerySeriesSuccess(mockSeries);
-      const state = reducer(initialState, action);
+      const state = seriesReducer(initialState, action);
 
       expect(state.loading).toBe(false);
       expect(state.loaded).toBe(true);
@@ -74,7 +68,7 @@ describe('Series Reducer', () => {
   describe('CREATE SERIES SUCCESS action', () => {
     it('should add new entity to entities', () => {
       const action = new CreateSeriesSuccess(mockSeries[0]);
-      const state = reducer(initialState, action);
+      const state = seriesReducer(initialState, action);
 
       expect(state.entities).toEqual({ [mockSeries[0]._id]: mockSeries[0] });
     });
@@ -83,7 +77,7 @@ describe('Series Reducer', () => {
   describe('UPDATE SERIES SUCCESS action', () => {
     it('should update exisiting entity', () => {
       const action = new UpdateSeriesSuccess(mockSeries[0]);
-      const state = reducer(
+      const state = seriesReducer(
         {
           ...initialState,
           entities: {
@@ -100,7 +94,7 @@ describe('Series Reducer', () => {
   describe('DELETE SERIES SUCCESS action', () => {
     it('should delete exisiting entity', () => {
       const action = new DeleteSeriesSuccess(mockSeries[0]._id + '');
-      const state = reducer(
+      const state = seriesReducer(
         {
           ...initialState,
           entities: {
@@ -111,26 +105,6 @@ describe('Series Reducer', () => {
       );
 
       expect(state.entities).toEqual({});
-    });
-  });
-
-  describe('Selectors', () => {
-    it('should select series entites', () => {
-      const state = { ...initialState, entities };
-      const selectedEntities = getSeriesEntities(state);
-      expect(entities).toBe(entities);
-    });
-
-    it('should select series loaded', () => {
-      const state = { loaded: true, loading: false, entities };
-      const loaded = getSeriesLoaded(state);
-      expect(loaded).toBe(true);
-    });
-
-    it('should select series loading', () => {
-      const state = { loaded: true, loading: false, entities };
-      const loading = getSeriesLoading(state);
-      expect(loading).toBe(false);
     });
   });
 });

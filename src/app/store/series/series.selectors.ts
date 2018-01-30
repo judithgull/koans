@@ -1,15 +1,16 @@
-import { createSelector } from '@ngrx/store';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
 
 import * as r from '../router';
-import * as sr from '../reducers/series.reducer';
-import * as series from '../reducers';
+import * as sr from './series.reducer';
+
+export const getSeries = createFeatureSelector<sr.SeriesEntities>('series');
 
 /**
  * Get series as entities object
  */
 export const getSeriesEntities = createSelector(
-  series.getSeries,
-  sr.getSeriesEntities
+  getSeries,
+  (state: sr.SeriesEntities) => state.entities
 );
 
 /** Series given by router state params */

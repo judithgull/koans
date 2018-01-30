@@ -4,16 +4,16 @@ import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { ExerciseUserProgress } from '../../../common/model/exercise';
 
-import * as sa from '../../../store/actions';
 import * as ua from '../actions';
+import { LOAD_SERIES_SUCCESS, LoadSeriesSuccess } from '../../../store';
 
 @Injectable()
 export class UserStateEffects {
   constructor(private actions$: Actions) {}
 
   @Effect()
-  loadSuccess$ = this.actions$.ofType(sa.LOAD_SERIES_SUCCESS).pipe(
-    map((a: sa.LoadSeriesSuccess) => {
+  loadSuccess$ = this.actions$.ofType(LOAD_SERIES_SUCCESS).pipe(
+    map((a: LoadSeriesSuccess) => {
       const initialUserProgress: ExerciseUserProgress[] = a.payload.items.map(
         e => {
           return {
