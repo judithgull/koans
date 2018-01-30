@@ -96,11 +96,11 @@ describe('SeriesEffects', () => {
 
   describe('deleteSeries$', () => {
     it('should delete a series from DeleteSeries', () => {
-      const action = new DeleteSeries(mockSeries[0]._id);
+      const action = new DeleteSeries(mockSeries[0]._id + '');
 
       actions$.stream = hot('-a', { a: action });
 
-      const completionAction = new DeleteSeriesSuccess(mockSeries[0]._id);
+      const completionAction = new DeleteSeriesSuccess(mockSeries[0]._id + '');
       const expected = cold('-b', { b: completionAction });
       expect(effects.deleteSeries$).toBeObservable(expected);
     });
