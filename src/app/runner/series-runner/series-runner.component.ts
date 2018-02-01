@@ -19,12 +19,9 @@ export class SeriesRunnerComponent implements OnInit {
   ex$: Store<Exercise>;
   userState$: Store<ExerciseUserProgress>;
 
-  constructor(private route: ActivatedRoute, private store: Store<st.State>) {}
+  constructor(private store: Store<st.State>) {}
 
   ngOnInit() {
-    this.route.params.subscribe((data: { id: string }) => {
-      this.store.dispatch(new st.LoadSeries(data.id));
-    });
     this.series$ = this.store.select(st.getSelectedSeries);
     this.userStates$ = this.store.select(rst.getSelectedSeriesState);
     this.ex$ = this.store.select(st.getSelectedExercise);

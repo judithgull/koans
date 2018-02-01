@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { ExerciseUserProgress } from '../../../common/model/exercise';
+import { ISeries } from '../../../common/model';
 
 export const LOAD_EXERCISE_USER_STATE = 'LOAD EXERCISE USER STATE';
 export const LOAD_EXERCISE_USER_STATE_FAIL = 'LOAD EXERCISE USER STATE FAIL';
@@ -10,7 +11,7 @@ export const TOGGLE_SOLUTION_VISIBLE = 'TOGGLE_SOLUTION_VISIBLE';
 
 export class LoadExerciseUserState implements Action {
   readonly type = LOAD_EXERCISE_USER_STATE;
-  constructor(public count: number) {}
+  constructor(public payload: ISeries) {}
 }
 
 export class LoadExerciseUserStateFail implements Action {

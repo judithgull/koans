@@ -7,14 +7,10 @@ export interface SeriesUserState {
 
 export interface SeriesUserStates {
   entities: { [id: string]: SeriesUserState };
-  loaded: boolean;
-  loading: boolean;
 }
 
 export const initialState: SeriesUserStates = {
-  entities: {},
-  loaded: false,
-  loading: false
+  entities: {}
 };
 
 export function reducer(
@@ -25,8 +21,7 @@ export function reducer(
     case ea.LOAD_EXERCISE_USER_STATE: {
       return {
         ...state,
-        entities: {},
-        loading: true
+        entities: {}
       };
     }
     case ea.LOAD_EXERCISE_USER_STATE_SUCCESS: {
@@ -49,8 +44,6 @@ export function reducer(
       );
 
       return {
-        loading: false,
-        loaded: true,
         entities: {
           ...state.entities,
           [id]: exEntities
@@ -60,9 +53,7 @@ export function reducer(
 
     case ea.LOAD_EXERCISE_USER_STATE_FAIL: {
       return {
-        ...state,
-        loading: false,
-        loaded: false
+        ...state
       };
     }
     case ea.EXERCISE_SOLVED: {
@@ -114,6 +105,4 @@ export function reducer(
   return state;
 }
 
-export const getUserStateLoading = (state: SeriesUserStates) => state.loading;
-export const getUserStateLoaded = (state: SeriesUserStates) => state.loaded;
 export const getUserStateEntities = (state: SeriesUserStates) => state.entities;

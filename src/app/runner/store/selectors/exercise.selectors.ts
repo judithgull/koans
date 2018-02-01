@@ -14,15 +14,6 @@ export const getSeriesUserStateEntities = createSelector(
   er.getUserStateEntities
 );
 
-export const getExerciseUserStateLoading = createSelector(
-  getSeriesUserStates,
-  er.getUserStateLoading
-);
-export const getExerciseUserStateLoaded = createSelector(
-  getSeriesUserStates,
-  er.getUserStateLoading
-);
-
 export const getSelectedSeriesState = createSelector(
   getSeriesUserStateEntities,
   root.getRouterState,
