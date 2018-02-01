@@ -43,3 +43,13 @@ export const getSelectedUserState = createSelector(
     return null;
   }
 );
+
+export const getAllExerciseProgresses = createSelector(
+  getSelectedSeriesState,
+  entities => {
+    if (entities) {
+      return Object.keys(entities).map(id => entities[id]);
+    }
+    return null;
+  }
+);

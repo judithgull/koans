@@ -1,8 +1,0 @@
-<div class="progress-bar" *ngIf="userProgress">
-  <div class="progress-bar-item" *ngFor="let ex of exercises; let i = index">
-    <a class="progress-bar-item--link" *ngIf="userProgress[i+1]" [routerLink]="['e', i + 1]" [routerLinkActive]="['isActive']"
-      [ngClass]="{isSolved: userProgress[i+1].solved, isNotSolved: userProgress[i+1].solutionRequested}">
-      <span class="l-centred">{{ i + 1 }}</span>
-    </a>
-  </div>
-</div>

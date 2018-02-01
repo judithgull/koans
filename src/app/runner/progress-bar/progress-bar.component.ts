@@ -1,13 +1,22 @@
-import { Component, Input } from '@angular/core';
-import { Exercise, SeriesProgress } from '../../common/model';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ExerciseProgress } from '../../common/model';
 
 @Component({
   selector: 'app-progress-bar',
-  templateUrl: './progress-bar.component.html',
-  styleUrls: ['./progress-bar.component.scss']
+  template: `
+  <div class="progress-bar" *ngIf="userProgress">
+    <div class="progress-bar-item" *ngFor="let p of userProgress; let i = index">
+      <a class="progress-bar-item--link" *ngIf="p"
+       [routerLink]="['e', i + 1]"
+       [routerLinkActive]="['isActive']"
+       [ngClass]="{isSolved: p.solved, isNotSolved: p.solutionRequested}">
+          <span class="l-centred">{{ i + 1 }}</span>
+      </a>
+    </div>
+  </div>`,
+  styleUrls: ['./progress-bar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProgressBarComponent {
-  @Input() exercises: Exercise[];
-
-  @Input() userProgress: SeriesProgress;
+  @Input() userProgress: ExerciseProgress[];
 }

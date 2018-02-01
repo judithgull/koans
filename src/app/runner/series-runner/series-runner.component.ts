@@ -19,7 +19,7 @@ import * as rst from '../store';
 })
 export class SeriesRunnerComponent implements OnInit {
   series$: Store<ISeries>;
-  userStates$: Store<SeriesProgress>;
+  progresses$: Store<ExerciseProgress[]>;
   ex$: Store<Exercise>;
   userState$: Store<ExerciseProgress>;
 
@@ -27,7 +27,7 @@ export class SeriesRunnerComponent implements OnInit {
 
   ngOnInit() {
     this.series$ = this.store.select(st.getSelectedSeries);
-    this.userStates$ = this.store.select(rst.getSelectedSeriesState);
+    this.progresses$ = this.store.select(rst.getAllExerciseProgresses);
     this.ex$ = this.store.select(st.getSelectedExercise);
     this.userState$ = this.store.select(rst.getSelectedUserState);
   }
