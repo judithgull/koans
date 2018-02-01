@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
-import { ExerciseUserProgress } from '../../../common/model/exercise';
-import { ISeries } from '../../../common/model';
+import { ISeries, ExerciseProgress } from '../../../common/model';
 
 export const LOAD_EXERCISE_USER_STATE = 'LOAD EXERCISE USER STATE';
 export const LOAD_EXERCISE_USER_STATE_FAIL = 'LOAD EXERCISE USER STATE FAIL';
@@ -24,7 +23,7 @@ export class LoadExerciseUserStateSuccess implements Action {
   constructor(
     public payload: {
       seriesId: number;
-      userProgress: ExerciseUserProgress[];
+      userProgress: ExerciseProgress[];
     }
   ) {}
 }

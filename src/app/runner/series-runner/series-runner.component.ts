@@ -2,11 +2,15 @@ import { ISeries } from '../../common/model/series';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ProgrammingLanguage } from '../../common/model/programming-language';
 import { Store } from '@ngrx/store';
+import {
+  ExerciseProgress,
+  Exercise,
+  ProgrammingLanguage,
+  SeriesProgress
+} from '../../common/model';
 import * as st from '../../store';
 import * as rst from '../store';
-import { ExerciseUserProgress, Exercise } from '../../common/model/exercise';
 
 @Component({
   selector: 'app-series-runner',
@@ -15,9 +19,9 @@ import { ExerciseUserProgress, Exercise } from '../../common/model/exercise';
 })
 export class SeriesRunnerComponent implements OnInit {
   series$: Store<ISeries>;
-  userStates$: Store<{ [id: string]: ExerciseUserProgress }>;
+  userStates$: Store<SeriesProgress>;
   ex$: Store<Exercise>;
-  userState$: Store<ExerciseUserProgress>;
+  userState$: Store<ExerciseProgress>;
 
   constructor(private store: Store<st.State>) {}
 

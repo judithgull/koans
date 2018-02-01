@@ -3,6 +3,7 @@ import { createSelector } from '@ngrx/store';
 import * as root from '../../../store';
 import * as r from '../reducers';
 import * as er from '../reducers/exercise.reducer';
+import { SeriesProgress } from '../../../common/model';
 
 export const getSeriesUserStates = createSelector(
   r.getRunnerState,
@@ -29,7 +30,7 @@ export const getSelectedSeriesState = createSelector(
 export const getSelectedUserState = createSelector(
   getSelectedSeriesState,
   root.getRouterState,
-  (seriesUserState: er.SeriesUserState, router) => {
+  (seriesUserState: SeriesProgress, router) => {
     if (seriesUserState && router.state) {
       const exId = router.state.params.exId;
       return seriesUserState[exId];

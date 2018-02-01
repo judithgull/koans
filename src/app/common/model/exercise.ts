@@ -6,11 +6,3 @@ export class Exercise {
   exercise: string;
   solution: string;
 }
-
-export interface ExerciseUserProgress {
-  id: number;
-  userSolution: string;
-  solved: boolean;
-  solutionRequested: boolean;
-  solutionVisible: boolean;
-}

@@ -1,11 +1,15 @@
 import { Subscription } from 'rxjs/Rx';
 import { Store } from '@ngrx/store';
-import { Feedback, FeedbackType } from '../../common/model/feedback';
+import {
+  Feedback,
+  FeedbackType,
+  Exercise,
+  ExerciseProgress
+} from '../../common/model';
 import { Component, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as st from '../../store';
 import * as rst from '../store';
-import { Exercise, ExerciseUserProgress } from '../../common/model/exercise';
 import { ISeries } from '../../common/model/series';
 
 @Component({
@@ -15,7 +19,7 @@ import { ISeries } from '../../common/model/series';
 })
 export class RunExerciseCardComponent implements OnInit, OnDestroy {
   ex$: Store<Exercise>;
-  userState$: Store<ExerciseUserProgress>;
+  userState$: Store<ExerciseProgress>;
   series$: Store<ISeries>;
 
   userValue = '';

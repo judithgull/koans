@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ExerciseUserProgress } from '../../common/model/exercise';
+import { ExerciseProgress } from '../../common/model';
 
 @Component({
   selector: 'app-exercise-nav-buttons',
@@ -10,7 +10,7 @@ import { ExerciseUserProgress } from '../../common/model/exercise';
   styleUrls: ['./exercise-nav-buttons.component.scss']
 })
 export class ExerciseNavButtonsComponent {
-  @Input() userProgress: ExerciseUserProgress;
+  @Input() userProgress: ExerciseProgress;
   @Input() exId: number;
   @Input() exerciseCount: number;
 

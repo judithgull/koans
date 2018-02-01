@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-import { Exercise, ExerciseUserProgress } from '../../common/model/exercise';
+import { Exercise, SeriesProgress } from '../../common/model';
 
 @Component({
   selector: 'app-progress-bar',
@@ -10,5 +9,5 @@ import { Exercise, ExerciseUserProgress } from '../../common/model/exercise';
 export class ProgressBarComponent {
   @Input() exercises: Exercise[];
 
-  @Input() userProgress: { [id: string]: ExerciseUserProgress };
+  @Input() userProgress: SeriesProgress;
 }

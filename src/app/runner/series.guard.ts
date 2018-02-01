@@ -10,14 +10,13 @@ import { tap, filter, take, switchMap, map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators/catchError';
-import { ISeries } from '../common/model';
+import { ISeries, SeriesProgress } from '../common/model';
 import {
   RunnerState,
   getSeriesUserStates,
   getSelectedSeriesState,
   LoadExerciseUserState
 } from './store/index';
-import { SeriesUserState } from './store/reducers/exercise.reducer';
 
 @Injectable()
 export class SeriesExistsGuard implements CanActivate {
@@ -33,7 +32,7 @@ export class SeriesExistsGuard implements CanActivate {
     );
   }
 
-  checkStore(id: string): Observable<SeriesUserState> {
+  checkStore(id: string): Observable<SeriesProgress> {
     return this.store.select(getSeriesEntities).pipe(
       map(entites => entites[id]),
       switchMap(series => {

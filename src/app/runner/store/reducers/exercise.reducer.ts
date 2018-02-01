@@ -1,12 +1,8 @@
-import { ExerciseUserProgress } from '../../../common/model/exercise';
 import * as ea from '../actions/exercise.action';
-
-export interface SeriesUserState {
-  [id: string]: ExerciseUserProgress;
-}
+import { SeriesProgress, ExerciseProgress } from '../../../common/model';
 
 export interface SeriesUserStates {
-  entities: { [id: string]: SeriesUserState };
+  entities: { [id: string]: SeriesProgress };
 }
 
 export const initialState: SeriesUserStates = {
@@ -30,8 +26,8 @@ export function reducer(
 
       const exEntities = exProgress.reduce(
         (
-          entities: { [id: string]: ExerciseUserProgress },
-          ex: ExerciseUserProgress
+          entities: { [id: string]: ExerciseProgress },
+          ex: ExerciseProgress
         ) => {
           return {
             ...entities,
@@ -61,12 +57,12 @@ export function reducer(
       const seriesId = exState.seriesId;
       const previousSeries = state.entities[seriesId];
       const previousExState = previousSeries[exState.id];
-      const newEntity: ExerciseUserProgress = {
+      const newEntity: ExerciseProgress = {
         ...previousExState,
         userSolution: exState.userSolution,
         solved: !previousExState.solutionRequested
       };
-      const newSeries: SeriesUserState = {
+      const newSeries: SeriesProgress = {
         ...previousSeries,
         [exState.id]: newEntity
       };
@@ -84,12 +80,12 @@ export function reducer(
       const seriesId = exState.seriesId;
       const previousSeries = state.entities[seriesId];
       const previousExState = previousSeries[exState.id];
-      const newEntity: ExerciseUserProgress = {
+      const newEntity: ExerciseProgress = {
         ...previousExState,
         solutionRequested: !previousExState.solved,
         solutionVisible: !previousExState.solutionVisible
       };
-      const newSeries: SeriesUserState = {
+      const newSeries: SeriesProgress = {
         ...previousSeries,
         [exState.id]: newEntity
       };
