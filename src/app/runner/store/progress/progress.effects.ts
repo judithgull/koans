@@ -3,15 +3,14 @@ import { Actions, Effect } from '@ngrx/effects';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { ExerciseProgress } from '../../../common/model';
-
 import { LOAD_SERIES_SUCCESS, LoadSeriesSuccess } from '../../../store';
 import {
   LOAD_EXERCISE_USER_STATE,
   LoadSeriesProgressSuccess
-} from './series-progress.action';
+} from './progress.action';
 
 @Injectable()
-export class UserStateEffects {
+export class ProgressEffects {
   constructor(private actions$: Actions) {}
 
   @Effect()

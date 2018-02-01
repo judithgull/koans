@@ -3,9 +3,10 @@ import { createSelector, createFeatureSelector } from '@ngrx/store';
 import * as root from '../../../store';
 import { SeriesProgress } from '../../../common/model';
 import { RunnerState, getRunnerState } from '../index';
-import { SeriesUserStates } from './exercise.reducer';
+import { SeriesProgressEntities } from './progress.reducer';
 
-export const getUserStateEntities = (state: SeriesUserStates) => state.entities;
+export const getUserStateEntities = (state: SeriesProgressEntities) =>
+  state.entities;
 
 export const getRunner = createFeatureSelector<RunnerState>('runner');
 

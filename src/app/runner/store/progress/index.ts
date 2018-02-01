@@ -1,3 +1,4 @@
-export * from './series-progress.action';
-export * from './user-state.effects';
-export * from './exercise.selectors';
+export * from './progress.action';
+export * from './progress.effects';
+export * from './progress.selectors';
+export * from './progress.reducer';

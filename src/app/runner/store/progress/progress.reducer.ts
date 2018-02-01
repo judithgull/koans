@@ -1,26 +1,33 @@
-import * as ea from './series-progress.action';
 import { SeriesProgress, ExerciseProgress } from '../../../common/model';
+import {
+  ExersiseUserStateAction,
+  LOAD_EXERCISE_USER_STATE,
+  LOAD_EXERCISE_USER_STATE_SUCCESS,
+  LOAD_EXERCISE_USER_STATE_FAIL,
+  EXERCISE_SOLVED,
+  TOGGLE_SOLUTION_VISIBLE
+} from './progress.action';
 
-export interface SeriesUserStates {
+export interface SeriesProgressEntities {
   entities: { [id: string]: SeriesProgress };
 }
 
-export const initialState: SeriesUserStates = {
+export const initialState: SeriesProgressEntities = {
   entities: {}
 };
 
 export function reducer(
   state = initialState,
-  action: ea.ExersiseUserStateAction
-): SeriesUserStates {
+  action: ExersiseUserStateAction
+): SeriesProgressEntities {
   switch (action.type) {
-    case ea.LOAD_EXERCISE_USER_STATE: {
+    case LOAD_EXERCISE_USER_STATE: {
       return {
         ...state,
         entities: {}
       };
     }
-    case ea.LOAD_EXERCISE_USER_STATE_SUCCESS: {
+    case LOAD_EXERCISE_USER_STATE_SUCCESS: {
       const exProgress = action.payload.userProgress;
       const id = action.payload.seriesId;
 
@@ -47,12 +54,12 @@ export function reducer(
       };
     }
 
-    case ea.LOAD_EXERCISE_USER_STATE_FAIL: {
+    case LOAD_EXERCISE_USER_STATE_FAIL: {
       return {
         ...state
       };
     }
-    case ea.EXERCISE_SOLVED: {
+    case EXERCISE_SOLVED: {
       const exState = action.payload;
       const seriesId = exState.seriesId;
       const previousSeries = state.entities[seriesId];
@@ -74,7 +81,7 @@ export function reducer(
         }
       };
     }
-    case ea.TOGGLE_SOLUTION_VISIBLE: {
+    case TOGGLE_SOLUTION_VISIBLE: {
       // TODO refactor
       const exState = action.payload;
       const seriesId = exState.seriesId;

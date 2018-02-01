@@ -1,13 +1,12 @@
-import { SeriesUserStates, reducer } from './progress/exercise.reducer';
+import { ProgressEffects, SeriesProgressEntities, reducer } from './progress';
 import { createFeatureSelector, ActionReducerMap } from '@ngrx/store';
-import { UserStateEffects } from './progress';
 
-export const effects: any[] = [UserStateEffects];
+export const effects: any[] = [ProgressEffects];
 
 export const getRunnerState = createFeatureSelector<RunnerState>('runner');
 
 export interface RunnerState {
-  progress: SeriesUserStates;
+  progress: SeriesProgressEntities;
 }
 
 export const reducers: ActionReducerMap<RunnerState> = {
