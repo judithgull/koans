@@ -4,13 +4,13 @@ import {
   Feedback,
   FeedbackType,
   Exercise,
-  ExerciseProgress
+  ExerciseProgress,
+  ISeries
 } from '../../common/model';
 import { Component, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as st from '../../store';
 import * as rst from '../store';
-import { ISeries } from '../../common/model/series';
 
 @Component({
   selector: 'app-run-exercise-card',

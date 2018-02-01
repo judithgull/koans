@@ -1,4 +1,3 @@
-import { ISeries } from '../../common/model/series';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -7,7 +6,8 @@ import {
   ExerciseProgress,
   Exercise,
   ProgrammingLanguage,
-  SeriesProgress
+  SeriesProgress,
+  ISeries
 } from '../../common/model';
 import * as st from '../../store';
 import * as rst from '../store';

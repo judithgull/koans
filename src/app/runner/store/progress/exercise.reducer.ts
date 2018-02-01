@@ -1,4 +1,4 @@
-import * as ea from '../actions/exercise.action';
+import * as ea from './series-progress.action';
 import { SeriesProgress, ExerciseProgress } from '../../../common/model';
 
 export interface SeriesUserStates {
@@ -100,5 +100,3 @@ export function reducer(
   }
   return state;
 }
-
-export const getUserStateEntities = (state: SeriesUserStates) => state.entities;

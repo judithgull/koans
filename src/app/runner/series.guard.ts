@@ -6,7 +6,7 @@ import {
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { State, LoadSeries, getSeriesEntities } from '../store';
-import { tap, filter, take, switchMap, map } from 'rxjs/operators';
+import { tap, filter, take, switchMap, map, timeout } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators/catchError';
@@ -15,7 +15,7 @@ import {
   RunnerState,
   getSeriesUserStates,
   getSelectedSeriesState,
-  LoadExerciseUserState
+  LoadSeriesProgress
 } from './store/index';
 
 @Injectable()
@@ -41,13 +41,14 @@ export class SeriesExistsGuard implements CanActivate {
             if (!series) {
               this.store.dispatch(new LoadSeries(id));
             } else if (!userState) {
-              this.store.dispatch(new LoadExerciseUserState(series));
+              this.store.dispatch(new LoadSeriesProgress(series));
             }
           })
         );
       }),
       filter(userState => !!userState),
-      take(1)
+      take(1),
+      timeout(1000)
     );
   }
 }

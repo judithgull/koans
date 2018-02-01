@@ -8,17 +8,17 @@ export const LOAD_EXERCISE_USER_STATE_SUCCESS =
 export const EXERCISE_SOLVED = 'EXERCISE SOLVED';
 export const TOGGLE_SOLUTION_VISIBLE = 'TOGGLE_SOLUTION_VISIBLE';
 
-export class LoadExerciseUserState implements Action {
+export class LoadSeriesProgress implements Action {
   readonly type = LOAD_EXERCISE_USER_STATE;
   constructor(public payload: ISeries) {}
 }
 
-export class LoadExerciseUserStateFail implements Action {
+export class LoadSeriesProgressFail implements Action {
   readonly type = LOAD_EXERCISE_USER_STATE_FAIL;
   constructor(public payload: any) {}
 }
 
-export class LoadExerciseUserStateSuccess implements Action {
+export class LoadSeriesProgressSuccess implements Action {
   readonly type = LOAD_EXERCISE_USER_STATE_SUCCESS;
   constructor(
     public payload: {
@@ -50,8 +50,8 @@ export class ToggleSolutionVisible implements Action {
 }
 
 export type ExersiseUserStateAction =
-  | LoadExerciseUserState
-  | LoadExerciseUserStateFail
-  | LoadExerciseUserStateSuccess
+  | LoadSeriesProgress
+  | LoadSeriesProgressFail
+  | LoadSeriesProgressSuccess
   | ExerciseSolved
   | ToggleSolutionVisible;

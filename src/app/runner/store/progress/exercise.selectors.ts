@@ -1,18 +1,22 @@
-import { createSelector } from '@ngrx/store';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
 
 import * as root from '../../../store';
-import * as r from '../reducers';
-import * as er from '../reducers/exercise.reducer';
 import { SeriesProgress } from '../../../common/model';
+import { RunnerState, getRunnerState } from '../index';
+import { SeriesUserStates } from './exercise.reducer';
+
+export const getUserStateEntities = (state: SeriesUserStates) => state.entities;
+
+export const getRunner = createFeatureSelector<RunnerState>('runner');
 
 export const getSeriesUserStates = createSelector(
-  r.getRunnerState,
-  (state: r.RunnerState) => state.userState
+  getRunner,
+  (state: RunnerState) => state.progress
 );
 
 export const getSeriesUserStateEntities = createSelector(
   getSeriesUserStates,
-  er.getUserStateEntities
+  getUserStateEntities
 );
 
 export const getSelectedSeriesState = createSelector(

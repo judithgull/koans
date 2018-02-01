@@ -4,9 +4,11 @@ import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { ExerciseProgress } from '../../../common/model';
 
-import * as ua from '../actions';
 import { LOAD_SERIES_SUCCESS, LoadSeriesSuccess } from '../../../store';
-import { LOAD_EXERCISE_USER_STATE } from '../actions/exercise.action';
+import {
+  LOAD_EXERCISE_USER_STATE,
+  LoadSeriesProgressSuccess
+} from './series-progress.action';
 
 @Injectable()
 export class UserStateEffects {
@@ -24,7 +26,7 @@ export class UserStateEffects {
           solutionVisible: false
         };
       });
-      return new ua.LoadExerciseUserStateSuccess({
+      return new LoadSeriesProgressSuccess({
         seriesId: a.payload._id,
         userProgress: initialUserProgress
       });
