@@ -1,8 +1,1 @@
-import { ViewContainerRef } from '@angular/core';
-
-export class MockToastManager {
-
-  setRootViewContainerRef(vcr: ViewContainerRef) {
-  }
-
-}
+export class MockToastService {}

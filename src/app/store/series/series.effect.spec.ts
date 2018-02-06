@@ -21,6 +21,9 @@ import { of } from 'rxjs/observable/of';
 import { empty } from 'rxjs/observable/empty';
 import { hot, cold } from 'jasmine-marbles';
 import { TestActions, getActions } from '../test/test.actions';
+import { ToastrService } from 'ngx-toastr';
+
+class MockToastrService {}
 
 describe('SeriesEffects', () => {
   let actions$: TestActions;
@@ -32,7 +35,8 @@ describe('SeriesEffects', () => {
       providers: [
         SeriesService,
         SeriesEffects,
-        { provide: Actions, useFactory: getActions }
+        { provide: Actions, useFactory: getActions },
+        { provide: ToastrService, useClass: MockToastrService }
       ]
     });
 

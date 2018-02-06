@@ -74,7 +74,6 @@
     "mongodb": "^2.0.45",
     "mongoose": "^4.6.5",
     "multi-glob": "^0.4.0",
-    "ng2-toastr": "^4.1.2",
     "ngx-ellipsis": "^1.0.7",
     "ngx-toastr": "^8.2.0",
     "node-sass": "^4.5.3",

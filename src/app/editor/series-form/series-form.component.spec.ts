@@ -1,6 +1,4 @@
 import { ExerciseFormComponent } from '../exercise-form/exercise-form.component';
-import { ToastrService } from 'ngx-toastr';
-import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { CodeEditorModule } from '../../code-editor/code-editor.module';
 import { CodeEditorComponent } from '../../code-editor/code-editor.component';
@@ -10,9 +8,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppCommonModule } from '../../common/common.module';
 import { SeriesFormComponent } from './series-form.component';
-import { MockToastManager } from '../../common/test/toastmanager.mock';
 import { StoreModule } from '@ngrx/store';
 import * as rootStore from '../../store';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SeriesFormComponent', () => {
   let component: SeriesFormComponent;
@@ -33,8 +31,7 @@ describe('SeriesFormComponent', () => {
           StoreModule.forRoot({
             ...rootStore.reducers
           })
-        ],
-        providers: [{ provide: ToastrService, useClass: MockToastManager }]
+        ]
       }).compileComponents();
     })
   );

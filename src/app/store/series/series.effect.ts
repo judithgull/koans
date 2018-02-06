@@ -6,6 +6,7 @@ import { HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { ISeries, SearchParams } from '../../common/model';
 import { Home } from '../router';
 import { SeriesService } from '../../common/series.service';
+import { ToastrService } from 'ngx-toastr';
 import {
   LoadSeries,
   LOAD_SERIES,
@@ -27,7 +28,6 @@ import {
   UPDATE_SERIES_SUCCESS,
   SERIES_ERROR
 } from './series.action';
-import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class SeriesEffects {

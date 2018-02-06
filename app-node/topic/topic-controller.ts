@@ -135,7 +135,7 @@ export const postTopic = function(req, res) {
         };
 
         TopicModel.create(newTopic)
-          .onFulfill(t => res.status(401).send({ message: 'Login Required!' }))
+          .onFulfill(t => res.send(t))
           .onReject(reason => res.send(reason));
       }
     }

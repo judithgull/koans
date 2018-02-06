@@ -7,7 +7,6 @@ import { ToastsManager } from 'ng2-toastr';
 
 import { AuthModule } from '../../auth/auth.module';
 import { AppCommonModule } from '../../common/common.module';
-import { MockToastManager } from '../../common/test/toastmanager.mock';
 import { SearchFieldComponent } from '../search-field/search-field.component';
 import { SearchFilterComponent } from '../search-filter/search-filter.component';
 import { SeriesCardListComponent } from '../series-card-list/series-card-list.component';
@@ -42,12 +41,6 @@ describe('HomeComponent', () => {
           StoreModule.forRoot({
             ...rootStore.reducers
           })
-        ],
-        providers: [
-          {
-            provide: ToastsManager,
-            useClass: MockToastManager
-          }
         ]
       }).compileComponents();
     })

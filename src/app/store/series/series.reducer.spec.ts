@@ -2,10 +2,10 @@ import { initialState, seriesReducer } from './series.reducer';
 import {
   QuerySeries,
   QuerySeriesSuccess,
-  QuerySeriesFail,
   CreateSeriesSuccess,
   UpdateSeriesSuccess,
-  DeleteSeriesSuccess
+  DeleteSeriesSuccess,
+  SeriesError
 } from '../index';
 import { mockSeries } from '../../common/test/series.mock';
 
@@ -35,7 +35,7 @@ describe('Series Reducer', () => {
 
   describe('QUERY SERIES FAIL action', () => {
     it('should set loaded false', () => {
-      const action = new QuerySeriesFail('message');
+      const action = new SeriesError('message');
       const state = seriesReducer(
         { loaded: true, loading: true, entities: {} },
         action

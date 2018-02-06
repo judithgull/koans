@@ -4,8 +4,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppCommonModule } from '../../common/common.module';
-import { SeriesService } from '../../common/series.service';
-import { MockSeriesService } from '../../common/test/series-service.mock';
 import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
 import { SeriesRunnerComponent } from './series-runner.component';
 import { ExerciseNavButtonsComponent } from '../exercise-nav-buttons/exercise-nav-buttons.component';
@@ -32,12 +30,6 @@ describe('SeriesRunnerComponent', () => {
             ...rootStore.reducers,
             runner: combineReducers(runnerStore.reducers)
           })
-        ],
-        providers: [
-          {
-            provide: SeriesService,
-            useClass: MockSeriesService
-          }
         ]
       }).compileComponents();
     })
