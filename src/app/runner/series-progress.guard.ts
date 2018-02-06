@@ -15,8 +15,8 @@ import {
   RunnerState,
   getSeriesUserStates,
   getSelectedSeriesState,
-  LoadSeriesProgress
-} from './store/index';
+  InitSeriesProgress
+} from './store';
 
 @Injectable()
 export class SeriesProgressExistsGuard implements CanActivate {
@@ -41,7 +41,7 @@ export class SeriesProgressExistsGuard implements CanActivate {
             if (!series) {
               this.store.dispatch(new LoadSeries(id));
             } else if (!userState) {
-              this.store.dispatch(new LoadSeriesProgress(series));
+              this.store.dispatch(new InitSeriesProgress(series));
             }
           })
         );

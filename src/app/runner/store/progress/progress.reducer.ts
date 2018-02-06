@@ -1,11 +1,12 @@
 import { SeriesProgress, ExerciseProgress } from '../../../common/model';
 import {
-  ExersiseUserStateAction,
-  LOAD_EXERCISE_USER_STATE,
+  SeriesProgressAction,
+  INIT_SERIES_PROGRESS,
   LOAD_EXERCISE_USER_STATE_SUCCESS,
   EXERCISE_SOLVED,
   TOGGLE_SOLUTION_VISIBLE
 } from './progress.action';
+import { toEntities } from '../../../store/entityUtil';
 
 export interface SeriesProgressEntities {
   entities: { [id: string]: SeriesProgress };
@@ -15,12 +16,12 @@ export const initialState: SeriesProgressEntities = {
   entities: {}
 };
 
-export function reducer(
+export function progressReducer(
   state = initialState,
-  action: ExersiseUserStateAction
+  action: SeriesProgressAction
 ): SeriesProgressEntities {
   switch (action.type) {
-    case LOAD_EXERCISE_USER_STATE: {
+    case INIT_SERIES_PROGRESS: {
       return {
         ...state,
         entities: {}
@@ -30,20 +31,7 @@ export function reducer(
       const exProgress = action.payload.userProgress;
       const id = action.payload.seriesId;
 
-      const exEntities = exProgress.reduce(
-        (
-          entities: { [id: string]: ExerciseProgress },
-          ex: ExerciseProgress
-        ) => {
-          return {
-            ...entities,
-            [ex.id]: ex
-          };
-        },
-        {
-          ...state.entities[id]
-        }
-      );
+      const exEntities = toEntities(exProgress, e => e.id, state.entities[id]);
 
       return {
         entities: {

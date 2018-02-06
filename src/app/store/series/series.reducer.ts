@@ -1,6 +1,6 @@
 import { ISeries } from '../../common/model';
 import * as sa from './series.action';
-import { createEntities } from '../helpers';
+import { toEntities } from '../entityUtil';
 
 export interface SeriesEntities {
   entities: { [id: string]: ISeries };
@@ -48,11 +48,7 @@ export function seriesReducer(
       };
     }
     case sa.QUERY_SERIES_SUCCESS: {
-      const entities = createEntities(
-        action.payload,
-        s => s._id,
-        state.entities
-      );
+      const entities = toEntities(action.payload, s => s._id, state.entities);
 
       return {
         ...state,

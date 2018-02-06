@@ -4,7 +4,7 @@
  * @param extractIdFn function to extract if of an entity
  * @param initialEntities initial entity object
  */
-export function createEntities<T>(
+export function toEntities<T>(
   a: T[],
   extractIdFn: (T) => string,
   initialEntities: { [id: string]: T } = {}
