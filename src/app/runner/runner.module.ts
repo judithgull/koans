@@ -9,8 +9,7 @@ import { RunExerciseCardComponent } from './run-exercise-card/run-exercise-card.
 import { SeriesRunnerComponent } from './series-runner/series-runner.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
-import { reducers, effects } from './store';
-import { EffectsModule } from '@ngrx/effects';
+import { reducers } from './store';
 import { ExerciseTextComponent } from './exercise-text/exercise-text.component';
 import { ExerciseNavButtonsComponent } from './exercise-nav-buttons/exercise-nav-buttons.component';
 import { SeriesProgressExistsGuard } from './series-progress.guard';
@@ -43,8 +42,7 @@ const routes: Routes = [
     CodeEditorModule,
     ReactiveFormsModule,
     FormsModule,
-    StoreModule.forFeature('runner', reducers),
-    EffectsModule.forFeature(effects)
+    StoreModule.forFeature('runner', reducers)
   ],
   declarations: [
     SeriesRunnerComponent,
