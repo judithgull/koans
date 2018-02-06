@@ -19,6 +19,13 @@ describe('ExerciseNavButtonsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ExerciseNavButtonsComponent);
     component = fixture.componentInstance;
+    component.userProgress = {
+      id: 1,
+      solutionRequested: false,
+      solutionVisible: false,
+      solved: false,
+      userSolution: ''
+    };
     fixture.detectChanges();
   });
 

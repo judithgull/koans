@@ -10,7 +10,7 @@
         <app-series-icon [programmingLanguage]="(series$ | async)?.programmingLanguage" light="true"></app-series-icon>
         <div class="exercise-card">
           <router-outlet #o="outlet"></router-outlet>
-          <app-exercise-nav-buttons [userProgress]="(userState$ | async)" [exId]="(ex$ | async)?.sortOrder" [exerciseCount]="(series$ | async)?.items.length"></app-exercise-nav-buttons>
+          <app-exercise-nav-buttons *ngIf="userState$ | async" [userProgress]="(userState$ | async)" [exerciseCount]="(series$ | async)?.items.length"></app-exercise-nav-buttons>
         </div>
       </div>
     </div>

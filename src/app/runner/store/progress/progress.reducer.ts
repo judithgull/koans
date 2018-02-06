@@ -10,7 +10,11 @@ import {
   TOGGLE_SOLUTION_VISIBLE
 } from './progress.action';
 import { toEntities } from '../../../store/entityUtil';
-import { toInitialProgress } from './progress.util';
+import {
+  toInitialProgress,
+  solve,
+  toggleSolutionVisible
+} from './exercise-progress.util';
 
 export interface SeriesProgressEntities {
   entities: { [id: string]: SeriesProgress };
@@ -35,52 +39,45 @@ export function progressReducer(
       };
     }
     case EXERCISE_SOLVED: {
-      const exState = action.payload;
-      const seriesId = exState.seriesId;
-      const previousSeries = state.entities[seriesId];
-      const previousExState = previousSeries[exState.id];
-      const newEntity: ExerciseProgress = {
-        ...previousExState,
-        userSolution: exState.userSolution,
-        solved: !previousExState.solutionRequested
-      };
-      const newSeries: SeriesProgress = {
-        ...previousSeries,
-        [exState.id]: newEntity
-      };
-      return {
-        ...state,
-        entities: {
-          ...state.entities,
-          [seriesId]: newSeries
-        }
-      };
+      const { id, seriesId, userSolution } = action.payload;
+      return getUpdatedExerciseProgress(
+        seriesId,
+        id,
+        state,
+        solve(userSolution)
+      );
     }
     case TOGGLE_SOLUTION_VISIBLE: {
-      // TODO refactor
-      const exState = action.payload;
-      const seriesId = exState.seriesId;
-      const previousSeries = state.entities[seriesId];
-      const previousExState = previousSeries[exState.id];
-      const newEntity: ExerciseProgress = {
-        ...previousExState,
-        solutionRequested: !previousExState.solved,
-        solutionVisible: !previousExState.solutionVisible
-      };
-      const newSeries: SeriesProgress = {
-        ...previousSeries,
-        [exState.id]: newEntity
-      };
-      return {
-        ...state,
-        entities: {
-          ...state.entities,
-          [seriesId]: newSeries
-        }
-      };
+      const { id, seriesId } = action.payload;
+      return getUpdatedExerciseProgress(
+        seriesId,
+        id,
+        state,
+        toggleSolutionVisible
+      );
     }
   }
   return state;
+}
+
+function getUpdatedExerciseProgress(
+  seriesId: number,
+  id: number,
+  state: SeriesProgressEntities,
+  fn: (p: ExerciseProgress) => ExerciseProgress
+): SeriesProgressEntities {
+  const previousProgress: SeriesProgress = state.entities[seriesId];
+  const previousExProgress: ExerciseProgress = previousProgress[id];
+  const newSeriesProgress: SeriesProgress = {
+    ...previousProgress,
+    [id]: fn(previousExProgress)
+  };
+  return {
+    entities: {
+      ...state.entities,
+      [seriesId]: newSeriesProgress
+    }
+  };
 }
 
 function getSeriesProgress(series: ISeries): SeriesProgress {

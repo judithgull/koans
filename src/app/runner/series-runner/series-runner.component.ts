@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   ExerciseProgress,
-  Exercise,
   ProgrammingLanguage,
   SeriesProgress,
   ISeries
@@ -20,7 +19,6 @@ import * as rst from '../store';
 export class SeriesRunnerComponent implements OnInit {
   series$: Store<ISeries>;
   progresses$: Store<ExerciseProgress[]>;
-  ex$: Store<Exercise>;
   userState$: Store<ExerciseProgress>;
 
   constructor(private store: Store<st.State>) {}
@@ -28,7 +26,6 @@ export class SeriesRunnerComponent implements OnInit {
   ngOnInit() {
     this.series$ = this.store.select(st.getSelectedSeries);
     this.progresses$ = this.store.select(rst.getAllExerciseProgresses);
-    this.ex$ = this.store.select(st.getSelectedExercise);
     this.userState$ = this.store.select(rst.getSelectedUserState);
   }
 }
