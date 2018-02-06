@@ -13,13 +13,13 @@ import { reducers, effects } from './store';
 import { EffectsModule } from '@ngrx/effects';
 import { ExerciseTextComponent } from './exercise-text/exercise-text.component';
 import { ExerciseNavButtonsComponent } from './exercise-nav-buttons/exercise-nav-buttons.component';
-import { SeriesExistsGuard } from './series.guard';
+import { SeriesProgressExistsGuard } from './series-progress.guard';
 
 const routes: Routes = [
   {
     path: 'series/:id',
     component: SeriesRunnerComponent,
-    canActivate: [SeriesExistsGuard],
+    canActivate: [SeriesProgressExistsGuard],
     children: [
       {
         pathMatch: 'full',
@@ -53,6 +53,6 @@ const routes: Routes = [
     ExerciseTextComponent,
     ExerciseNavButtonsComponent
   ],
-  providers: [SeriesExistsGuard]
+  providers: [SeriesProgressExistsGuard]
 })
 export class RunnerModule {}

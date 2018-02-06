@@ -8,18 +8,21 @@ import { AppCommonModule } from '../common/common.module';
 import { SeriesFormComponent } from './series-form/series-form.component';
 import { CodeEditorModule } from '../code-editor/code-editor.module';
 import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
-import { SeriesResolver } from './series.resolver';
+import { SeriesExistsGuard } from './series.guard';
+import { SeriesContainerComponent } from './series-container/series-container.component';
 
 const routes: Routes = [
   {
     path: 'editor/:id',
-    component: SeriesFormComponent,
+    component: SeriesContainerComponent,
     pathMatch: 'full',
-    resolve: {
-      series: SeriesResolver
-    }
+    canActivate: [SeriesExistsGuard]
   },
-  { path: 'editor', component: SeriesFormComponent, pathMatch: 'full' }
+  {
+    path: 'editor',
+    component: SeriesContainerComponent,
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
@@ -30,7 +33,11 @@ const routes: Routes = [
     AppCommonModule,
     CodeEditorModule
   ],
-  declarations: [SeriesFormComponent, ExerciseFormComponent],
-  providers: [SeriesResolver]
+  declarations: [
+    SeriesFormComponent,
+    ExerciseFormComponent,
+    SeriesContainerComponent
+  ],
+  providers: [SeriesExistsGuard]
 })
 export class EditorModule {}

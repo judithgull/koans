@@ -12,7 +12,8 @@ import {
   UpdateSeries,
   DeleteSeries,
   DeleteSeriesSuccess,
-  Home
+  Home,
+  SeriesError
 } from '../index';
 import { SeriesService } from '../../common/series.service';
 import { SeriesEffects } from './series.effect';
@@ -23,12 +24,16 @@ import { hot, cold } from 'jasmine-marbles';
 import { TestActions, getActions } from '../test/test.actions';
 import { ToastrService } from 'ngx-toastr';
 
-class MockToastrService {}
+class MockToastrService {
+  // tslint:disable-next-line:no-empty
+  error(message: string) {}
+}
 
 describe('SeriesEffects', () => {
   let actions$: TestActions;
   let service: SeriesService;
   let effects: SeriesEffects;
+  let toastr: ToastrService;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -43,11 +48,13 @@ describe('SeriesEffects', () => {
     actions$ = TestBed.get(Actions);
     service = TestBed.get(SeriesService);
     effects = TestBed.get(SeriesEffects);
+    toastr = TestBed.get(ToastrService);
 
     spyOn(service, 'getSeries').and.returnValue(of(mockSeries));
     spyOn(service, 'create').and.returnValue(of(mockSeries[0]));
     spyOn(service, 'update').and.returnValue(of(mockSeries[0]));
     spyOn(service, 'delete').and.returnValue(of({ id: mockSeries[0]._id }));
+    spyOn(toastr, 'error');
   });
 
   describe('querySeries$', () => {
@@ -107,6 +114,19 @@ describe('SeriesEffects', () => {
       const completionAction = new Home();
       const expected = cold('-b', { b: completionAction });
       expect(effects.homeOnSuccess$).toBeObservable(expected);
+    });
+  });
+
+  describe('seriesErrors$', () => {
+    it('should display errors', () => {
+      const message = 'my message';
+      const action = new SeriesError(message);
+
+      actions$.stream = hot('-a', { a: action });
+
+      const expected = cold('-b', { b: action.payload });
+      expect(effects.seriesErrors$).toBeObservable(expected);
+      expect(toastr.error).toHaveBeenCalledWith(message);
     });
   });
 });

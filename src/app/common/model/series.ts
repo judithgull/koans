@@ -24,7 +24,7 @@ export class Series implements ISeries {
       this.title = series.title;
       this.authorId = series.authorId;
       for (const item of series.items) {
-        this.addItem(item);
+        this.addItem({ ...item });
       }
     }
   }

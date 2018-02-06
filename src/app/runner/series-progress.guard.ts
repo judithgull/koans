@@ -19,7 +19,7 @@ import {
 } from './store/index';
 
 @Injectable()
-export class SeriesExistsGuard implements CanActivate {
+export class SeriesProgressExistsGuard implements CanActivate {
   constructor(
     private store: Store<State>,
     private runnerStore: Store<RunnerState>

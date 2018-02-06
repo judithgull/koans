@@ -11,6 +11,8 @@ import { SeriesFormComponent } from './series-form.component';
 import { StoreModule } from '@ngrx/store';
 import * as rootStore from '../../store';
 import { RouterTestingModule } from '@angular/router/testing';
+import { mockSeries } from '../../common/test';
+import { Series } from '../../common/model';
 
 describe('SeriesFormComponent', () => {
   let component: SeriesFormComponent;
@@ -26,8 +28,6 @@ describe('SeriesFormComponent', () => {
           ReactiveFormsModule,
           AppCommonModule,
           CodeEditorModule,
-          HttpClientModule,
-          RouterTestingModule,
           StoreModule.forRoot({
             ...rootStore.reducers
           })
@@ -39,22 +39,23 @@ describe('SeriesFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SeriesFormComponent);
     component = fixture.componentInstance;
+    component.model = new Series(mockSeries[0]);
     fixture.detectChanges();
   });
 
   it('should initialize with single item', () => {
     expect(component).toBeTruthy();
-    expect(component.model.items.length).toBe(1);
+    expect(component.model.items.length).toBe(3);
   });
 
   it('should add an exercise', () => {
     component.addExercise();
-    expect(component.model.items.length).toBe(2);
+    expect(component.model.items.length).toBe(4);
   });
 
   it('should remove an exercise', () => {
     component.addExercise();
     component.removeExercise(0);
-    expect(component.model.items.length).toBe(1);
+    expect(component.model.items.length).toBe(3);
   });
 });

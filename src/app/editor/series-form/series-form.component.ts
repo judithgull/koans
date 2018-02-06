@@ -1,13 +1,20 @@
-import { ActivatedRoute } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { Exercise } from '../../common/model/exercise';
-import { ProgrammingLanguages } from '../../common/model/programming-languages';
-import { Series } from '../../common/model/series';
-import { ProgrammingLanguage } from '../../common/model/programming-language';
-import { State, CreateSeries, UpdateSeries } from '../../store/index';
 import { Store } from '@ngrx/store';
+
+import {
+  Exercise,
+  ProgrammingLanguages,
+  Series,
+  ProgrammingLanguage,
+  ISeries
+} from '../../common/model';
+import {
+  State,
+  CreateSeries,
+  UpdateSeries,
+  getSelectedSeries
+} from '../../store/index';
 
 @Component({
   selector: 'app-series-form',
@@ -15,32 +22,14 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./series-form.component.scss']
 })
 export class SeriesFormComponent {
+  @Input() model: Series;
+  @Input() programmingLanguages: ProgrammingLanguages[];
+
+  @Output() submit = new EventEmitter<ISeries>();
+
   form: FormGroup;
-  model: Series;
 
-  programmingLanguages: ProgrammingLanguages[] = [
-    {
-      key: ProgrammingLanguage.typescript.toString(),
-      value: 'Typescript'
-    },
-    {
-      key: ProgrammingLanguage.javascript.toString(),
-      value: 'Javascript'
-    }
-  ];
-
-  constructor(
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private store: Store<State>
-  ) {
-    const seriesData = this.route.snapshot.data.series;
-    if (seriesData) {
-      this.model = new Series(seriesData);
-    } else {
-      this.model = new Series();
-      this.addExercise();
-    }
+  constructor(private fb: FormBuilder, private store: Store<State>) {
     this.form = this.fb.group({
       programmingLanguage: [ProgrammingLanguage.typescript],
       title: [null, Validators.required]
@@ -55,11 +44,7 @@ export class SeriesFormComponent {
     this.model.addItem(new Exercise());
   }
 
-  submit() {
-    const submitAction = this.model._id
-      ? new UpdateSeries(this.model)
-      : new CreateSeries(this.model);
-
-    this.store.dispatch(submitAction);
+  submitSeries() {
+    this.submit.emit(this.model);
   }
 }
