@@ -2,7 +2,6 @@ import { Action } from '@ngrx/store';
 import { ISeries, ExerciseProgress } from '../../../common/model';
 
 export const LOAD_EXERCISE_USER_STATE = 'LOAD EXERCISE USER STATE';
-export const LOAD_EXERCISE_USER_STATE_FAIL = 'LOAD EXERCISE USER STATE FAIL';
 export const LOAD_EXERCISE_USER_STATE_SUCCESS =
   'LOAD EXERCISE USER STATE SUCCESS';
 export const EXERCISE_SOLVED = 'EXERCISE SOLVED';
@@ -11,11 +10,6 @@ export const TOGGLE_SOLUTION_VISIBLE = 'TOGGLE_SOLUTION_VISIBLE';
 export class LoadSeriesProgress implements Action {
   readonly type = LOAD_EXERCISE_USER_STATE;
   constructor(public payload: ISeries) {}
-}
-
-export class LoadSeriesProgressFail implements Action {
-  readonly type = LOAD_EXERCISE_USER_STATE_FAIL;
-  constructor(public payload: any) {}
 }
 
 export class LoadSeriesProgressSuccess implements Action {
@@ -51,7 +45,6 @@ export class ToggleSolutionVisible implements Action {
 
 export type ExersiseUserStateAction =
   | LoadSeriesProgress
-  | LoadSeriesProgressFail
   | LoadSeriesProgressSuccess
   | ExerciseSolved
   | ToggleSolutionVisible;

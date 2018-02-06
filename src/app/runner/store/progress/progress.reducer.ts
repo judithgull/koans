@@ -3,7 +3,6 @@ import {
   ExersiseUserStateAction,
   LOAD_EXERCISE_USER_STATE,
   LOAD_EXERCISE_USER_STATE_SUCCESS,
-  LOAD_EXERCISE_USER_STATE_FAIL,
   EXERCISE_SOLVED,
   TOGGLE_SOLUTION_VISIBLE
 } from './progress.action';
@@ -51,12 +50,6 @@ export function reducer(
           ...state.entities,
           [id]: exEntities
         }
-      };
-    }
-
-    case LOAD_EXERCISE_USER_STATE_FAIL: {
-      return {
-        ...state
       };
     }
     case EXERCISE_SOLVED: {

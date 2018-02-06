@@ -1,10 +1,10 @@
 import { Component, Input, ViewContainerRef } from '@angular/core';
-import { ToastsManager } from 'ng2-toastr';
 
 import { Series } from '../../common/model/series';
 import { SeriesService } from '../../common/series.service';
 import { Store } from '@ngrx/store';
 import { State, DeleteSeries } from '../../store/index';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-series-card-list',
@@ -17,12 +17,10 @@ export class SeriesCardListComponent {
 
   constructor(
     private seriesService: SeriesService,
-    private toastr: ToastsManager,
+    private toastr: ToastrService,
     vcr: ViewContainerRef,
     private store: Store<State>
-  ) {
-    this.toastr.setRootViewContainerRef(vcr);
-  }
+  ) {}
 
   showError(message: string) {
     this.toastr.error(message, 'Error');

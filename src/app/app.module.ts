@@ -2,7 +2,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { ToastModule } from 'ng2-toastr';
 
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
@@ -14,7 +13,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { reducers, SeriesEffects, CustomSerializer, effects } from './store';
+import { ToastrModule } from 'ngx-toastr';
 import {
   StoreRouterConnectingModule,
   RouterStateSerializer
@@ -31,12 +33,13 @@ export const metaReducers: Array<MetaReducer<any>> = [storeFreeze];
   declarations: [AppComponent, NotFoundComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     DashboardModule,
     HttpClientModule,
     AuthModule,
     RunnerModule,
     EditorModule,
-    ToastModule.forRoot(),
+    ToastrModule.forRoot(),
     RouterModule.forRoot(routes),
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot(effects),

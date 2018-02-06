@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastsManager } from 'ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 import { AuthService } from '../../common/auth/auth.service';
 import { LoginInfo } from '../../common/model/login-info';
@@ -19,9 +19,9 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastsManager,
-    private vcr: ViewContainerRef) {
-    this.toastr.setRootViewContainerRef(vcr);
+    private toastr: ToastrService,
+    private vcr: ViewContainerRef
+  ) {
     this.model = {
       email: '',
       password: ''
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       email: [null, Validators.required],
-      password: [null, Validators.required],
+      password: [null, Validators.required]
     });
   }
 
@@ -41,14 +41,10 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.authService
       .login(this.model)
-      .subscribe(
-      () => this.router.navigate(['/']),
-      (err) => this.showError(err)
-      );
+      .subscribe(() => this.router.navigate(['/']), err => this.showError(err));
   }
 
   showError(message: string) {
     this.toastr.error(message, 'Error');
   }
-
 }

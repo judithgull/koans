@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { ToastsManager } from 'ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -33,7 +33,7 @@ export class SeriesFormComponent {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private toastr: ToastsManager,
+    private toastr: ToastrService,
     private store: Store<State>
   ) {
     const seriesData = this.route.snapshot.data.series;

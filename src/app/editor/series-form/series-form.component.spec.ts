@@ -1,5 +1,5 @@
 import { ExerciseFormComponent } from '../exercise-form/exercise-form.component';
-import { ToastsManager } from 'ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { CodeEditorModule } from '../../code-editor/code-editor.module';
@@ -34,7 +34,7 @@ describe('SeriesFormComponent', () => {
             ...rootStore.reducers
           })
         ],
-        providers: [{ provide: ToastsManager, useClass: MockToastManager }]
+        providers: [{ provide: ToastrService, useClass: MockToastManager }]
       }).compileComponents();
     })
   );

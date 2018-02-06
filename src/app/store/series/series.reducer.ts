@@ -40,8 +40,7 @@ export function seriesReducer(
         }
       };
     }
-    case sa.LOAD_SERIES_FAIL:
-    case sa.QUERY_SERIES_FAIL: {
+    case sa.SERIES_ERROR: {
       return {
         ...state,
         loading: false,

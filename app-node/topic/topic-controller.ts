@@ -5,25 +5,25 @@ import * as TopicModel from './topic-model';
 import * as jwt from 'jwt-simple';
 import * as userCtrl from '../user/user-controller';
 
-var decodeToken = req => {
+const decodeToken = req => {
   if (!req.headers || !req.headers.authorization) {
     return null;
   }
-  var token = req.headers.authorization.split(' ')[1];
+  const token = req.headers.authorization.split(' ')[1];
   return jwt.decode(token, userCtrl.getSecret());
 };
 
-var isAuthorOfOwnTopic = (topic, req): boolean => {
-  var payload = decodeToken(req);
+const isAuthorOfOwnTopic = (topic, req): boolean => {
+  const payload = decodeToken(req);
   return payload ? topic.authorId.toString() === payload.sub : false;
 };
 
-var hasValidTocken = req => {
+const hasValidTocken = req => {
   return !!decodeToken(req);
 };
 
-var getUserId = (req): String => {
-  var payload = decodeToken(req);
+const getUserId = (req): string => {
+  const payload = decodeToken(req);
   return payload.sub;
 };
 
@@ -92,7 +92,7 @@ export const updateTopic = function(req, res) {
           } else if (!isAuthorOfOwnTopic(topic, req)) {
             res.status(401).send({ message: 'Not authorized' });
           } else {
-            var body = req.body;
+            const body = req.body;
             TopicModel.Topic.findOneAndUpdate(
               { _id: req.params.id },
               {
@@ -135,7 +135,7 @@ export const postTopic = function(req, res) {
         };
 
         TopicModel.create(newTopic)
-          .onFulfill(t => res.send(t))
+          .onFulfill(t => res.status(401).send({ message: 'Login Required!' }))
           .onReject(reason => res.send(reason));
       }
     }

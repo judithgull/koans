@@ -46,8 +46,8 @@ describe('RouterEffects', () => {
       const action = new Go({ path });
 
       actions$.stream = hot('-a', { a: action });
-      const expected = cold('-b', { b: action.payload });
 
+      const expected = cold('-b', { b: action.payload });
       expect(effects.navigate$).toBeObservable(expected);
       expect(router.navigate).toHaveBeenCalledWith(path, {
         queryParams: undefined
