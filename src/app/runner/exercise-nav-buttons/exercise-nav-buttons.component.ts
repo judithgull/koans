@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ExerciseProgress } from '../../common/model';
 
 @Component({
@@ -7,7 +7,8 @@ import { ExerciseProgress } from '../../common/model';
                 <button class="button button-next" *ngIf="hasNext() && (userProgress?.solved || userProgress?.solutionRequested)" type="button"
                 [routerLink]="['e', userProgress.id + 1]">Next
             </button>`,
-  styleUrls: ['./exercise-nav-buttons.component.scss']
+  styleUrls: ['./exercise-nav-buttons.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExerciseNavButtonsComponent {
   @Input() userProgress: ExerciseProgress;

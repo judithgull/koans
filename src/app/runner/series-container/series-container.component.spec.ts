@@ -1,25 +1,24 @@
-import '../../../rx-index';
-
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 
+import { SeriesContainerComponent } from './series-container.component';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AppCommonModule } from '../../common/common.module';
-import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
-import { SeriesRunnerComponent } from './series-runner.component';
-import { ExerciseNavButtonsComponent } from '../exercise-nav-buttons/exercise-nav-buttons.component';
 import { StoreModule, combineReducers } from '@ngrx/store';
 import * as rootStore from '../../store';
 import * as runnerStore from '../store';
-import { mockSeries } from '../../common/test/index';
+import { SeriesRunnerComponent } from '../series-runner/series-runner.component';
+import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
+import { ExerciseNavButtonsComponent } from '../exercise-nav-buttons/exercise-nav-buttons.component';
 
-describe('SeriesRunnerComponent', () => {
-  let component: SeriesRunnerComponent;
-  let fixture: ComponentFixture<SeriesRunnerComponent>;
+describe('SeriesContainerComponent', () => {
+  let component: SeriesContainerComponent;
+  let fixture: ComponentFixture<SeriesContainerComponent>;
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
         declarations: [
+          SeriesContainerComponent,
           SeriesRunnerComponent,
           ProgressBarComponent,
           ExerciseNavButtonsComponent
@@ -37,21 +36,12 @@ describe('SeriesRunnerComponent', () => {
   );
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SeriesRunnerComponent);
+    fixture = TestBed.createComponent(SeriesContainerComponent);
     component = fixture.componentInstance;
-    component.series = mockSeries[0];
-    component.progresses = [];
-    component.progress = {
-      id: 1,
-      userSolution: '',
-      solved: false,
-      solutionRequested: false,
-      solutionVisible: false
-    };
     fixture.detectChanges();
   });
 
-  it('should create and initialize', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

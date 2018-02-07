@@ -13,11 +13,12 @@ import { reducers } from './store';
 import { ExerciseTextComponent } from './exercise-text/exercise-text.component';
 import { ExerciseNavButtonsComponent } from './exercise-nav-buttons/exercise-nav-buttons.component';
 import { SeriesProgressExistsGuard } from './series-progress.guard';
+import { SeriesContainerComponent } from './series-container/series-container.component';
 
 const routes: Routes = [
   {
     path: 'series/:id',
-    component: SeriesRunnerComponent,
+    component: SeriesContainerComponent,
     canActivate: [SeriesProgressExistsGuard],
     children: [
       {
@@ -49,7 +50,8 @@ const routes: Routes = [
     ProgressBarComponent,
     RunExerciseCardComponent,
     ExerciseTextComponent,
-    ExerciseNavButtonsComponent
+    ExerciseNavButtonsComponent,
+    SeriesContainerComponent
   ],
   providers: [SeriesProgressExistsGuard]
 })
