@@ -14,6 +14,7 @@ import { ExerciseTextComponent } from './exercise-text/exercise-text.component';
 import { ExerciseNavButtonsComponent } from './exercise-nav-buttons/exercise-nav-buttons.component';
 import { SeriesProgressExistsGuard } from './series-progress.guard';
 import { SeriesContainerComponent } from './series-container/series-container.component';
+import { RunExerciseContainerComponent } from './run-exercise-container/run-exercise-container.component';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
       {
         pathMatch: 'full',
         path: 'e/:exId',
-        component: RunExerciseCardComponent
+        component: RunExerciseContainerComponent
       },
       {
         pathMatch: 'full',
@@ -51,7 +52,8 @@ const routes: Routes = [
     RunExerciseCardComponent,
     ExerciseTextComponent,
     ExerciseNavButtonsComponent,
-    SeriesContainerComponent
+    SeriesContainerComponent,
+    RunExerciseContainerComponent
   ],
   providers: [SeriesProgressExistsGuard]
 })

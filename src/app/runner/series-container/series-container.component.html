@@ -3,7 +3,7 @@
     <div class="header">
       <app-logo></app-logo>
       <a class="button button-prev" routerLink="/">Overview</a>
-      <app-series-runner *ngIf="series" [progress]="(progress$ | async)" [series]="(series$ | async)" [progresses]="(progresses$ | async)">
+      <app-series-runner [progress]="(progress$ | async)" [series]="(series$ | async)" [progresses]="(progresses$ | async)">
       </app-series-runner>
     </div>
   </div>

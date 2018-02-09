@@ -5,6 +5,7 @@ import { SeriesProgress } from '../../../common/model';
 import { RunnerState, getRunnerState } from '../index';
 import { SeriesProgressEntities } from './progress.reducer';
 
+// TODO rename
 export const getUserStateEntities = (state: SeriesProgressEntities) =>
   state.entities;
 
