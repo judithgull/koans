@@ -3,6 +3,7 @@ import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 import { RouterStateUrl } from './router';
 import { SeriesEntities, seriesReducer, SeriesEffects } from './series';
 import { RouterEffects } from './router/router.effect';
+import { SeriesRouterEffects } from './series-routing';
 
 export interface State {
   routerReducer: RouterReducerState<RouterStateUrl>;
@@ -14,7 +15,12 @@ export const reducers: ActionReducerMap<State> = {
   series: seriesReducer
 };
 
-export const effects: any[] = [SeriesEffects, RouterEffects];
+export const effects: any[] = [
+  SeriesEffects,
+  RouterEffects,
+  SeriesRouterEffects
+];
 
 export * from './series';
 export * from './router';
+export * from './series-routing';

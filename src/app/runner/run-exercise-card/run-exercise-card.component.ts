@@ -13,7 +13,6 @@ import {
   OnChanges,
   SimpleChanges
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import * as st from '../../store';
 import * as rst from '../store';
 
@@ -37,11 +36,7 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
 
   private editableMarkerFeedback: Feedback[] = [];
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private store: Store<st.State>
-  ) {}
+  constructor(private store: Store<st.State>) {}
 
   ngOnInit(): void {
     this.userValue = this.progress.userSolution;
@@ -67,12 +62,6 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
     }
   }
 
-  navigate(exId: number) {
-    this.router.navigate(['e', exId], {
-      relativeTo: this.route.parent
-    });
-  }
-
   toggleSolution() {
     this.store.dispatch(
       new rst.ToggleSolutionVisible({
@@ -96,10 +85,6 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
           userSolution: this.userValue
         })
       );
-      // TODO NAVIGATE TO NEXT
-      if (this.ex.sortOrder < this.seriesLength) {
-        this.navigate(this.ex.sortOrder + 1);
-      }
     }
   }
 }

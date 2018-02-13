@@ -15,7 +15,7 @@ import { MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { reducers, SeriesEffects, CustomSerializer, effects } from './store';
+import { reducers, CustomSerializer, effects } from './store';
 import { ToastrModule } from 'ngx-toastr';
 import {
   StoreRouterConnectingModule,

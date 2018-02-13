@@ -1,7 +1,7 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 
 import * as root from '../../../store';
-import { SeriesProgress } from '../../../common/model';
+import { SeriesProgress, ExerciseProgress } from '../../../common/model';
 import { RunnerState, getRunnerState } from '../index';
 import { SeriesProgressEntities } from './progress.reducer';
 
@@ -51,6 +51,13 @@ export const getAllExerciseProgresses = createSelector(
     if (entities) {
       return Object.keys(entities).map(id => entities[id]);
     }
-    return null;
+    return [];
+  }
+);
+
+export const getUnsolvedExerciseIds = createSelector(
+  getAllExerciseProgresses,
+  (exProgresses: ExerciseProgress[]) => {
+    return exProgresses.filter(e => !e.solved && !e.solutionRequested);
   }
 );

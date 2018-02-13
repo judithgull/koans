@@ -20,7 +20,8 @@ import { Observable } from 'rxjs/Observable';
   template: `
   <app-series-form
     [model]="series$ | async"
-    [programmingLanguages]="programmingLanguages">
+    [programmingLanguages]="programmingLanguages"
+    (submitSeries)="submitSeries($event)">
   </app-series-form>`
 })
 export class SeriesContainerComponent implements OnInit {
@@ -50,7 +51,7 @@ export class SeriesContainerComponent implements OnInit {
     return s;
   }
 
-  onSubmit(s: ISeries) {
+  submitSeries(s: ISeries) {
     this.store.dispatch(s._id ? new UpdateSeries(s) : new CreateSeries(s));
   }
 }

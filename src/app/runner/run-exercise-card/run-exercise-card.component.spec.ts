@@ -43,6 +43,15 @@ describe('RunExerciseCardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RunExerciseCardComponent);
     component = fixture.componentInstance;
+    component.progress = {
+      userSolution: '',
+      id: 1,
+      solutionRequested: false,
+      solutionVisible: false,
+      solved: false
+    };
+    component.series = mockSeries[0];
+    component.ex = component.series.items[0];
     fixture.detectChanges();
   });
 

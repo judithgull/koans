@@ -25,7 +25,7 @@ export class SeriesFormComponent {
   @Input() model: Series;
   @Input() programmingLanguages: ProgrammingLanguages[];
 
-  @Output() submit = new EventEmitter<ISeries>();
+  @Output() submitSeries = new EventEmitter<ISeries>();
 
   form: FormGroup;
 
@@ -44,7 +44,7 @@ export class SeriesFormComponent {
     this.model.addItem(new Exercise());
   }
 
-  submitSeries() {
-    this.submit.emit(this.model);
+  onSubmit() {
+    this.submitSeries.emit(this.model);
   }
 }
