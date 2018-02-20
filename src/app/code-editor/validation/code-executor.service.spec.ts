@@ -49,6 +49,6 @@ describe('CodeExecutorService', () => {
     spyOn(transpilerService, 'run').and.returnValue(transpiledValue);
     const res = service.run(value, ProgrammingLanguage.typescript);
     expect(res.value).toEqual(transpiledValue);
-    expect(res.type).toEqual(FeedbackType.Info);
+    expect(res.type).toEqual(FeedbackType.Success);
   });
 });

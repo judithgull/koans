@@ -66,9 +66,7 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
 
   updateFeedback(feedback: Feedback[]) {
     this.feedback = feedback;
-    const isSuccess = feedback.some(
-      f => f.type === FeedbackType.Info && f.message === 'Success'
-    );
+    const isSuccess = feedback.some(f => f.type === FeedbackType.Success);
     if (isSuccess) {
       // TODO get user solution from feedback
       this.store.dispatch(

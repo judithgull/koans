@@ -14,7 +14,7 @@ describe('CodeExecutorService', () => {
 
   it('should be created', () => {
     const res = service.run('');
-    expect(res.type).toBe(FeedbackType.Info);
+    expect(res.type).toBe(FeedbackType.Success);
   });
 
   it('should return an error for a script that throws an error', () => {

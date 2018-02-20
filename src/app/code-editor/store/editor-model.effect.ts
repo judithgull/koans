@@ -4,7 +4,7 @@ import {
   EditorModelAction,
   ValidationFailedAction,
   ValidationSuccessAction
-} from './validate-exercise.action';
+} from './editor-model.action';
 import { map } from 'rxjs/operators';
 import { FeedbackFactory, FeedbackType } from '../../common/model';
 import { CodeEditorValidationSerivce } from '../validation';

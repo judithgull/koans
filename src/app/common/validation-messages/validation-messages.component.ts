@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+import '../../../rx-index';
 
 import { ValidationService } from './validation.service';
 

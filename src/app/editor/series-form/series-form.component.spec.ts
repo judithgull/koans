@@ -13,6 +13,7 @@ import * as rootStore from '../../store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { mockSeries } from '../../common/test';
 import { Series } from '../../common/model';
+import { EffectsModule } from '@ngrx/effects';
 
 describe('SeriesFormComponent', () => {
   let component: SeriesFormComponent;
@@ -30,7 +31,8 @@ describe('SeriesFormComponent', () => {
           CodeEditorModule,
           StoreModule.forRoot({
             ...rootStore.reducers
-          })
+          }),
+          EffectsModule.forRoot([])
         ]
       }).compileComponents();
     })

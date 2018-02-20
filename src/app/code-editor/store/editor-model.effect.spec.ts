@@ -3,7 +3,7 @@ import { EditorModelEffects } from './editor-model.effect';
 import {
   ChangeModelValueAction,
   ValidationFailedAction
-} from './validate-exercise.action';
+} from './editor-model.action';
 import { hot, cold } from 'jasmine-marbles';
 import { Actions } from '@ngrx/effects';
 import { getActions, TestActions } from '../../store/test';

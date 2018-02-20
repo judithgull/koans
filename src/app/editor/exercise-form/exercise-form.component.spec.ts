@@ -8,6 +8,7 @@ import { ExerciseFormComponent } from './exercise-form.component';
 import { StoreModule, combineReducers } from '@ngrx/store';
 
 import * as rootStore from '../../store';
+import { EffectsModule } from '@ngrx/effects';
 
 describe('ExerciseFormComponent', () => {
   let component: ExerciseFormComponent;
@@ -23,7 +24,8 @@ describe('ExerciseFormComponent', () => {
           AppCommonModule,
           StoreModule.forRoot({
             ...rootStore.reducers
-          })
+          }),
+          EffectsModule.forRoot([])
         ]
       }).compileComponents();
     })

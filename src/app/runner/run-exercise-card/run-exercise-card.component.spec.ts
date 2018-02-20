@@ -1,8 +1,6 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Rx';
 
 import { mockSeries } from '../../common/test/series.mock';
@@ -11,8 +9,12 @@ import { Exercise } from '../../common/model/exercise';
 import { CodeEditorModule } from '../../code-editor/code-editor.module';
 
 import { StoreModule, combineReducers } from '@ngrx/store';
+
+import { AppCommonModule } from '../../common/common.module';
 import * as rootStore from '../../store';
 import * as runnerStore from '../store';
+import * as editorStore from '../../code-editor/store';
+import { EffectsModule } from '@ngrx/effects';
 
 describe('RunExerciseCardComponent', () => {
   let component: RunExerciseCardComponent;
@@ -26,14 +28,16 @@ describe('RunExerciseCardComponent', () => {
       TestBed.configureTestingModule({
         declarations: [RunExerciseCardComponent],
         imports: [
-          RouterTestingModule,
+          AppCommonModule,
           CodeEditorModule,
           ReactiveFormsModule,
           FormsModule,
           StoreModule.forRoot({
             ...rootStore.reducers,
-            runner: combineReducers(runnerStore.reducers)
-          })
+            runner: combineReducers(runnerStore.reducers),
+            editorModel: combineReducers(editorStore.editorModelReducer)
+          }),
+          EffectsModule.forRoot([])
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();

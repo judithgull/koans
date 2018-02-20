@@ -1,4 +1,3 @@
-import '../../rx-index';
 import {
   Component,
   ElementRef,
@@ -129,6 +128,9 @@ export class CodeEditorComponent
 
     this.uri = this.getCurrentModelUri();
 
+    // select current validation errors
+    //this.editor.getModel().id
+
     this.editor.getModel().onDidChangeDecorations(e => {
       const decorations = this.editor.getModel().getAllDecorations();
       if (decorations.length === 0) {
@@ -231,7 +233,6 @@ export class CodeEditorComponent
    * @param value
    */
   writeValue(value: string) {
-    // restart validation
     this.executeAfterInitialized(() => {
       const model = this.editor.getModel();
       model.setValue(value || '');

@@ -9,6 +9,7 @@ import { AppCommonModule } from '../../common/common.module';
 import { CodeEditorModule } from '../../code-editor/code-editor.module';
 import { StoreModule } from '@ngrx/store';
 import * as rootStore from '../../store';
+import { EffectsModule } from '@ngrx/effects';
 
 describe('SeriesContainerComponent', () => {
   let component: SeriesContainerComponent;
@@ -30,7 +31,8 @@ describe('SeriesContainerComponent', () => {
           CodeEditorModule,
           StoreModule.forRoot({
             ...rootStore.reducers
-          })
+          }),
+          EffectsModule.forRoot([])
         ]
       }).compileComponents();
     })
