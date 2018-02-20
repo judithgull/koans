@@ -1,28 +1,25 @@
-import { ValidateExerciseAction } from './validate-exercise.action';
+import { EditorModelAction } from './validate-exercise.action';
 
-export interface RunningState {
-  running: boolean;
-  seq: number;
+export interface EditorModelState {
+  id: string;
+  versionId: number;
+  value: string;
 }
 
-export interface ValidationState {
-  editorId: number;
-  running: boolean;
-  seq: number;
+export interface EditorModelEntities {
+  entities: {
+    [id: string]: EditorModelState;
+  };
 }
 
-export interface ValidateExerciseEntities {
-  entities: { [id: number]: ValidationState };
-}
-
-export const initialState: ValidateExerciseEntities = {
+export const initialState: EditorModelEntities = {
   entities: {}
 };
 
-export function validateExerciseReducer(
+export function editorModelReducer(
   state = initialState,
-  action: ValidateExerciseAction
-): ValidateExerciseEntities {
+  action: EditorModelAction
+): EditorModelEntities {
   switch (action.type) {
   }
   return state;

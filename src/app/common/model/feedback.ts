@@ -6,12 +6,11 @@ export enum SourceType {
 
 export enum FeedbackType {
   Error,
-  Warning,
-  Info
+  Info //TODO
 }
 
 export interface Feedback {
-  message: string;
+  message?: string;
   type: FeedbackType;
   source: SourceType;
   value: string;
@@ -23,7 +22,6 @@ export class FeedbackFactory {
     return {
       source: source,
       value,
-      message: 'Success',
       type: FeedbackType.Info,
       startLineNumber: -1
     };

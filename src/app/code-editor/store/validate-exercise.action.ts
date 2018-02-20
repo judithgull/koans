@@ -1,25 +1,45 @@
 import { Action } from '@ngrx/store';
+import { Feedback } from '../../common/model';
 
-export const START_VALIDATE_EXERCISE = 'START VALIDATE EXERCISE';
-export class StartValidateExercise implements Action {
-  readonly type = START_VALIDATE_EXERCISE;
+export const CHANGE_MODEL_VALUE_ACTION = 'CHANGE MODEL VALUE ACTION';
+export class ChangeModelValueAction implements Action {
+  readonly type = CHANGE_MODEL_VALUE_ACTION;
   constructor(
     public payload: {
-      editorId: number;
-      seq: number;
+      id: string;
+      versionId: number;
       value: string;
     }
   ) {}
 }
 
-export type ValidateExerciseAction = StartValidateExercise;
+export const MODEL_VALIDATION_FAILED = 'MODEL VALIDATION FAILED';
+export class ValidationFailedAction implements Action {
+  readonly type = MODEL_VALIDATION_FAILED;
+  constructor(
+    public payload: {
+      id: string;
+      versionId: number;
+      value: string;
+      result: Feedback;
+    }
+  ) {}
+}
 
-// StartValidateExercise (id1)
-// effect: validate 1
-//    on failed: -
-//    on success:  -
+export const MODEL_VALIDATION_SUCCESS = 'MODEL VALIDATION SUCCESS';
+export class ValidationSuccessAction implements Action {
+  readonly type = MODEL_VALIDATION_SUCCESS;
+  constructor(
+    public payload: {
+      id: string;
+      versionId: number;
+      value: string;
+      result: Feedback;
+    }
+  ) {}
+}
 
-// StartValidateExercise (id1)
-//
-//
-//
+export type EditorModelAction =
+  | ChangeModelValueAction
+  | ValidationFailedAction
+  | ValidationSuccessAction;

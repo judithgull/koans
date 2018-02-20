@@ -5,6 +5,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExerciseFormComponent } from './exercise-form.component';
+import { StoreModule, combineReducers } from '@ngrx/store';
+
+import * as rootStore from '../../store';
 
 describe('ExerciseFormComponent', () => {
   let component: ExerciseFormComponent;
@@ -14,7 +17,14 @@ describe('ExerciseFormComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [ExerciseFormComponent],
-        imports: [ReactiveFormsModule, CodeEditorModule, AppCommonModule]
+        imports: [
+          ReactiveFormsModule,
+          CodeEditorModule,
+          AppCommonModule,
+          StoreModule.forRoot({
+            ...rootStore.reducers
+          })
+        ]
       }).compileComponents();
     })
   );

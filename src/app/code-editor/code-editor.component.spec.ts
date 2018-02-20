@@ -12,6 +12,9 @@ import { MonacoLoaderService } from './monaco-loader.service';
 import { Component, OnInit } from '@angular/core';
 import { Feedback, ProgrammingLanguage, SourceType } from '../common/model';
 import { CodeExecutorService } from './validation';
+import { StoreModule } from '@ngrx/store';
+
+import * as rootStore from '../store';
 
 describe('CodeEditorComponent', () => {
   let component: CodeEditorComponent;
@@ -35,7 +38,12 @@ describe('CodeEditorComponent', () => {
             MonacoLoaderService,
             { provide: CodeExecutorService, useClass: MockCodeExecutorService }
           ],
-          imports: [ReactiveFormsModule]
+          imports: [
+            ReactiveFormsModule,
+            StoreModule.forRoot({
+              ...rootStore.reducers
+            })
+          ]
         }).compileComponents();
       })
     );
@@ -127,7 +135,12 @@ describe('CodeEditorComponent', () => {
             MonacoLoaderService,
             { provide: CodeExecutorService, useClass: MockCodeExecutorService }
           ],
-          imports: [ReactiveFormsModule]
+          imports: [
+            ReactiveFormsModule,
+            StoreModule.forRoot({
+              ...rootStore.reducers
+            })
+          ]
         }).compileComponents();
       })
     );

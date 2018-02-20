@@ -23,6 +23,8 @@ import {
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { MonacoLoaderService } from './monaco-loader.service';
 import { CodeExecutorService } from './validation';
+import { EditorModelEntities, ChangeModelValueAction } from './store';
+import { Store } from '@ngrx/store';
 
 /**
  * Monaco editor as a custom form control
@@ -43,7 +45,8 @@ export class CodeEditorComponent
   implements OnInit, OnDestroy, ControlValueAccessor {
   constructor(
     private monaco: MonacoLoaderService,
-    private executor: CodeExecutorService
+    private executor: CodeExecutorService,
+    private store: Store<EditorModelEntities>
   ) {}
 
   @ViewChild('editor') editorContent: ElementRef;
@@ -102,7 +105,17 @@ export class CodeEditorComponent
     });
 
     this.editor.getModel().onDidChangeContent(e => {
-      this.onChange(this.editor.getModel().getValue());
+      const model = this.editor.getModel();
+
+      this.store.dispatch(
+        new ChangeModelValueAction({
+          id: model.id,
+          versionId: model.getVersionId(),
+          value: model.getValue()
+        })
+      );
+
+      this.onChange(model.getValue());
       this.height = this.computeHeight();
     });
 
@@ -218,10 +231,10 @@ export class CodeEditorComponent
    * @param value
    */
   writeValue(value: string) {
-    console.log(value);
     // restart validation
     this.executeAfterInitialized(() => {
-      this.editor.getModel().setValue(value || '');
+      const model = this.editor.getModel();
+      model.setValue(value || '');
       this.editor.layout();
     });
   }

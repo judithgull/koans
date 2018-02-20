@@ -6,12 +6,19 @@ import { MonacoLoaderService } from './monaco-loader.service';
 import {
   JSExecutorService,
   CodeEditorValidationSerivce,
-  CodeExecutorService
+  CodeExecutorService,
+  TsTranspilerService
 } from './validation';
-import { TsTranspilerService } from './validation/ts-transpiler.service';
+import { Store, StoreModule } from '@ngrx/store';
+import { codeEditorModel, effects } from './store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    StoreModule.forFeature('editorModel', codeEditorModel),
+    EffectsModule.forFeature(effects)
+  ],
   declarations: [CodeEditorComponent],
   exports: [CodeEditorComponent],
   providers: [

@@ -12,10 +12,8 @@ describe('Editor validation service', () => {
     service = TestBed.get(CodeEditorValidationSerivce);
   });
 
-  it('Should not error on empty value', () => {
-    expect(service.validate('')).toEqual(
-      FeedbackFactory.createSuccess(SourceType.Validation, '')
-    );
+  it('Should error on empty value', () => {
+    expect(service.validate('').message).toEqual(service.emptyErrorMessage);
   });
 
   it('Should error on placeholder value', () => {

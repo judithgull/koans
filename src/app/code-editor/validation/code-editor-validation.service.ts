@@ -5,9 +5,17 @@ import { EditableMarkerService } from '../../common/editable-marker.service';
 @Injectable()
 export class CodeEditorValidationSerivce {
   public placeholderValidationMessage = 'Please replace ??? with the correct answer!';
+  public emptyErrorMessage = 'Editor cannot be empty!';
   constructor(private service: EditableMarkerService) {}
 
   validate(text: string): Feedback {
+    if (!text) {
+      return FeedbackFactory.createError(
+        SourceType.Validation,
+        this.emptyErrorMessage,
+        text
+      );
+    }
     if (this.service.containsMarker(text)) {
       return FeedbackFactory.createError(
         SourceType.Validation,
