@@ -1,7 +1,5 @@
 import '../../rx-index';
 import {
-  AfterViewChecked,
-  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -19,15 +17,12 @@ import {
   Feedback,
   FeedbackFactory,
   FeedbackType,
-  SourceType
-} from '../common/model/feedback';
+  SourceType,
+  ProgrammingLanguage
+} from '../common/model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { MonacoLoaderService } from './monaco-loader.service';
-import { JSExecutorService } from './validation';
-import { ProgrammingLanguage } from '../common/model';
-// import * as ts from 'typescript-services';
-
-declare var ts: any;
+import { CodeExecutorService } from './validation';
 
 /**
  * Monaco editor as a custom form control
@@ -45,10 +40,10 @@ declare var ts: any;
   ]
 })
 export class CodeEditorComponent
-  implements OnInit, OnDestroy, AfterViewChecked, ControlValueAccessor {
+  implements OnInit, OnDestroy, ControlValueAccessor {
   constructor(
     private monaco: MonacoLoaderService,
-    private executor: JSExecutorService
+    private executor: CodeExecutorService
   ) {}
 
   @ViewChild('editor') editorContent: ElementRef;
@@ -124,9 +119,8 @@ export class CodeEditorComponent
     this.editor.getModel().onDidChangeDecorations(e => {
       const decorations = this.editor.getModel().getAllDecorations();
       if (decorations.length === 0) {
-        const transpiledValue = this.getTranspiledValue();
-        console.log('transpiled' + transpiledValue);
-        const res = this.executor.run(transpiledValue);
+        const source = this.editor.getModel().getValue();
+        const res = this.executor.run(source, this.language);
 
         if (res.type === FeedbackType.Error) {
           const marker = this.createMarkerData(res);
@@ -149,15 +143,6 @@ export class CodeEditorComponent
     });
 
     this.initialized.next(true);
-  }
-
-  private getTranspiledValue(): string {
-    const source = this.editor.getModel().getValue();
-    const options = {};
-    if (this.language === ProgrammingLanguage.typescript) {
-      return ts.transpileModule(source, options).outputText;
-    }
-    return source;
   }
 
   private createMarkerData(f: Feedback): monaco.editor.IMarkerData {

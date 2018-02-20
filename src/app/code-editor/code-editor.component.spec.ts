@@ -10,8 +10,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CodeEditorComponent } from './code-editor.component';
 import { MonacoLoaderService } from './monaco-loader.service';
 import { Component, OnInit } from '@angular/core';
-import { Feedback, ProgrammingLanguage } from '../common/model';
-import { JSExecutorService } from './validation';
+import { Feedback, ProgrammingLanguage, SourceType } from '../common/model';
+import { CodeExecutorService } from './validation';
 
 describe('CodeEditorComponent', () => {
   let component: CodeEditorComponent;
@@ -33,7 +33,7 @@ describe('CodeEditorComponent', () => {
           declarations: [CodeEditorComponent],
           providers: [
             MonacoLoaderService,
-            { provide: JSExecutorService, useClass: MockCodeExecutorService }
+            { provide: CodeExecutorService, useClass: MockCodeExecutorService }
           ],
           imports: [ReactiveFormsModule]
         }).compileComponents();
@@ -83,7 +83,7 @@ describe('CodeEditorComponent', () => {
     it('should emit error markers for invalid content', done => {
       component.errorMarkerChanges.subscribe((error: Feedback[]) => {
         expect(error.length).toBe(1);
-        expect(error[0].source).toEqual('monaco');
+        expect(error[0].source).toEqual(SourceType.Monaco);
         expect(error[0].startLineNumber).toBe(1);
         done();
       });
@@ -125,7 +125,7 @@ describe('CodeEditorComponent', () => {
           declarations: [CodeEditorComponent, TestContainerComponent],
           providers: [
             MonacoLoaderService,
-            { provide: JSExecutorService, useClass: MockCodeExecutorService }
+            { provide: CodeExecutorService, useClass: MockCodeExecutorService }
           ],
           imports: [ReactiveFormsModule]
         }).compileComponents();

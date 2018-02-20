@@ -3,7 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { CodeEditorComponent } from './code-editor.component';
 import { MonacoLoaderService } from './monaco-loader.service';
-import { JSExecutorService, CodeEditorValidationSerivce } from './validation';
+import {
+  JSExecutorService,
+  CodeEditorValidationSerivce,
+  CodeExecutorService
+} from './validation';
+import { TsTranspilerService } from './validation/ts-transpiler.service';
 
 @NgModule({
   imports: [CommonModule],
@@ -12,7 +17,9 @@ import { JSExecutorService, CodeEditorValidationSerivce } from './validation';
   providers: [
     MonacoLoaderService,
     JSExecutorService,
-    CodeEditorValidationSerivce
+    CodeEditorValidationSerivce,
+    CodeExecutorService,
+    TsTranspilerService
   ]
 })
 export class CodeEditorModule {}
