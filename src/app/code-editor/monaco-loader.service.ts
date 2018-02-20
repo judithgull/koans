@@ -18,7 +18,7 @@ export class MonacoLoaderService implements OnDestroy {
       );
     };
 
-    if (!(<any>window).require) {
+    if (!(window as any).require) {
       this.loadAMDLoader(onGotAmdLoader);
     } else {
       onGotAmdLoader();
@@ -34,9 +34,9 @@ export class MonacoLoaderService implements OnDestroy {
   }
 
   private loadMonacoEditor(done: () => void) {
-    if (!(<any>window).monaco) {
-      (<any>window).require.config({ paths: { vs: this._monacoPath } });
-      (<any>window).require(['vs/editor/editor.main'], () => {
+    if (!(window as any).monaco) {
+      (window as any).require.config({ paths: { vs: this._monacoPath } });
+      (window as any).require(['vs/editor/editor.main'], () => {
         this.addExtraLibs();
         done();
       });

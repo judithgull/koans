@@ -42,13 +42,6 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
     this.userValue = this.progress.userSolution;
     this.seriesLength = this.series.items.length;
     this.programmingLanguage = this.series.programmingLanguage;
-
-    this.feedback.push({
-      type: FeedbackType.Error,
-      message: 'Please replace ??? with the correct answer!',
-      source: '???',
-      startLineNumber: 0
-    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

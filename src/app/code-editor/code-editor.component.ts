@@ -18,12 +18,13 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
   Feedback,
   FeedbackFactory,
-  FeedbackType
+  FeedbackType,
+  SourceType
 } from '../common/model/feedback';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { MonacoLoaderService } from './monaco-loader.service';
-import { CodeExecutorService } from './code-executor.service';
-import { ProgrammingLanguage } from '../common/model/programming-language';
+import { JSExecutorService } from './validation';
+import { ProgrammingLanguage } from '../common/model';
 // import * as ts from 'typescript-services';
 
 declare var ts: any;
@@ -47,7 +48,7 @@ export class CodeEditorComponent
   implements OnInit, OnDestroy, AfterViewChecked, ControlValueAccessor {
   constructor(
     private monaco: MonacoLoaderService,
-    private executor: CodeExecutorService
+    private executor: JSExecutorService
   ) {}
 
   @ViewChild('editor') editorContent: ElementRef;
@@ -62,6 +63,13 @@ export class CodeEditorComponent
 
   height = 100;
 
+  private _language: ProgrammingLanguage;
+
+  // tslint:disable-next-line:no-empty
+  onChange: (_: string) => void = () => {};
+  // tslint:disable-next-line:no-empty
+  onTouched: () => void = () => {};
+
   ngOnInit(): void {
     if (!this.editor && this.monaco.isMonacoLoaded.getValue()) {
       this.initEditor();
@@ -75,14 +83,19 @@ export class CodeEditorComponent
 
   @Input()
   set language(language: ProgrammingLanguage) {
+    this._language = language;
     if (language) {
-      this.executeAfterInitialized(() =>
+      this.executeAfterInitialized(() => {
         monaco.editor.setModelLanguage(
           this.editor.getModel(),
           language.toString()
-        )
-      );
+        );
+      });
     }
+  }
+
+  get language(): ProgrammingLanguage {
+    return this._language;
   }
 
   initEditor() {
@@ -112,6 +125,7 @@ export class CodeEditorComponent
       const decorations = this.editor.getModel().getAllDecorations();
       if (decorations.length === 0) {
         const transpiledValue = this.getTranspiledValue();
+        console.log('transpiled' + transpiledValue);
         const res = this.executor.run(transpiledValue);
 
         if (res.type === FeedbackType.Error) {
@@ -121,7 +135,10 @@ export class CodeEditorComponent
           ]);
         } else {
           this.errorMarkerChanges.emit([
-            FeedbackFactory.createSuccess('monaco')
+            FeedbackFactory.createSuccess(
+              SourceType.Monaco,
+              this.editor.getModel().getValue()
+            )
           ]);
         }
 
@@ -168,7 +185,8 @@ export class CodeEditorComponent
         return {
           message: m.message,
           type: FeedbackType.Error,
-          source: 'monaco',
+          source: SourceType.Monaco,
+          value: '',
           startLineNumber: m.startLineNumber
         };
       })
@@ -185,7 +203,6 @@ export class CodeEditorComponent
       }
       j = e.startLineNumber;
     }
-
     this.errorMarkerChanges.emit(filteredMarkers);
   }
 
@@ -216,6 +233,8 @@ export class CodeEditorComponent
    * @param value
    */
   writeValue(value: string) {
+    console.log(value);
+    // restart validation
     this.executeAfterInitialized(() => {
       this.editor.getModel().setValue(value || '');
       this.editor.layout();
@@ -234,9 +253,6 @@ export class CodeEditorComponent
     }
   }
 
-  onChange(_: string) {}
-  onTouched() {}
-
   registerOnChange(fn: (_: string) => void) {
     this.onChange = fn;
   }
@@ -244,8 +260,6 @@ export class CodeEditorComponent
   registerOnTouched(fn: () => void) {
     this.onTouched = fn;
   }
-
-  addWorker() {}
 
   private computeHeight(): number {
     const configuration = this.editor.getConfiguration();

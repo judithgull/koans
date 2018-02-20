@@ -70,7 +70,6 @@
     "method-override": "^2.3.5",
     "mocha": "^2.5.3",
     "monaco-editor": "^0.10.0",
-    "monaco-loader": "^0.8.2",
     "mongodb": "^2.0.45",
     "mongoose": "^4.6.5",
     "multi-glob": "^0.4.0",

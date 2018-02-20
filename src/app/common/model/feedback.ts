@@ -1,3 +1,9 @@
+export enum SourceType {
+  Validation,
+  Runner,
+  Monaco
+}
+
 export enum FeedbackType {
   Error,
   Warning,
@@ -7,22 +13,29 @@ export enum FeedbackType {
 export interface Feedback {
   message: string;
   type: FeedbackType;
-  source: string;
+  source: SourceType;
+  value: string;
   startLineNumber: number;
 }
 
 export class FeedbackFactory {
-  static createSuccess(source: string) {
+  static createSuccess(source: SourceType, value: string): Feedback {
     return {
-      source,
+      source: source,
+      value,
       message: 'Success',
       type: FeedbackType.Info,
       startLineNumber: -1
     };
   }
-  static createError(message: string, source: string) {
+  static createError(
+    source: SourceType,
+    message: string,
+    value: string
+  ): Feedback {
     return {
       source,
+      value,
       message,
       type: FeedbackType.Error,
       startLineNumber: -1

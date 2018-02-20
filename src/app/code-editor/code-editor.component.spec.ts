@@ -6,15 +6,12 @@ import {
   FormGroup,
   ReactiveFormsModule
 } from '@angular/forms';
-import { IError } from 'protractor/built/exitCodes';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CodeEditorComponent } from './code-editor.component';
 import { MonacoLoaderService } from './monaco-loader.service';
 import { Component, OnInit } from '@angular/core';
-import { Feedback } from '../common/model/feedback';
-import { CodeExecutorService } from './code-executor.service';
-import { ProgrammingLanguage } from '../common/model/programming-language';
+import { Feedback, ProgrammingLanguage } from '../common/model';
+import { JSExecutorService } from './validation';
 
 describe('CodeEditorComponent', () => {
   let component: CodeEditorComponent;
@@ -36,7 +33,7 @@ describe('CodeEditorComponent', () => {
           declarations: [CodeEditorComponent],
           providers: [
             MonacoLoaderService,
-            { provide: CodeExecutorService, useClass: MockCodeExecutorService }
+            { provide: JSExecutorService, useClass: MockCodeExecutorService }
           ],
           imports: [ReactiveFormsModule]
         }).compileComponents();
@@ -108,7 +105,7 @@ describe('CodeEditorComponent', () => {
     })
     class TestContainerComponent implements OnInit {
       form: FormGroup;
-      errorMarkers: IError[];
+      errorMarkers: Feedback[];
       constructor(private fb: FormBuilder) {}
 
       ngOnInit(): void {
@@ -117,7 +114,7 @@ describe('CodeEditorComponent', () => {
         });
       }
 
-      onErrorChanges(errorMarkers: IError[]) {
+      onErrorChanges(errorMarkers: Feedback[]) {
         this.errorMarkers = errorMarkers;
       }
     }
@@ -128,7 +125,7 @@ describe('CodeEditorComponent', () => {
           declarations: [CodeEditorComponent, TestContainerComponent],
           providers: [
             MonacoLoaderService,
-            { provide: CodeExecutorService, useClass: MockCodeExecutorService }
+            { provide: JSExecutorService, useClass: MockCodeExecutorService }
           ],
           imports: [ReactiveFormsModule]
         }).compileComponents();
