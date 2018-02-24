@@ -25,7 +25,7 @@ import { CodeExecutorService } from './validation';
 import {
   EditorModelEntities,
   ChangeModelValueAction,
-  getValidationError
+  getValidationResult
 } from './store';
 import { Store } from '@ngrx/store';
 import {
@@ -150,7 +150,7 @@ export class CodeEditorComponent
 
     // select current validation errors
     const validationErrors = this.store.select(
-      getValidationError(this.model.id)
+      getValidationResult(this.model.id)
     );
 
     this.subs.push(

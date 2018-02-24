@@ -180,4 +180,46 @@ describe('editorModelReducer', () => {
       }
     });
   });
+
+  it('should update validation result', () => {
+    const feedback = FeedbackFactory.createSuccess(
+      SourceType.Validation,
+      'value'
+    );
+    const initialEntity = {
+      id1: {
+        id: 'id1',
+        versionId: 0,
+        value: 'value',
+        result: feedback
+      }
+    };
+
+    const feedback2 = FeedbackFactory.createError(
+      SourceType.Runner,
+      'message',
+      'value2'
+    );
+
+    const action = new ValidationSuccessAction({
+      id: 'id1',
+      versionId: 1,
+      value: 'value2',
+      result: feedback2
+    });
+    const state = editorModelReducer(
+      { entities: { ...initialEntity } },
+      action
+    );
+    expect(state).toEqual({
+      entities: {
+        id1: {
+          id: 'id1',
+          versionId: 1,
+          value: 'value2',
+          result: feedback2
+        }
+      }
+    });
+  });
 });
