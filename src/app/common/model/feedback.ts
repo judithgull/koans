@@ -15,6 +15,7 @@ export interface Feedback {
   value: string;
   validation?: FeedbackDetails;
   runner?: FeedbackDetails;
+  monaco?: FeedbackDetails[];
 }
 
 export interface FeedbackDetails {

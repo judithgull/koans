@@ -26,4 +26,20 @@ export class ValidationResultAction implements Action {
   ) {}
 }
 
-export type EditorModelAction = ChangeModelValueAction | ValidationResultAction;
+export const MODEL_MONACO_RESULT = 'MODEL_MONACO_RESULT';
+export class MonacoResultAction implements Action {
+  readonly type = MODEL_MONACO_RESULT;
+  constructor(
+    public payload: {
+      id: string;
+      versionId: number;
+      value: string;
+      monaco: FeedbackDetails[];
+    }
+  ) {}
+}
+
+export type EditorModelAction =
+  | ChangeModelValueAction
+  | ValidationResultAction
+  | MonacoResultAction;

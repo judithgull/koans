@@ -19,8 +19,10 @@ export function getModelEntity(modelId: string) {
 }
 
 export function getValidationResult(modelId: string) {
-  return createSelector(
-    getModelEntity(modelId),
-    model => model && model.validation
-  );
+  return createSelector(getModelEntity(modelId), model => {
+    if (model && model.validation) {
+      return model;
+    }
+    return null;
+  });
 }

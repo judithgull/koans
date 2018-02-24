@@ -51,7 +51,12 @@ describe('Editor Model Selectors', () => {
           validation: feedbackDetails
         })
       );
-      expect(result).toEqual(feedbackDetails);
+      expect(result).toEqual({
+        id: modelId,
+        versionId: 1,
+        value: '',
+        validation: feedbackDetails
+      });
     });
 
     // TODO

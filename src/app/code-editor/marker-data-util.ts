@@ -29,6 +29,16 @@ export function createMarkerData1(
   };
 }
 
+export function createFeedbackDetails(
+  m: monaco.editor.IMarkerData
+): FeedbackDetails {
+  return {
+    success: false,
+    message: m.message,
+    startLineNumber: m.startLineNumber
+  };
+}
+
 export function createFeedback(
   m: monaco.editor.IMarkerData,
   v: string
@@ -42,25 +52,30 @@ export function createFeedback(
   };
 }
 
-/** only error markers, sorted by line (one per line) */
-export function getRelevantMarkers(
+export function filterEqualLines(
   markers: monaco.editor.IMarker[]
 ): monaco.editor.IMarker[] {
-  const sortedErrorMarkers = markers
-    .filter(m => m.severity === monaco.Severity.Error)
-    .sort(
-      (a: monaco.editor.IMarker, b: monaco.editor.IMarker) =>
-        a.startLineNumber - b.startLineNumber
-    );
-
-  // filter equal lines
   const filteredMarkers: monaco.editor.IMarker[] = [];
   let j = -1;
-  for (const e of sortedErrorMarkers) {
+  for (const e of markers) {
     if (e.startLineNumber !== j) {
       filteredMarkers.push(e);
     }
     j = e.startLineNumber;
   }
   return filteredMarkers;
+}
+
+export function getMonacoErrorMarkers(
+  markers: monaco.editor.IMarker[]
+): monaco.editor.IMarker[] {
+  const sortedErrorMarkers = markers
+    .filter(m => m.severity === monaco.Severity.Error)
+    .filter(m => m.owner !== 'validation')
+    .sort(
+      (a: monaco.editor.IMarker, b: monaco.editor.IMarker) =>
+        a.startLineNumber - b.startLineNumber
+    );
+
+  return sortedErrorMarkers;
 }

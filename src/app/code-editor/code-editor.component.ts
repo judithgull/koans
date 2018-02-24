@@ -25,14 +25,17 @@ import { CodeExecutorService } from './validation';
 import {
   EditorModelEntities,
   ChangeModelValueAction,
-  getValidationResult
+  getValidationResult,
+  MonacoResultAction
 } from './store';
 import { Store } from '@ngrx/store';
 import {
   createMarkerData,
-  getRelevantMarkers,
   createFeedback,
-  createMarkerData1
+  createMarkerData1,
+  getMonacoErrorMarkers,
+  createFeedbackDetails,
+  filterEqualLines
 } from './marker-data-util';
 import { Subscription } from 'rxjs';
 
@@ -156,10 +159,13 @@ export class CodeEditorComponent
 
     this.subs.push(
       validationResults.subscribe(e => {
-        if (e && !e.success) {
-          console.log(e);
-          //TODO overwrite the error markers, if it is the same version
-          const marker = createMarkerData1(e);
+        if (
+          e &&
+          e.versionId === this.model.getVersionId() &&
+          e.validation &&
+          !e.validation.success
+        ) {
+          const marker = createMarkerData1(e.validation);
           monaco.editor.setModelMarkers(this.model, 'validation', [marker]);
         }
       })
@@ -178,11 +184,28 @@ export class CodeEditorComponent
             FeedbackFactory.createSuccess(SourceType.Monaco, this.value)
           ]);
         }
-
         /// XXX ???
         this.editor.layout();
       }
-      this.emitErrorChanges(this.uri);
+      const modelMarkers = monaco.editor.getModelMarkers({
+        resource: this.uri
+      });
+
+      const errorMarkers = filterEqualLines(
+        getMonacoErrorMarkers(modelMarkers)
+      );
+      const monacoFeedback = errorMarkers.map(m => createFeedbackDetails(m));
+      this.store.dispatch(
+        new MonacoResultAction({
+          id: this.model.id,
+          versionId: this.model.getVersionId(),
+          value: this.value,
+          monaco: monacoFeedback
+        })
+      );
+
+      const feedbacks = errorMarkers.map(e => createFeedback(e, this.value));
+      this.errorMarkerChanges.emit(feedbacks);
     });
 
     this.initialized.next(true);
@@ -192,15 +215,6 @@ export class CodeEditorComponent
     if (this.editor) {
       this.editor.layout();
     }
-  }
-
-  emitErrorChanges(url: monaco.Uri) {
-    const errorMarkers = getRelevantMarkers(
-      monaco.editor.getModelMarkers({ resource: url })
-    );
-
-    const feedbacks = errorMarkers.map(e => createFeedback(e, this.value));
-    this.errorMarkerChanges.emit(feedbacks);
   }
 
   private getCurrentModelUri(): monaco.Uri {
@@ -220,7 +234,10 @@ export class CodeEditorComponent
    * Upon destruction of the component we make sure to dispose both the editor and the extra libs that we might've loaded
    */
   ngOnDestroy() {
-    this.editor.dispose();
+    if (this.editor) {
+      this.editor.dispose();
+    }
+
     this.subs.forEach(s => s.unsubscribe());
   }
 

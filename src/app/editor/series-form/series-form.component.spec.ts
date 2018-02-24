@@ -51,8 +51,14 @@ describe('SeriesFormComponent', () => {
   });
 
   it('should add an exercise', () => {
-    component.addExercise();
-    expect(component.model.items.length).toBe(4);
+    try {
+      component.addExercise();
+      expect(component.model.items.length).toBe(4);
+    } catch (e) {
+      console.log('e');
+      console.log(e);
+      console.log(e.message);
+    }
   });
 
   it('should remove an exercise', () => {
