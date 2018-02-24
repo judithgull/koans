@@ -9,11 +9,7 @@ export interface EditorModelState {
   editorModel: EditorModelEntities;
 }
 
-export const getEditorModelState = createFeatureSelector<EditorModelState>(
-  'editorModel'
-);
-
-export const codeEditorModel: ActionReducerMap<EditorModelState> = {
+export const codeEditorReducer: ActionReducerMap<EditorModelState> = {
   editorModel: editorModelReducer
 };
 
@@ -21,3 +17,4 @@ export const effects: any[] = [EditorModelEffects];
 
 export * from './editor-model.reducer';
 export * from './editor-model.action';
+export * from './editor-model.selector';

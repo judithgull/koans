@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
 import { CodeEditorComponent } from './code-editor.component';
 import { MonacoLoaderService } from './monaco-loader.service';
 import {
@@ -10,13 +9,13 @@ import {
   TsTranspilerService
 } from './validation';
 import { Store, StoreModule } from '@ngrx/store';
-import { codeEditorModel, effects } from './store';
+import { editorModelReducer, effects } from './store';
 import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forFeature('editorModel', codeEditorModel),
+    StoreModule.forFeature('editorModel', editorModelReducer),
     EffectsModule.forFeature(effects)
   ],
   declarations: [CodeEditorComponent],

@@ -6,19 +6,18 @@ import { RunnerState, getRunnerState } from '../index';
 import { SeriesProgressEntities } from './progress.reducer';
 
 // TODO rename
-export const getUserStateEntities = (state: SeriesProgressEntities) =>
-  state.entities;
+export const getEntities = (state: SeriesProgressEntities) => state.entities;
 
 export const getRunner = createFeatureSelector<RunnerState>('runner');
 
-export const getSeriesUserStates = createSelector(
+export const getSeriesProgresses = createSelector(
   getRunner,
   (state: RunnerState) => state.progress
 );
 
 export const getSeriesUserStateEntities = createSelector(
-  getSeriesUserStates,
-  getUserStateEntities
+  getSeriesProgresses,
+  getEntities
 );
 
 export const getSelectedSeriesState = createSelector(

@@ -22,8 +22,18 @@ import {
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { MonacoLoaderService } from './monaco-loader.service';
 import { CodeExecutorService } from './validation';
-import { EditorModelEntities, ChangeModelValueAction } from './store';
+import {
+  EditorModelEntities,
+  ChangeModelValueAction,
+  getValidationError
+} from './store';
 import { Store } from '@ngrx/store';
+import {
+  createMarkerData,
+  getRelevantMarkers,
+  createFeedback
+} from './marker-data-util';
+import { Subscription } from 'rxjs';
 
 /**
  * Monaco editor as a custom form control
@@ -61,6 +71,7 @@ export class CodeEditorComponent
   height = 100;
 
   private _language: ProgrammingLanguage;
+  private subs: Subscription[] = [];
 
   // tslint:disable-next-line:no-empty
   onChange: (_: string) => void = () => {};
@@ -78,15 +89,26 @@ export class CodeEditorComponent
     });
   }
 
+  get model() {
+    if (this.editor) {
+      return this.editor.getModel();
+    }
+    return null;
+  }
+
+  get value() {
+    if (this.model) {
+      return this.model.getValue();
+    }
+    return null;
+  }
+
   @Input()
   set language(language: ProgrammingLanguage) {
     this._language = language;
     if (language) {
       this.executeAfterInitialized(() => {
-        monaco.editor.setModelLanguage(
-          this.editor.getModel(),
-          language.toString()
-        );
+        monaco.editor.setModelLanguage(this.model, language.toString());
       });
     }
   }
@@ -103,18 +125,16 @@ export class CodeEditorComponent
       theme: 'vs-dark'
     });
 
-    this.editor.getModel().onDidChangeContent(e => {
-      const model = this.editor.getModel();
-
+    this.model.onDidChangeContent(e => {
       this.store.dispatch(
         new ChangeModelValueAction({
-          id: model.id,
-          versionId: model.getVersionId(),
-          value: model.getValue()
+          id: this.model.id,
+          versionId: this.model.getVersionId(),
+          value: this.value
         })
       );
 
-      this.onChange(model.getValue());
+      this.onChange(this.value);
       this.height = this.computeHeight();
     });
 
@@ -129,25 +149,32 @@ export class CodeEditorComponent
     this.uri = this.getCurrentModelUri();
 
     // select current validation errors
-    //this.editor.getModel().id
+    const validationErrors = this.store.select(
+      getValidationError(this.model.id)
+    );
 
-    this.editor.getModel().onDidChangeDecorations(e => {
-      const decorations = this.editor.getModel().getAllDecorations();
+    this.subs.push(
+      validationErrors.subscribe(e => {
+        if (e) {
+          console.log(e);
+          //overwrite the error markers, if it is the same version
+          const marker = createMarkerData(e);
+          monaco.editor.setModelMarkers(this.model, 'validation', [marker]);
+        }
+      })
+    );
+
+    this.model.onDidChangeDecorations(e => {
+      const decorations = this.model.getAllDecorations();
       if (decorations.length === 0) {
-        const source = this.editor.getModel().getValue();
-        const res = this.executor.run(source, this.language);
+        const res = this.executor.run(this.value, this.language);
 
         if (res.type === FeedbackType.Error) {
-          const marker = this.createMarkerData(res);
-          monaco.editor.setModelMarkers(this.editor.getModel(), 'eval', [
-            marker
-          ]);
+          const marker = createMarkerData(res);
+          monaco.editor.setModelMarkers(this.model, 'eval', [marker]);
         } else {
           this.errorMarkerChanges.emit([
-            FeedbackFactory.createSuccess(
-              SourceType.Monaco,
-              this.editor.getModel().getValue()
-            )
+            FeedbackFactory.createSuccess(SourceType.Monaco, this.value)
           ]);
         }
 
@@ -160,17 +187,6 @@ export class CodeEditorComponent
     this.initialized.next(true);
   }
 
-  private createMarkerData(f: Feedback): monaco.editor.IMarkerData {
-    return {
-      severity: monaco.Severity.Error,
-      message: f.message,
-      startLineNumber: 1,
-      startColumn: 1,
-      endLineNumber: 1,
-      endColumn: 1
-    };
-  }
-
   ngAfterViewChecked(): void {
     if (this.editor) {
       this.editor.layout();
@@ -178,32 +194,12 @@ export class CodeEditorComponent
   }
 
   emitErrorChanges(url: monaco.Uri) {
-    const errorMarkers = monaco.editor
-      .getModelMarkers({ resource: url })
-      .filter(m => m.severity === monaco.Severity.Error)
-      .map(m => {
-        return {
-          message: m.message,
-          type: FeedbackType.Error,
-          source: SourceType.Monaco,
-          value: '',
-          startLineNumber: m.startLineNumber
-        };
-      })
-      .sort(
-        (a: Feedback, b: Feedback) => a.startLineNumber - b.startLineNumber
-      );
+    const errorMarkers = getRelevantMarkers(
+      monaco.editor.getModelMarkers({ resource: url })
+    );
 
-    // filter equal lines
-    const filteredMarkers = [];
-    let j = -1;
-    for (const e of errorMarkers) {
-      if (e.startLineNumber !== j) {
-        filteredMarkers.push(e);
-      }
-      j = e.startLineNumber;
-    }
-    this.errorMarkerChanges.emit(filteredMarkers);
+    const feedbacks = errorMarkers.map(e => createFeedback(e, this.value));
+    this.errorMarkerChanges.emit(feedbacks);
   }
 
   private getCurrentModelUri(): monaco.Uri {
@@ -215,7 +211,7 @@ export class CodeEditorComponent
   }
 
   private getCurrentModelPath(): string {
-    const id = this.editor.getModel().id;
+    const id = this.model.id;
     return id.split('$model')[1];
   }
 
@@ -224,6 +220,7 @@ export class CodeEditorComponent
    */
   ngOnDestroy() {
     this.editor.dispose();
+    this.subs.forEach(s => s.unsubscribe());
   }
 
   /**
@@ -234,8 +231,7 @@ export class CodeEditorComponent
    */
   writeValue(value: string) {
     this.executeAfterInitialized(() => {
-      const model = this.editor.getModel();
-      model.setValue(value || '');
+      this.model.setValue(value || '');
       this.editor.layout();
     });
   }
@@ -264,7 +260,7 @@ export class CodeEditorComponent
     const configuration = this.editor.getConfiguration();
 
     const lineHeight = configuration.lineHeight;
-    const lineCount = this.editor.getModel().getLineCount();
+    const lineCount = this.model.getLineCount();
     const contentHeight = lineHeight * lineCount;
 
     const horizontalScrollbarHeight =

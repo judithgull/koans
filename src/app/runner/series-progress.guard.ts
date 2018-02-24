@@ -13,7 +13,7 @@ import { catchError } from 'rxjs/operators/catchError';
 import { ISeries, SeriesProgress } from '../common/model';
 import {
   RunnerState,
-  getSeriesUserStates,
+  getSeriesProgresses,
   getSelectedSeriesState,
   InitSeriesProgress
 } from './store';
