@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Feedback, FeedbackFactory, SourceType } from '../../common/model';
+import {
+  Feedback2,
+  FeedbackFactory,
+  SourceType,
+  Feedback
+} from '../../common/model';
 /**
  * TODO: do it nicely with web workers and timeouts
  * Execute js code
@@ -9,7 +14,7 @@ export class JSExecutorService {
   /**
    * Run without showing specific error.
    */
-  run(source: string): Feedback {
+  run(source: string): Feedback2 {
     try {
       // tslint:disable-next-line:no-eval
       eval(source);

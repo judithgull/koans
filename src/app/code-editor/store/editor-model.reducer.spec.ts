@@ -4,9 +4,19 @@ import {
   ValidationFailedAction,
   ValidationSuccessAction
 } from '.';
-import { FeedbackFactory, SourceType } from '../../common/model';
+import {
+  FeedbackFactory,
+  SourceType,
+  FeedbackDetails
+} from '../../common/model';
 
 describe('editorModelReducer', () => {
+  const errorDetails: FeedbackDetails = {
+    success: false,
+    message: 'error',
+    startLineNumber: -1
+  };
+
   it('should return the default state', () => {
     const action: any = {};
     const state = editorModelReducer(undefined, action);
@@ -120,16 +130,12 @@ describe('editorModelReducer', () => {
         value: 'value'
       }
     };
-    const error = FeedbackFactory.createError(
-      SourceType.Validation,
-      'message',
-      'value1'
-    );
+
     const action = new ValidationFailedAction({
       id: 'id1',
       versionId: 1,
       value: 'value1',
-      result: error
+      validation: errorDetails
     });
     const state = editorModelReducer(
       { entities: { ...initialEntity } },
@@ -141,7 +147,7 @@ describe('editorModelReducer', () => {
           id: 'id1',
           versionId: 1,
           value: 'value1',
-          result: error
+          validation: errorDetails
         }
       }
     });
@@ -155,15 +161,11 @@ describe('editorModelReducer', () => {
         value: 'value'
       }
     };
-    const feedback = FeedbackFactory.createSuccess(
-      SourceType.Validation,
-      'value1'
-    );
     const action = new ValidationSuccessAction({
       id: 'id1',
       versionId: 1,
       value: 'value1',
-      result: feedback
+      validation: errorDetails
     });
     const state = editorModelReducer(
       { entities: { ...initialEntity } },
@@ -175,7 +177,7 @@ describe('editorModelReducer', () => {
           id: 'id1',
           versionId: 1,
           value: 'value1',
-          result: feedback
+          validation: errorDetails
         }
       }
     });
@@ -195,17 +197,11 @@ describe('editorModelReducer', () => {
       }
     };
 
-    const feedback2 = FeedbackFactory.createError(
-      SourceType.Runner,
-      'message',
-      'value2'
-    );
-
     const action = new ValidationSuccessAction({
       id: 'id1',
       versionId: 1,
       value: 'value2',
-      result: feedback2
+      validation: errorDetails
     });
     const state = editorModelReducer(
       { entities: { ...initialEntity } },
@@ -217,7 +213,7 @@ describe('editorModelReducer', () => {
           id: 'id1',
           versionId: 1,
           value: 'value2',
-          result: feedback2
+          validation: errorDetails
         }
       }
     });

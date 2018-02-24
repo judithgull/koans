@@ -10,6 +10,20 @@ export enum FeedbackType {
 }
 
 export interface Feedback {
+  id: string;
+  versionId: number;
+  value: string;
+  validation?: FeedbackDetails;
+  runner?: FeedbackDetails;
+}
+
+export interface FeedbackDetails {
+  success: boolean;
+  message: string;
+  startLineNumber: number;
+}
+
+export interface Feedback2 {
   message?: string;
   type: FeedbackType;
   source: SourceType;
@@ -18,7 +32,7 @@ export interface Feedback {
 }
 
 export class FeedbackFactory {
-  static createSuccess(source: SourceType, value: string): Feedback {
+  static createSuccess(source: SourceType, value: string): Feedback2 {
     return {
       source: source,
       value,
@@ -30,7 +44,7 @@ export class FeedbackFactory {
     source: SourceType,
     message: string,
     value: string
-  ): Feedback {
+  ): Feedback2 {
     return {
       source,
       value,

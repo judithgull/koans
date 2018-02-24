@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Feedback } from '../../common/model';
+import { FeedbackDetails } from '../../common/model';
 
 export const CHANGE_MODEL_VALUE_ACTION = 'CHANGE MODEL VALUE ACTION';
 export class ChangeModelValueAction implements Action {
@@ -21,7 +21,7 @@ export class ValidationFailedAction implements Action {
       id: string;
       versionId: number;
       value: string;
-      result: Feedback;
+      validation: FeedbackDetails;
     }
   ) {}
 }
@@ -34,7 +34,7 @@ export class ValidationSuccessAction implements Action {
       id: string;
       versionId: number;
       value: string;
-      result: Feedback;
+      validation: FeedbackDetails;
     }
   ) {}
 }

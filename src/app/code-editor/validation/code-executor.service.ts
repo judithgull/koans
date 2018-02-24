@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  Feedback,
+  Feedback2,
   FeedbackFactory,
   ProgrammingLanguage
 } from '../../common/model';
@@ -14,7 +14,7 @@ export class CodeExecutorService {
     private tsTraspiler: TsTranspilerService
   ) {}
 
-  run(value: string, progLang: ProgrammingLanguage): Feedback {
+  run(value: string, progLang: ProgrammingLanguage): Feedback2 {
     return this.jsService.run(this.getTranspiledValue(value, progLang));
   }
 

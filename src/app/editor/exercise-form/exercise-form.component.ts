@@ -1,6 +1,6 @@
 import { CodeEditorTextValidators } from '../../code-editor-validators/code-editor-text-validators';
 import { ProgrammingLanguages } from '../../common/model/programming-languages';
-import { Feedback } from '../../common/model/feedback';
+import { Feedback2 } from '../../common/model/feedback';
 import { Exercise } from '../../common/model/exercise';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
@@ -15,7 +15,7 @@ export class ExerciseFormComponent implements OnInit {
   @Input() item: Exercise;
   @Input() programmingLanguage: string;
 
-  solutionFeedback: Feedback[];
+  solutionFeedback: Feedback2[];
 
   constructor(private fb: FormBuilder) {}
 
@@ -44,7 +44,7 @@ export class ExerciseFormComponent implements OnInit {
     });
   }
 
-  updateSolutionError(feedbacks: Feedback[]) {
+  updateSolutionError(feedbacks: Feedback2[]) {
     this.solutionFeedback = feedbacks;
     const solutionControl = this.form.get('codeEditors.exSolution');
     solutionControl.setErrors({ error: true });

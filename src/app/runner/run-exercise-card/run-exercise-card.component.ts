@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
 import {
-  Feedback,
+  Feedback2,
   FeedbackType,
   Exercise,
   ExerciseProgress,
@@ -31,10 +31,10 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
   userValue = '';
   programmingLanguage;
 
-  feedback: Feedback[] = [];
+  feedback: Feedback2[] = [];
   seriesLength: number = 0;
 
-  private editableMarkerFeedback: Feedback[] = [];
+  private editableMarkerFeedback: Feedback2[] = [];
 
   constructor(private store: Store<st.State>) {}
 
@@ -64,7 +64,7 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
     );
   }
 
-  updateFeedback(feedback: Feedback[]) {
+  updateFeedback(feedback: Feedback2[]) {
     this.feedback = feedback;
     const isSuccess = feedback.some(f => f.type === FeedbackType.Success);
     if (isSuccess) {

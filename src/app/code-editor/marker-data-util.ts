@@ -1,6 +1,24 @@
-import { Feedback, FeedbackType, SourceType } from '../common/model';
+import {
+  Feedback2,
+  FeedbackType,
+  SourceType,
+  FeedbackDetails
+} from '../common/model';
 
-export function createMarkerData(f: Feedback): monaco.editor.IMarkerData {
+export function createMarkerData(f: Feedback2): monaco.editor.IMarkerData {
+  return {
+    severity: monaco.Severity.Error,
+    message: f.message,
+    startLineNumber: 1,
+    startColumn: 1,
+    endLineNumber: 1,
+    endColumn: 1
+  };
+}
+
+export function createMarkerData1(
+  f: FeedbackDetails
+): monaco.editor.IMarkerData {
   return {
     severity: monaco.Severity.Error,
     message: f.message,
@@ -14,7 +32,7 @@ export function createMarkerData(f: Feedback): monaco.editor.IMarkerData {
 export function createFeedback(
   m: monaco.editor.IMarkerData,
   v: string
-): Feedback {
+): Feedback2 {
   return {
     message: m.message,
     type: FeedbackType.Error,

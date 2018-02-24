@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Feedback } from '../model/feedback';
 
 /**
  * Component to display feedback like errors and success messages.

@@ -45,11 +45,11 @@ describe('EditorModelEffects', () => {
           id: '0',
           versionId: 0,
           value: '',
-          result: FeedbackFactory.createError(
-            SourceType.Validation,
-            validationService.emptyErrorMessage,
-            ''
-          )
+          validation: {
+            success: false,
+            message: validationService.emptyErrorMessage,
+            startLineNumber: -1
+          }
         })
       });
       expect(effects.validate$).toBeObservable(expected);

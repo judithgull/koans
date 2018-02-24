@@ -1,4 +1,3 @@
-import { EditorModelState } from './editor-model.reducer';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { EditorModelEntities } from '.';
 import { FeedbackType, SourceType } from '../../common/model';
@@ -19,18 +18,9 @@ export function getModelEntity(modelId: string) {
   );
 }
 
-export function getResult(modelId: string) {
+export function getValidationResult(modelId: string) {
   return createSelector(
     getModelEntity(modelId),
-    model => model && model.result
+    model => model && model.validation
   );
-}
-
-export function getValidationResult(modelId: string) {
-  return createSelector(getResult(modelId), result => {
-    if (result && result.source === SourceType.Validation) {
-      return result;
-    }
-    return null;
-  });
 }

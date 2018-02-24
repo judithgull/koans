@@ -22,9 +22,14 @@ export class EditorModelEffects {
     map((a: EditorModelAction) => a.payload),
     map(a => {
       const result = this.validationService.validate(a.value);
+      const success = result.type === FeedbackType.Success;
       const newPayload = {
         ...a,
-        result
+        validation: {
+          success,
+          message: result.message,
+          startLineNumber: result.startLineNumber
+        }
       };
       if (result.type === FeedbackType.Error) {
         return new ValidationFailedAction(newPayload);

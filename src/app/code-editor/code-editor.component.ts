@@ -13,7 +13,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import {
-  Feedback,
+  Feedback2,
   FeedbackFactory,
   FeedbackType,
   SourceType,
@@ -31,7 +31,8 @@ import { Store } from '@ngrx/store';
 import {
   createMarkerData,
   getRelevantMarkers,
-  createFeedback
+  createFeedback,
+  createMarkerData1
 } from './marker-data-util';
 import { Subscription } from 'rxjs';
 
@@ -60,7 +61,7 @@ export class CodeEditorComponent
 
   @ViewChild('editor') editorContent: ElementRef;
 
-  @Output() errorMarkerChanges = new EventEmitter<Feedback[]>();
+  @Output() errorMarkerChanges = new EventEmitter<Feedback2[]>();
 
   editor: monaco.editor.IStandaloneCodeEditor;
 
@@ -149,16 +150,16 @@ export class CodeEditorComponent
     this.uri = this.getCurrentModelUri();
 
     // select current validation errors
-    const validationErrors = this.store.select(
+    const validationResults = this.store.select(
       getValidationResult(this.model.id)
     );
 
     this.subs.push(
-      validationErrors.subscribe(e => {
-        if (e) {
+      validationResults.subscribe(e => {
+        if (e && !e.success) {
           console.log(e);
-          //overwrite the error markers, if it is the same version
-          const marker = createMarkerData(e);
+          //TODO overwrite the error markers, if it is the same version
+          const marker = createMarkerData1(e);
           monaco.editor.setModelMarkers(this.model, 'validation', [marker]);
         }
       })

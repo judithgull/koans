@@ -4,18 +4,11 @@ import {
   MODEL_VALIDATION_FAILED,
   MODEL_VALIDATION_SUCCESS
 } from './editor-model.action';
-import { Feedback } from '../../common/model';
-
-export interface EditorModelState {
-  id: string;
-  versionId: number;
-  value: string;
-  result?: Feedback;
-}
+import { FeedbackDetails, Feedback } from '../../common/model';
 
 export interface EditorModelEntities {
   entities: {
-    [id: string]: EditorModelState;
+    [id: string]: Feedback;
   };
 }
 
