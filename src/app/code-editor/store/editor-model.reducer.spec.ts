@@ -1,9 +1,5 @@
 import { editorModelReducer, initialState } from './editor-model.reducer';
-import {
-  ChangeModelValueAction,
-  ValidationFailedAction,
-  ValidationSuccessAction
-} from '.';
+import { ChangeModelValueAction, ValidationResultAction } from '.';
 import {
   FeedbackFactory,
   SourceType,
@@ -131,7 +127,7 @@ describe('editorModelReducer', () => {
       }
     };
 
-    const action = new ValidationFailedAction({
+    const action = new ValidationResultAction({
       id: 'id1',
       versionId: 1,
       value: 'value1',
@@ -161,7 +157,7 @@ describe('editorModelReducer', () => {
         value: 'value'
       }
     };
-    const action = new ValidationSuccessAction({
+    const action = new ValidationResultAction({
       id: 'id1',
       versionId: 1,
       value: 'value1',
@@ -197,7 +193,7 @@ describe('editorModelReducer', () => {
       }
     };
 
-    const action = new ValidationSuccessAction({
+    const action = new ValidationResultAction({
       id: 'id1',
       versionId: 1,
       value: 'value2',

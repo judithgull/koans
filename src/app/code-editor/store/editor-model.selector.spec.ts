@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import {
   codeEditorReducer,
   getValidationResult,
-  ValidationFailedAction,
+  ValidationResultAction,
   getModelEntity
 } from '.';
 import { FeedbackFactory, SourceType } from '../../common/model';
@@ -44,7 +44,7 @@ describe('Editor Model Selectors', () => {
         startLineNumber: 1
       };
       store.dispatch(
-        new ValidationFailedAction({
+        new ValidationResultAction({
           id: modelId,
           versionId: 1,
           value: '',

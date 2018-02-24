@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { EditorModelEffects } from './editor-model.effect';
 import {
   ChangeModelValueAction,
-  ValidationFailedAction
+  ValidationResultAction
 } from './editor-model.action';
 import { hot, cold } from 'jasmine-marbles';
 import { Actions } from '@ngrx/effects';
@@ -41,7 +41,7 @@ describe('EditorModelEffects', () => {
       actions$.stream = hot('-a', { a: action });
 
       const expected = cold('-b', {
-        b: new ValidationFailedAction({
+        b: new ValidationResultAction({
           id: '0',
           versionId: 0,
           value: '',

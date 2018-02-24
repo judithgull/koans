@@ -1,8 +1,7 @@
 import {
   EditorModelAction,
   CHANGE_MODEL_VALUE_ACTION,
-  MODEL_VALIDATION_FAILED,
-  MODEL_VALIDATION_SUCCESS
+  MODEL_VALIDATION_RESULT
 } from './editor-model.action';
 import { FeedbackDetails, Feedback } from '../../common/model';
 
@@ -24,8 +23,7 @@ export function editorModelReducer(
   const existingEntity = payload ? state.entities[payload.id] : payload;
   switch (action.type) {
     case CHANGE_MODEL_VALUE_ACTION:
-    case MODEL_VALIDATION_FAILED:
-    case MODEL_VALIDATION_SUCCESS:
+    case MODEL_VALIDATION_RESULT:
       if (existingEntity && existingEntity.versionId > payload.versionId) {
         return state;
       }

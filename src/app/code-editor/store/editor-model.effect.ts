@@ -2,8 +2,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import {
   CHANGE_MODEL_VALUE_ACTION,
   EditorModelAction,
-  ValidationFailedAction,
-  ValidationSuccessAction
+  ValidationResultAction
 } from './editor-model.action';
 import { map } from 'rxjs/operators';
 import { FeedbackFactory, FeedbackType } from '../../common/model';
@@ -31,11 +30,7 @@ export class EditorModelEffects {
           startLineNumber: result.startLineNumber
         }
       };
-      if (result.type === FeedbackType.Error) {
-        return new ValidationFailedAction(newPayload);
-      } else {
-        return new ValidationSuccessAction(newPayload);
-      }
+      return new ValidationResultAction(newPayload);
     })
   );
 }

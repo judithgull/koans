@@ -13,9 +13,9 @@ export class ChangeModelValueAction implements Action {
   ) {}
 }
 
-export const MODEL_VALIDATION_FAILED = 'MODEL VALIDATION FAILED';
-export class ValidationFailedAction implements Action {
-  readonly type = MODEL_VALIDATION_FAILED;
+export const MODEL_VALIDATION_RESULT = 'MODEL_VALIDATION_RESULT';
+export class ValidationResultAction implements Action {
+  readonly type = MODEL_VALIDATION_RESULT;
   constructor(
     public payload: {
       id: string;
@@ -26,20 +26,4 @@ export class ValidationFailedAction implements Action {
   ) {}
 }
 
-export const MODEL_VALIDATION_SUCCESS = 'MODEL VALIDATION SUCCESS';
-export class ValidationSuccessAction implements Action {
-  readonly type = MODEL_VALIDATION_SUCCESS;
-  constructor(
-    public payload: {
-      id: string;
-      versionId: number;
-      value: string;
-      validation: FeedbackDetails;
-    }
-  ) {}
-}
-
-export type EditorModelAction =
-  | ChangeModelValueAction
-  | ValidationFailedAction
-  | ValidationSuccessAction;
+export type EditorModelAction = ChangeModelValueAction | ValidationResultAction;
