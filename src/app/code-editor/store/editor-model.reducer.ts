@@ -2,7 +2,8 @@ import {
   EditorModelAction,
   CHANGE_MODEL_VALUE_ACTION,
   MODEL_VALIDATION_RESULT,
-  MODEL_MONACO_RESULT
+  MODEL_MONACO_ERROR,
+  MODEL_MONACO_SUCCESS
 } from './editor-model.action';
 import { FeedbackDetails, Feedback } from '../../common/model';
 
@@ -35,7 +36,7 @@ export function editorModelReducer(
           [payload.id]: payload
         }
       };
-    case MODEL_MONACO_RESULT: {
+    case MODEL_MONACO_ERROR: {
       return {
         ...state,
         entities: {
@@ -44,7 +45,27 @@ export function editorModelReducer(
             ...existingEntity,
             versionId: action.payload.versionId,
             value: action.payload.value,
-            monaco: action.payload.monaco
+            monaco: {
+              success: false,
+              errors: action.payload.errors
+            }
+          }
+        }
+      };
+    }
+    case MODEL_MONACO_SUCCESS: {
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          [payload.id]: {
+            ...existingEntity,
+            versionId: action.payload.versionId,
+            value: action.payload.value,
+            monaco: {
+              success: true,
+              errors: []
+            }
           }
         }
       };

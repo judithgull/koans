@@ -26,16 +26,17 @@ import {
   EditorModelEntities,
   ChangeModelValueAction,
   getValidationResult,
-  MonacoResultAction
+  MonacoErrorAction,
+  MonacoSuccessAction
 } from './store';
 import { Store } from '@ngrx/store';
 import {
   createMarkerData,
   createFeedback,
   createMarkerData1,
-  getMonacoErrorMarkers,
   filterEqualLines,
-  createErrorMarkers
+  createErrorMarkers,
+  getSortedErrorMarkers
 } from './marker-data-util';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -175,44 +176,62 @@ export class CodeEditorComponent
       const decorations = this.model.getAllDecorations();
       if (decorations.length === 0) {
         console.log('start runner');
-        const res = this.executor.run(this.value, this.language);
+        // const res = this.executor.run(this.value, this.language);
 
-        if (res.type === FeedbackType.Error) {
-          const marker = createMarkerData(res);
-          monaco.editor.setModelMarkers(this.model, 'eval', [marker]);
-        } else {
-          this.errorMarkerChanges.emit([
-            FeedbackFactory.createSuccess(SourceType.Monaco, this.value)
-          ]);
-        }
+        // if (res.type === FeedbackType.Error) {
+        //   const marker = createMarkerData(res);
+        //   monaco.editor.setModelMarkers(this.model, 'eval', [marker]);
+        // } else {
+        //   this.errorMarkerChanges.emit([
+        //     FeedbackFactory.createSuccess(SourceType.Monaco, this.value)
+        //   ]);
+        // }
         /// XXX ???
         this.editor.layout();
       }
-      const modelMarkers = monaco.editor.getModelMarkers({
-        resource: this.uri
-      });
-      const errorMarkers = filterEqualLines(
-        getMonacoErrorMarkers(modelMarkers)
-      );
-      const monacoFeedbacks = errorMarkers.map(createErrorMarkers);
 
-      this.store.dispatch(
-        new MonacoResultAction({
-          id: this.model.id,
-          versionId: this.model.getVersionId(),
-          value: this.value,
-          monaco: {
-            success: monacoFeedbacks.length === 0,
-            errors: monacoFeedbacks
-          }
-        })
-      );
+      // dispatch errors
+      this.dispatchMonacoErrors();
 
-      const feedbacks = errorMarkers.map(e => createFeedback(e, this.value));
+      // emit all error markers filtered by equal lines
+      const filteredMarkers = filterEqualLines(this.getMarkers());
+      const feedbacks = filteredMarkers.map(e => createFeedback(e, this.value));
       this.errorMarkerChanges.emit(feedbacks);
     });
 
     this.initialized.next(true);
+  }
+
+  private getMarkers(): monaco.editor.IMarkerData[] {
+    const modelMarkers = monaco.editor.getModelMarkers({
+      resource: this.uri
+    });
+    return getSortedErrorMarkers(modelMarkers);
+  }
+
+  private dispatchMonacoErrors() {
+    const monacoFeedbacks = this.getMarkers()
+      .filter(m => m.source !== 'validation')
+      .map(createErrorMarkers);
+
+    if (monacoFeedbacks.length) {
+      this.store.dispatch(
+        new MonacoErrorAction({
+          id: this.model.id,
+          versionId: this.model.getVersionId(),
+          value: this.value,
+          errors: monacoFeedbacks
+        })
+      );
+    } else {
+      this.store.dispatch(
+        new MonacoSuccessAction({
+          id: this.model.id,
+          versionId: this.model.getVersionId(),
+          value: this.value
+        })
+      );
+    }
   }
 
   ngAfterViewChecked(): void {

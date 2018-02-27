@@ -2,12 +2,14 @@ import { editorModelReducer, initialState } from './editor-model.reducer';
 import {
   ChangeModelValueAction,
   ValidationResultAction,
-  MonacoResultAction
+  MonacoErrorAction,
+  MonacoSuccessAction
 } from '.';
 import {
   FeedbackFactory,
   SourceType,
-  FeedbackDetails
+  FeedbackDetails,
+  ErrorMarker
 } from '../../common/model';
 
 describe('editorModelReducer', () => {
@@ -20,15 +22,12 @@ describe('editorModelReducer', () => {
       }
     ]
   };
-  const errorDetails2: FeedbackDetails = {
-    success: false,
-    errors: [
-      {
-        message: 'error2',
-        startLineNumber: -1
-      }
-    ]
-  };
+  const errorMarkers2: ErrorMarker[] = [
+    {
+      message: 'error2',
+      startLineNumber: -1
+    }
+  ];
   const changeModelAction = new ChangeModelValueAction({
     id: 'id1',
     versionId: 0,
@@ -204,11 +203,11 @@ describe('editorModelReducer', () => {
       }
     };
 
-    const action = new MonacoResultAction({
+    const action = new MonacoErrorAction({
       id: 'id1',
       versionId: 1,
       value: 'value2',
-      monaco: errorDetails2
+      errors: errorMarkers2
     });
 
     const state = editorModelReducer(
@@ -222,7 +221,46 @@ describe('editorModelReducer', () => {
           versionId: 1,
           value: 'value2',
           validation: errorDetails,
-          monaco: errorDetails2
+          monaco: {
+            success: false,
+            errors: errorMarkers2
+          }
+        }
+      }
+    });
+  });
+
+  it('should update monaco success on change', () => {
+    const initialEntity = {
+      id1: {
+        id: 'id1',
+        versionId: 0,
+        value: 'value',
+        validation: errorDetails
+      }
+    };
+
+    const action = new MonacoSuccessAction({
+      id: 'id1',
+      versionId: 1,
+      value: 'value2'
+    });
+
+    const state = editorModelReducer(
+      { entities: { ...initialEntity } },
+      action
+    );
+    expect(state).toEqual({
+      entities: {
+        id1: {
+          id: 'id1',
+          versionId: 1,
+          value: 'value2',
+          validation: errorDetails,
+          monaco: {
+            success: true,
+            errors: []
+          }
         }
       }
     });

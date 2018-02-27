@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { FeedbackDetails } from '../../common/model';
+import { FeedbackDetails, ErrorMarker } from '../../common/model';
 
 export const CHANGE_MODEL_VALUE_ACTION = 'CHANGE MODEL VALUE ACTION';
 export class ChangeModelValueAction implements Action {
@@ -26,15 +26,27 @@ export class ValidationResultAction implements Action {
   ) {}
 }
 
-export const MODEL_MONACO_RESULT = 'MODEL_MONACO_RESULT';
-export class MonacoResultAction implements Action {
-  readonly type = MODEL_MONACO_RESULT;
+export const MODEL_MONACO_ERROR = 'MODEL_MONACO_ERROR';
+export class MonacoErrorAction implements Action {
+  readonly type = MODEL_MONACO_ERROR;
   constructor(
     public payload: {
       id: string;
       versionId: number;
       value: string;
-      monaco: FeedbackDetails;
+      errors: ErrorMarker[];
+    }
+  ) {}
+}
+
+export const MODEL_MONACO_SUCCESS = 'MODEL_MONACO_SUCCESS';
+export class MonacoSuccessAction implements Action {
+  readonly type = MODEL_MONACO_SUCCESS;
+  constructor(
+    public payload: {
+      id: string;
+      versionId: number;
+      value: string;
     }
   ) {}
 }
@@ -42,4 +54,5 @@ export class MonacoResultAction implements Action {
 export type EditorModelAction =
   | ChangeModelValueAction
   | ValidationResultAction
-  | MonacoResultAction;
+  | MonacoErrorAction
+  | MonacoSuccessAction;

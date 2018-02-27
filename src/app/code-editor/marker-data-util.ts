@@ -49,9 +49,9 @@ export function createFeedback(
 }
 
 export function filterEqualLines(
-  markers: monaco.editor.IMarker[]
-): monaco.editor.IMarker[] {
-  const filteredMarkers: monaco.editor.IMarker[] = [];
+  markers: monaco.editor.IMarkerData[]
+): monaco.editor.IMarkerData[] {
+  const filteredMarkers: monaco.editor.IMarkerData[] = [];
   let j = -1;
   for (const e of markers) {
     if (e.startLineNumber !== j) {
@@ -64,7 +64,7 @@ export function filterEqualLines(
 /**
  * Get model markers
  */
-export function getMonacoErrorMarkers(
+export function getSortedErrorMarkers(
   markers: monaco.editor.IMarker[]
 ): monaco.editor.IMarker[] {
   const sortedErrorMarkers = markers
