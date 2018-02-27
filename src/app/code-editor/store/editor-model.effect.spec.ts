@@ -7,7 +7,6 @@ import {
 import { hot, cold } from 'jasmine-marbles';
 import { Actions } from '@ngrx/effects';
 import { getActions, TestActions } from '../../store/test';
-import { FeedbackFactory, SourceType } from '../../common/model';
 import { CodeEditorValidationSerivce } from '../validation';
 import { EditableMarkerService } from '../../common/editable-marker.service';
 
@@ -47,8 +46,12 @@ describe('EditorModelEffects', () => {
           value: '',
           validation: {
             success: false,
-            message: validationService.emptyErrorMessage,
-            startLineNumber: -1
+            errors: [
+              {
+                message: validationService.emptyErrorMessage,
+                startLineNumber: -1
+              }
+            ]
           }
         })
       });

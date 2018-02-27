@@ -1,4 +1,9 @@
-import { Feedback2, FeedbackFactory, SourceType } from '../../common/model';
+import {
+  Feedback2,
+  FeedbackFactory,
+  SourceType,
+  ErrorMarker
+} from '../../common/model';
 import { Injectable } from '@angular/core';
 import { EditableMarkerService } from '../../common/editable-marker.service';
 
@@ -8,21 +13,23 @@ export class CodeEditorValidationSerivce {
   public emptyErrorMessage = 'Editor cannot be empty!';
   constructor(private service: EditableMarkerService) {}
 
-  validate(text: string): Feedback2 {
+  validate(text: string): ErrorMarker[] {
     if (!text) {
-      return FeedbackFactory.createError(
-        SourceType.Validation,
-        this.emptyErrorMessage,
-        text
-      );
+      return [
+        {
+          message: this.emptyErrorMessage,
+          startLineNumber: -1
+        }
+      ];
     }
     if (this.service.containsMarker(text)) {
-      return FeedbackFactory.createError(
-        SourceType.Validation,
-        this.placeholderValidationMessage,
-        text
-      );
+      return [
+        {
+          message: this.placeholderValidationMessage,
+          startLineNumber: -1
+        }
+      ];
     }
-    return FeedbackFactory.createSuccess(SourceType.Validation, text);
+    return [];
   }
 }

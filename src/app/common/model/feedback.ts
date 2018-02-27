@@ -15,11 +15,15 @@ export interface Feedback {
   value: string;
   validation?: FeedbackDetails;
   runner?: FeedbackDetails;
-  monaco?: FeedbackDetails[];
+  monaco?: FeedbackDetails;
 }
 
 export interface FeedbackDetails {
   success: boolean;
+  errors: ErrorMarker[];
+}
+
+export interface ErrorMarker {
   message: string;
   startLineNumber: number;
 }

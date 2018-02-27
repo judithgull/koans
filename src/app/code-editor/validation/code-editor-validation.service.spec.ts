@@ -13,16 +13,20 @@ describe('Editor validation service', () => {
   });
 
   it('Should error on empty value', () => {
-    expect(service.validate('').message).toEqual(service.emptyErrorMessage);
+    expect(service.validate('')).toEqual([
+      {
+        message: service.emptyErrorMessage,
+        startLineNumber: -1
+      }
+    ]);
   });
 
   it('Should error on placeholder value', () => {
-    expect(service.validate('???')).toEqual(
-      FeedbackFactory.createError(
-        SourceType.Validation,
-        service.placeholderValidationMessage,
-        '???'
-      )
-    );
+    expect(service.validate('???')).toEqual([
+      {
+        message: service.placeholderValidationMessage,
+        startLineNumber: -1
+      }
+    ]);
   });
 });

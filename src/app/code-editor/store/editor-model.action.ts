@@ -34,7 +34,7 @@ export class MonacoResultAction implements Action {
       id: string;
       versionId: number;
       value: string;
-      monaco: FeedbackDetails[];
+      monaco: FeedbackDetails;
     }
   ) {}
 }

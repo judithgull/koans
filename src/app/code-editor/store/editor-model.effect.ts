@@ -20,14 +20,13 @@ export class EditorModelEffects {
   validate$ = this.actions$.ofType(CHANGE_MODEL_VALUE_ACTION).pipe(
     map((a: EditorModelAction) => a.payload),
     map(a => {
-      const result = this.validationService.validate(a.value);
-      const success = result.type === FeedbackType.Success;
+      const errors = this.validationService.validate(a.value);
+
       const newPayload = {
         ...a,
         validation: {
-          success,
-          message: result.message,
-          startLineNumber: result.startLineNumber
+          success: errors.length === 0,
+          errors
         }
       };
       return new ValidationResultAction(newPayload);

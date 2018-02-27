@@ -34,10 +34,11 @@ import {
   createFeedback,
   createMarkerData1,
   getMonacoErrorMarkers,
-  createFeedbackDetails,
-  filterEqualLines
+  filterEqualLines,
+  createErrorMarkers
 } from './marker-data-util';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 /**
  * Monaco editor as a custom form control
@@ -152,21 +153,20 @@ export class CodeEditorComponent
 
     this.uri = this.getCurrentModelUri();
 
-    // select current validation errors
-    const validationResults = this.store.select(
-      getValidationResult(this.model.id)
-    );
+    const validationResults = this.store
+      .select(getValidationResult(this.model.id))
+      .pipe(
+        filter(e => e && e.validation && true),
+        filter(e => e.versionId === this.model.getVersionId())
+      );
 
     this.subs.push(
       validationResults.subscribe(e => {
-        if (
-          e &&
-          e.versionId === this.model.getVersionId() &&
-          e.validation &&
-          !e.validation.success
-        ) {
-          const marker = createMarkerData1(e.validation);
-          monaco.editor.setModelMarkers(this.model, 'validation', [marker]);
+        if (e.validation.success) {
+          this.clearMarkers('validation');
+        } else {
+          const markers = e.validation.errors.map(e => createMarkerData1(e));
+          this.setMarkers('validation', markers);
         }
       })
     );
@@ -174,6 +174,7 @@ export class CodeEditorComponent
     this.model.onDidChangeDecorations(e => {
       const decorations = this.model.getAllDecorations();
       if (decorations.length === 0) {
+        console.log('start runner');
         const res = this.executor.run(this.value, this.language);
 
         if (res.type === FeedbackType.Error) {
@@ -190,17 +191,20 @@ export class CodeEditorComponent
       const modelMarkers = monaco.editor.getModelMarkers({
         resource: this.uri
       });
-
       const errorMarkers = filterEqualLines(
         getMonacoErrorMarkers(modelMarkers)
       );
-      const monacoFeedback = errorMarkers.map(m => createFeedbackDetails(m));
+      const monacoFeedbacks = errorMarkers.map(createErrorMarkers);
+
       this.store.dispatch(
         new MonacoResultAction({
           id: this.model.id,
           versionId: this.model.getVersionId(),
           value: this.value,
-          monaco: monacoFeedback
+          monaco: {
+            success: monacoFeedbacks.length === 0,
+            errors: monacoFeedbacks
+          }
         })
       );
 
@@ -215,6 +219,14 @@ export class CodeEditorComponent
     if (this.editor) {
       this.editor.layout();
     }
+  }
+
+  private setMarkers(owner: string, markers: monaco.editor.IMarkerData[]) {
+    monaco.editor.setModelMarkers(this.model, owner, markers);
+  }
+
+  private clearMarkers(owner: string) {
+    monaco.editor.setModelMarkers(this.model, owner, []);
   }
 
   private getCurrentModelUri(): monaco.Uri {

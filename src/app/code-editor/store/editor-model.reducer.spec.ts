@@ -1,5 +1,9 @@
 import { editorModelReducer, initialState } from './editor-model.reducer';
-import { ChangeModelValueAction, ValidationResultAction } from '.';
+import {
+  ChangeModelValueAction,
+  ValidationResultAction,
+  MonacoResultAction
+} from '.';
 import {
   FeedbackFactory,
   SourceType,
@@ -9,9 +13,27 @@ import {
 describe('editorModelReducer', () => {
   const errorDetails: FeedbackDetails = {
     success: false,
-    message: 'error',
-    startLineNumber: -1
+    errors: [
+      {
+        message: 'error',
+        startLineNumber: -1
+      }
+    ]
   };
+  const errorDetails2: FeedbackDetails = {
+    success: false,
+    errors: [
+      {
+        message: 'error2',
+        startLineNumber: -1
+      }
+    ]
+  };
+  const changeModelAction = new ChangeModelValueAction({
+    id: 'id1',
+    versionId: 0,
+    value: 'value'
+  });
 
   it('should return the default state', () => {
     const action: any = {};
@@ -20,12 +42,7 @@ describe('editorModelReducer', () => {
   });
 
   it('should change the value on valueChange', () => {
-    const action = new ChangeModelValueAction({
-      id: 'id1',
-      versionId: 0,
-      value: 'value'
-    });
-    const state = editorModelReducer(undefined, action);
+    const state = editorModelReducer(undefined, changeModelAction);
     expect(state).toEqual({
       entities: {
         id1: {
@@ -45,12 +62,10 @@ describe('editorModelReducer', () => {
         value: 'value'
       }
     };
-    const action = new ChangeModelValueAction({
-      id: 'id1',
-      versionId: 0,
-      value: 'value'
-    });
-    const state = editorModelReducer({ entities: { ...entity2 } }, action);
+    const state = editorModelReducer(
+      { entities: { ...entity2 } },
+      changeModelAction
+    );
     expect(state).toEqual({
       entities: {
         ...entity2,
@@ -62,7 +77,7 @@ describe('editorModelReducer', () => {
       }
     });
   });
-  it('should ignore for older changes', () => {
+  it('should ignore older changes', () => {
     const initialEntity = {
       id1: {
         id: 'id1',
@@ -149,19 +164,20 @@ describe('editorModelReducer', () => {
     });
   });
 
-  it('should update successful validation', () => {
+  it('should reset validation result on change', () => {
     const initialEntity = {
       id1: {
         id: 'id1',
         versionId: 0,
-        value: 'value'
+        value: 'value',
+        validation: errorDetails
       }
     };
-    const action = new ValidationResultAction({
+
+    const action = new ChangeModelValueAction({
       id: 'id1',
       versionId: 1,
-      value: 'value1',
-      validation: errorDetails
+      value: 'value2'
     });
     const state = editorModelReducer(
       { entities: { ...initialEntity } },
@@ -172,33 +188,29 @@ describe('editorModelReducer', () => {
         id1: {
           id: 'id1',
           versionId: 1,
-          value: 'value1',
-          validation: errorDetails
+          value: 'value2'
         }
       }
     });
   });
 
-  it('should update validation result', () => {
-    const feedback = FeedbackFactory.createSuccess(
-      SourceType.Validation,
-      'value'
-    );
+  it('should update monaco result on change', () => {
     const initialEntity = {
       id1: {
         id: 'id1',
         versionId: 0,
         value: 'value',
-        result: feedback
+        validation: errorDetails
       }
     };
 
-    const action = new ValidationResultAction({
+    const action = new MonacoResultAction({
       id: 'id1',
       versionId: 1,
       value: 'value2',
-      validation: errorDetails
+      monaco: errorDetails2
     });
+
     const state = editorModelReducer(
       { entities: { ...initialEntity } },
       action
@@ -209,7 +221,8 @@ describe('editorModelReducer', () => {
           id: 'id1',
           versionId: 1,
           value: 'value2',
-          validation: errorDetails
+          validation: errorDetails,
+          monaco: errorDetails2
         }
       }
     });
