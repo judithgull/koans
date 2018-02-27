@@ -1,3 +1,5 @@
+import { ProgrammingLanguage } from '.';
+
 export enum SourceType {
   Validation,
   Runner,
@@ -12,6 +14,7 @@ export enum FeedbackType {
 export interface Feedback {
   id: string;
   versionId: number;
+  progLang?: ProgrammingLanguage;
   value: string;
   validation?: FeedbackDetails;
   runner?: FeedbackDetails;

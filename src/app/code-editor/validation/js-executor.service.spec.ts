@@ -14,11 +14,13 @@ describe('CodeExecutorService', () => {
 
   it('should be created', () => {
     const res = service.run('');
-    expect(res.type).toBe(FeedbackType.Success);
+    expect(res).toEqual([]);
   });
 
   it('should return an error for a script that throws an error', () => {
     const res = service.run('throw "blubbi"');
-    expect(res.type).toBe(FeedbackType.Error);
+    expect(res).toEqual([
+      { message: service.runtimeErrorMessage, startLineNumber: 1 }
+    ]);
   });
 });

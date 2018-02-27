@@ -69,14 +69,18 @@ export function getSortedErrorMarkers(
 ): monaco.editor.IMarker[] {
   const sortedErrorMarkers = markers
     .filter(m => m.severity === monaco.Severity.Error)
-    .sort((a: monaco.editor.IMarker, b: monaco.editor.IMarker) => {
-      if (a.startLineNumber === b.startLineNumber) {
-        return compareOwner(a.owner, b.owner);
-      }
-      return a.startLineNumber - b.startLineNumber;
-    });
-
+    .sort(compareLineAndOwner);
   return sortedErrorMarkers;
+}
+
+function compareLineAndOwner(
+  a: monaco.editor.IMarker,
+  b: monaco.editor.IMarker
+) {
+  if (a.startLineNumber === b.startLineNumber) {
+    return compareOwner(a.owner, b.owner);
+  }
+  return a.startLineNumber - b.startLineNumber;
 }
 
 function compareOwner(a: string, b: string) {

@@ -18,6 +18,7 @@ class MockTsTranspilerService {
 describe('CodeExecutorService', () => {
   let service: CodeExecutorService;
   let transpilerService: TsTranspilerService;
+  let jsService: JSExecutorService;
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -28,19 +29,21 @@ describe('CodeExecutorService', () => {
     });
     service = TestBed.get(CodeExecutorService);
     transpilerService = TestBed.get(TsTranspilerService);
+    jsService = TestBed.get(JSExecutorService);
   });
   it('should run a valid js value', () => {
-    expect(service.run('', ProgrammingLanguage.javascript)).toEqual(
-      FeedbackFactory.createSuccess(SourceType.Runner, '')
-    );
+    expect(service.run('', ProgrammingLanguage.javascript)).toEqual([]);
   });
 
   it('should run an invalid js value', () => {
     const error = 'error';
     const value = `throw "${error}";`;
-    expect(service.run(value, ProgrammingLanguage.javascript)).toEqual(
-      FeedbackFactory.createError(SourceType.Runner, error, value)
-    );
+    expect(service.run(value, ProgrammingLanguage.javascript)).toEqual([
+      {
+        message: jsService.runtimeErrorMessage,
+        startLineNumber: 1
+      }
+    ]);
   });
 
   it('should run a valid ts value', () => {
@@ -48,7 +51,6 @@ describe('CodeExecutorService', () => {
     const transpiledValue = 'var a = 1;';
     spyOn(transpilerService, 'run').and.returnValue(transpiledValue);
     const res = service.run(value, ProgrammingLanguage.typescript);
-    expect(res.value).toEqual(transpiledValue);
-    expect(res.type).toEqual(FeedbackType.Success);
+    expect(res).toEqual([]);
   });
 });

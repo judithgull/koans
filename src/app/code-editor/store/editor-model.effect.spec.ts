@@ -2,13 +2,22 @@ import { TestBed } from '@angular/core/testing';
 import { EditorModelEffects } from './editor-model.effect';
 import {
   ChangeModelValueAction,
-  ValidationResultAction
+  ValidationResultAction,
+  MonacoSuccessAction,
+  ExecutorSuccessAction
 } from './editor-model.action';
 import { hot, cold } from 'jasmine-marbles';
 import { Actions } from '@ngrx/effects';
 import { getActions, TestActions } from '../../store/test';
-import { CodeEditorValidationSerivce } from '../validation';
+import {
+  CodeEditorValidationSerivce,
+  CodeExecutorService,
+  JSExecutorService,
+  TsTranspilerService
+} from '../validation';
 import { EditableMarkerService } from '../../common/editable-marker.service';
+import { ProgrammingLanguage } from '../../common/model';
+import { ExecutorErrorAction } from '.';
 
 describe('EditorModelEffects', () => {
   let actions$: TestActions;
@@ -19,14 +28,21 @@ describe('EditorModelEffects', () => {
     TestBed.configureTestingModule({
       providers: [
         CodeEditorValidationSerivce,
+        CodeExecutorService,
+        JSExecutorService,
+        TsTranspilerService,
         EditableMarkerService,
         EditorModelEffects,
         { provide: Actions, useFactory: getActions }
       ]
     });
+
     validationService = TestBed.get(CodeEditorValidationSerivce);
     actions$ = TestBed.get(Actions);
     effects = TestBed.get(EditorModelEffects);
+    const tsTranspilerService = TestBed.get(TsTranspilerService);
+
+    spyOn(tsTranspilerService, 'run').and.returnValue('');
   });
 
   describe('validate$', () => {
@@ -56,6 +72,29 @@ describe('EditorModelEffects', () => {
         })
       });
       expect(effects.validate$).toBeObservable(expected);
+    });
+  });
+
+  describe('execute$', () => {
+    it('should execute on monaco success', () => {
+      const action = new MonacoSuccessAction({
+        id: '0',
+        versionId: 0,
+        value: 'asdf',
+        prodLang: ProgrammingLanguage.typescript
+      });
+
+      actions$.stream = hot('-a', { a: action });
+
+      const expected = cold('-b', {
+        b: new ExecutorSuccessAction({
+          id: '0',
+          versionId: 0,
+          value: 'asdf',
+          prodLang: ProgrammingLanguage.typescript
+        })
+      });
+      expect(effects.execute$).toBeObservable(expected);
     });
   });
 });

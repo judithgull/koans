@@ -62,6 +62,7 @@ export function editorModelReducer(
             ...existingEntity,
             versionId: action.payload.versionId,
             value: action.payload.value,
+            progLang: action.payload.prodLang,
             monaco: {
               success: true,
               errors: []

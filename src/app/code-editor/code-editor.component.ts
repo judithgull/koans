@@ -173,24 +173,6 @@ export class CodeEditorComponent
     );
 
     this.model.onDidChangeDecorations(e => {
-      const decorations = this.model.getAllDecorations();
-      if (decorations.length === 0) {
-        console.log('start runner');
-        // const res = this.executor.run(this.value, this.language);
-
-        // if (res.type === FeedbackType.Error) {
-        //   const marker = createMarkerData(res);
-        //   monaco.editor.setModelMarkers(this.model, 'eval', [marker]);
-        // } else {
-        //   this.errorMarkerChanges.emit([
-        //     FeedbackFactory.createSuccess(SourceType.Monaco, this.value)
-        //   ]);
-        // }
-        /// XXX ???
-        this.editor.layout();
-      }
-
-      // dispatch errors
       this.dispatchMonacoErrors();
 
       // emit all error markers filtered by equal lines
@@ -228,7 +210,8 @@ export class CodeEditorComponent
         new MonacoSuccessAction({
           id: this.model.id,
           versionId: this.model.getVersionId(),
-          value: this.value
+          value: this.value,
+          prodLang: this.language
         })
       );
     }

@@ -9,7 +9,8 @@ import {
   FeedbackFactory,
   SourceType,
   FeedbackDetails,
-  ErrorMarker
+  ErrorMarker,
+  ProgrammingLanguage
 } from '../../common/model';
 
 describe('editorModelReducer', () => {
@@ -243,7 +244,8 @@ describe('editorModelReducer', () => {
     const action = new MonacoSuccessAction({
       id: 'id1',
       versionId: 1,
-      value: 'value2'
+      value: 'value2',
+      prodLang: ProgrammingLanguage.typescript
     });
 
     const state = editorModelReducer(
@@ -256,6 +258,7 @@ describe('editorModelReducer', () => {
           id: 'id1',
           versionId: 1,
           value: 'value2',
+          progLang: ProgrammingLanguage.typescript,
           validation: errorDetails,
           monaco: {
             success: true,

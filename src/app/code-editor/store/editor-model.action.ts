@@ -1,5 +1,9 @@
 import { Action } from '@ngrx/store';
-import { FeedbackDetails, ErrorMarker } from '../../common/model';
+import {
+  FeedbackDetails,
+  ErrorMarker,
+  ProgrammingLanguage
+} from '../../common/model';
 
 export const CHANGE_MODEL_VALUE_ACTION = 'CHANGE MODEL VALUE ACTION';
 export class ChangeModelValueAction implements Action {
@@ -46,6 +50,34 @@ export class MonacoSuccessAction implements Action {
     public payload: {
       id: string;
       versionId: number;
+      value: string;
+      prodLang: ProgrammingLanguage;
+    }
+  ) {}
+}
+
+export const EXECUTOR_ERROR = 'EXECUTOR_ERROR';
+export class ExecutorErrorAction implements Action {
+  readonly type = EXECUTOR_ERROR;
+  constructor(
+    public payload: {
+      id: string;
+      versionId: number;
+      value: string;
+      prodLang: ProgrammingLanguage;
+      errors: ErrorMarker[];
+    }
+  ) {}
+}
+
+export const EXECUTOR_SUCCESS = 'MODEL_EXECUTOR_SUCCESS';
+export class ExecutorSuccessAction implements Action {
+  readonly type = EXECUTOR_SUCCESS;
+  constructor(
+    public payload: {
+      id: string;
+      versionId: number;
+      prodLang: ProgrammingLanguage;
       value: string;
     }
   ) {}

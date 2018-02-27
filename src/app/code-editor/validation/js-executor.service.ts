@@ -1,27 +1,22 @@
 import { Injectable } from '@angular/core';
-import {
-  Feedback2,
-  FeedbackFactory,
-  SourceType,
-  Feedback
-} from '../../common/model';
+import { ErrorMarker } from '../../common/model';
 /**
  * TODO: do it nicely with web workers and timeouts
  * Execute js code
  * */
 @Injectable()
 export class JSExecutorService {
+  runtimeErrorMessage = 'Runtime Error: Incorrect implementation';
   /**
    * Run without showing specific error.
    */
-  run(source: string): Feedback2 {
+  run(source: string): ErrorMarker[] {
     try {
       // tslint:disable-next-line:no-eval
       eval(source);
-      return FeedbackFactory.createSuccess(SourceType.Runner, source);
+      return [];
     } catch (e) {
-      const message = 'Runtime Error: Incorrect implementation';
-      return FeedbackFactory.createError(SourceType.Runner, e, source);
+      return [{ message: this.runtimeErrorMessage, startLineNumber: 1 }];
     }
   }
 }
