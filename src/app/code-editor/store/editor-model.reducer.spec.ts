@@ -30,9 +30,12 @@ describe('editorModelReducer', () => {
     }
   ];
   const changeModelAction = new ChangeModelValueAction({
-    id: 'id1',
-    versionId: 0,
-    value: 'value'
+    modelState: {
+      id: 'id1',
+      versionId: 0,
+      value: 'value',
+      progLang: ProgrammingLanguage.javascript
+    }
   });
 
   it('should return the default state', () => {
@@ -59,7 +62,8 @@ describe('editorModelReducer', () => {
       id2: {
         id: 'id2',
         versionId: 0,
-        value: 'value'
+        value: 'value',
+        progLang: ProgrammingLanguage.typescript
       }
     };
     const state = editorModelReducer(
@@ -82,13 +86,17 @@ describe('editorModelReducer', () => {
       id1: {
         id: 'id1',
         versionId: 1,
-        value: 'value'
+        value: 'value',
+        progLang: ProgrammingLanguage.typescript
       }
     };
     const action = new ChangeModelValueAction({
-      id: 'id1',
-      versionId: 0,
-      value: 'value1'
+      modelState: {
+        id: 'id1',
+        versionId: 0,
+        value: 'value1',
+        progLang: ProgrammingLanguage.typescript
+      }
     });
     const state = editorModelReducer(
       { entities: { ...initialEntity } },
@@ -110,13 +118,17 @@ describe('editorModelReducer', () => {
       id1: {
         id: 'id1',
         versionId: 0,
-        value: 'value'
+        value: 'value',
+        progLang: ProgrammingLanguage.typescript
       }
     };
     const action = new ChangeModelValueAction({
-      id: 'id1',
-      versionId: 1,
-      value: 'value1'
+      modelState: {
+        id: 'id1',
+        versionId: 1,
+        value: 'value1',
+        progLang: ProgrammingLanguage.typescript
+      }
     });
     const state = editorModelReducer(
       { entities: { ...initialEntity } },
@@ -138,14 +150,18 @@ describe('editorModelReducer', () => {
       id1: {
         id: 'id1',
         versionId: 0,
-        value: 'value'
+        value: 'value',
+        progLang: ProgrammingLanguage.typescript
       }
     };
 
     const action = new ValidationResultAction({
-      id: 'id1',
-      versionId: 1,
-      value: 'value1',
+      modelState: {
+        id: 'id1',
+        versionId: 1,
+        value: 'value1',
+        progLang: ProgrammingLanguage.typescript
+      },
       validation: errorDetails
     });
     const state = editorModelReducer(
@@ -170,14 +186,18 @@ describe('editorModelReducer', () => {
         id: 'id1',
         versionId: 0,
         value: 'value',
+        progLang: ProgrammingLanguage.typescript,
         validation: errorDetails
       }
     };
 
     const action = new ChangeModelValueAction({
-      id: 'id1',
-      versionId: 1,
-      value: 'value2'
+      modelState: {
+        id: 'id1',
+        versionId: 1,
+        value: 'value2',
+        progLang: ProgrammingLanguage.typescript
+      }
     });
     const state = editorModelReducer(
       { entities: { ...initialEntity } },
@@ -200,14 +220,18 @@ describe('editorModelReducer', () => {
         id: 'id1',
         versionId: 0,
         value: 'value',
+        progLang: ProgrammingLanguage.typescript,
         validation: errorDetails
       }
     };
 
     const action = new MonacoErrorAction({
-      id: 'id1',
-      versionId: 1,
-      value: 'value2',
+      modelState: {
+        id: 'id1',
+        versionId: 1,
+        value: 'value2',
+        progLang: ProgrammingLanguage.typescript
+      },
       errors: errorMarkers2
     });
 
@@ -237,15 +261,18 @@ describe('editorModelReducer', () => {
         id: 'id1',
         versionId: 0,
         value: 'value',
+        progLang: ProgrammingLanguage.typescript,
         validation: errorDetails
       }
     };
 
     const action = new MonacoSuccessAction({
-      id: 'id1',
-      versionId: 1,
-      value: 'value2',
-      prodLang: ProgrammingLanguage.typescript
+      modelState: {
+        id: 'id1',
+        versionId: 1,
+        value: 'value2',
+        progLang: ProgrammingLanguage.typescript
+      }
     });
 
     const state = editorModelReducer(

@@ -11,11 +11,14 @@ export enum FeedbackType {
   Success
 }
 
-export interface Feedback {
+export interface ModelState {
   id: string;
   versionId: number;
-  progLang?: ProgrammingLanguage;
+  progLang: ProgrammingLanguage;
   value: string;
+}
+
+export interface Feedback extends ModelState {
   validation?: FeedbackDetails;
   runner?: FeedbackDetails;
   monaco?: FeedbackDetails;

@@ -22,29 +22,47 @@ export function editorModelReducer(
   action: EditorModelAction
 ): EditorModelEntities {
   const payload = action.payload;
-  const existingEntity = payload ? state.entities[payload.id] : payload;
-  if (existingEntity && existingEntity.versionId > payload.versionId) {
+
+  const existingModelState =
+    payload && payload.modelState
+      ? state.entities[payload.modelState.id]
+      : undefined;
+
+  // ignore old values
+  if (
+    existingModelState &&
+    existingModelState.versionId > payload.modelState.versionId
+  ) {
     return state;
   }
   switch (action.type) {
     case CHANGE_MODEL_VALUE_ACTION:
-    case MODEL_VALIDATION_RESULT:
       return {
         ...state,
         entities: {
           ...state.entities,
-          [payload.id]: payload
+          [payload.modelState.id]: { ...payload.modelState }
         }
       };
+    case MODEL_VALIDATION_RESULT: {
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          [payload.modelState.id]: {
+            ...payload.modelState,
+            validation: action.payload.validation
+          }
+        }
+      };
+    }
     case MODEL_MONACO_ERROR: {
       return {
         ...state,
         entities: {
           ...state.entities,
-          [payload.id]: {
-            ...existingEntity,
-            versionId: action.payload.versionId,
-            value: action.payload.value,
+          [payload.modelState.id]: {
+            ...existingModelState,
             monaco: {
               success: false,
               errors: action.payload.errors
@@ -58,11 +76,8 @@ export function editorModelReducer(
         ...state,
         entities: {
           ...state.entities,
-          [payload.id]: {
-            ...existingEntity,
-            versionId: action.payload.versionId,
-            value: action.payload.value,
-            progLang: action.payload.prodLang,
+          [payload.modelState.id]: {
+            ...existingModelState,
             monaco: {
               success: true,
               errors: []

@@ -17,11 +17,11 @@ import {
   FeedbackFactory,
   FeedbackType,
   SourceType,
-  ProgrammingLanguage
+  ProgrammingLanguage,
+  ModelState
 } from '../common/model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { MonacoLoaderService } from './monaco-loader.service';
-import { CodeExecutorService } from './validation';
 import {
   EditorModelEntities,
   ChangeModelValueAction,
@@ -60,7 +60,6 @@ export class CodeEditorComponent
   implements OnInit, OnDestroy, ControlValueAccessor {
   constructor(
     private monaco: MonacoLoaderService,
-    private executor: CodeExecutorService,
     private store: Store<EditorModelEntities>
   ) {}
 
@@ -123,6 +122,15 @@ export class CodeEditorComponent
     return this._language;
   }
 
+  get modelState(): ModelState {
+    return {
+      id: this.model.id,
+      versionId: this.model.getVersionId(),
+      value: this.value,
+      progLang: this.language
+    };
+  }
+
   initEditor() {
     const editorDiv: HTMLDivElement = this.editorContent.nativeElement;
 
@@ -134,9 +142,7 @@ export class CodeEditorComponent
     this.model.onDidChangeContent(e => {
       this.store.dispatch(
         new ChangeModelValueAction({
-          id: this.model.id,
-          versionId: this.model.getVersionId(),
-          value: this.value
+          modelState: this.modelState
         })
       );
 
@@ -199,19 +205,14 @@ export class CodeEditorComponent
     if (monacoFeedbacks.length) {
       this.store.dispatch(
         new MonacoErrorAction({
-          id: this.model.id,
-          versionId: this.model.getVersionId(),
-          value: this.value,
+          modelState: this.modelState,
           errors: monacoFeedbacks
         })
       );
     } else {
       this.store.dispatch(
         new MonacoSuccessAction({
-          id: this.model.id,
-          versionId: this.model.getVersionId(),
-          value: this.value,
-          prodLang: this.language
+          modelState: this.modelState
         })
       );
     }

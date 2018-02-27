@@ -2,7 +2,8 @@ import { Action } from '@ngrx/store';
 import {
   FeedbackDetails,
   ErrorMarker,
-  ProgrammingLanguage
+  ProgrammingLanguage,
+  ModelState
 } from '../../common/model';
 
 export const CHANGE_MODEL_VALUE_ACTION = 'CHANGE MODEL VALUE ACTION';
@@ -10,9 +11,7 @@ export class ChangeModelValueAction implements Action {
   readonly type = CHANGE_MODEL_VALUE_ACTION;
   constructor(
     public payload: {
-      id: string;
-      versionId: number;
-      value: string;
+      modelState: ModelState;
     }
   ) {}
 }
@@ -22,9 +21,7 @@ export class ValidationResultAction implements Action {
   readonly type = MODEL_VALIDATION_RESULT;
   constructor(
     public payload: {
-      id: string;
-      versionId: number;
-      value: string;
+      modelState: ModelState;
       validation: FeedbackDetails;
     }
   ) {}
@@ -35,9 +32,7 @@ export class MonacoErrorAction implements Action {
   readonly type = MODEL_MONACO_ERROR;
   constructor(
     public payload: {
-      id: string;
-      versionId: number;
-      value: string;
+      modelState: ModelState;
       errors: ErrorMarker[];
     }
   ) {}
@@ -48,10 +43,7 @@ export class MonacoSuccessAction implements Action {
   readonly type = MODEL_MONACO_SUCCESS;
   constructor(
     public payload: {
-      id: string;
-      versionId: number;
-      value: string;
-      prodLang: ProgrammingLanguage;
+      modelState: ModelState;
     }
   ) {}
 }
@@ -61,10 +53,7 @@ export class ExecutorErrorAction implements Action {
   readonly type = EXECUTOR_ERROR;
   constructor(
     public payload: {
-      id: string;
-      versionId: number;
-      value: string;
-      prodLang: ProgrammingLanguage;
+      modelState: ModelState;
       errors: ErrorMarker[];
     }
   ) {}
@@ -75,10 +64,7 @@ export class ExecutorSuccessAction implements Action {
   readonly type = EXECUTOR_SUCCESS;
   constructor(
     public payload: {
-      id: string;
-      versionId: number;
-      prodLang: ProgrammingLanguage;
-      value: string;
+      modelState: ModelState;
     }
   ) {}
 }
