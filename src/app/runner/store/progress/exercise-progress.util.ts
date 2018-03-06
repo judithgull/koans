@@ -1,4 +1,4 @@
-import { Exercise, ExerciseProgress } from '../../../common/model';
+import { Exercise, ExerciseProgress, ModelState } from '../../../common/model';
 /**
  * Create initial exerciseprogress from exercise
  */
@@ -31,5 +31,16 @@ export function toggleSolutionVisible(
     ...previousProgress,
     solutionRequested: !previousProgress.solved,
     solutionVisible: !previousProgress.solutionVisible
+  };
+}
+
+export function addModelState(
+  modelState: ModelState
+): (previousProgress: ExerciseProgress) => ExerciseProgress {
+  return (previousProgress: ExerciseProgress) => {
+    return {
+      ...previousProgress,
+      modelState
+    };
   };
 }

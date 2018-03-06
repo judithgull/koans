@@ -1,8 +1,13 @@
 import { initialState, progressReducer } from './progress.reducer';
 import { InitSeriesProgress } from './progress.action';
 import { mockSeries } from '../../../common/test/index';
-import { SeriesProgress } from '../../../common/model';
+import {
+  SeriesProgress,
+  ModelState,
+  ProgrammingLanguage
+} from '../../../common/model';
 import { ExerciseSolved, ToggleSolutionVisible } from '../index';
+import { RegisterModel } from '.';
 
 describe('Progress Reducer', () => {
   const initialProgressStateSeries1 = {
@@ -87,6 +92,27 @@ describe('Progress Reducer', () => {
       expect(state.entities[1][1].solutionRequested).toBeTruthy();
       expect(state.entities[1][1].solutionVisible).toBeTruthy();
       expect(state.entities[1][2].solutionRequested).toBeFalsy();
+    });
+  });
+
+  describe('REGISTER_MODEL action', () => {
+    it('should add or update the model state', () => {
+      const series = mockSeries[0];
+      const id = series._id;
+      const modelState: ModelState = {
+        id: '$model1',
+        versionId: 3,
+        progLang: ProgrammingLanguage.typescript,
+        value: '???'
+      };
+      const action = new RegisterModel({
+        seriesId: 1,
+        id: 1,
+        modelState
+      });
+
+      const state = progressReducer(initialProgressStateSeries1, action);
+      expect(state.entities[1][1].modelState).toBeTruthy();
     });
   });
 });

@@ -65,6 +65,8 @@ export class CodeEditorComponent
 
   @Output() errorMarkerChanges = new EventEmitter<Feedback2[]>();
 
+  @Output() editorModelChange = new EventEmitter<ModelState>();
+
   editor: monaco.editor.IStandaloneCodeEditor;
 
   uri: monaco.Uri;
@@ -138,6 +140,7 @@ export class CodeEditorComponent
     });
 
     this.model.onDidChangeContent(e => {
+      this.editorModelChange.emit(this.modelState);
       this.store.dispatch(new ChangeModelValueAction(this.modelState));
 
       this.onChange(this.value);

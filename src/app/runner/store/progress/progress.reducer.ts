@@ -7,13 +7,15 @@ import {
   SeriesProgressAction,
   INIT_SERIES_PROGRESS,
   EXERCISE_SOLVED,
-  TOGGLE_SOLUTION_VISIBLE
+  TOGGLE_SOLUTION_VISIBLE,
+  REGISTER_MODEL
 } from './progress.action';
 import { toEntities } from '../../../store/entityUtil';
 import {
   toInitialProgress,
   solve,
-  toggleSolutionVisible
+  toggleSolutionVisible,
+  addModelState
 } from './exercise-progress.util';
 
 export interface SeriesProgressEntities {
@@ -47,6 +49,16 @@ export function progressReducer(
         solve(userSolution)
       );
     }
+    case REGISTER_MODEL: {
+      const { id, seriesId, modelState } = action.payload;
+      return getUpdatedExerciseProgress(
+        seriesId,
+        id,
+        state,
+        addModelState(modelState)
+      );
+    }
+
     case TOGGLE_SOLUTION_VISIBLE: {
       const { id, seriesId } = action.payload;
       return getUpdatedExerciseProgress(

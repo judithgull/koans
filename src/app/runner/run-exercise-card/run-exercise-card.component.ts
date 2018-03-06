@@ -4,7 +4,8 @@ import {
   FeedbackType,
   Exercise,
   ExerciseProgress,
-  ISeries
+  ISeries,
+  ModelState
 } from '../../common/model';
 import {
   Component,
@@ -58,6 +59,16 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
       new rst.ToggleSolutionVisible({
         seriesId: this.series._id,
         id: this.ex.sortOrder
+      })
+    );
+  }
+
+  updateModelChange(modelState: ModelState) {
+    this.store.dispatch(
+      new rst.RegisterModel({
+        seriesId: this.series._id,
+        id: this.ex.sortOrder,
+        modelState: modelState
       })
     );
   }

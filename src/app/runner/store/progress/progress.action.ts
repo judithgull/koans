@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { ISeries, ExerciseProgress } from '../../../common/model';
+import { ISeries, ExerciseProgress, ModelState } from '../../../common/model';
 
 export const INIT_SERIES_PROGRESS = 'INIT SERIES PROGRESS';
 export class InitSeriesProgress implements Action {
@@ -30,6 +30,18 @@ export class ToggleSolutionVisible implements Action {
   ) {}
 }
 
+export const REGISTER_MODEL = 'REGISTER_MODEL';
+export class RegisterModel implements Action {
+  readonly type = REGISTER_MODEL;
+  constructor(
+    public payload: {
+      seriesId: number;
+      id: number;
+      modelState: ModelState;
+    }
+  ) {}
+}
+
 export const SERIES_COMPLETED = 'SERIES_COMPLETED';
 export class SeriesCompleted implements Action {
   readonly type = SERIES_COMPLETED;
@@ -40,4 +52,5 @@ export type SeriesProgressAction =
   | InitSeriesProgress
   | ExerciseSolved
   | SeriesCompleted
-  | ToggleSolutionVisible;
+  | ToggleSolutionVisible
+  | RegisterModel;
