@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { map, switchMap, take } from 'rxjs/operators';
+
+import { RunnerState } from '..';
+import { GoToExercise } from '../../../store';
 import {
   EXERCISE_SOLVED,
   ExerciseSolved,
   SeriesCompleted
 } from './progress.action';
 import { getAllExerciseProgresses } from './progress.selectors';
-import { map, switchMap, take, tap, last, takeLast } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { RunnerState } from '../index';
-import { Go, GoToExercise } from '../../../store';
 
 @Injectable()
 export class ProgressEffects {

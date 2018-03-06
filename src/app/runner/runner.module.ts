@@ -1,21 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
 import { CodeEditorModule } from '../code-editor/code-editor.module';
 import { AppCommonModule } from '../common/common.module';
+import { ExerciseNavButtonsComponent } from './exercise-nav-buttons/exercise-nav-buttons.component';
+import { ExerciseTextComponent } from './exercise-text/exercise-text.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { RunExerciseCardComponent } from './run-exercise-card/run-exercise-card.component';
-import { SeriesRunnerComponent } from './series-runner/series-runner.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { StoreModule } from '@ngrx/store';
-import { reducers, effects } from './store';
-import { ExerciseTextComponent } from './exercise-text/exercise-text.component';
-import { ExerciseNavButtonsComponent } from './exercise-nav-buttons/exercise-nav-buttons.component';
-import { SeriesProgressExistsGuard } from './series-progress.guard';
-import { SeriesContainerComponent } from './series-container/series-container.component';
 import { RunExerciseContainerComponent } from './run-exercise-container/run-exercise-container.component';
-import { EffectsModule } from '@ngrx/effects';
+import { SeriesContainerComponent } from './series-container/series-container.component';
+import { SeriesProgressExistsGuard } from './series-progress.guard';
+import { SeriesRunnerComponent } from './series-runner/series-runner.component';
+import { effects, reducers } from './store';
 
 const routes: Routes = [
   {

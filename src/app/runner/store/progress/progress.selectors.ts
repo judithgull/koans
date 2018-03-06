@@ -1,8 +1,8 @@
-import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
+import { RunnerState } from '..';
+import { ExerciseProgress, SeriesProgress } from '../../../model';
 import * as root from '../../../store';
-import { SeriesProgress, ExerciseProgress } from '../../../model';
-import { RunnerState, getRunnerState } from '../index';
 import { SeriesProgressEntities } from './progress.reducer';
 
 // TODO rename

@@ -1,19 +1,19 @@
-import { Store } from '@ngrx/store';
 import {
-  Feedback2,
-  FeedbackType,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges
+} from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import {
+  ErrorMarker,
   Exercise,
   ExerciseProgress,
   ISeries,
   ModelState
 } from '../../model';
-import {
-  Component,
-  OnInit,
-  Input,
-  OnChanges,
-  SimpleChanges
-} from '@angular/core';
 import * as st from '../../store';
 import * as rst from '../store';
 
@@ -32,13 +32,13 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
   userValue = '';
   programmingLanguage;
 
-  feedback: Feedback2[] = [];
+  markers: ErrorMarker[] = [];
   seriesLength: number = 0;
 
   constructor(private store: Store<st.State>) {}
 
   ngOnInit(): void {
-    this.userValue = this.progress.userSolution;
+    this.userValue = this.progress.value;
     this.seriesLength = this.series.items.length;
     this.programmingLanguage = this.series.programmingLanguage;
   }
@@ -73,10 +73,10 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
     );
   }
 
-  updateFeedback(feedback: Feedback2[]) {
-    this.feedback = feedback;
-    const isSuccess = feedback.some(f => f.type === FeedbackType.Success);
-    if (isSuccess) {
+  updateFeedback(markers: ErrorMarker[]) {
+    this.markers = markers;
+    // TODO
+    if (markers.length === 0) {
       // TODO get user solution from feedback
       this.store.dispatch(
         new rst.ExerciseSolved({

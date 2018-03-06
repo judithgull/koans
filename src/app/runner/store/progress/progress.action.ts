@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
-import { ISeries, ExerciseProgress, ModelState } from '../../../model';
+
+import { ISeries, ModelState } from '../../../model';
 
 export const INIT_SERIES_PROGRESS = 'INIT SERIES PROGRESS';
 export class InitSeriesProgress implements Action {

@@ -1,22 +1,18 @@
-import {
-  SeriesProgress,
-  ExerciseProgress,
-  ISeries
-} from '../../../model';
-import {
-  SeriesProgressAction,
-  INIT_SERIES_PROGRESS,
-  EXERCISE_SOLVED,
-  TOGGLE_SOLUTION_VISIBLE,
-  REGISTER_MODEL
-} from './progress.action';
+import { ExerciseProgress, ISeries, SeriesProgress } from '../../../model';
 import { toEntities } from '../../../store/entityUtil';
 import {
-  toInitialProgress,
+  addModelState,
   solve,
   toggleSolutionVisible,
-  addModelState
+  toInitialProgress
 } from './exercise-progress.util';
+import {
+  EXERCISE_SOLVED,
+  INIT_SERIES_PROGRESS,
+  REGISTER_MODEL,
+  SeriesProgressAction,
+  TOGGLE_SOLUTION_VISIBLE
+} from './progress.action';
 
 export interface SeriesProgressEntities {
   entities: { [id: string]: SeriesProgress };

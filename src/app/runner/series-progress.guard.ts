@@ -1,21 +1,17 @@
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot
-} from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
-import { State, LoadSeries, getSeriesEntities } from '../store';
-import { tap, filter, take, switchMap, map, timeout } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
 import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { filter, map, switchMap, take, tap, timeout } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators/catchError';
-import { ISeries, SeriesProgress } from '../model';
+
+import { SeriesProgress } from '../model';
+import { getSeriesEntities, LoadSeries, State } from '../store';
 import {
-  RunnerState,
-  getSeriesProgresses,
   getSelectedSeriesState,
-  InitSeriesProgress
+  InitSeriesProgress,
+  RunnerState
 } from './store';
 
 @Injectable()

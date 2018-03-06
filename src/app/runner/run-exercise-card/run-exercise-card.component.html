@@ -10,7 +10,7 @@
     <div class="l-grid-cell l-one-half l-mobile-one-whole">
       <app-code-editor *ngIf="progress?.solutionVisible" [language]='programmingLanguage' [ngModel]='progress?.solution'></app-code-editor>
       <div *ngIf="!progress?.solutionVisible">
-        <app-exercise-feedback *ngFor="let f of feedback" [feedback]='f'></app-exercise-feedback>
+        <app-exercise-feedback *ngFor="let f of markers" [feedback]='f'></app-exercise-feedback>
       </div>
     </div>
   </div>

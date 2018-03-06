@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { ProgressEffects } from './progress.effect';
 import { Actions } from '@ngrx/effects';
-import { TestActions, getActions } from '../../../store/test';
-import { ExerciseSolved, SeriesCompleted } from '.';
-import { hot, cold } from 'jasmine-marbles';
 import { Store } from '@ngrx/store';
-import { RunnerState } from '..';
+import { cold, hot } from 'jasmine-marbles';
 import { of } from 'rxjs/observable/of';
+
+import { ExerciseSolved, SeriesCompleted } from '.';
+import { RunnerState } from '..';
+import { getActions, TestActions } from '../../../store/test';
+import { ProgressEffects } from './progress.effect';
 
 class StoreMock {
   select<K>(mapFn: (state: RunnerState) => K): Store<K> {

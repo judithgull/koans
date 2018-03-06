@@ -1,9 +1,9 @@
-import { CodeEditorTextValidators } from '../../code-editor-validators/code-editor-text-validators';
-import { ProgrammingLanguages } from '../../model/programming-languages';
-import { Feedback2 } from '../../model/feedback';
-import { Exercise } from '../../model/exercise';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { CodeEditorTextValidators } from '../../code-editor-validators/code-editor-text-validators';
+import { Exercise } from '../../model/exercise';
+import { ErrorMarker } from '../../model/feedback';
 
 @Component({
   selector: 'app-exercise-form',
@@ -15,7 +15,7 @@ export class ExerciseFormComponent implements OnInit {
   @Input() item: Exercise;
   @Input() programmingLanguage: string;
 
-  solutionFeedback: Feedback2[];
+  solutionFeedback: ErrorMarker[];
 
   constructor(private fb: FormBuilder) {}
 
@@ -44,8 +44,8 @@ export class ExerciseFormComponent implements OnInit {
     });
   }
 
-  updateSolutionError(feedbacks: Feedback2[]) {
-    this.solutionFeedback = feedbacks;
+  updateSolutionError(markers: ErrorMarker[]) {
+    this.solutionFeedback = markers;
     const solutionControl = this.form.get('codeEditors.exSolution');
     solutionControl.setErrors({ error: true });
   }

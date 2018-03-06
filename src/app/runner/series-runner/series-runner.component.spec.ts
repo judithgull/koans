@@ -1,16 +1,14 @@
-import '../../../rx-index';
-
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { combineReducers, StoreModule } from '@ngrx/store';
 
 import { AppCommonModule } from '../../common/common.module';
-import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
-import { SeriesRunnerComponent } from './series-runner.component';
-import { ExerciseNavButtonsComponent } from '../exercise-nav-buttons/exercise-nav-buttons.component';
-import { StoreModule, combineReducers } from '@ngrx/store';
+import { mockSeries } from '../../common/test';
 import * as rootStore from '../../store';
+import { ExerciseNavButtonsComponent } from '../exercise-nav-buttons/exercise-nav-buttons.component';
+import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
 import * as runnerStore from '../store';
-import { mockSeries } from '../../common/test/index';
+import { SeriesRunnerComponent } from './series-runner.component';
 
 describe('SeriesRunnerComponent', () => {
   let component: SeriesRunnerComponent;

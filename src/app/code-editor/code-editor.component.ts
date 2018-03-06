@@ -17,17 +17,16 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { filter } from 'rxjs/operators';
 
 import {
-  Feedback2,
+  ErrorMarker,
   ModelState,
   ProgrammingLanguage,
   SourceType
 } from '../model';
 import {
-  createErrorMarkers,
-  createFeedback,
-  createMarkerData,
   filterEqualLines,
-  getSortedErrorMarkers
+  getSortedErrorMarkers,
+  toErrorMarker,
+  toMarkerData
 } from './marker-data-util';
 import { MonacoLoaderService } from './monaco-loader.service';
 import {
@@ -61,7 +60,7 @@ export class CodeEditorComponent
 
   @ViewChild('editor') editorContent: ElementRef;
 
-  @Output() errorMarkerChanges = new EventEmitter<Feedback2[]>();
+  @Output() errorMarkerChanges = new EventEmitter<ErrorMarker[]>();
 
   @Output() editorModelChange = new EventEmitter<ModelState>();
 
@@ -167,7 +166,7 @@ export class CodeEditorComponent
         if (e.validation.success) {
           this.clearMarkers(SourceType.validation.toString());
         } else {
-          const markers = e.validation.errors.map(e => createMarkerData(e));
+          const markers = e.validation.errors.map(toMarkerData);
           this.setMarkers(SourceType.validation.toString(), markers);
         }
       })
@@ -178,8 +177,8 @@ export class CodeEditorComponent
 
       // emit all error markers filtered by equal lines
       const filteredMarkers = filterEqualLines(this.getMarkers());
-      const feedbacks = filteredMarkers.map(e => createFeedback(e, this.value));
-      this.errorMarkerChanges.emit(feedbacks);
+      const errorMarkers = filteredMarkers.map(toErrorMarker);
+      this.errorMarkerChanges.emit(errorMarkers);
     });
 
     this.initialized.next(true);
@@ -189,7 +188,7 @@ export class CodeEditorComponent
     const monacoFeedbacks = this.getMarkers()
       .filter(m => m.owner !== SourceType.validation)
       .filter(m => m.owner !== SourceType.execution)
-      .map(createErrorMarkers);
+      .map(toErrorMarker);
 
     this.store.dispatch(
       createResultAction(SourceType.monaco, this.modelState, monacoFeedbacks)

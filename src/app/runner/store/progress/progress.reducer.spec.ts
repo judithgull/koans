@@ -15,24 +15,30 @@ describe('Progress Reducer', () => {
       '1': {
         '1': {
           id: 1,
-          userSolution: mockSeries[0].items[0].exercise,
+          value: mockSeries[0].items[0].exercise,
           solved: false,
           solutionRequested: false,
-          solutionVisible: false
+          solutionVisible: false,
+          modelId: '',
+          modelVersionId: -1
         },
         '2': {
           id: 2,
-          userSolution: mockSeries[0].items[1].exercise,
+          value: mockSeries[0].items[1].exercise,
           solved: false,
           solutionRequested: false,
-          solutionVisible: false
+          solutionVisible: false,
+          modelId: '',
+          modelVersionId: -1
         },
         '3': {
           id: 3,
-          userSolution: mockSeries[0].items[2].exercise,
+          value: mockSeries[0].items[2].exercise,
           solved: false,
           solutionRequested: false,
-          solutionVisible: false
+          solutionVisible: false,
+          modelId: '',
+          modelVersionId: -1
         }
       }
     }
@@ -112,7 +118,7 @@ describe('Progress Reducer', () => {
       });
 
       const state = progressReducer(initialProgressStateSeries1, action);
-      expect(state.entities[1][1].modelState).toBeTruthy();
+      expect(state.entities[1][1].modelId).toEqual(modelState.id);
     });
   });
 });

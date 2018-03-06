@@ -1,6 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
-import { Exercise } from '../../model/exercise';
+import { Exercise } from '../../model';
 
 @Component({
   selector: 'app-exercise-text',

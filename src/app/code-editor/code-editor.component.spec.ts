@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 
-import { Feedback, Feedback2, ProgrammingLanguage, SourceType } from '../model';
+import { ErrorMarker, Feedback, ProgrammingLanguage } from '../model';
 import * as rootStore from '../store';
 import { CodeEditorComponent } from './code-editor.component';
 import { MonacoLoaderService } from './monaco-loader.service';
@@ -87,9 +87,9 @@ describe('CodeEditorComponent', () => {
     });
 
     it('should emit error markers for invalid content', done => {
-      component.errorMarkerChanges.subscribe((error: Feedback2[]) => {
+      component.errorMarkerChanges.subscribe((error: ErrorMarker[]) => {
         expect(error.length).toBe(1);
-        expect(error[0].source).toEqual(SourceType.monaco);
+        expect(error[0].message).toBeDefined();
         expect(error[0].startLineNumber).toBe(1);
         done();
       });

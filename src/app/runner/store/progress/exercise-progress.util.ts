@@ -1,14 +1,17 @@
 import { Exercise, ExerciseProgress, ModelState } from '../../../model';
+
 /**
  * Create initial exerciseprogress from exercise
  */
 export function toInitialProgress(e: Exercise): ExerciseProgress {
   return {
     id: e.sortOrder,
-    userSolution: e.exercise,
+    value: e.exercise,
     solved: false,
     solutionRequested: false,
-    solutionVisible: false
+    solutionVisible: false,
+    modelId: '',
+    modelVersionId: -1
   };
 }
 
@@ -40,7 +43,9 @@ export function addModelState(
   return (previousProgress: ExerciseProgress) => {
     return {
       ...previousProgress,
-      modelState
+      modelId: modelState.id,
+      modelVersionId: modelState.versionId,
+      value: modelState.value
     };
   };
 }

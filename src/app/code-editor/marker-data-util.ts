@@ -1,6 +1,6 @@
-import { ErrorMarker, Feedback2, FeedbackType, SourceType } from '../model';
+import { ErrorMarker, SourceType } from '../model';
 
-export function createMarkerData(e: ErrorMarker): monaco.editor.IMarkerData {
+export function toMarkerData(e: ErrorMarker): monaco.editor.IMarkerData {
   return {
     severity: monaco.Severity.Error,
     message: e.message,
@@ -11,22 +11,9 @@ export function createMarkerData(e: ErrorMarker): monaco.editor.IMarkerData {
   };
 }
 
-export function createErrorMarkers(m: monaco.editor.IMarkerData): ErrorMarker {
+export function toErrorMarker(m: monaco.editor.IMarkerData): ErrorMarker {
   return {
     message: m.message,
-    startLineNumber: m.startLineNumber
-  };
-}
-
-export function createFeedback(
-  m: monaco.editor.IMarkerData,
-  v: string
-): Feedback2 {
-  return {
-    message: m.message,
-    type: FeedbackType.Error,
-    source: SourceType.monaco,
-    value: v,
     startLineNumber: m.startLineNumber
   };
 }
