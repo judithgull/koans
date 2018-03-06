@@ -31,7 +31,7 @@ export interface FeedbackDetails {
 
 export interface ErrorMarker {
   message: string;
-  startLineNumber: number;
+  startLineNumber: number; //1 based as in monaco editor
 }
 
 export interface Feedback2 {

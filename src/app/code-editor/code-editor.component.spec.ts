@@ -9,7 +9,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CodeEditorComponent } from './code-editor.component';
 import { MonacoLoaderService } from './monaco-loader.service';
 import { Component, OnInit } from '@angular/core';
-import { Feedback, ProgrammingLanguage, SourceType } from '../common/model';
+import {
+  Feedback,
+  ProgrammingLanguage,
+  SourceType,
+  Feedback2
+} from '../common/model';
 import { CodeExecutorService } from './validation';
 import { StoreModule } from '@ngrx/store';
 
@@ -88,7 +93,7 @@ describe('CodeEditorComponent', () => {
     });
 
     it('should emit error markers for invalid content', done => {
-      component.errorMarkerChanges.subscribe((error: Feedback[]) => {
+      component.errorMarkerChanges.subscribe((error: Feedback2[]) => {
         expect(error.length).toBe(1);
         expect(error[0].source).toEqual(SourceType.Monaco);
         expect(error[0].startLineNumber).toBe(1);

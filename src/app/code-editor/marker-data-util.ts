@@ -6,22 +6,11 @@ import {
   ErrorMarker
 } from '../common/model';
 
-export function createMarkerData(f: Feedback2): monaco.editor.IMarkerData {
-  return {
-    severity: monaco.Severity.Error,
-    message: f.message,
-    startLineNumber: 1,
-    startColumn: 1,
-    endLineNumber: 1,
-    endColumn: 1
-  };
-}
-
-export function createMarkerData1(e: ErrorMarker): monaco.editor.IMarkerData {
+export function createMarkerData(e: ErrorMarker): monaco.editor.IMarkerData {
   return {
     severity: monaco.Severity.Error,
     message: e.message,
-    startLineNumber: 1,
+    startLineNumber: e.startLineNumber,
     startColumn: 1,
     endLineNumber: 1,
     endColumn: 1

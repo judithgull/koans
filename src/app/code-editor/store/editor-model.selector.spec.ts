@@ -4,10 +4,18 @@ import { TestBed } from '@angular/core/testing';
 import {
   codeEditorReducer,
   getValidationResult,
-  ValidationResultAction,
-  getModelEntity
+  getModelEntity,
+  ChangeModelValueAction,
+  ResultErrorAction
 } from '.';
-import { FeedbackFactory, SourceType } from '../../common/model';
+import {
+  FeedbackFactory,
+  SourceType,
+  ProgrammingLanguage,
+  ModelState,
+  Feedback,
+  FeedbackDetails
+} from '../../common/model';
 
 describe('Editor Model Selectors', () => {
   let store: Store<EditorModelEntities>;
@@ -38,24 +46,29 @@ describe('Editor Model Selectors', () => {
       store.select(getValidationResult(modelId)).subscribe(value => {
         result = value;
       });
-      const feedbackDetails = {
-        success: true,
-        message: 'message',
-        startLineNumber: 1
+      const errors = [
+        {
+          message: 'message',
+          startLineNumber: 1
+        }
+      ];
+      const modelState: ModelState = {
+        id: modelId,
+        versionId: 1,
+        progLang: ProgrammingLanguage.javascript,
+        value: ''
       };
-      store.dispatch(
-        new ValidationResultAction({
-          id: modelId,
-          versionId: 1,
-          value: '',
-          validation: feedbackDetails
-        })
-      );
+      store.dispatch(new ChangeModelValueAction(modelState));
+      store.dispatch(new ResultErrorAction('validation', modelState, errors));
       expect(result).toEqual({
         id: modelId,
         versionId: 1,
         value: '',
-        validation: feedbackDetails
+        progLang: ProgrammingLanguage.javascript,
+        validation: {
+          success: false,
+          errors
+        }
       });
     });
 

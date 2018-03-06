@@ -26,14 +26,12 @@ import {
   EditorModelEntities,
   ChangeModelValueAction,
   getValidationResult,
-  MonacoErrorAction,
-  MonacoSuccessAction
+  createResultAction
 } from './store';
 import { Store } from '@ngrx/store';
 import {
   createMarkerData,
   createFeedback,
-  createMarkerData1,
   filterEqualLines,
   createErrorMarkers,
   getSortedErrorMarkers
@@ -140,11 +138,7 @@ export class CodeEditorComponent
     });
 
     this.model.onDidChangeContent(e => {
-      this.store.dispatch(
-        new ChangeModelValueAction({
-          modelState: this.modelState
-        })
-      );
+      this.store.dispatch(new ChangeModelValueAction(this.modelState));
 
       this.onChange(this.value);
       this.height = this.computeHeight();
@@ -172,7 +166,7 @@ export class CodeEditorComponent
         if (e.validation.success) {
           this.clearMarkers('validation');
         } else {
-          const markers = e.validation.errors.map(e => createMarkerData1(e));
+          const markers = e.validation.errors.map(e => createMarkerData(e));
           this.setMarkers('validation', markers);
         }
       })
@@ -190,32 +184,22 @@ export class CodeEditorComponent
     this.initialized.next(true);
   }
 
-  private getMarkers(): monaco.editor.IMarkerData[] {
+  private dispatchMonacoErrors() {
+    const monacoFeedbacks = this.getMarkers()
+      .filter(m => m.owner !== 'validation')
+      .filter(m => m.owner !== 'execution')
+      .map(createErrorMarkers);
+
+    this.store.dispatch(
+      createResultAction('monaco', this.modelState, monacoFeedbacks)
+    );
+  }
+
+  private getMarkers(): monaco.editor.IMarker[] {
     const modelMarkers = monaco.editor.getModelMarkers({
       resource: this.uri
     });
     return getSortedErrorMarkers(modelMarkers);
-  }
-
-  private dispatchMonacoErrors() {
-    const monacoFeedbacks = this.getMarkers()
-      .filter(m => m.source !== 'validation')
-      .map(createErrorMarkers);
-
-    if (monacoFeedbacks.length) {
-      this.store.dispatch(
-        new MonacoErrorAction({
-          modelState: this.modelState,
-          errors: monacoFeedbacks
-        })
-      );
-    } else {
-      this.store.dispatch(
-        new MonacoSuccessAction({
-          modelState: this.modelState
-        })
-      );
-    }
   }
 
   ngAfterViewChecked(): void {

@@ -5,6 +5,7 @@ import { EditableMarkerService } from '../../common/editable-marker.service';
 
 describe('Editor validation service', () => {
   let service: CodeEditorValidationSerivce;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [CodeEditorValidationSerivce, EditableMarkerService]
@@ -16,7 +17,7 @@ describe('Editor validation service', () => {
     expect(service.validate('')).toEqual([
       {
         message: service.emptyErrorMessage,
-        startLineNumber: -1
+        startLineNumber: 1
       }
     ]);
   });
@@ -25,7 +26,7 @@ describe('Editor validation service', () => {
     expect(service.validate('???')).toEqual([
       {
         message: service.placeholderValidationMessage,
-        startLineNumber: -1
+        startLineNumber: 1
       }
     ]);
   });

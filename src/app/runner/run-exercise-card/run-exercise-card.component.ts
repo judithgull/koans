@@ -34,8 +34,6 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
   feedback: Feedback2[] = [];
   seriesLength: number = 0;
 
-  private editableMarkerFeedback: Feedback2[] = [];
-
   constructor(private store: Store<st.State>) {}
 
   ngOnInit(): void {

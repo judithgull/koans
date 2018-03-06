@@ -1,9 +1,4 @@
-import {
-  Feedback2,
-  FeedbackFactory,
-  SourceType,
-  ErrorMarker
-} from '../../common/model';
+import { SourceType, ErrorMarker } from '../../common/model';
 import { Injectable } from '@angular/core';
 import { EditableMarkerService } from '../../common/editable-marker.service';
 
@@ -18,18 +13,21 @@ export class CodeEditorValidationSerivce {
       return [
         {
           message: this.emptyErrorMessage,
-          startLineNumber: -1
+          startLineNumber: 1
         }
       ];
     }
-    if (this.service.containsMarker(text)) {
-      return [
-        {
-          message: this.placeholderValidationMessage,
-          startLineNumber: -1
-        }
-      ];
-    }
-    return [];
+    const placeHolderErrors = this.service
+      .getPlaceholders(text)
+      .map(p => this.toErrorMarker(p));
+
+    return placeHolderErrors;
+  }
+
+  toErrorMarker(p: { row: number; col: number }): ErrorMarker {
+    return {
+      message: this.placeholderValidationMessage,
+      startLineNumber: p.row + 1
+    };
   }
 }

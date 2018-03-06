@@ -1,9 +1,8 @@
 import {
   EditorModelAction,
   CHANGE_MODEL_VALUE_ACTION,
-  MODEL_VALIDATION_RESULT,
-  MODEL_MONACO_ERROR,
-  MODEL_MONACO_SUCCESS
+  MODEL_RESULT_ERROR,
+  MODEL_RESULT_SUCCESS
 } from './editor-model.action';
 import { FeedbackDetails, Feedback } from '../../common/model';
 
@@ -21,17 +20,14 @@ export function editorModelReducer(
   state = initialState,
   action: EditorModelAction
 ): EditorModelEntities {
-  const payload = action.payload;
-
-  const existingModelState =
-    payload && payload.modelState
-      ? state.entities[payload.modelState.id]
-      : undefined;
+  const existingModelState = action.modelState
+    ? state.entities[action.modelState.id]
+    : undefined;
 
   // ignore old values
   if (
     existingModelState &&
-    existingModelState.versionId > payload.modelState.versionId
+    existingModelState.versionId > action.modelState.versionId
   ) {
     return state;
   }
@@ -41,51 +37,73 @@ export function editorModelReducer(
         ...state,
         entities: {
           ...state.entities,
-          [payload.modelState.id]: { ...payload.modelState }
+          [action.modelState.id]: { ...action.modelState }
         }
       };
-    case MODEL_VALIDATION_RESULT: {
-      return {
-        ...state,
-        entities: {
-          ...state.entities,
-          [payload.modelState.id]: {
-            ...payload.modelState,
-            validation: action.payload.validation
-          }
-        }
+    case MODEL_RESULT_ERROR: {
+      const result = {
+        success: false,
+        errors: action.errors
       };
+      return addResult(
+        action.key,
+        result,
+        existingModelState,
+        action.modelState,
+        state
+      );
     }
-    case MODEL_MONACO_ERROR: {
-      return {
-        ...state,
-        entities: {
-          ...state.entities,
-          [payload.modelState.id]: {
-            ...existingModelState,
-            monaco: {
-              success: false,
-              errors: action.payload.errors
-            }
-          }
-        }
+    case MODEL_RESULT_SUCCESS: {
+      const result = {
+        success: true,
+        errors: []
       };
-    }
-    case MODEL_MONACO_SUCCESS: {
-      return {
-        ...state,
-        entities: {
-          ...state.entities,
-          [payload.modelState.id]: {
-            ...existingModelState,
-            monaco: {
-              success: true,
-              errors: []
-            }
-          }
-        }
-      };
+      return addResult(
+        action.key,
+        result,
+        existingModelState,
+        action.modelState,
+        state
+      );
     }
   }
   return state;
+}
+
+function addResult(
+  resultKey: string,
+  result: any,
+  existingModelState: Feedback,
+  newModelState: Feedback,
+  state: EditorModelEntities
+): EditorModelEntities {
+  const isEqualVersion =
+    existingModelState.versionId === newModelState.versionId;
+
+  if (isEqualVersion) {
+    return {
+      ...state,
+      entities: {
+        ...state.entities,
+        [newModelState.id]: {
+          ...existingModelState,
+          [resultKey]: result
+        }
+      }
+    };
+  } else {
+    return {
+      ...state,
+      entities: {
+        ...state.entities,
+        [newModelState.id]: {
+          value: newModelState.value,
+          progLang: newModelState.progLang,
+          id: newModelState.id,
+          versionId: newModelState.versionId,
+          [resultKey]: result
+        }
+      }
+    };
+  }
 }

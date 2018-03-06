@@ -2,9 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { EditorModelEffects } from './editor-model.effect';
 import {
   ChangeModelValueAction,
-  ValidationResultAction,
-  MonacoSuccessAction,
-  ExecutorSuccessAction
+  ResultErrorAction,
+  ResultSuccessAction
 } from './editor-model.action';
 import { hot, cold } from 'jasmine-marbles';
 import { Actions } from '@ngrx/effects';
@@ -17,12 +16,18 @@ import {
 } from '../validation';
 import { EditableMarkerService } from '../../common/editable-marker.service';
 import { ProgrammingLanguage } from '../../common/model';
-import { ExecutorErrorAction } from '.';
 
 describe('EditorModelEffects', () => {
   let actions$: TestActions;
   let effects: EditorModelEffects;
   let validationService: CodeEditorValidationSerivce;
+
+  const modelState = {
+    id: '0',
+    progLang: ProgrammingLanguage.javascript,
+    versionId: 0,
+    value: ''
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -47,52 +52,32 @@ describe('EditorModelEffects', () => {
 
   describe('validate$', () => {
     it('should fail validation for empty value', () => {
-      const action = new ChangeModelValueAction({
-        id: '0',
-        versionId: 0,
-        value: ''
-      });
+      const action = new ChangeModelValueAction(modelState);
 
       actions$.stream = hot('-a', { a: action });
 
+      const validationErrors = [
+        {
+          message: validationService.emptyErrorMessage,
+          startLineNumber: 1
+        }
+      ];
+
       const expected = cold('-b', {
-        b: new ValidationResultAction({
-          id: '0',
-          versionId: 0,
-          value: '',
-          validation: {
-            success: false,
-            errors: [
-              {
-                message: validationService.emptyErrorMessage,
-                startLineNumber: -1
-              }
-            ]
-          }
-        })
+        b: new ResultErrorAction('validation', modelState, validationErrors)
       });
       expect(effects.validate$).toBeObservable(expected);
     });
   });
 
   describe('execute$', () => {
-    it('should execute on monaco success', () => {
-      const action = new MonacoSuccessAction({
-        id: '0',
-        versionId: 0,
-        value: 'asdf',
-        prodLang: ProgrammingLanguage.typescript
-      });
+    it('should execute on validation success', () => {
+      const action = new ResultSuccessAction('validation', modelState);
 
       actions$.stream = hot('-a', { a: action });
 
       const expected = cold('-b', {
-        b: new ExecutorSuccessAction({
-          id: '0',
-          versionId: 0,
-          value: 'asdf',
-          prodLang: ProgrammingLanguage.typescript
-        })
+        b: new ResultSuccessAction('execution', modelState)
       });
       expect(effects.execute$).toBeObservable(expected);
     });

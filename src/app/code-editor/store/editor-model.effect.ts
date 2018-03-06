@@ -1,15 +1,15 @@
 import { Actions, Effect } from '@ngrx/effects';
 import {
   CHANGE_MODEL_VALUE_ACTION,
-  MODEL_MONACO_SUCCESS,
+  MODEL_RESULT_SUCCESS,
+  ResultSuccessAction,
+  ResultErrorAction,
+  ModelResultAction,
   EditorModelAction,
-  ValidationResultAction,
-  MonacoSuccessAction,
-  ExecutorErrorAction,
-  ExecutorSuccessAction
+  createResultAction
 } from './editor-model.action';
-import { map, tap } from 'rxjs/operators';
-import { FeedbackFactory, FeedbackType, ModelState } from '../../common/model';
+import { map, tap, filter } from 'rxjs/operators';
+import { FeedbackType, ModelState, ErrorMarker } from '../../common/model';
 import {
   CodeEditorValidationSerivce,
   CodeExecutorService
@@ -26,39 +26,32 @@ export class EditorModelEffects {
   ) {}
 
   @Effect()
-  validate$: Observable<ValidationResultAction> = this.actions$
+  validate$: Observable<ModelResultAction> = this.actions$
     .ofType(CHANGE_MODEL_VALUE_ACTION)
     .pipe(
-      map((a: EditorModelAction) => a.payload.modelState),
+      map((a: EditorModelAction) => a.modelState),
       map((modelState: ModelState) => {
         const errors = this.validationService.validate(modelState.value);
-
-        const newPayload = {
-          modelState,
-          validation: {
-            success: errors.length === 0,
-            errors
-          }
-        };
-        return new ValidationResultAction(newPayload);
+        return createResultAction('validation', modelState, errors);
       })
     );
 
   @Effect()
-  execute$: Observable<
-    ExecutorSuccessAction | ExecutorErrorAction
-  > = this.actions$.ofType(MODEL_MONACO_SUCCESS).pipe(
-    map((a: MonacoSuccessAction) => a.payload.modelState),
-    map((modelState: ModelState) => {
-      const errors = this.codeExecutorService.run(
-        modelState.value,
-        modelState.progLang
-      );
-      if (errors.length) {
-        return new ExecutorErrorAction({ modelState, errors });
-      } else {
-        return new ExecutorSuccessAction({ modelState });
-      }
-    })
-  );
+  execute$: Observable<ModelResultAction> = this.actions$
+    .ofType(MODEL_RESULT_SUCCESS)
+    .pipe(
+      filter((a: ModelResultAction) => a.key === 'validation'),
+      map((a: ModelResultAction) => a.modelState),
+      map((modelState: ModelState) =>
+        createResultAction(
+          'execution',
+          modelState,
+          this.getExecutionErrors(modelState)
+        )
+      )
+    );
+
+  getExecutionErrors(modelState: ModelState): ErrorMarker[] {
+    return this.codeExecutorService.run(modelState.value, modelState.progLang);
+  }
 }

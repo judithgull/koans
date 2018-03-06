@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  Feedback2,
-  FeedbackFactory,
-  ProgrammingLanguage,
-  ErrorMarker
-} from '../../common/model';
+import { ProgrammingLanguage, ErrorMarker } from '../../common/model';
 import { JSExecutorService } from './js-executor.service';
 import { TsTranspilerService } from './ts-transpiler.service';
 
