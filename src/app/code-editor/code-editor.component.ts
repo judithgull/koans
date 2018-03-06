@@ -16,7 +16,12 @@ import { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { filter } from 'rxjs/operators';
 
-import { Feedback2, ModelState, ProgrammingLanguage } from '../model';
+import {
+  Feedback2,
+  ModelState,
+  ProgrammingLanguage,
+  SourceType
+} from '../model';
 import {
   createErrorMarkers,
   createFeedback,
@@ -160,10 +165,10 @@ export class CodeEditorComponent
     this.subs.push(
       validationResults.subscribe(e => {
         if (e.validation.success) {
-          this.clearMarkers('validation');
+          this.clearMarkers(SourceType.validation.toString());
         } else {
           const markers = e.validation.errors.map(e => createMarkerData(e));
-          this.setMarkers('validation', markers);
+          this.setMarkers(SourceType.validation.toString(), markers);
         }
       })
     );
@@ -182,12 +187,12 @@ export class CodeEditorComponent
 
   private dispatchMonacoErrors() {
     const monacoFeedbacks = this.getMarkers()
-      .filter(m => m.owner !== 'validation')
-      .filter(m => m.owner !== 'execution')
+      .filter(m => m.owner !== SourceType.validation)
+      .filter(m => m.owner !== SourceType.execution)
       .map(createErrorMarkers);
 
     this.store.dispatch(
-      createResultAction('monaco', this.modelState, monacoFeedbacks)
+      createResultAction(SourceType.monaco, this.modelState, monacoFeedbacks)
     );
   }
 

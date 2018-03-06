@@ -25,7 +25,7 @@ export function createFeedback(
   return {
     message: m.message,
     type: FeedbackType.Error,
-    source: SourceType.Monaco,
+    source: SourceType.monaco,
     value: v,
     startLineNumber: m.startLineNumber
   };
@@ -69,7 +69,7 @@ function compareLineAndOwner(
 function compareOwner(a: string, b: string) {
   if (a === b) {
     return 0;
-  } else if (a === 'validation') {
+  } else if (a === SourceType.validation.toString()) {
     return -1;
   }
   return 1;

@@ -89,7 +89,7 @@ describe('CodeEditorComponent', () => {
     it('should emit error markers for invalid content', done => {
       component.errorMarkerChanges.subscribe((error: Feedback2[]) => {
         expect(error.length).toBe(1);
-        expect(error[0].source).toEqual(SourceType.Monaco);
+        expect(error[0].source).toEqual(SourceType.monaco);
         expect(error[0].startLineNumber).toBe(1);
         done();
       });

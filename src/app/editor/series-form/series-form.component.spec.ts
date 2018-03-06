@@ -1,19 +1,16 @@
-import { ExerciseFormComponent } from '../exercise-form/exercise-form.component';
-import { HttpClientModule } from '@angular/common/http';
-import { CodeEditorModule } from '../../code-editor/code-editor.module';
-import { CodeEditorComponent } from '../../code-editor/code-editor.component';
 import { CommonModule } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { AppCommonModule } from '../../common/common.module';
-import { SeriesFormComponent } from './series-form.component';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import * as rootStore from '../../store';
-import { RouterTestingModule } from '@angular/router/testing';
+
+import { CodeEditorModule } from '../../code-editor/code-editor.module';
+import { AppCommonModule } from '../../common/common.module';
 import { mockSeries } from '../../common/test';
 import { Series } from '../../model';
-import { EffectsModule } from '@ngrx/effects';
+import * as rootStore from '../../store';
+import { ExerciseFormComponent } from '../exercise-form/exercise-form.component';
+import { SeriesFormComponent } from './series-form.component';
 
 describe('SeriesFormComponent', () => {
   let component: SeriesFormComponent;

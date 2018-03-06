@@ -7,7 +7,7 @@ import {
   getValidationResult,
   ResultErrorAction
 } from '.';
-import { ModelState, ProgrammingLanguage } from '../../model';
+import { ModelState, ProgrammingLanguage, SourceType } from '../../model';
 import { EditorModelEntities } from './editor-model.reducer';
 
 describe('Editor Model Selectors', () => {
@@ -52,7 +52,13 @@ describe('Editor Model Selectors', () => {
         value: ''
       };
       store.dispatch(new ChangeModelValueAction(modelState));
-      store.dispatch(new ResultErrorAction('validation', modelState, errors));
+      store.dispatch(
+        new ResultErrorAction(
+          SourceType.validation.toString(),
+          modelState,
+          errors
+        )
+      );
       expect(result).toEqual({
         id: modelId,
         versionId: 1,

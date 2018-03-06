@@ -160,7 +160,7 @@ describe('editorModelReducer', () => {
       };
 
       const action = new ResultErrorAction(
-        'validation',
+        SourceType.validation,
         {
           id: 'id1',
           versionId: 1,
@@ -233,7 +233,7 @@ describe('editorModelReducer', () => {
       };
 
       const action = new ResultErrorAction(
-        'monaco',
+        SourceType.monaco,
         {
           id: 'id1',
           versionId: 1,
@@ -273,7 +273,7 @@ describe('editorModelReducer', () => {
         }
       };
 
-      const action = new ResultSuccessAction('monaco', {
+      const action = new ResultSuccessAction(SourceType.monaco, {
         id: 'id1',
         versionId: 0,
         value: 'value',

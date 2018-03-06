@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-import { ErrorMarker, ModelState } from '../../model';
+import { ErrorMarker, ModelState, SourceType } from '../../model';
 import {
   CodeEditorValidationSerivce,
   CodeExecutorService
@@ -31,7 +31,11 @@ export class EditorModelEffects {
       map((a: EditorModelAction) => a.modelState),
       map((modelState: ModelState) => {
         const errors = this.validationService.validate(modelState.value);
-        return createResultAction('validation', modelState, errors);
+        return createResultAction(
+          SourceType.validation.toString(),
+          modelState,
+          errors
+        );
       })
     );
 
@@ -39,7 +43,9 @@ export class EditorModelEffects {
   execute$: Observable<ModelResultAction> = this.actions$
     .ofType(MODEL_RESULT_SUCCESS)
     .pipe(
-      filter((a: ModelResultAction) => a.key === 'validation'),
+      filter(
+        (a: ModelResultAction) => a.key === SourceType.validation.toString()
+      ),
       map((a: ModelResultAction) => a.modelState),
       map((modelState: ModelState) =>
         createResultAction(

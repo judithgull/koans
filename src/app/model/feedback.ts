@@ -1,9 +1,9 @@
 import { ProgrammingLanguage } from './programming-language';
 
 export enum SourceType {
-  Validation,
-  Runner,
-  Monaco
+  validation = 'validation',
+  execution = 'execution',
+  monaco = 'monaco'
 }
 
 export enum FeedbackType {

@@ -3,7 +3,7 @@ import { Actions } from '@ngrx/effects';
 import { cold, hot } from 'jasmine-marbles';
 
 import { EditableMarkerService } from '../../common/editable-marker.service';
-import { ProgrammingLanguage } from '../../model';
+import { ProgrammingLanguage, SourceType } from '../../model';
 import { getActions, TestActions } from '../../store/test';
 import {
   CodeEditorValidationSerivce,
@@ -65,7 +65,11 @@ describe('EditorModelEffects', () => {
       ];
 
       const expected = cold('-b', {
-        b: new ResultErrorAction('validation', modelState, validationErrors)
+        b: new ResultErrorAction(
+          SourceType.validation.toString(),
+          modelState,
+          validationErrors
+        )
       });
       expect(effects.validate$).toBeObservable(expected);
     });
@@ -73,12 +77,12 @@ describe('EditorModelEffects', () => {
 
   describe('execute$', () => {
     it('should execute on validation success', () => {
-      const action = new ResultSuccessAction('validation', modelState);
+      const action = new ResultSuccessAction(SourceType.validation, modelState);
 
       actions$.stream = hot('-a', { a: action });
 
       const expected = cold('-b', {
-        b: new ResultSuccessAction('execution', modelState)
+        b: new ResultSuccessAction(SourceType.execution, modelState)
       });
       expect(effects.execute$).toBeObservable(expected);
     });
