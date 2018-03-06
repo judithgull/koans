@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProgrammingLanguage } from '../../common/model/programming-language';
+import { ProgrammingLanguage } from '../../model/programming-language';
 
 @Component({
   selector: 'app-series-card',

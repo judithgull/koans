@@ -1,10 +1,4 @@
-import {
-  Feedback2,
-  FeedbackType,
-  SourceType,
-  FeedbackDetails,
-  ErrorMarker
-} from '../common/model';
+import { ErrorMarker, Feedback2, FeedbackType, SourceType } from '../model';
 
 export function createMarkerData(e: ErrorMarker): monaco.editor.IMarkerData {
   return {

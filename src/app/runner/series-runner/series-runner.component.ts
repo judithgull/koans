@@ -1,7 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { ExerciseProgress, SeriesProgress, ISeries } from '../../common/model';
+import { ExerciseProgress, SeriesProgress, ISeries } from '../../model';
 
 @Component({
   selector: 'app-series-runner',

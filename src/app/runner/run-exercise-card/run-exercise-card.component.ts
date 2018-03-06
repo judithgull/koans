@@ -6,7 +6,7 @@ import {
   ExerciseProgress,
   ISeries,
   ModelState
-} from '../../common/model';
+} from '../../model';
 import {
   Component,
   OnInit,

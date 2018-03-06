@@ -2,7 +2,7 @@ import '../../../rx-index';
 
 import { Observable } from 'rxjs/Observable';
 
-import { ISeries } from '../model/series';
+import { ISeries } from '../../model/series';
 import { mockSeries } from './series.mock';
 
 export class MockSeriesService {

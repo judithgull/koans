@@ -2,7 +2,7 @@ import {
   SeriesProgress,
   ExerciseProgress,
   ISeries
-} from '../../../common/model';
+} from '../../../model';
 import {
   SeriesProgressAction,
   INIT_SERIES_PROGRESS,

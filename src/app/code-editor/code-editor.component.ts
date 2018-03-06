@@ -11,33 +11,26 @@ import {
   ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-import {
-  Feedback2,
-  FeedbackFactory,
-  FeedbackType,
-  SourceType,
-  ProgrammingLanguage,
-  ModelState
-} from '../common/model';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { MonacoLoaderService } from './monaco-loader.service';
-import {
-  EditorModelEntities,
-  ChangeModelValueAction,
-  getValidationResult,
-  createResultAction
-} from './store';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { filter } from 'rxjs/operators';
+
+import { Feedback2, ModelState, ProgrammingLanguage } from '../model';
 import {
-  createMarkerData,
-  createFeedback,
-  filterEqualLines,
   createErrorMarkers,
+  createFeedback,
+  createMarkerData,
+  filterEqualLines,
   getSortedErrorMarkers
 } from './marker-data-util';
-import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { MonacoLoaderService } from './monaco-loader.service';
+import {
+  ChangeModelValueAction,
+  createResultAction,
+  EditorModelEntities,
+  getValidationResult
+} from './store';
 
 /**
  * Monaco editor as a custom form control

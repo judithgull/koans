@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+
 import { EditorModelEntities } from '.';
-import { FeedbackType, SourceType } from '../../common/model';
 
 export const getEditorModel = createFeatureSelector<EditorModelEntities>(
   'editorModel'

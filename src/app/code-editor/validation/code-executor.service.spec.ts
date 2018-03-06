@@ -1,11 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+
+import { ProgrammingLanguage } from '../../model';
 import { CodeExecutorService } from './code-executor.service';
-import {
-  FeedbackFactory,
-  SourceType,
-  ProgrammingLanguage,
-  FeedbackType
-} from '../../common/model';
 import { JSExecutorService } from './js-executor.service';
 import { TsTranspilerService } from './ts-transpiler.service';
 

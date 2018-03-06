@@ -1,6 +1,6 @@
-import { ISeries } from '../../common/model/series';
+import { ISeries } from '../../model/series';
 import { Action } from '@ngrx/store';
-import { SearchParams } from '../../common/model/search.params';
+import { SearchParams } from '../../model/search.params';
 
 export const SERIES_ERROR = 'SERIES ERROR';
 

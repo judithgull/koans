@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ErrorMarker } from '../../common/model';
+
+import { ErrorMarker } from '../../model';
+
 /**
  * TODO: do it nicely with web workers and timeouts
  * Execute js code

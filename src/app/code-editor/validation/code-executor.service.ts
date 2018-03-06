@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ProgrammingLanguage, ErrorMarker } from '../../common/model';
+
+import { ErrorMarker, ProgrammingLanguage } from '../../model';
 import { JSExecutorService } from './js-executor.service';
 import { TsTranspilerService } from './ts-transpiler.service';
 

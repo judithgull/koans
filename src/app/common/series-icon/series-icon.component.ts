@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ProgrammingLanguage } from '../model/programming-language';
+import { ProgrammingLanguage } from '../../model/programming-language';
 
 @Component({
   selector: 'app-series-icon',

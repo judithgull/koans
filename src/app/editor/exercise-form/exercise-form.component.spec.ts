@@ -1,5 +1,5 @@
 import { AppCommonModule } from '../../common/common.module';
-import { Exercise } from '../../common/model/exercise';
+import { Exercise } from '../../model/exercise';
 import { CodeEditorModule } from '../../code-editor/code-editor.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';

@@ -1,7 +1,7 @@
-import { CodeEditorValidationSerivce } from './code-editor-validation.service';
-import { inject, TestBed } from '@angular/core/testing';
-import { FeedbackFactory, SourceType } from '../../common/model';
+import { TestBed } from '@angular/core/testing';
+
 import { EditableMarkerService } from '../../common/editable-marker.service';
+import { CodeEditorValidationSerivce } from './code-editor-validation.service';
 
 describe('Editor validation service', () => {
   let service: CodeEditorValidationSerivce;

@@ -1,21 +1,14 @@
-import { Store, StoreModule } from '@ngrx/store';
-import { EditorModelEntities } from './editor-model.reducer';
 import { TestBed } from '@angular/core/testing';
+import { Store, StoreModule } from '@ngrx/store';
+
 import {
+  ChangeModelValueAction,
   codeEditorReducer,
   getValidationResult,
-  getModelEntity,
-  ChangeModelValueAction,
   ResultErrorAction
 } from '.';
-import {
-  FeedbackFactory,
-  SourceType,
-  ProgrammingLanguage,
-  ModelState,
-  Feedback,
-  FeedbackDetails
-} from '../../common/model';
+import { ModelState, ProgrammingLanguage } from '../../model';
+import { EditorModelEntities } from './editor-model.reducer';
 
 describe('Editor Model Selectors', () => {
   let store: Store<EditorModelEntities>;

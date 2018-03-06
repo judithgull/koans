@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { ExerciseProgress } from '../../common/model';
+import { ExerciseProgress } from '../../model';
 
 @Component({
   selector: 'app-progress-bar',

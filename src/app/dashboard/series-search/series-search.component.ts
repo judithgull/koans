@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import * as st from '../../store';
-import { SearchParams } from '../../common/model/search.params';
-import { ISeries } from '../../common/model/series';
+import { SearchParams } from '../../model/search.params';
+import { ISeries } from '../../model/series';
 
 @Component({
   selector: 'app-series-search',

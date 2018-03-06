@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { User } from '../../auth/model/user';
-import { LoginInfo } from '../model/login-info';
-import { LoginTokenInfo } from '../model/login-token-info';
+import { LoginInfo } from '../../model/login-info';
+import { LoginTokenInfo } from '../../model/login-token-info';
 
 const USER_KEY = 'user';
 const TOKEN_KEY = 'token';

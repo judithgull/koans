@@ -1,7 +1,7 @@
 import { CodeEditorTextValidators } from '../../code-editor-validators/code-editor-text-validators';
-import { ProgrammingLanguages } from '../../common/model/programming-languages';
-import { Feedback2 } from '../../common/model/feedback';
-import { Exercise } from '../../common/model/exercise';
+import { ProgrammingLanguages } from '../../model/programming-languages';
+import { Feedback2 } from '../../model/feedback';
+import { Exercise } from '../../model/exercise';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 

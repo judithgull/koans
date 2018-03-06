@@ -1,21 +1,20 @@
+import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import {
-  CHANGE_MODEL_VALUE_ACTION,
-  MODEL_RESULT_SUCCESS,
-  ResultSuccessAction,
-  ResultErrorAction,
-  ModelResultAction,
-  EditorModelAction,
-  createResultAction
-} from './editor-model.action';
-import { map, tap, filter } from 'rxjs/operators';
-import { FeedbackType, ModelState, ErrorMarker } from '../../common/model';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+
+import { ErrorMarker, ModelState } from '../../model';
 import {
   CodeEditorValidationSerivce,
   CodeExecutorService
 } from '../validation';
-import { Injectable } from '@angular/core';
-import { Observable } from 'Rx';
+import {
+  CHANGE_MODEL_VALUE_ACTION,
+  createResultAction,
+  EditorModelAction,
+  MODEL_RESULT_SUCCESS,
+  ModelResultAction
+} from './editor-model.action';
 
 @Injectable()
 export class EditorModelEffects {

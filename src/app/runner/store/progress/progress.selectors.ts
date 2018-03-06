@@ -1,7 +1,7 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 
 import * as root from '../../../store';
-import { SeriesProgress, ExerciseProgress } from '../../../common/model';
+import { SeriesProgress, ExerciseProgress } from '../../../model';
 import { RunnerState, getRunnerState } from '../index';
 import { SeriesProgressEntities } from './progress.reducer';
 

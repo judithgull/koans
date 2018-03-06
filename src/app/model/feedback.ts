@@ -1,4 +1,4 @@
-import { ProgrammingLanguage } from '.';
+import { ProgrammingLanguage } from './programming-language';
 
 export enum SourceType {
   Validation,
@@ -31,7 +31,7 @@ export interface FeedbackDetails {
 
 export interface ErrorMarker {
   message: string;
-  startLineNumber: number; //1 based as in monaco editor
+  startLineNumber: number; // 1 based as in monaco editor
 }
 
 export interface Feedback2 {

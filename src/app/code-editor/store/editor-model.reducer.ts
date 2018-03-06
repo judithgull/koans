@@ -1,10 +1,10 @@
+import { Feedback } from '../../model';
 import {
-  EditorModelAction,
   CHANGE_MODEL_VALUE_ACTION,
+  EditorModelAction,
   MODEL_RESULT_ERROR,
   MODEL_RESULT_SUCCESS
 } from './editor-model.action';
-import { FeedbackDetails, Feedback } from '../../common/model';
 
 export interface EditorModelEntities {
   entities: {

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { mockSeries } from '../../common/test/series.mock';
 import { RunExerciseCardComponent } from './run-exercise-card.component';
-import { Exercise } from '../../common/model/exercise';
+import { Exercise } from '../../model/exercise';
 import { CodeEditorModule } from '../../code-editor/code-editor.module';
 
 import { StoreModule, combineReducers } from '@ngrx/store';

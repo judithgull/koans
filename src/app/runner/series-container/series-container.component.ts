@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ISeries, ExerciseProgress } from '../../common/model';
+import { ISeries, ExerciseProgress } from '../../model';
 import * as st from '../../store';
 import * as rst from '../store';
 

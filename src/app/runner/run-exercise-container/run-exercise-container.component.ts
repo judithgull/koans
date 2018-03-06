@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as st from '../../store';
 import * as rst from '../store';
 import { Store } from '@ngrx/store';
-import { Exercise, ExerciseProgress, ISeries } from '../../common/model';
+import { Exercise, ExerciseProgress, ISeries } from '../../model';
 
 @Component({
   selector: 'app-run-exercise-container',

@@ -1,4 +1,4 @@
-import { ModelState } from '.';
+import { ModelState } from './feedback';
 
 export interface ExerciseProgress {
   id: number;

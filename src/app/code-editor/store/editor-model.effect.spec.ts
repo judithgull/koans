@@ -1,12 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import { EditorModelEffects } from './editor-model.effect';
-import {
-  ChangeModelValueAction,
-  ResultErrorAction,
-  ResultSuccessAction
-} from './editor-model.action';
-import { hot, cold } from 'jasmine-marbles';
 import { Actions } from '@ngrx/effects';
+import { cold, hot } from 'jasmine-marbles';
+
+import { EditableMarkerService } from '../../common/editable-marker.service';
+import { ProgrammingLanguage } from '../../model';
 import { getActions, TestActions } from '../../store/test';
 import {
   CodeEditorValidationSerivce,
@@ -14,8 +11,12 @@ import {
   JSExecutorService,
   TsTranspilerService
 } from '../validation';
-import { EditableMarkerService } from '../../common/editable-marker.service';
-import { ProgrammingLanguage } from '../../common/model';
+import {
+  ChangeModelValueAction,
+  ResultErrorAction,
+  ResultSuccessAction
+} from './editor-model.action';
+import { EditorModelEffects } from './editor-model.effect';
 
 describe('EditorModelEffects', () => {
   let actions$: TestActions;

@@ -8,7 +8,7 @@ import {
   Series,
   ProgrammingLanguage,
   ISeries
-} from '../../common/model';
+} from '../../model';
 import {
   State,
   CreateSeries,

@@ -1,7 +1,6 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { JSExecutorService } from './js-executor.service';
-import { FeedbackType } from '../../common/model';
 
 describe('CodeExecutorService', () => {
   let service: JSExecutorService;

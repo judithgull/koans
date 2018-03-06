@@ -1,24 +1,18 @@
+import { Component, OnInit } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   ReactiveFormsModule
 } from '@angular/forms';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CodeEditorComponent } from './code-editor.component';
-import { MonacoLoaderService } from './monaco-loader.service';
-import { Component, OnInit } from '@angular/core';
-import {
-  Feedback,
-  ProgrammingLanguage,
-  SourceType,
-  Feedback2
-} from '../common/model';
-import { CodeExecutorService } from './validation';
 import { StoreModule } from '@ngrx/store';
 
+import { Feedback, Feedback2, ProgrammingLanguage, SourceType } from '../model';
 import * as rootStore from '../store';
+import { CodeEditorComponent } from './code-editor.component';
+import { MonacoLoaderService } from './monaco-loader.service';
+import { CodeExecutorService } from './validation';
 
 describe('CodeEditorComponent', () => {
   let component: CodeEditorComponent;

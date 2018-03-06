@@ -12,7 +12,7 @@ import { StoreModule } from '@ngrx/store';
 import * as rootStore from '../../store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { mockSeries } from '../../common/test';
-import { Series } from '../../common/model';
+import { Series } from '../../model';
 import { EffectsModule } from '@ngrx/effects';
 
 describe('SeriesFormComponent', () => {

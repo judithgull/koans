@@ -1,6 +1,7 @@
-import { SourceType, ErrorMarker } from '../../common/model';
 import { Injectable } from '@angular/core';
+
 import { EditableMarkerService } from '../../common/editable-marker.service';
+import { ErrorMarker } from '../../model';
 
 @Injectable()
 export class CodeEditorValidationSerivce {

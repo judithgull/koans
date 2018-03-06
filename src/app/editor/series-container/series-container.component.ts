@@ -12,7 +12,7 @@ import {
   Exercise,
   ProgrammingLanguages,
   ProgrammingLanguage
-} from '../../common/model';
+} from '../../model';
 import { Observable } from 'rxjs/Observable';
 
 @Component({

@@ -3,7 +3,7 @@ import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { switchMap, map, catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { ISeries, SearchParams } from '../../common/model';
+import { ISeries, SearchParams } from '../../model';
 import { Home } from '../router';
 import { SeriesService } from '../../common/series.service';
 import { ToastrService } from 'ngx-toastr';

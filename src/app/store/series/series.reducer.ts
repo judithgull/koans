@@ -1,4 +1,4 @@
-import { ISeries } from '../../common/model';
+import { ISeries } from '../../model';
 import * as sa from './series.action';
 import { toEntities } from '../entityUtil';
 

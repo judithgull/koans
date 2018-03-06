@@ -10,7 +10,7 @@ import {
   FeedbackDetails,
   ErrorMarker,
   ProgrammingLanguage
-} from '../../common/model';
+} from '../../model';
 
 describe('editorModelReducer', () => {
   const errors = [

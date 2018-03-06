@@ -5,7 +5,7 @@ import {
   SeriesProgress,
   ModelState,
   ProgrammingLanguage
-} from '../../../common/model';
+} from '../../../model';
 import { ExerciseSolved, ToggleSolutionVisible } from '../index';
 import { RegisterModel } from '.';
 

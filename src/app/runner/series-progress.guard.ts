@@ -10,7 +10,7 @@ import { tap, filter, take, switchMap, map, timeout } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators/catchError';
-import { ISeries, SeriesProgress } from '../common/model';
+import { ISeries, SeriesProgress } from '../model';
 import {
   RunnerState,
   getSeriesProgresses,

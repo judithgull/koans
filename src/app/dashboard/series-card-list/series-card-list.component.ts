@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Series } from '../../common/model/series';
+import { Series } from '../../model/series';
 import { Store } from '@ngrx/store';
 import { State, DeleteSeries } from '../../store/index';
 
