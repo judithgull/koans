@@ -247,10 +247,12 @@ export class CodeEditorComponent
    * @param value
    */
   writeValue(value: string) {
-    this.executeAfterInitialized(() => {
-      this.model.setValue(value || '');
-      this.editor.layout();
-    });
+    if (value !== null) {
+      this.executeAfterInitialized(() => {
+        this.model.setValue(value || '');
+        this.editor.layout();
+      });
+    }
   }
 
   private executeAfterInitialized(fn: () => void): void {
