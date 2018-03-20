@@ -173,12 +173,14 @@ export class CodeEditorComponent
     );
 
     this.model.onDidChangeDecorations(e => {
-      this.dispatchMonacoErrors();
+      if (this.model) {
+        this.dispatchMonacoErrors();
 
-      // emit all error markers filtered by equal lines
-      const filteredMarkers = filterEqualLines(this.getMarkers());
-      const errorMarkers = filteredMarkers.map(toErrorMarker);
-      this.errorMarkerChanges.emit(errorMarkers);
+        // emit all error markers filtered by equal lines
+        const filteredMarkers = filterEqualLines(this.getMarkers());
+        const errorMarkers = filteredMarkers.map(toErrorMarker);
+        this.errorMarkerChanges.emit(errorMarkers);
+      }
     });
 
     this.initialized.next(true);

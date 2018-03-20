@@ -43,14 +43,16 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
     this.programmingLanguage = this.series.programmingLanguage;
   }
 
+  /**
+   * On route change set the user value to the last progress value of the current exercise
+   */
   ngOnChanges(changes: SimpleChanges): void {
     if (
-      this.progress &&
-      changes.progress.currentValue &&
+      changes.progress &&
       changes.progress.previousValue &&
       changes.progress.currentValue.id !== changes.progress.previousValue.id
     ) {
-      this.userValue = changes.progress.currentValue.userSolution;
+      this.userValue = changes.progress.currentValue.value;
     }
   }
 

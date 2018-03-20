@@ -63,15 +63,6 @@ describe('CodeEditorComponent', () => {
       component.language = ProgrammingLanguage.typescript;
     });
 
-    it('should set an empty string for null', done => {
-      component.registerOnChange(value => {
-        if (value === '') {
-          done();
-        }
-      });
-      component.writeValue(null);
-    });
-
     it('should change the value after typing it', done => {
       component.language = ProgrammingLanguage.typescript;
       component.registerOnChange(value => {

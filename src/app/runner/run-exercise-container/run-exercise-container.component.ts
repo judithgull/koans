@@ -25,9 +25,7 @@ export class RunExerciseContainerComponent implements OnInit {
 
   ngOnInit() {
     this.ex$ = this.store.select(st.getSelectedExercise);
-    this.progress$ = this.store
-      .select(rst.getSelectedUserState)
-      .pipe(distinct());
+    this.progress$ = this.store.select(rst.getSelectedUserState);
     this.series$ = this.store.select(st.getSelectedSeries);
   }
 }

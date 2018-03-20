@@ -1,4 +1,4 @@
-import 'monaco-editor';
+import 'monaco-editor/monaco';
 
 declare var module: NodeModule;
 interface NodeModule {
