@@ -9,15 +9,18 @@ import { StoreModule, combineReducers } from '@ngrx/store';
 
 import * as rootStore from '../../store';
 import { EffectsModule } from '@ngrx/effects';
+import { MonacoLoaderService } from '../../code-editor/monaco-loader.service';
 
 describe('ExerciseFormComponent', () => {
   let component: ExerciseFormComponent;
   let fixture: ComponentFixture<ExerciseFormComponent>;
+  let monacoLoader: MonacoLoaderService;
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
         declarations: [ExerciseFormComponent],
+        providers: [MonacoLoaderService],
         imports: [
           ReactiveFormsModule,
           CodeEditorModule,
@@ -31,11 +34,17 @@ describe('ExerciseFormComponent', () => {
     })
   );
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ExerciseFormComponent);
-    component = fixture.componentInstance;
-    component.item = new Exercise();
-    fixture.detectChanges();
+  beforeEach(done => {
+    monacoLoader = TestBed.get(MonacoLoaderService);
+    monacoLoader.isMonacoLoaded.subscribe(loaded => {
+      if (loaded) {
+        fixture = TestBed.createComponent(ExerciseFormComponent);
+        component = fixture.componentInstance;
+        component.item = new Exercise();
+        fixture.detectChanges();
+        done();
+      }
+    });
   });
 
   it('should create', () => {

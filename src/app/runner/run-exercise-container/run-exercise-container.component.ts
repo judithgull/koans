@@ -5,7 +5,6 @@ import { Exercise, ExerciseProgress, ISeries } from '../../model';
 import * as st from '../../store';
 import * as rst from '../store';
 import { Observable } from 'rxjs';
-import { distinct } from 'rxjs/operators';
 
 @Component({
   selector: 'app-run-exercise-container',

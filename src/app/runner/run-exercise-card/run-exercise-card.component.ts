@@ -29,6 +29,9 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
 
   @Input() series: ISeries;
 
+  exercisePath: string;
+  solutionPath: string;
+
   userValue = '';
   programmingLanguage;
 
@@ -41,6 +44,7 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
     this.userValue = this.progress.value;
     this.seriesLength = this.series.items.length;
     this.programmingLanguage = this.series.programmingLanguage;
+    this.updatePaths();
   }
 
   /**
@@ -53,7 +57,14 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
       changes.progress.currentValue.id !== changes.progress.previousValue.id
     ) {
       this.userValue = changes.progress.currentValue.value;
+      this.updatePaths();
     }
+  }
+
+  updatePaths() {
+    const path = this.series._id + '/' + this.ex.sortOrder;
+    this.exercisePath = path + '/exercise';
+    this.solutionPath = path + '/solution';
   }
 
   toggleSolution() {
@@ -65,28 +76,7 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
     );
   }
 
-  updateModelChange(modelState: ModelState) {
-    this.store.dispatch(
-      new rst.RegisterModel({
-        seriesId: this.series._id,
-        id: this.ex.sortOrder,
-        modelState: modelState
-      })
-    );
-  }
-
   updateFeedback(markers: ErrorMarker[]) {
     this.markers = markers;
-    // TODO
-    if (markers.length === 0) {
-      // TODO get user solution from feedback
-      this.store.dispatch(
-        new rst.ExerciseSolved({
-          seriesId: this.series._id,
-          id: this.ex.sortOrder,
-          userSolution: this.userValue
-        })
-      );
-    }
   }
 }

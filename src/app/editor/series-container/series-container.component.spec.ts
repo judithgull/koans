@@ -10,10 +10,12 @@ import { CodeEditorModule } from '../../code-editor/code-editor.module';
 import { StoreModule } from '@ngrx/store';
 import * as rootStore from '../../store';
 import { EffectsModule } from '@ngrx/effects';
+import { MonacoLoaderService } from '../../code-editor/monaco-loader.service';
 
 describe('SeriesContainerComponent', () => {
   let component: SeriesContainerComponent;
   let fixture: ComponentFixture<SeriesContainerComponent>;
+  let monacoLoader: MonacoLoaderService;
 
   beforeEach(
     async(() => {
@@ -23,6 +25,7 @@ describe('SeriesContainerComponent', () => {
           SeriesFormComponent,
           ExerciseFormComponent
         ],
+        providers: [MonacoLoaderService],
         imports: [
           CommonModule,
           FormsModule,
@@ -38,10 +41,16 @@ describe('SeriesContainerComponent', () => {
     })
   );
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SeriesContainerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(done => {
+    monacoLoader = TestBed.get(MonacoLoaderService);
+    monacoLoader.isMonacoLoaded.subscribe(loaded => {
+      if (loaded) {
+        fixture = TestBed.createComponent(SeriesContainerComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+        done();
+      }
+    });
   });
 
   it('should create', () => {

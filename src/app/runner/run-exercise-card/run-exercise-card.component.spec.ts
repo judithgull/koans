@@ -29,7 +29,6 @@ describe('RunExerciseCardComponent', () => {
         declarations: [RunExerciseCardComponent],
         imports: [
           AppCommonModule,
-          CodeEditorModule,
           ReactiveFormsModule,
           FormsModule,
           StoreModule.forRoot({
@@ -48,7 +47,7 @@ describe('RunExerciseCardComponent', () => {
     fixture = TestBed.createComponent(RunExerciseCardComponent);
     component = fixture.componentInstance;
     component.progress = {
-      userSolution: '',
+      value: '',
       id: 1,
       solutionRequested: false,
       solutionVisible: false,

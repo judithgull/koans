@@ -12,6 +12,7 @@ import {
   JSExecutorService,
   TsTranspilerService
 } from './validation';
+import { MonacoLoadedGuard } from './monaco-loaded.guard';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import {
     JSExecutorService,
     CodeEditorValidationSerivce,
     CodeExecutorService,
-    TsTranspilerService
+    TsTranspilerService,
+    MonacoLoadedGuard
   ]
 })
 export class CodeEditorModule {}

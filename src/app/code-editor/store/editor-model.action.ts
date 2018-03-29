@@ -29,6 +29,13 @@ export class ResultSuccessAction implements ModelResultAction {
   constructor(public key: string, public modelState: ModelState) {}
 }
 
+// all validations successful
+export const MODEL_ALL_SUCCESS = 'MODEL_RESULT_ALL_SUCCESS';
+export class AllSuccessAction implements Action {
+  readonly type = MODEL_ALL_SUCCESS;
+  constructor(public modelState: ModelState) {}
+}
+
 export function createResultAction(
   owner: string,
   modelState: ModelState,

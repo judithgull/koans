@@ -44,7 +44,7 @@ export class SeriesProgressExistsGuard implements CanActivate {
       }),
       filter(userState => !!userState),
       take(1),
-      timeout(1000)
+      timeout(5000)
     );
   }
 }

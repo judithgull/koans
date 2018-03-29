@@ -15,6 +15,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { filter } from 'rxjs/operators';
+import * as R from 'ramda';
 
 import {
   ErrorMarker,
@@ -28,7 +29,6 @@ import {
   toErrorMarker,
   toMarkerData
 } from './marker-data-util';
-import { MonacoLoaderService } from './monaco-loader.service';
 import {
   ChangeModelValueAction,
   createResultAction,
@@ -53,10 +53,7 @@ import {
 })
 export class CodeEditorComponent
   implements OnInit, OnDestroy, ControlValueAccessor {
-  constructor(
-    private monaco: MonacoLoaderService,
-    private store: Store<EditorModelEntities>
-  ) {}
+  constructor(private store: Store<EditorModelEntities>) {}
 
   @ViewChild('editor') editorContent: ElementRef;
 
@@ -66,14 +63,19 @@ export class CodeEditorComponent
 
   editor: monaco.editor.IStandaloneCodeEditor;
 
-  uri: monaco.Uri;
-
-  initialized: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  initialized = new BehaviorSubject<boolean>(false);
 
   height = 100;
 
+  private _path: string;
+  uri: monaco.Uri;
+
   private _language: ProgrammingLanguage;
+
+  private monacoMarkers: monaco.editor.IMarker[];
+
   private subs: Subscription[] = [];
+  private disposables: monaco.IDisposable[] = [];
 
   // tslint:disable-next-line:no-empty
   onChange: (_: string) => void = () => {};
@@ -81,14 +83,15 @@ export class CodeEditorComponent
   onTouched: () => void = () => {};
 
   ngOnInit(): void {
-    if (!this.editor && this.monaco.isMonacoLoaded.getValue()) {
-      this.initEditor();
+    this.initEditor();
+  }
+
+  getOrCreateModel(): monaco.editor.IModel {
+    const exisitngModel = monaco.editor.getModel(this.uri);
+    if (exisitngModel) {
+      return exisitngModel;
     }
-    this.monaco.isMonacoLoaded.subscribe(loaded => {
-      if (loaded && !this.editor) {
-        this.initEditor();
-      }
-    });
+    return monaco.editor.createModel(this.value, this.language, this.uri);
   }
 
   get model() {
@@ -119,9 +122,22 @@ export class CodeEditorComponent
     return this._language;
   }
 
+  @Input()
+  set path(path: string) {
+    this._path = path;
+    this.uri = monaco.Uri.file(this.path);
+    if (this.editor) {
+      this.editor.setModel(this.getOrCreateModel());
+    }
+  }
+
+  get path() {
+    return this._path;
+  }
+
   get modelState(): ModelState {
     return {
-      id: this.model.id,
+      id: this.path,
       versionId: this.model.getVersionId(),
       value: this.value,
       progLang: this.language
@@ -132,17 +148,24 @@ export class CodeEditorComponent
     const editorDiv: HTMLDivElement = this.editorContent.nativeElement;
 
     this.editor = monaco.editor.create(editorDiv, {
-      language: ProgrammingLanguage.javascript.toString(),
-      theme: 'vs-dark'
+      language: this.language,
+      model: this.getOrCreateModel(),
+      theme: 'vs-dark',
+      minimap: {
+        enabled: false
+      },
+      glyphMargin: true
     });
 
-    this.model.onDidChangeContent(e => {
-      this.editorModelChange.emit(this.modelState);
-      this.store.dispatch(new ChangeModelValueAction(this.modelState));
+    this.disposables.push(
+      this.model.onDidChangeContent(e => {
+        this.editorModelChange.emit(this.modelState);
+        this.store.dispatch(new ChangeModelValueAction(this.modelState));
 
-      this.onChange(this.value);
-      this.height = this.computeHeight();
-    });
+        this.onChange(this.value);
+        this.height = this.computeHeight();
+      })
+    );
 
     this.editor.onKeyUp(e => {
       this.onTouched();
@@ -151,8 +174,6 @@ export class CodeEditorComponent
     this.height = this.computeHeight();
 
     this.editor.layout();
-
-    this.uri = this.getCurrentModelUri();
 
     const validationResults = this.store
       .select(getValidationResult(this.model.id))
@@ -172,29 +193,33 @@ export class CodeEditorComponent
       })
     );
 
-    this.model.onDidChangeDecorations(e => {
-      if (this.model) {
-        this.dispatchMonacoErrors();
-
-        // emit all error markers filtered by equal lines
-        const filteredMarkers = filterEqualLines(this.getMarkers());
-        const errorMarkers = filteredMarkers.map(toErrorMarker);
-        this.errorMarkerChanges.emit(errorMarkers);
-      }
-    });
+    this.disposables.push(
+      this.model.onDidChangeDecorations(e => {
+        if (
+          this.model &&
+          !R.equals(this.monacoMarkers, this.getMonacoMarkers())
+        ) {
+          this.monacoMarkers = this.getMonacoMarkers();
+          this.dispatchMonacoErrors();
+        }
+      })
+    );
 
     this.initialized.next(true);
   }
 
   private dispatchMonacoErrors() {
-    const monacoFeedbacks = this.getMarkers()
-      .filter(m => m.owner !== SourceType.validation)
-      .filter(m => m.owner !== SourceType.execution)
-      .map(toErrorMarker);
+    const monacoFeedbacks = this.monacoMarkers.map(toErrorMarker);
 
     this.store.dispatch(
       createResultAction(SourceType.monaco, this.modelState, monacoFeedbacks)
     );
+  }
+
+  private getMonacoMarkers() {
+    return this.getMarkers()
+      .filter(m => m.owner !== SourceType.validation)
+      .filter(m => m.owner !== SourceType.execution);
   }
 
   private getMarkers(): monaco.editor.IMarker[] {
@@ -218,23 +243,11 @@ export class CodeEditorComponent
     monaco.editor.setModelMarkers(this.model, owner, []);
   }
 
-  private getCurrentModelUri(): monaco.Uri {
-    const pathId = this.getCurrentModelPath();
-    return new monaco.Uri()
-      .with({ scheme: 'inmemory' })
-      .with({ authority: 'model' })
-      .with({ path: '/' + pathId });
-  }
-
-  private getCurrentModelPath(): string {
-    const id = this.model.id;
-    return id.split('$model')[1];
-  }
-
   /**
    * Upon destruction of the component we make sure to dispose both the editor and the extra libs that we might've loaded
    */
   ngOnDestroy() {
+    this.disposables.forEach(d => d.dispose());
     if (this.editor) {
       this.editor.dispose();
     }
@@ -289,7 +302,8 @@ export class CodeEditorComponent
 
     const editorHeight = contentHeight + horizontalScrollbarHeight;
     const defaultHeight = lineHeight + horizontalScrollbarHeight;
-    return Math.max(defaultHeight, editorHeight);
+    const minHeigth = 100;
+    return Math.max(minHeigth, Math.max(defaultHeight, editorHeight));
   }
 
   @HostListener('window:resize')

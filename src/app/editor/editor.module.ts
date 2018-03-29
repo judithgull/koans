@@ -10,18 +10,20 @@ import { CodeEditorModule } from '../code-editor/code-editor.module';
 import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
 import { SeriesExistsGuard } from './series.guard';
 import { SeriesContainerComponent } from './series-container/series-container.component';
+import { MonacoLoadedGuard } from '../code-editor/monaco-loaded.guard';
 
 const routes: Routes = [
   {
     path: 'editor/:id',
     component: SeriesContainerComponent,
     pathMatch: 'full',
-    canActivate: [SeriesExistsGuard]
+    canActivate: [SeriesExistsGuard, MonacoLoadedGuard]
   },
   {
     path: 'editor',
     component: SeriesContainerComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [MonacoLoadedGuard]
   }
 ];
 

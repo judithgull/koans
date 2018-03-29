@@ -20,7 +20,7 @@ export interface ModelState {
 
 export interface Feedback extends ModelState {
   validation?: FeedbackDetails;
-  runner?: FeedbackDetails;
+  execution?: FeedbackDetails;
   monaco?: FeedbackDetails;
 }
 

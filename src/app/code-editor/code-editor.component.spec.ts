@@ -24,6 +24,7 @@ describe('CodeEditorComponent', () => {
   let de;
 
   const initialValue = testScript;
+  let monacoLoader: MonacoLoaderService;
 
   class MockCodeExecutorService {}
 
@@ -46,20 +47,27 @@ describe('CodeEditorComponent', () => {
       })
     );
 
-    beforeEach(() => {
-      fixture = TestBed.createComponent(CodeEditorComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
+    beforeEach(done => {
+      monacoLoader = TestBed.get(MonacoLoaderService);
+      monacoLoader.isMonacoLoaded.subscribe(loaded => {
+        if (loaded) {
+          fixture = TestBed.createComponent(CodeEditorComponent);
+          component = fixture.componentInstance;
+          component.path = 'path' + new Date().getTime();
+          fixture.detectChanges();
+          done();
+        }
+      });
     });
 
     it('should call onChange function when changing value', done => {
       expect(component).toBeTruthy();
       component.registerOnChange(value => {
-        if (value === 'x') {
+        if (value === 'y') {
           done();
         }
       });
-      component.writeValue('x');
+      component.writeValue('y');
       component.language = ProgrammingLanguage.typescript;
     });
 
@@ -76,17 +84,6 @@ describe('CodeEditorComponent', () => {
         }
       });
     });
-
-    it('should emit error markers for invalid content', done => {
-      component.errorMarkerChanges.subscribe((error: ErrorMarker[]) => {
-        expect(error.length).toBe(1);
-        expect(error[0].message).toBeDefined();
-        expect(error[0].startLineNumber).toBe(1);
-        done();
-      });
-      component.language = ProgrammingLanguage.typescript;
-      component.writeValue('x');
-    });
   });
 
   describe('Form', () => {
@@ -96,7 +93,7 @@ describe('CodeEditorComponent', () => {
     @Component({
       template: `
     <form [formGroup]="form">
-    <app-code-editor formControlName='editorValue' language="typescript" (errorMarkerChanges)="onErrorChanges()"></app-code-editor>
+    <app-code-editor path='path' formControlName='editorValue' language="typescript" (errorMarkerChanges)="onErrorChanges()"></app-code-editor>
     </form>
     `
     })
@@ -134,14 +131,20 @@ describe('CodeEditorComponent', () => {
       })
     );
 
-    beforeEach(() => {
-      containerFixture = TestBed.createComponent(TestContainerComponent);
-      testContainer = containerFixture.componentInstance;
-      containerFixture.detectChanges();
+    beforeEach(done => {
+      monacoLoader = TestBed.get(MonacoLoaderService);
+      monacoLoader.isMonacoLoaded.subscribe(loaded => {
+        if (loaded) {
+          containerFixture = TestBed.createComponent(TestContainerComponent);
+          testContainer = containerFixture.componentInstance;
+          containerFixture.detectChanges();
 
-      editorControl = testContainer.form.controls['editorValue'];
-      el = containerFixture.nativeElement;
-      de = containerFixture.debugElement;
+          editorControl = testContainer.form.controls['editorValue'];
+          el = containerFixture.nativeElement;
+          de = containerFixture.debugElement;
+          done();
+        }
+      });
     });
 
     it('should be initialized with the initial value', () => {

@@ -7,7 +7,6 @@ import {
   ProgrammingLanguage
 } from '../../../model';
 import { ExerciseSolved, ToggleSolutionVisible } from '../index';
-import { RegisterModel } from '.';
 
 describe('Progress Reducer', () => {
   const initialProgressStateSeries1 = {
@@ -18,27 +17,21 @@ describe('Progress Reducer', () => {
           value: mockSeries[0].items[0].exercise,
           solved: false,
           solutionRequested: false,
-          solutionVisible: false,
-          modelId: '',
-          modelVersionId: -1
+          solutionVisible: false
         },
         '2': {
           id: 2,
           value: mockSeries[0].items[1].exercise,
           solved: false,
           solutionRequested: false,
-          solutionVisible: false,
-          modelId: '',
-          modelVersionId: -1
+          solutionVisible: false
         },
         '3': {
           id: 3,
           value: mockSeries[0].items[2].exercise,
           solved: false,
           solutionRequested: false,
-          solutionVisible: false,
-          modelId: '',
-          modelVersionId: -1
+          solutionVisible: false
         }
       }
     }
@@ -98,27 +91,6 @@ describe('Progress Reducer', () => {
       expect(state.entities[1][1].solutionRequested).toBeTruthy();
       expect(state.entities[1][1].solutionVisible).toBeTruthy();
       expect(state.entities[1][2].solutionRequested).toBeFalsy();
-    });
-  });
-
-  describe('REGISTER_MODEL action', () => {
-    it('should add or update the model state', () => {
-      const series = mockSeries[0];
-      const id = series._id;
-      const modelState: ModelState = {
-        id: '$model1',
-        versionId: 3,
-        progLang: ProgrammingLanguage.typescript,
-        value: '???'
-      };
-      const action = new RegisterModel({
-        seriesId: 1,
-        id: 1,
-        modelState
-      });
-
-      const state = progressReducer(initialProgressStateSeries1, action);
-      expect(state.entities[1][1].modelId).toEqual(modelState.id);
     });
   });
 });

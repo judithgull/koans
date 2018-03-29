@@ -3,12 +3,11 @@
   <div class="l-grid code-editor-wrap">
 
     <div class="l-grid-cell l-one-half l-mobile-one-whole">
-      <app-code-editor [language]='programmingLanguage' [(ngModel)]='userValue' (editorModelChange)="updateModelChange($event)"
-        (errorMarkerChanges)="updateFeedback($event)"></app-code-editor>
+      <app-code-editor *ngIf="exercisePath" [path]='exercisePath' [language]='programmingLanguage' [(ngModel)]='userValue' ngDefaultControl></app-code-editor>
     </div>
 
     <div class="l-grid-cell l-one-half l-mobile-one-whole">
-      <app-code-editor *ngIf="progress?.solutionVisible" [language]='programmingLanguage' [ngModel]='progress?.solution'></app-code-editor>
+      <app-code-editor *ngIf="progress?.solutionVisible" [path]='solutionPath' [language]='programmingLanguage' [ngModel]='progress?.solution'></app-code-editor>
       <div *ngIf="!progress?.solutionVisible">
         <app-exercise-feedback *ngFor="let f of markers" [feedback]='f'></app-exercise-feedback>
       </div>

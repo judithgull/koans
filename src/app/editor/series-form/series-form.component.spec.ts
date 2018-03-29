@@ -11,21 +11,24 @@ import { Series } from '../../model';
 import * as rootStore from '../../store';
 import { ExerciseFormComponent } from '../exercise-form/exercise-form.component';
 import { SeriesFormComponent } from './series-form.component';
+import { MonacoLoaderService } from '../../code-editor/monaco-loader.service';
 
 describe('SeriesFormComponent', () => {
   let component: SeriesFormComponent;
   let fixture: ComponentFixture<SeriesFormComponent>;
+  let monacoLoader: MonacoLoaderService;
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
         declarations: [SeriesFormComponent, ExerciseFormComponent],
+        providers: [MonacoLoaderService],
         imports: [
           CommonModule,
           FormsModule,
           ReactiveFormsModule,
-          AppCommonModule,
           CodeEditorModule,
+          AppCommonModule,
           StoreModule.forRoot({
             ...rootStore.reducers
           }),
@@ -35,11 +38,17 @@ describe('SeriesFormComponent', () => {
     })
   );
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SeriesFormComponent);
-    component = fixture.componentInstance;
-    component.model = new Series(mockSeries[0]);
-    fixture.detectChanges();
+  beforeEach(done => {
+    monacoLoader = TestBed.get(MonacoLoaderService);
+    monacoLoader.isMonacoLoaded.subscribe(loaded => {
+      if (loaded) {
+        fixture = TestBed.createComponent(SeriesFormComponent);
+        component = fixture.componentInstance;
+        component.model = new Series(mockSeries[0]);
+        fixture.detectChanges();
+        done();
+      }
+    });
   });
 
   it('should initialize with single item', () => {

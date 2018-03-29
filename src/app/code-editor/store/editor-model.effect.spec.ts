@@ -3,7 +3,7 @@ import { Actions } from '@ngrx/effects';
 import { cold, hot } from 'jasmine-marbles';
 
 import { EditableMarkerService } from '../../common/editable-marker.service';
-import { ProgrammingLanguage, SourceType } from '../../model';
+import { ProgrammingLanguage, SourceType, Feedback } from '../../model';
 import { getActions, TestActions } from '../../store/test';
 import {
   CodeEditorValidationSerivce,
@@ -17,11 +17,21 @@ import {
   ResultSuccessAction
 } from './editor-model.action';
 import { EditorModelEffects } from './editor-model.effect';
+import { Store } from '@ngrx/store';
+import { EditorModelState } from '.';
+import { of } from 'rxjs/observable/of';
+
+class StoreMock {
+  select<K>(mapFn) {
+    return null;
+  }
+}
 
 describe('EditorModelEffects', () => {
   let actions$: TestActions;
   let effects: EditorModelEffects;
   let validationService: CodeEditorValidationSerivce;
+  let store: Store<EditorModelState>;
 
   const modelState = {
     id: '0',
@@ -39,7 +49,8 @@ describe('EditorModelEffects', () => {
         TsTranspilerService,
         EditableMarkerService,
         EditorModelEffects,
-        { provide: Actions, useFactory: getActions }
+        { provide: Actions, useFactory: getActions },
+        { provide: Store, useClass: StoreMock }
       ]
     });
 
@@ -47,6 +58,7 @@ describe('EditorModelEffects', () => {
     actions$ = TestBed.get(Actions);
     effects = TestBed.get(EditorModelEffects);
     const tsTranspilerService = TestBed.get(TsTranspilerService);
+    store = TestBed.get(Store);
 
     spyOn(tsTranspilerService, 'run').and.returnValue('');
   });

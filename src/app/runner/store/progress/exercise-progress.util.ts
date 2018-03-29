@@ -9,9 +9,7 @@ export function toInitialProgress(e: Exercise): ExerciseProgress {
     value: e.exercise,
     solved: false,
     solutionRequested: false,
-    solutionVisible: false,
-    modelId: '',
-    modelVersionId: -1
+    solutionVisible: false
   };
 }
 
@@ -34,18 +32,5 @@ export function toggleSolutionVisible(
     ...previousProgress,
     solutionRequested: !previousProgress.solved,
     solutionVisible: !previousProgress.solutionVisible
-  };
-}
-
-export function addModelState(
-  modelState: ModelState
-): (previousProgress: ExerciseProgress) => ExerciseProgress {
-  return (previousProgress: ExerciseProgress) => {
-    return {
-      ...previousProgress,
-      modelId: modelState.id,
-      modelVersionId: modelState.versionId,
-      value: modelState.value
-    };
   };
 }

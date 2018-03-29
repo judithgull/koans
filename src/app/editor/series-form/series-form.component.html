@@ -17,7 +17,7 @@
   </div>
 
   <app-exercise-form [form]="item" [programmingLanguage]="model.programmingLanguage" [item]="item" class="exercise-card-form"
-    *ngFor="let item of model.items; index as i;last as last">
+    [index]="i" *ngFor="let item of model.items; index as i;last as last">
     <ul class="l-list-reset">
       <button class="button" type="button" name="delete" (click)="removeExercise(i)" *ngIf="model.items.length&gt;1">Delete</button>
       <button class="button" type="button" name="add" (click)="addExercise()" *ngIf="last">Add another exercise</button>

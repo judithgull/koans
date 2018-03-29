@@ -41,7 +41,7 @@ describe('SeriesRunnerComponent', () => {
     component.progresses = [];
     component.progress = {
       id: 1,
-      userSolution: '',
+      value: '',
       solved: false,
       solutionRequested: false,
       solutionVisible: false

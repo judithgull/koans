@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 
-import { ErrorMarker, ModelState, SourceType } from '../../model';
+import { ErrorMarker, ModelState, SourceType, Feedback } from '../../model';
 import {
   CodeEditorValidationSerivce,
   CodeExecutorService
@@ -13,15 +13,21 @@ import {
   createResultAction,
   EditorModelAction,
   MODEL_RESULT_SUCCESS,
-  ModelResultAction
+  ModelResultAction,
+  ResultSuccessAction,
+  AllSuccessAction
 } from './editor-model.action';
+import { getModelEntity } from './editor-model.selector';
+import { Store } from '@ngrx/store';
+import { EditorModelState } from './editor-model-state';
 
 @Injectable()
 export class EditorModelEffects {
   constructor(
     private actions$: Actions,
     private validationService: CodeEditorValidationSerivce,
-    private codeExecutorService: CodeExecutorService
+    private codeExecutorService: CodeExecutorService,
+    private store: Store<EditorModelState>
   ) {}
 
   @Effect()
@@ -58,5 +64,38 @@ export class EditorModelEffects {
 
   getExecutionErrors(modelState: ModelState): ErrorMarker[] {
     return this.codeExecutorService.run(modelState.value, modelState.progLang);
+  }
+
+  @Effect()
+  validateAll$: Observable<AllSuccessAction> = this.actions$
+    .ofType(MODEL_RESULT_SUCCESS)
+    .pipe(
+      switchMap(({ key, modelState }: ResultSuccessAction) => {
+        return this.store
+          .select(getModelEntity(modelState.id))
+          .pipe(
+            filter(entity => !!entity),
+            filter(entity => this.isAllSuccess(entity, key)),
+            map(entity => new AllSuccessAction(modelState))
+          );
+      })
+    );
+
+  isAllSuccess(f: Feedback, key: string): boolean {
+    const merged = {
+      ...f,
+      [key]: {
+        success: true,
+        errors: []
+      }
+    };
+    return (
+      merged.monaco &&
+      merged.monaco.success &&
+      merged.validation &&
+      merged.validation.success &&
+      merged.execution &&
+      merged.execution.success
+    );
   }
 }

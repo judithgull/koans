@@ -16,12 +16,13 @@ import { SeriesContainerComponent } from './series-container/series-container.co
 import { SeriesProgressExistsGuard } from './series-progress.guard';
 import { SeriesRunnerComponent } from './series-runner/series-runner.component';
 import { effects, reducers } from './store';
+import { MonacoLoadedGuard } from '../code-editor/monaco-loaded.guard';
 
 const routes: Routes = [
   {
     path: 'series/:id',
     component: SeriesContainerComponent,
-    canActivate: [SeriesProgressExistsGuard],
+    canActivate: [SeriesProgressExistsGuard, MonacoLoadedGuard],
     children: [
       {
         pathMatch: 'full',

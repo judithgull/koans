@@ -1,7 +1,6 @@
 import { ExerciseProgress, ISeries, SeriesProgress } from '../../../model';
 import { toEntities } from '../../../store/entityUtil';
 import {
-  addModelState,
   solve,
   toggleSolutionVisible,
   toInitialProgress
@@ -9,7 +8,6 @@ import {
 import {
   EXERCISE_SOLVED,
   INIT_SERIES_PROGRESS,
-  REGISTER_MODEL,
   SeriesProgressAction,
   TOGGLE_SOLUTION_VISIBLE
 } from './progress.action';
@@ -43,15 +41,6 @@ export function progressReducer(
         id,
         state,
         solve(userSolution)
-      );
-    }
-    case REGISTER_MODEL: {
-      const { id, seriesId, modelState } = action.payload;
-      return getUpdatedExerciseProgress(
-        seriesId,
-        id,
-        state,
-        addModelState(modelState)
       );
     }
 

@@ -18,6 +18,7 @@ export class JSExecutorService {
       eval(source);
       return [];
     } catch (e) {
+      console.log(e);
       return [{ message: this.runtimeErrorMessage, startLineNumber: 1 }];
     }
   }

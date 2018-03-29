@@ -14,6 +14,7 @@ export class ExerciseFormComponent implements OnInit {
   @Input() form: FormGroup;
   @Input() item: Exercise;
   @Input() programmingLanguage: string;
+  @Input() index: number;
 
   solutionFeedback: ErrorMarker[];
 
