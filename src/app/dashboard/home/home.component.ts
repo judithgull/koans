@@ -9,12 +9,10 @@ import { AuthService } from '../../common/auth/auth.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
   isLoggedIn = false;
   user: User;
 
-  constructor(private auth: AuthService) {
-  }
+  constructor(private auth: AuthService) {}
 
   ngOnInit(): void {
     this.updateLoginData();

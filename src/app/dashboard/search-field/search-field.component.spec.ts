@@ -6,12 +6,13 @@ describe('SearchFieldComponent', () => {
   let component: SearchFieldComponent;
   let fixture: ComponentFixture<SearchFieldComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ SearchFieldComponent ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [SearchFieldComponent]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchFieldComponent);

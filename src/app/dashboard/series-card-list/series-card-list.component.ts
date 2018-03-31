@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Series } from '../../model/series';
 import { Store } from '@ngrx/store';
-import { State, DeleteSeries } from '../../store/index';
+
+import { Series } from '../../model/series';
+import { DeleteSeries, State } from '../../store';
 
 @Component({
   selector: 'app-series-card-list',

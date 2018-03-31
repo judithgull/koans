@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
-
 import { Store } from '@ngrx/store';
-import * as st from '../../store';
+import { debounceTime } from 'rxjs/operators';
+
 import { SearchParams } from '../../model/search.params';
 import { ISeries } from '../../model/series';
+import * as st from '../../store';
 
 @Component({
   selector: 'app-series-search',
@@ -24,7 +25,9 @@ export class SeriesSearchComponent implements OnInit {
   constructor(private store: Store<st.State>) {}
 
   ngOnInit() {
-    this.searchParamChange.debounceTime(500).subscribe(e => this.search(e));
+    this.searchParamChange
+      .pipe(debounceTime(500))
+      .subscribe(e => this.search(e));
     this.search(this.getSearchParams());
   }
 

@@ -1,5 +1,3 @@
-import '../../rx-index';
-
 import {
   HttpClientTestingModule,
   HttpTestingController

@@ -1,5 +1,3 @@
-import '../../../rx-index';
-
 import { Observable } from 'rxjs/Observable';
 
 import { ISeries } from '../../model/series';

@@ -5,14 +5,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthInterceptor } from './auth/auth-interceptor.service';
 import { AuthService } from './auth/auth.service';
+import { EditableMarkerService } from './editable-marker.service';
+import { ExerciseFeedbackComponent } from './exercise-feedback/exercise-feedback.component';
+import { JsLibsService } from './js-libs.service';
 import { LogoComponent } from './logo/logo.component';
+import { SeriesIconComponent } from './series-icon/series-icon.component';
 import { SeriesService } from './series.service';
 import { ValidationMessagesComponent } from './validation-messages/validation-messages.component';
 import { ValidationService } from './validation-messages/validation.service';
-import { EditableMarkerService } from './editable-marker.service';
-import { ExerciseFeedbackComponent } from './exercise-feedback/exercise-feedback.component';
-import { SeriesIconComponent } from './series-icon/series-icon.component';
-import { JsLibsService } from './js-libs.service';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule],

@@ -1,10 +1,10 @@
-import { Exercise } from '../model/exercise';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { ISeries, Series } from '../model/series';
 import { environment } from '../../environments/environment';
+import { Exercise } from '../model/exercise';
+import { ISeries } from '../model/series';
 
 export const URL_SERIES = `${environment.apiUrl}topics/`;
 

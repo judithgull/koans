@@ -1,8 +1,12 @@
-import '../../../rx-index';
-
 import { Component, OnInit } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 
 import { ValidationMessagesComponent } from './validation-messages.component';
 
@@ -26,8 +30,7 @@ describe('ValidationMessagesComponent', () => {
   class TestInputComponent implements OnInit {
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit(): void {
       this.form = this.fb.group({
@@ -36,19 +39,14 @@ describe('ValidationMessagesComponent', () => {
     }
   }
 
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        ValidationMessagesComponent,
-        TestInputComponent
-      ],
-      imports: [
-        ReactiveFormsModule
-      ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [ValidationMessagesComponent, TestInputComponent],
+        imports: [ReactiveFormsModule]
+      }).compileComponents();
     })
-      .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ValidationMessagesComponent);
@@ -61,7 +59,6 @@ describe('ValidationMessagesComponent', () => {
     component.control = emailControl;
 
     fixture.detectChanges();
-
   });
 
   it('should initially not have errors', () => {

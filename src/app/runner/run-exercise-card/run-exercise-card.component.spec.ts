@@ -1,20 +1,16 @@
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Rx';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import { combineReducers, StoreModule } from '@ngrx/store';
 
-import { mockSeries } from '../../common/test/series.mock';
-import { RunExerciseCardComponent } from './run-exercise-card.component';
-import { Exercise } from '../../model/exercise';
-import { CodeEditorModule } from '../../code-editor/code-editor.module';
-
-import { StoreModule, combineReducers } from '@ngrx/store';
-
+import * as editorStore from '../../code-editor/store';
 import { AppCommonModule } from '../../common/common.module';
+import { mockSeries } from '../../common/test/series.mock';
+import { Exercise } from '../../model/exercise';
 import * as rootStore from '../../store';
 import * as runnerStore from '../store';
-import * as editorStore from '../../code-editor/store';
-import { EffectsModule } from '@ngrx/effects';
+import { RunExerciseCardComponent } from './run-exercise-card.component';
 
 describe('RunExerciseCardComponent', () => {
   let component: RunExerciseCardComponent;

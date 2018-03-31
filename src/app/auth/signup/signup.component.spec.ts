@@ -1,5 +1,3 @@
-import '../../../rx-index';
-
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';

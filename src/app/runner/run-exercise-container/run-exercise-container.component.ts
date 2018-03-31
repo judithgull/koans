@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import { Exercise, ExerciseProgress, ISeries } from '../../model';
 import * as st from '../../store';
 import * as rst from '../store';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-run-exercise-container',
