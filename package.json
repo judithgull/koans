@@ -10,10 +10,13 @@
     "ng": "ng",
     "prestart": "gulp clean; gulp pre-build",
     "start": "concurrently 'ng serve' 'ts-node app-node/app.ts' ",
-    "prodclient": "gulp clean && gulp pre-build && concurrently 'NODE_ENV=production gulp build' 'ts-node app-node/app.ts' ",
+    "prodclient":
+      "gulp clean && gulp pre-build && concurrently 'NODE_ENV=production gulp build' 'ts-node app-node/app.ts' ",
     "clienttests": "NODE_ENV=test karma start",
-    "servertests": "NODE_ENV=test mocha --compilers ts:ts-node/register app-node/**/*test.ts",
-    "test": "NODE_ENV=test gulp clean && NODE_ENV=test gulp pre-build && npm run clienttests && npm run servertests"
+    "servertests":
+      "NODE_ENV=test mocha --compilers ts:ts-node/register app-node/**/*test.ts",
+    "test":
+      "NODE_ENV=test gulp clean && NODE_ENV=test gulp pre-build && npm run clienttests && npm run servertests"
   },
   "dependencies": {
     "@angular/animations": "^5.1.2",
@@ -35,7 +38,7 @@
     "@types/ramda": "^0.25.20",
     "@types/rx-lite": "^4.0.4",
     "@types/sinon": "^2.3.4",
-    "ajv": "^5.2.2",
+    "ajv": "^6.0.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
     "bonescss": "0.7.3",
@@ -102,8 +105,8 @@
     "zone.js": "^0.8.18"
   },
   "devDependencies": {
-    "@angular/cli": "1.6.2",
-    "@angular/compiler-cli": "^5.1.2",
+    "@angular/cli": "^1.7.3",
+    "@angular/compiler-cli": "^5.2.9",
     "@angular/language-service": "^5.1.2",
     "@ngrx/store-devtools": "^4.1.1",
     "@types/jasmine": "~2.5.53",
