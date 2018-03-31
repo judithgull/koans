@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { ErrorMarker, ModelState } from '../../model';
+import { ErrorMarker, ModelState } from '../../../model';
 
 export interface ModelResultAction extends Action {
   modelState: ModelState;

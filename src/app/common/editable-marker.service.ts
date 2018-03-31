@@ -10,13 +10,13 @@ export class EditableMarkerService {
   /**
    * Find lines containing one or more placeholders
    * */
-  getPlaceholders(text: string): { row: number; col: number }[] {
+  getPlaceholders(text: string): Array<{ row: number; col: number }> {
     if (!text) {
       return [];
     }
     const lines: string[] = this.getLines(text);
 
-    const res: { row: number; col: number }[] = [];
+    const res: Array<{ row: number; col: number }> = [];
     lines.forEach((l, row) => {
       const col = l.indexOf(this.placeholder);
       if (col >= 0) {

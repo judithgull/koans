@@ -12,6 +12,7 @@ import { ValidationService } from './validation-messages/validation.service';
 import { EditableMarkerService } from './editable-marker.service';
 import { ExerciseFeedbackComponent } from './exercise-feedback/exercise-feedback.component';
 import { SeriesIconComponent } from './series-icon/series-icon.component';
+import { JsLibsService } from './js-libs.service';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule],
@@ -32,6 +33,7 @@ import { SeriesIconComponent } from './series-icon/series-icon.component';
     SeriesService,
     AuthService,
     EditableMarkerService,
+    JsLibsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

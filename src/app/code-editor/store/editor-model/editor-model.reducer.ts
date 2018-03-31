@@ -1,4 +1,4 @@
-import { Feedback } from '../../model';
+import { Feedback } from '../../../model';
 import {
   CHANGE_MODEL_VALUE_ACTION,
   EditorModelAction,

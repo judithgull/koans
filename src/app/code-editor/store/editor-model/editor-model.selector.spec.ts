@@ -3,11 +3,11 @@ import { Store, StoreModule } from '@ngrx/store';
 
 import {
   ChangeModelValueAction,
-  codeEditorReducer,
+  codeEditorReducers,
   getValidationResult,
   ResultErrorAction
-} from '.';
-import { ModelState, ProgrammingLanguage, SourceType } from '../../model';
+} from '..';
+import { ModelState, ProgrammingLanguage, SourceType } from '../../../model';
 import { EditorModelEntities } from './editor-model.reducer';
 
 describe('Editor Model Selectors', () => {
@@ -17,7 +17,7 @@ describe('Editor Model Selectors', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          ...codeEditorReducer
+          ...codeEditorReducers
         })
       ]
     });

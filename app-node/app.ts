@@ -10,12 +10,6 @@ import * as routes from './app-routes';
 export var serverApp = express();
 
 serverApp.use(compression());
-serverApp.use(
-  express.static(
-    path.join(__dirname, '../build/app'),
-    config.staticCacheOptions
-  )
-);
 
 serverApp.use(
   bodyParser.urlencoded({
@@ -40,12 +34,21 @@ if (config.allowAllOrigs) {
   const allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type,authorization');
+    res.header('Access-Control-Allow-Headers', '*');
+    res.setHeader('Content-Security-Policy', 'default-src "*" ');
+    res.header('X-Content-Type-Options', '');
     next();
   };
 
   serverApp.use(allowCrossDomain);
 }
+
+serverApp.use(
+  express.static(
+    path.join(__dirname, '../build/app'),
+    config.staticCacheOptions
+  )
+);
 
 /**
  * DB

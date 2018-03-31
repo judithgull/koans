@@ -10,6 +10,7 @@ import { StoreModule, combineReducers } from '@ngrx/store';
 import * as rootStore from '../../store';
 import { EffectsModule } from '@ngrx/effects';
 import { MonacoLoaderService } from '../../code-editor/monaco-loader.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ExerciseFormComponent', () => {
   let component: ExerciseFormComponent;
@@ -25,6 +26,7 @@ describe('ExerciseFormComponent', () => {
           ReactiveFormsModule,
           CodeEditorModule,
           AppCommonModule,
+          HttpClientTestingModule,
           StoreModule.forRoot({
             ...rootStore.reducers
           }),

@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { EditorModelEntities } from '.';
+import { EditorModelEntities } from '..';
 
 export const getEditorModel = createFeatureSelector<EditorModelEntities>(
   'editorModel'

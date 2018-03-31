@@ -3,11 +3,11 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 
-import { ErrorMarker, ModelState, SourceType, Feedback } from '../../model';
+import { ErrorMarker, ModelState, SourceType, Feedback } from '../../../model';
 import {
   CodeEditorValidationSerivce,
   CodeExecutorService
-} from '../validation';
+} from '../../validation';
 import {
   CHANGE_MODEL_VALUE_ACTION,
   createResultAction,

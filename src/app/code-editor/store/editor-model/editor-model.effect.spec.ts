@@ -2,15 +2,15 @@ import { TestBed } from '@angular/core/testing';
 import { Actions } from '@ngrx/effects';
 import { cold, hot } from 'jasmine-marbles';
 
-import { EditableMarkerService } from '../../common/editable-marker.service';
-import { ProgrammingLanguage, SourceType, Feedback } from '../../model';
-import { getActions, TestActions } from '../../store/test';
+import { EditableMarkerService } from '../../../common/editable-marker.service';
+import { ProgrammingLanguage, SourceType, Feedback } from '../../../model';
+import { getActions, TestActions } from '../../../store/test';
 import {
   CodeEditorValidationSerivce,
   CodeExecutorService,
   JSExecutorService,
   TsTranspilerService
-} from '../validation';
+} from '../../validation';
 import {
   ChangeModelValueAction,
   ResultErrorAction,
@@ -18,7 +18,7 @@ import {
 } from './editor-model.action';
 import { EditorModelEffects } from './editor-model.effect';
 import { Store } from '@ngrx/store';
-import { EditorModelState } from '.';
+import { EditorModelState } from '..';
 import { of } from 'rxjs/observable/of';
 
 class StoreMock {

@@ -93,7 +93,7 @@ describe('SeriesService', () => {
   });
 
   it('should delete a series', done => {
-    service.delete(1).subscribe(res => {
+    service.delete('1').subscribe(res => {
       expect(res._id).toBe(1);
       done();
     });

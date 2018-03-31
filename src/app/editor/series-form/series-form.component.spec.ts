@@ -12,6 +12,7 @@ import * as rootStore from '../../store';
 import { ExerciseFormComponent } from '../exercise-form/exercise-form.component';
 import { SeriesFormComponent } from './series-form.component';
 import { MonacoLoaderService } from '../../code-editor/monaco-loader.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SeriesFormComponent', () => {
   let component: SeriesFormComponent;
@@ -29,6 +30,7 @@ describe('SeriesFormComponent', () => {
           ReactiveFormsModule,
           CodeEditorModule,
           AppCommonModule,
+          HttpClientTestingModule,
           StoreModule.forRoot({
             ...rootStore.reducers
           }),

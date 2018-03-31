@@ -11,6 +11,7 @@ import { StoreModule } from '@ngrx/store';
 import * as rootStore from '../../store';
 import { EffectsModule } from '@ngrx/effects';
 import { MonacoLoaderService } from '../../code-editor/monaco-loader.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SeriesContainerComponent', () => {
   let component: SeriesContainerComponent;
@@ -32,6 +33,7 @@ describe('SeriesContainerComponent', () => {
           ReactiveFormsModule,
           AppCommonModule,
           CodeEditorModule,
+          HttpClientTestingModule,
           StoreModule.forRoot({
             ...rootStore.reducers
           }),

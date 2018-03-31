@@ -3,14 +3,14 @@ import {
   ChangeModelValueAction,
   ResultErrorAction,
   ResultSuccessAction
-} from '.';
+} from '..';
 import {
   FeedbackFactory,
   SourceType,
   FeedbackDetails,
   ErrorMarker,
   ProgrammingLanguage
-} from '../../model';
+} from '../../../model';
 
 describe('editorModelReducer', () => {
   const errors = [
