@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { LoadLibSuccess, LoadLibError, LOAD_LIB, LoadJsLib } from '.';
+import {
+  LoadLibSuccess,
+  LoadLibError,
+  LOAD_LIB,
+  LoadJsLib
+} from './js-libs.action';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { JsLibsService } from '../../../common';

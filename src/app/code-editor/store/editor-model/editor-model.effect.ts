@@ -56,21 +56,17 @@ export class EditorModelEffects {
         (a: ModelResultAction) => a.key === SourceType.validation.toString()
       ),
       map((a: ModelResultAction) => a.modelState),
-      withLatestFrom(this.ceStore.select(getLib('chai.js'))),
-      map(([modelState, lib]) =>
+      map(modelState =>
         createResultAction(
           'execution',
           modelState,
-          this.getExecutionErrors(modelState, lib)
+          this.getExecutionErrors(modelState)
         )
       )
     );
 
-  getExecutionErrors(modelState: ModelState, lib): ErrorMarker[] {
-    console.log('get Execution Errors', lib);
-    return this.codeExecutorService.run(modelState.value, modelState.progLang, [
-      lib
-    ]);
+  getExecutionErrors(modelState: ModelState): ErrorMarker[] {
+    return this.codeExecutorService.run(modelState.value, modelState.progLang);
   }
 
   @Effect()

@@ -15,13 +15,13 @@
         },
         {
           "glob": "**/*",
-          "input": "../node_modules/monaco-editor/min/",
+          "input": "../node_modules/monaco-editor/dev/",
           "output": "./assets/monaco-editor/"
         },
         {
           "glob": "**/*",
-          "input": "../node_modules/monaco-editor/min-maps/",
-          "output": "./assets/min-maps/"
+          "input": "../node_modules/chai/",
+          "output": "./assets/chai/"
         },
         "favicon.ico"
       ],
