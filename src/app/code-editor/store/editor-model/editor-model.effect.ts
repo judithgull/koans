@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { ErrorMarker, ModelState, SourceType, Feedback } from '../../../model';
 import {
@@ -20,6 +20,8 @@ import {
 import { getModelEntity } from './editor-model.selector';
 import { Store } from '@ngrx/store';
 import { EditorModelState } from './editor-model-state';
+import { CodeEditorState } from '..';
+import { getLib } from '../js-libs/js-libs.selector';
 
 @Injectable()
 export class EditorModelEffects {
@@ -27,7 +29,8 @@ export class EditorModelEffects {
     private actions$: Actions,
     private validationService: CodeEditorValidationSerivce,
     private codeExecutorService: CodeExecutorService,
-    private store: Store<EditorModelState>
+    private store: Store<EditorModelState>,
+    private ceStore: Store<CodeEditorState>
   ) {}
 
   @Effect()
@@ -53,17 +56,21 @@ export class EditorModelEffects {
         (a: ModelResultAction) => a.key === SourceType.validation.toString()
       ),
       map((a: ModelResultAction) => a.modelState),
-      map((modelState: ModelState) =>
+      withLatestFrom(this.ceStore.select(getLib('chai.js'))),
+      map(([modelState, lib]) =>
         createResultAction(
           'execution',
           modelState,
-          this.getExecutionErrors(modelState)
+          this.getExecutionErrors(modelState, lib)
         )
       )
     );
 
-  getExecutionErrors(modelState: ModelState): ErrorMarker[] {
-    return this.codeExecutorService.run(modelState.value, modelState.progLang);
+  getExecutionErrors(modelState: ModelState, lib): ErrorMarker[] {
+    console.log('get Execution Errors', lib);
+    return this.codeExecutorService.run(modelState.value, modelState.progLang, [
+      lib
+    ]);
   }
 
   @Effect()

@@ -4,7 +4,7 @@ import {
 } from '@angular/common/http/testing';
 import { inject, TestBed } from '@angular/core/testing';
 
-import { JsLibsService } from './js-libs.service';
+import { JsLibsService, JS_LIB_URL } from './js-libs.service';
 
 describe('JsLibsService', () => {
   let httpMock: HttpTestingController;

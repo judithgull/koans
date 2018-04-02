@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { Exercise } from '../model/exercise';
 import { ISeries } from '../model/series';
+import { catchError } from 'rxjs/operators';
 
 export const URL_SERIES = `${environment.apiUrl}topics/`;
 
@@ -18,14 +19,16 @@ export class SeriesService {
         responseType: 'json',
         params: params
       })
-      .catch(this.handleError);
+      .pipe(catchError(this.handleError));
   }
 
   get(id: string): Observable<ISeries> {
     if (!id) {
       return Observable.throw('invalid id');
     }
-    return this.http.get(`${URL_SERIES}${id}`).catch(this.handleError);
+    return this.http
+      .get(`${URL_SERIES}${id}`)
+      .pipe(catchError(this.handleError));
   }
 
   private getItem(series: ISeries, exSortOrder: number): Exercise {
@@ -37,17 +40,21 @@ export class SeriesService {
   }
 
   create(series: ISeries): Observable<ISeries> {
-    return this.http.post(URL_SERIES, series).catch(this.handleError);
+    return this.http
+      .post(URL_SERIES, series)
+      .pipe(catchError(this.handleError));
   }
 
   update(series: ISeries): Observable<ISeries> {
     return this.http
       .put(`${URL_SERIES}${series._id}`, series)
-      .catch(this.handleError);
+      .pipe(catchError(this.handleError));
   }
 
   delete(id: string): Observable<any> {
-    return this.http.delete(`${URL_SERIES}${id}`).catch(this.handleError);
+    return this.http
+      .delete(`${URL_SERIES}${id}`)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(err: any) {

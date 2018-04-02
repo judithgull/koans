@@ -11,8 +11,15 @@ export class CodeExecutorService {
     private tsTraspiler: TsTranspilerService
   ) {}
 
-  run(value: string, progLang: ProgrammingLanguage): ErrorMarker[] {
-    return this.jsService.run(this.getTranspiledValue(value, progLang));
+  run(
+    value: string,
+    progLang: ProgrammingLanguage,
+    libs: string[]
+  ): ErrorMarker[] {
+    const transpiledValue = this.getTranspiledValue(value, progLang);
+    const all: string = libs.reduce((a, b) => a + b, '') + transpiledValue;
+    // console.log(all);
+    return this.jsService.run(all);
   }
 
   private getTranspiledValue(
