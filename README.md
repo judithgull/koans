@@ -102,7 +102,7 @@ mongod
 
 Run `npm start` to start application (in a different terminal)
 
-Open browser with [http://localhost:3000](http://localhost:3000)
+Open browser with [http://localhost:4200](http://localhost:4200)
 
 # Development
 
