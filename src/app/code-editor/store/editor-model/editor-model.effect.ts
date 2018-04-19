@@ -21,7 +21,6 @@ import { getModelEntity } from './editor-model.selector';
 import { Store } from '@ngrx/store';
 import { EditorModelState } from './editor-model-state';
 import { CodeEditorState } from '..';
-import { getLib } from '../js-libs/js-libs.selector';
 
 @Injectable()
 export class EditorModelEffects {
@@ -31,7 +30,7 @@ export class EditorModelEffects {
     private codeExecutorService: CodeExecutorService,
     private store: Store<EditorModelState>,
     private ceStore: Store<CodeEditorState>
-  ) {}
+  ) { }
 
   @Effect()
   validate$: Observable<ModelResultAction> = this.actions$

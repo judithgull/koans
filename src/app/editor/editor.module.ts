@@ -11,14 +11,13 @@ import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
 import { SeriesExistsGuard } from './series.guard';
 import { SeriesContainerComponent } from './series-container/series-container.component';
 import { MonacoLoadedGuard } from '../code-editor/monaco-loaded.guard';
-import { JsLibsGuard } from '../code-editor/js-libs.guard';
 
 const routes: Routes = [
   {
     path: 'editor/:id',
     component: SeriesContainerComponent,
     pathMatch: 'full',
-    canActivate: [SeriesExistsGuard, MonacoLoadedGuard, JsLibsGuard]
+    canActivate: [SeriesExistsGuard, MonacoLoadedGuard]
   },
   {
     path: 'editor',
@@ -43,4 +42,4 @@ const routes: Routes = [
   ],
   providers: [SeriesExistsGuard]
 })
-export class EditorModule {}
+export class EditorModule { }

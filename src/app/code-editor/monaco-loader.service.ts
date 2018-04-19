@@ -35,8 +35,14 @@ export class MonacoLoaderService implements OnDestroy {
 
   private loadMonacoEditor(done: () => void) {
     if (!(window as any).monaco) {
-      (window as any).require.config({ paths: { vs: this._monacoPath } });
-      (window as any).require(['vs/editor/editor.main'], () => {
+      (window as any).require.config({
+        paths: {
+          vs: this._monacoPath,
+          assets: 'assets',
+          chai: 'assets/chai/chai.js'
+        }
+      });
+      (window as any).require(['vs/editor/editor.main', 'chai'], () => {
         this.addExtraLibs();
         done();
       });

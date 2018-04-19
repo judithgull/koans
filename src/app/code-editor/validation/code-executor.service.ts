@@ -13,7 +13,7 @@ export class CodeExecutorService {
 
   run(value: string, progLang: ProgrammingLanguage): ErrorMarker[] {
     const transpiledValue = this.getTranspiledValue(value, progLang);
-    const prefix = 'var expect = chai.expect;';
+    const prefix = 'var chai = require("chai");var expect = chai.expect;';
     const all: string = prefix + transpiledValue;
     return this.jsService.run(all);
   }
