@@ -3,11 +3,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { combineReducers, StoreModule } from '@ngrx/store';
 
 import { AppCommonModule } from '../../common/common.module';
-import * as rootStore from '../../store';
+import * as st from '../../store';
 import { ExerciseNavButtonsComponent } from '../exercise-nav-buttons/exercise-nav-buttons.component';
 import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
 import { SeriesRunnerComponent } from '../series-runner/series-runner.component';
-import * as runnerStore from '../store';
 import { SeriesContainerComponent } from './series-container.component';
 
 describe('SeriesContainerComponent', () => {
@@ -27,8 +26,7 @@ describe('SeriesContainerComponent', () => {
           AppCommonModule,
           RouterTestingModule,
           StoreModule.forRoot({
-            ...rootStore.reducers,
-            runner: combineReducers(runnerStore.reducers)
+            ...st.reducers
           })
         ]
       }).compileComponents();

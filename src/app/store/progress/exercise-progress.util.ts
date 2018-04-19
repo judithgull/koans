@@ -1,4 +1,4 @@
-import { Exercise, ExerciseProgress, ModelState } from '../../../model';
+import { Exercise, ExerciseProgress, ModelState } from '../../model';
 
 /**
  * Create initial exerciseprogress from exercise

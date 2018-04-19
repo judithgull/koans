@@ -1,5 +1,5 @@
-import { ExerciseProgress, ISeries, SeriesProgress } from '../../../model';
-import { toEntities } from '../../../store/entityUtil';
+import { ExerciseProgress, ISeries, SeriesProgress } from '../../model';
+import { toEntities } from '../../store/entityUtil';
 import {
   solve,
   toggleSolutionVisible,
@@ -16,12 +16,12 @@ export interface SeriesProgressEntities {
   entities: { [id: string]: SeriesProgress };
 }
 
-export const initialState: SeriesProgressEntities = {
+export const progressInitialState: SeriesProgressEntities = {
   entities: {}
 };
 
 export function progressReducer(
-  state = initialState,
+  state = progressInitialState,
   action: SeriesProgressAction
 ): SeriesProgressEntities {
   switch (action.type) {

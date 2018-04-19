@@ -1,11 +1,11 @@
 import { Action } from '@ngrx/store';
 
-import { ISeries, ModelState } from '../../../model';
+import { ISeries, ModelState } from '../../model';
 
 export const INIT_SERIES_PROGRESS = 'INIT SERIES PROGRESS';
 export class InitSeriesProgress implements Action {
   readonly type = INIT_SERIES_PROGRESS;
-  constructor(public payload: ISeries) {}
+  constructor(public payload: ISeries) { }
 }
 
 export const EXERCISE_SOLVED = 'EXERCISE SOLVED';
@@ -17,7 +17,7 @@ export class ExerciseSolved implements Action {
       id: number;
       userSolution: string;
     }
-  ) {}
+  ) { }
 }
 
 export const TOGGLE_SOLUTION_VISIBLE = 'TOGGLE_SOLUTION_VISIBLE';
@@ -28,13 +28,13 @@ export class ToggleSolutionVisible implements Action {
       seriesId: number;
       id: number;
     }
-  ) {}
+  ) { }
 }
 
 export const SERIES_COMPLETED = 'SERIES_COMPLETED';
 export class SeriesCompleted implements Action {
   readonly type = SERIES_COMPLETED;
-  constructor(public seriesId: number) {}
+  constructor(public seriesId: number) { }
 }
 
 export type SeriesProgressAction =

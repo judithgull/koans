@@ -3,8 +3,6 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map, switchMap, take } from 'rxjs/operators';
 
-import { RunnerState } from '..';
-import { GoToExercise, getSelectedSeries } from '../../../store';
 import {
   EXERCISE_SOLVED,
   ExerciseSolved,
@@ -14,10 +12,13 @@ import {
   getAllExerciseProgresses,
   getSelectedUserState
 } from './progress.selectors';
+import { State } from '..';
+
+import { GoToExercise } from '../series-routing';
 
 @Injectable()
 export class ProgressEffects {
-  constructor(private actions$: Actions, private store: Store<RunnerState>) {}
+  constructor(private actions$: Actions, private store: Store<State>) { }
 
   @Effect()
   navigateNextUnsolved$ = this.actions$.ofType(EXERCISE_SOLVED).pipe(

@@ -7,19 +7,17 @@ import { filter, map, switchMap, take, tap, timeout } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators/catchError';
 
 import { SeriesProgress } from '../model';
-import { getSeriesEntities, LoadSeries, State } from '../store';
 import {
   getSelectedSeriesState,
   InitSeriesProgress,
-  RunnerState
-} from './store';
+  getSeriesEntities, LoadSeries, State
+} from '../store';
 
 @Injectable()
 export class SeriesProgressExistsGuard implements CanActivate {
   constructor(
-    private store: Store<State>,
-    private runnerStore: Store<RunnerState>
-  ) {}
+    private store: Store<State>
+  ) { }
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     return this.checkStore(route.params.id).pipe(
@@ -32,7 +30,7 @@ export class SeriesProgressExistsGuard implements CanActivate {
     return this.store.select(getSeriesEntities).pipe(
       map(entites => entites[id]),
       switchMap(series => {
-        return this.runnerStore.select(getSelectedSeriesState).pipe(
+        return this.store.select(getSelectedSeriesState).pipe(
           tap(userState => {
             if (!series) {
               this.store.dispatch(new LoadSeries(id));

@@ -1,28 +1,21 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { RunnerState } from '..';
-import { ExerciseProgress, SeriesProgress } from '../../../model';
-import * as root from '../../../store';
+import { ExerciseProgress, SeriesProgress } from '../../model';
 import { SeriesProgressEntities } from './progress.reducer';
+import { getRouterState } from '../router';
 
-// TODO rename
+export const getProgress = createFeatureSelector<SeriesProgressEntities>('progress');
+
 export const getEntities = (state: SeriesProgressEntities) => state.entities;
 
-export const getRunner = createFeatureSelector<RunnerState>('runner');
-
-export const getSeriesProgresses = createSelector(
-  getRunner,
-  (state: RunnerState) => state.progress
-);
-
 export const getSeriesUserStateEntities = createSelector(
-  getSeriesProgresses,
+  getProgress,
   getEntities
 );
 
 export const getSelectedSeriesState = createSelector(
   getSeriesUserStateEntities,
-  root.getRouterState,
+  getRouterState,
   (entities, router) => {
     if (entities && router && router.state) {
       const seriesId = router.state.params.id;
@@ -34,7 +27,7 @@ export const getSelectedSeriesState = createSelector(
 
 export const getSelectedUserState = createSelector(
   getSelectedSeriesState,
-  root.getRouterState,
+  getRouterState,
   (seriesUserState: SeriesProgress, router) => {
     if (seriesUserState && router.state) {
       const exId = router.state.params.exId;

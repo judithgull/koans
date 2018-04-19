@@ -4,10 +4,9 @@ import { combineReducers, StoreModule } from '@ngrx/store';
 
 import { AppCommonModule } from '../../common/common.module';
 import { mockSeries } from '../../common/test';
-import * as rootStore from '../../store';
+import * as st from '../../store';
 import { ExerciseNavButtonsComponent } from '../exercise-nav-buttons/exercise-nav-buttons.component';
 import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
-import * as runnerStore from '../store';
 import { SeriesRunnerComponent } from './series-runner.component';
 
 describe('SeriesRunnerComponent', () => {
@@ -26,8 +25,7 @@ describe('SeriesRunnerComponent', () => {
           AppCommonModule,
           RouterTestingModule,
           StoreModule.forRoot({
-            ...rootStore.reducers,
-            runner: combineReducers(runnerStore.reducers)
+            ...st.reducers
           })
         ]
       }).compileComponents();

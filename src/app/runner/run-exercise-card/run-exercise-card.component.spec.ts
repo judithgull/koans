@@ -9,7 +9,6 @@ import { AppCommonModule } from '../../common/common.module';
 import { mockSeries } from '../../common/test/series.mock';
 import { Exercise } from '../../model/exercise';
 import * as rootStore from '../../store';
-import * as runnerStore from '../store';
 import { RunExerciseCardComponent } from './run-exercise-card.component';
 
 describe('RunExerciseCardComponent', () => {
@@ -28,9 +27,7 @@ describe('RunExerciseCardComponent', () => {
           ReactiveFormsModule,
           FormsModule,
           StoreModule.forRoot({
-            ...rootStore.reducers,
-            runner: combineReducers(runnerStore.reducers),
-            editorModel: combineReducers(editorStore.editorModelReducer)
+            ...rootStore.reducers
           }),
           EffectsModule.forRoot([])
         ],

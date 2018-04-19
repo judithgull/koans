@@ -9,7 +9,6 @@ import { Store } from '@ngrx/store';
 
 import { ErrorMarker, Exercise, ExerciseProgress, ISeries } from '../../model';
 import * as st from '../../store';
-import * as rst from '../store';
 
 @Component({
   selector: 'app-run-exercise-card',
@@ -32,7 +31,7 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
   markers: ErrorMarker[] = [];
   seriesLength: number = 0;
 
-  constructor(private store: Store<st.State>) {}
+  constructor(private store: Store<st.State>) { }
 
   ngOnInit(): void {
     this.userValue = this.progress.value;
@@ -63,7 +62,7 @@ export class RunExerciseCardComponent implements OnInit, OnChanges {
 
   toggleSolution() {
     this.store.dispatch(
-      new rst.ToggleSolutionVisible({
+      new st.ToggleSolutionVisible({
         seriesId: this.series._id,
         id: this.ex.sortOrder
       })

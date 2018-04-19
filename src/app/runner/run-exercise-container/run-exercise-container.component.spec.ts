@@ -4,7 +4,6 @@ import { RunExerciseContainerComponent } from './run-exercise-container.componen
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { combineReducers, StoreModule } from '@ngrx/store';
 import * as rootStore from '../../store';
-import * as runnerStore from '../store';
 
 describe('RunExerciseContainerComponent', () => {
   let component: RunExerciseContainerComponent;
@@ -17,8 +16,7 @@ describe('RunExerciseContainerComponent', () => {
         schemas: [NO_ERRORS_SCHEMA],
         imports: [
           StoreModule.forRoot({
-            ...rootStore.reducers,
-            runner: combineReducers(runnerStore.reducers)
+            ...rootStore.reducers
           })
         ]
       }).compileComponents();

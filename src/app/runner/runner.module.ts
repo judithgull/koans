@@ -15,7 +15,6 @@ import { RunExerciseContainerComponent } from './run-exercise-container/run-exer
 import { SeriesContainerComponent } from './series-container/series-container.component';
 import { SeriesProgressExistsGuard } from './series-progress.guard';
 import { SeriesRunnerComponent } from './series-runner/series-runner.component';
-import { effects, reducers } from './store';
 import { MonacoLoadedGuard } from '../code-editor/monaco-loaded.guard';
 
 const routes: Routes = [
@@ -45,9 +44,7 @@ const routes: Routes = [
     AppCommonModule,
     CodeEditorModule,
     ReactiveFormsModule,
-    FormsModule,
-    StoreModule.forFeature('runner', reducers),
-    EffectsModule.forFeature(effects)
+    FormsModule
   ],
   declarations: [
     SeriesRunnerComponent,

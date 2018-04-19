@@ -5,12 +5,12 @@ import { cold, hot } from 'jasmine-marbles';
 import { of } from 'rxjs/observable/of';
 
 import { ExerciseSolved, SeriesCompleted } from '.';
-import { RunnerState } from '..';
-import { getActions, TestActions } from '../../../store/test';
+import { getActions, TestActions } from '../../store/test';
 import { ProgressEffects } from './progress.effect';
+import { State } from '..';
 
 class StoreMock {
-  select<K>(mapFn: (state: RunnerState) => K): Store<K> {
+  select<K>(mapFn: (state: State) => K): Store<K> {
     return null;
   }
 }
@@ -18,7 +18,7 @@ class StoreMock {
 describe('ProgressEffects', () => {
   let actions$: TestActions;
   let effects: ProgressEffects;
-  let store: Store<RunnerState>;
+  let store: Store<State>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

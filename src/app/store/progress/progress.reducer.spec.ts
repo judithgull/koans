@@ -1,11 +1,11 @@
-import { initialState, progressReducer } from './progress.reducer';
+import { progressInitialState, progressReducer } from './progress.reducer';
 import { InitSeriesProgress } from './progress.action';
-import { mockSeries } from '../../../common/test/index';
+import { mockSeries } from '../../common/test/index';
 import {
   SeriesProgress,
   ModelState,
   ProgrammingLanguage
-} from '../../../model';
+} from '../../model';
 import { ExerciseSolved, ToggleSolutionVisible } from '../index';
 
 describe('Progress Reducer', () => {
@@ -41,7 +41,7 @@ describe('Progress Reducer', () => {
     it('should return the default state', () => {
       const action: any = {};
       const state = progressReducer(undefined, action);
-      expect(state).toBe(initialState);
+      expect(state).toBe(progressInitialState);
     });
   });
 
@@ -49,7 +49,7 @@ describe('Progress Reducer', () => {
     it('should initialize progress entities', () => {
       const series = mockSeries[0];
       const action = new InitSeriesProgress(series);
-      const state = progressReducer(initialState, action);
+      const state = progressReducer(progressInitialState, action);
       expect(state).toEqual(initialProgressStateSeries1);
     });
 
@@ -57,7 +57,7 @@ describe('Progress Reducer', () => {
       const series = mockSeries[0];
       series.items = [series.items[0]];
       const action = new InitSeriesProgress(series);
-      const state = progressReducer(initialState, action);
+      const state = progressReducer(progressInitialState, action);
       expect(state.entities['1']['2']).toBeUndefined();
     });
   });

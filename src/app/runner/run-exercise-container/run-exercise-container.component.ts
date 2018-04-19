@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 
 import { Exercise, ExerciseProgress, ISeries } from '../../model';
 import * as st from '../../store';
-import * as rst from '../store';
 
 @Component({
   selector: 'app-run-exercise-container',
@@ -20,11 +19,11 @@ export class RunExerciseContainerComponent implements OnInit {
   progress$: Observable<ExerciseProgress>;
   series$: Store<ISeries>;
 
-  constructor(private store: Store<st.State>) {}
+  constructor(private store: Store<st.State>) { }
 
   ngOnInit() {
     this.ex$ = this.store.select(st.getSelectedExercise);
-    this.progress$ = this.store.select(rst.getSelectedUserState);
+    this.progress$ = this.store.select(st.getSelectedUserState);
     this.series$ = this.store.select(st.getSelectedSeries);
   }
 }

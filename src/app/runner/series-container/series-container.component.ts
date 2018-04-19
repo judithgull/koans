@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 
 import { ExerciseProgress, ISeries } from '../../model';
 import * as st from '../../store';
-import * as rst from '../store';
 
 @Component({
   selector: 'app-series-container',
@@ -18,7 +17,7 @@ export class SeriesContainerComponent implements OnInit {
 
   ngOnInit() {
     this.series$ = this.store.select(st.getSelectedSeries);
-    this.progresses$ = this.store.select(rst.getAllExerciseProgresses);
-    this.progress$ = this.store.select(rst.getSelectedUserState);
+    this.progresses$ = this.store.select(st.getAllExerciseProgresses);
+    this.progress$ = this.store.select(st.getSelectedUserState);
   }
 }
