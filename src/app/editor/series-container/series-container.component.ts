@@ -14,6 +14,7 @@ import {
   ProgrammingLanguage
 } from '../../model';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators/map';
 
 @Component({
   selector: 'app-series-container',
@@ -37,12 +38,13 @@ export class SeriesContainerComponent implements OnInit {
     }
   ];
 
-  constructor(private store: Store<State>) {}
+  constructor(private store: Store<State>) { }
 
   ngOnInit() {
-    this.series$ = this.store.select(getSelectedSeries).map(s => {
-      return s ? new Series({ ...s }) : this.createNewSeries();
-    });
+    this.series$ = this.store.select(getSelectedSeries).pipe(
+      map(s => {
+        return s ? new Series({ ...s }) : this.createNewSeries();
+      }));
   }
 
   private createNewSeries(): Series {

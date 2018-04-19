@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
 import { ValidationService } from './validation.service';
+import { debounceTime } from 'rxjs/operators/debounceTime';
 
 /**
  * Component to display validation messages
@@ -24,13 +25,18 @@ export class ValidationMessagesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscr = this.control.valueChanges
-      .debounceTime(1000)
+    this.subscr = this.control
+      .valueChanges
+      .pipe(
+        debounceTime(1000)
+      )
       .subscribe(value => this.setMessage(this.control, this.validationKey));
   }
 
   ngOnDestroy(): void {
-    this.subscr.unsubscribe();
+    if (this.subscr) {
+      this.subscr.unsubscribe();
+    }
   }
 
   setMessage(c: AbstractControl, fieldName: string): void {

@@ -43,7 +43,7 @@ describe('SeriesService', () => {
   it('should return error if series query fails', done => {
     service.getSeries().subscribe(
       // tslint:disable-next-line:no-empty
-      () => {},
+      () => { },
       err => {
         expect(err).toBe('Unauthorized');
         done();
@@ -71,7 +71,7 @@ describe('SeriesService', () => {
   it('should throw an error, if series not found', done => {
     service.get('').subscribe(
       // tslint:disable-next-line:no-empty
-      () => {},
+      () => { },
       (e: any) => {
         done();
       }
@@ -101,4 +101,6 @@ describe('SeriesService', () => {
 
     httpMock.verify();
   });
+
 });
+

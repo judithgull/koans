@@ -24,7 +24,7 @@ describe('ExerciseNavButtonsComponent', () => {
       solutionRequested: false,
       solutionVisible: false,
       solved: false,
-      userSolution: ''
+      value: 'x'
     };
     fixture.detectChanges();
   });

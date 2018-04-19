@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "koans2"
+    "name": "koans"
   },
   "apps": [
     {
@@ -32,7 +32,9 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
-      "styles": ["styles.scss"],
+      "styles": [
+        "styles.scss"
+      ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {

@@ -1,17 +1,19 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 import { environment } from '../../environments/environment';
 import { Exercise } from '../model/exercise';
 import { ISeries } from '../model/series';
 import { catchError } from 'rxjs/operators';
 
+
 export const URL_SERIES = `${environment.apiUrl}topics/`;
 
 @Injectable()
 export class SeriesService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getSeries(params?: HttpParams): Observable<ISeries[]> {
     return this.http
@@ -24,7 +26,7 @@ export class SeriesService {
 
   get(id: string): Observable<ISeries> {
     if (!id) {
-      return Observable.throw('invalid id');
+      return ErrorObservable.create('invalid id');
     }
     return this.http
       .get(`${URL_SERIES}${id}`)
@@ -60,8 +62,8 @@ export class SeriesService {
   private handleError(err: any) {
     console.log(err);
     if (err.status === 401) {
-      return Observable.throw('Unauthorized');
+      return ErrorObservable.create('Unauthorized');
     }
-    return Observable.throw(err);
+    return ErrorObservable.create(err);
   }
 }

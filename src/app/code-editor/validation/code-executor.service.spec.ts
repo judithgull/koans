@@ -28,13 +28,13 @@ describe('CodeExecutorService', () => {
     jsService = TestBed.get(JSExecutorService);
   });
   it('should run a valid js value', () => {
-    expect(service.run('', ProgrammingLanguage.javascript, [])).toEqual([]);
+    expect(service.run('', ProgrammingLanguage.javascript)).toEqual([]);
   });
 
   it('should run an invalid js value', () => {
     const error = 'error';
     const value = `throw "${error}";`;
-    expect(service.run(value, ProgrammingLanguage.javascript, [])).toEqual([
+    expect(service.run(value, ProgrammingLanguage.javascript)).toEqual([
       {
         message: jsService.runtimeErrorMessage,
         startLineNumber: 1
@@ -46,7 +46,7 @@ describe('CodeExecutorService', () => {
     const value = 'const a:number = 1;';
     const transpiledValue = 'var a = 1;';
     spyOn(transpilerService, 'run').and.returnValue(transpiledValue);
-    const res = service.run(value, ProgrammingLanguage.typescript, []);
+    const res = service.run(value, ProgrammingLanguage.typescript);
     console.log(res);
     expect(res).toEqual([]);
   });

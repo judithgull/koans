@@ -12,7 +12,7 @@ describe('SignupComponent', () => {
   let component: SignupComponent;
   let fixture: ComponentFixture<SignupComponent>;
 
-  class MockToastrService {}
+  class MockToastrService { }
 
   beforeEach(
     async(() => {

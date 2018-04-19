@@ -14,7 +14,7 @@ export class SeriesContainerComponent implements OnInit {
   progresses$: Store<ExerciseProgress[]>;
   progress$: Store<ExerciseProgress>;
 
-  constructor(private store: Store<st.State>) {}
+  constructor(private store: Store<st.State>) { }
 
   ngOnInit() {
     this.series$ = this.store.select(st.getSelectedSeries);

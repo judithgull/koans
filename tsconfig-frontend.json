@@ -11,18 +11,22 @@
     "typeRoots": [
       "../node_modules/@types"
     ],
-    "lib" : ["es2015", "es2015.iterable", "dom"]
+    "lib": [
+      "es2017",
+      "es2017.iterable",
+      "dom"
+    ]
   },
   "filesGlob": [
     "./**/*.ts",
     "!./node_modules/**/*.ts"
   ],
   "exclude": [
-  "node_modules",
-  "app-node",
-  "build",
-  "lib",
-  "Gulpfile.ts",
-  "build.config.ts"
-]
+    "node_modules",
+    "app-node",
+    "build",
+    "lib",
+    "Gulpfile.ts",
+    "build.config.ts"
+  ]
 }

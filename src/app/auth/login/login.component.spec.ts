@@ -7,12 +7,13 @@ import { ToastrService } from 'ngx-toastr';
 
 import { AppCommonModule } from '../../common/common.module';
 import { LoginComponent } from './login.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
-  class MockToastrService {}
+  class MockToastrService { }
 
   beforeEach(
     async(() => {
@@ -22,7 +23,7 @@ describe('LoginComponent', () => {
           CommonModule,
           ReactiveFormsModule,
           AppCommonModule,
-          HttpClientModule,
+          HttpClientTestingModule,
           RouterTestingModule
         ],
         providers: [{ provide: ToastrService, useClass: MockToastrService }]

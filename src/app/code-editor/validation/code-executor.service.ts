@@ -9,11 +9,14 @@ export class CodeExecutorService {
   constructor(
     private jsService: JSExecutorService,
     private tsTraspiler: TsTranspilerService
-  ) {}
+  ) { }
 
   run(value: string, progLang: ProgrammingLanguage): ErrorMarker[] {
-    const transpiledValue = this.getTranspiledValue(value, progLang);
-    const prefix = 'var chai = require("chai");var expect = chai.expect;';
+    const transpiledValue: string = this.getTranspiledValue(value, progLang);
+    let prefix = '';
+    if (transpiledValue.includes('expect')) {
+      prefix = 'var chai = require("chai");var expect = chai.expect;';
+    }
     const all: string = prefix + transpiledValue;
     return this.jsService.run(all);
   }

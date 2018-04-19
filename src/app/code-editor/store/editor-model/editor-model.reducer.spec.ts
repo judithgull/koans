@@ -5,7 +5,6 @@ import {
   ResultSuccessAction
 } from '..';
 import {
-  FeedbackFactory,
   SourceType,
   FeedbackDetails,
   ErrorMarker,

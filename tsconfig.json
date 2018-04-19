@@ -9,17 +9,24 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "target": "es5",
-    "allowJs": true
+    "allowJs": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ]
   },
   "filesGlob": [
     "./**/*.ts",
     "!./node_modules/**/*.ts"
   ],
   "exclude": [
-  "node_modules",
-  "build",
-  "lib",
-  "Gulpfile.ts",
-  "build.config.ts"
-]
+    "node_modules",
+    "build",
+    "lib",
+    "Gulpfile.ts",
+    "build.config.ts"
+  ]
 }

@@ -10,13 +10,10 @@
     "ng": "ng",
     "prestart": "gulp clean; gulp pre-build",
     "start": "concurrently 'ng serve' 'ts-node app-node/app.ts' ",
-    "prodclient":
-      "gulp clean && gulp pre-build && concurrently 'NODE_ENV=production gulp build' 'ts-node app-node/app.ts' ",
+    "prodclient": "gulp clean && gulp pre-build && concurrently 'NODE_ENV=production gulp build' 'ts-node app-node/app.ts' ",
     "clienttests": "NODE_ENV=test karma start",
-    "servertests":
-      "NODE_ENV=test mocha --compilers ts:ts-node/register app-node/**/*test.ts",
-    "test":
-      "NODE_ENV=test gulp clean && NODE_ENV=test gulp pre-build && npm run clienttests && npm run servertests"
+    "servertests": "NODE_ENV=test mocha --compilers ts:ts-node/register app-node/**/*test.ts",
+    "test": "NODE_ENV=test gulp clean && NODE_ENV=test gulp pre-build && npm run servertests && ng test"
   },
   "dependencies": {
     "@angular/animations": "^5.1.2",
@@ -33,10 +30,10 @@
     "@ngrx/router-store": "^4.1.1",
     "@ngrx/store": "^4.1.1",
     "@types/chai": "^4.0.4",
+    "@types/core-js": "^0.9.46",
     "@types/jasmine": "^2.6.0",
     "@types/node": "^6.0.*",
     "@types/ramda": "^0.25.20",
-    "@types/rx-lite": "^4.0.4",
     "@types/sinon": "^2.3.4",
     "ajv": "^6.0.0",
     "bcrypt-nodejs": "0.0.3",

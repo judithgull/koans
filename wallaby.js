@@ -7,7 +7,7 @@ var compilerOptions = Object.assign(
   require('./src/tsconfig.spec.json').compilerOptions
 );
 
-module.exports = function(wallaby) {
+module.exports = function (wallaby) {
   var webpackPostprocessor = wallabyWebpack({
     entryPatterns: ['src/wallabyTest.js', 'src/**/*spec.js'],
 
@@ -68,7 +68,7 @@ module.exports = function(wallaby) {
       '**/*.ts': wallaby.compilers.typeScript(compilerOptions)
     },
 
-    middleware: function(app, express) {
+    middleware: function (app, express) {
       var path = require('path');
       app.use(
         '/favicon.ico',
@@ -77,6 +77,10 @@ module.exports = function(wallaby) {
       app.use(
         '/assets/monaco-editor/',
         express.static(path.join(__dirname, 'node_modules/monaco-editor/min'))
+      );
+      app.use(
+        '/assets/chai/',
+        express.static(path.join(__dirname, 'node_modules/chai'))
       );
       app.use('/assets', express.static(path.join(__dirname, 'src/assets')));
     },
@@ -87,7 +91,7 @@ module.exports = function(wallaby) {
 
     postprocessor: webpackPostprocessor,
 
-    setup: function() {
+    setup: function () {
       window.__moduleBundler.loadTests();
     },
 
