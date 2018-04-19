@@ -16,7 +16,10 @@
     "no-var-keyword": false,
     "no-namespace": false,
     "no-internal-module": false,
-    "no-implicit-dependencies": [true, "dev"],
+    "no-implicit-dependencies": [
+      true,
+      "dev"
+    ],
     "no-string-literal": false,
     "object-literal-shorthand": false,
     "no-shadowed-variable": false,
@@ -30,15 +33,23 @@
     "ordered-imports": false,
     "no-var-requires": false,
     "max-classes-per-file": false,
-    "quotemark": [true, "single"],
+    "quotemark": [
+      true,
+      "single"
+    ],
     "no-submodule-imports": [
       true,
       "rxjs",
+      "zone.js",
+      "core-js",
       "@angular/platform-browser",
       "@angular/common/http",
       "@angular/core/testing",
       "@angular/router/testing"
     ],
-    "arrow-parens": [true, "ban-single-arg-parens"]
+    "arrow-parens": [
+      true,
+      "ban-single-arg-parens"
+    ]
   }
 }
