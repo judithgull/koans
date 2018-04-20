@@ -1,9 +1,9 @@
-import { Feedback } from '../../../model';
+import { Feedback } from '../../model';
 import {
   CHANGE_MODEL_VALUE_ACTION,
   EditorModelAction,
   MODEL_RESULT_ERROR,
-  MODEL_RESULT_SUCCESS
+  MODEL_RESULT_SUCCESS,
 } from './editor-model.action';
 
 export interface EditorModelEntities {
@@ -12,12 +12,12 @@ export interface EditorModelEntities {
   };
 }
 
-export const initialState: EditorModelEntities = {
+export const emInitialState: EditorModelEntities = {
   entities: {}
 };
 
 export function editorModelReducer(
-  state = initialState,
+  state = emInitialState,
   action: EditorModelAction
 ): EditorModelEntities {
   const existingModelState = action.modelState

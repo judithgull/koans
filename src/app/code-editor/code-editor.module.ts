@@ -5,7 +5,6 @@ import { StoreModule } from '@ngrx/store';
 
 import { CodeEditorComponent } from './code-editor.component';
 import { MonacoLoaderService } from './monaco-loader.service';
-import { editorModelReducer, effects, codeEditorReducers } from './store';
 import {
   CodeEditorValidationSerivce,
   CodeExecutorService,
@@ -16,9 +15,7 @@ import { MonacoLoadedGuard } from './monaco-loaded.guard';
 
 @NgModule({
   imports: [
-    CommonModule,
-    StoreModule.forFeature('codeEditor', codeEditorReducers),
-    EffectsModule.forFeature(effects)
+    CommonModule
   ],
   declarations: [CodeEditorComponent],
   exports: [CodeEditorComponent],
@@ -31,4 +28,4 @@ import { MonacoLoadedGuard } from './monaco-loaded.guard';
     MonacoLoadedGuard
   ]
 })
-export class CodeEditorModule {}
+export class CodeEditorModule { }

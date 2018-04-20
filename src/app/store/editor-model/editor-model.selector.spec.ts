@@ -1,13 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 
-import {
-  ChangeModelValueAction,
-  codeEditorReducers,
-  getValidationResult,
-  ResultErrorAction
-} from '..';
-import { ModelState, ProgrammingLanguage, SourceType } from '../../../model';
+import { ChangeModelValueAction, getValidationResult, reducers, ResultErrorAction } from '..';
+import { ModelState, ProgrammingLanguage, SourceType } from '../../model';
 import { EditorModelEntities } from './editor-model.reducer';
 
 describe('Editor Model Selectors', () => {
@@ -17,7 +12,7 @@ describe('Editor Model Selectors', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          ...codeEditorReducers
+          ...reducers
         })
       ]
     });

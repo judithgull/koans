@@ -1,15 +1,6 @@
-import { editorModelReducer, initialState } from './editor-model.reducer';
-import {
-  ChangeModelValueAction,
-  ResultErrorAction,
-  ResultSuccessAction
-} from '..';
-import {
-  SourceType,
-  FeedbackDetails,
-  ErrorMarker,
-  ProgrammingLanguage
-} from '../../../model';
+import { ChangeModelValueAction, ResultErrorAction, ResultSuccessAction } from '..';
+import { ErrorMarker, FeedbackDetails, ProgrammingLanguage, SourceType } from '../../model';
+import { editorModelReducer, emInitialState } from './editor-model.reducer';
 
 describe('editorModelReducer', () => {
   const errors = [
@@ -39,7 +30,7 @@ describe('editorModelReducer', () => {
     it('should return the default state', () => {
       const action: any = {};
       const state = editorModelReducer(undefined, action);
-      expect(state).toBe(initialState);
+      expect(state).toBe(emInitialState);
     });
   });
 

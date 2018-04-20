@@ -34,7 +34,7 @@ import {
   createResultAction,
   EditorModelEntities,
   getValidationResult
-} from './store';
+} from '../store';
 
 /**
  * Monaco editor as a custom form control
@@ -53,7 +53,7 @@ import {
 })
 export class CodeEditorComponent
   implements OnInit, OnDestroy, ControlValueAccessor {
-  constructor(private store: Store<EditorModelEntities>) {}
+  constructor(private store: Store<EditorModelEntities>) { }
 
   @ViewChild('editor') editorContent: ElementRef;
 
@@ -78,9 +78,9 @@ export class CodeEditorComponent
   private disposables: monaco.IDisposable[] = [];
 
   // tslint:disable-next-line:no-empty
-  onChange: (_: string) => void = () => {};
+  onChange: (_: string) => void = () => { };
   // tslint:disable-next-line:no-empty
-  onTouched: () => void = () => {};
+  onTouched: () => void = () => { };
 
   ngOnInit(): void {
     this.initEditor();

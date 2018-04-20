@@ -1,25 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { Actions } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
 
-import { EditableMarkerService } from '../../../common/editable-marker.service';
-import { ProgrammingLanguage, SourceType, Feedback } from '../../../model';
-import { getActions, TestActions } from '../../../store/test';
-import {
-  CodeEditorValidationSerivce,
-  CodeExecutorService,
-  JSExecutorService,
-  TsTranspilerService
-} from '../../validation';
-import {
-  ChangeModelValueAction,
-  ResultErrorAction,
-  ResultSuccessAction
-} from './editor-model.action';
-import { EditorModelEffects } from './editor-model.effect';
-import { Store } from '@ngrx/store';
 import { EditorModelState } from '..';
-import { of } from 'rxjs/observable/of';
+import { CodeEditorValidationSerivce, CodeExecutorService, JSExecutorService, TsTranspilerService } from '../../code-editor';
+import { EditableMarkerService } from '../../common';
+import { ProgrammingLanguage, SourceType } from '../../model';
+import { getActions, TestActions } from '../test';
+import { ChangeModelValueAction, ResultErrorAction, ResultSuccessAction } from './editor-model.action';
+import { EditorModelEffects } from './editor-model.effect';
 
 class StoreMock {
   select<K>(mapFn) {
