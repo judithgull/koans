@@ -19,7 +19,11 @@ export class JSExecutorService {
       return [];
     } catch (e) {
       console.log(e);
-      return [{ message: this.runtimeErrorMessage, startLineNumber: 1 }];
+      var message = this.runtimeErrorMessage;
+      if (e.message) {
+        message = e.message;
+      }
+      return [{ message, startLineNumber: 1 }];
     }
   }
 }

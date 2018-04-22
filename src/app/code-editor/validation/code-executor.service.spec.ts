@@ -47,7 +47,34 @@ describe('CodeExecutorService', () => {
     const transpiledValue = 'var a = 1;';
     spyOn(transpilerService, 'run').and.returnValue(transpiledValue);
     const res = service.run(value, ProgrammingLanguage.typescript);
-    console.log(res);
     expect(res).toEqual([]);
+  });
+
+  it('should run valid assertion', () => {
+    const value = `function add(x:number, y:number){
+                      return x + y;
+                  }
+                expect(add(2,3)).to.equal(5);`;
+    const transpiledValue = `function add(x, y){
+                      return x + y;
+                  }
+                expect(add(2,3)).to.equal(5);`;
+    spyOn(transpilerService, 'run').and.returnValue(transpiledValue);
+    const res = service.run(value, ProgrammingLanguage.typescript);
+    expect(res).toEqual([]);
+  });
+
+  it('should fail for invalid assertion', () => {
+    const value = `function add(x:number, y:number){
+                      return x + y;
+                  }
+                expect(add(2,3)).to.equal(4);`;
+    const transpiledValue = `function add(x, y){
+                      return x + y;
+                  }
+                expect(add(2,3)).to.equal(4);`;
+    spyOn(transpilerService, 'run').and.returnValue(transpiledValue);
+    const res = service.run(value, ProgrammingLanguage.typescript);
+    expect(res).toEqual([{ message: 'expected 5 to equal 4', startLineNumber: 1 }]);
   });
 });
