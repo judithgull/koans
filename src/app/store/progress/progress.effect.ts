@@ -37,27 +37,4 @@ export class ProgressEffects {
       );
     })
   );
-
-  //   @Effect()
-  //   solved$ = this.actions$.ofType(MODEL_ALL_SUCCESS).pipe(
-  //     switchMap((a: AllSuccessAction) =>
-  //       this.store.select(getSelectedSeries).pipe(
-  //         map(s => {
-  //           return { a, series: s };
-  //         })
-  //       )
-  //     ),
-  //     switchMap(({ a, series }) =>
-  //       this.store.select(getSelectedUserState).pipe(
-  //         map(
-  //           p =>
-  //             new ExerciseSolved({
-  //               seriesId: series._id,
-  //               id: p.id,
-  //               userSolution: p.value
-  //             })
-  //         )
-  //       )
-  //     )
-  //   );
 }

@@ -9,7 +9,6 @@ import { CodeEditorValidationSerivce, CodeExecutorService } from '../../code-edi
 import { ErrorMarker, Feedback, ModelState, SourceType } from '../../model';
 import { EditorModelState } from './editor-model-state';
 import {
-  AllSuccessAction,
   CHANGE_MODEL_VALUE_ACTION,
   createResultAction,
   EditorModelAction,
@@ -65,36 +64,4 @@ export class EditorModelEffects {
     return this.codeExecutorService.run(modelState.value, modelState.progLang);
   }
 
-  @Effect()
-  validateAll$: Observable<AllSuccessAction> = this.actions$
-    .ofType(MODEL_RESULT_SUCCESS)
-    .pipe(
-      switchMap(({ key, modelState }: ResultSuccessAction) => {
-        return this.store
-          .select(getModelEntity(modelState.id))
-          .pipe(
-            filter(entity => !!entity),
-            filter(entity => this.isAllSuccess(entity, key)),
-            map(entity => new AllSuccessAction(modelState))
-          );
-      })
-    );
-
-  isAllSuccess(f: Feedback, key: string): boolean {
-    const merged = {
-      ...f,
-      [key]: {
-        success: true,
-        errors: []
-      }
-    };
-    return (
-      merged.monaco &&
-      merged.monaco.success &&
-      merged.validation &&
-      merged.validation.success &&
-      merged.execution &&
-      merged.execution.success
-    );
-  }
 }
