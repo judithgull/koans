@@ -26,8 +26,24 @@ describe('editorModelReducer', () => {
     progLang: ProgrammingLanguage.javascript
   });
 
+  const entity1 = {
+    id: 'id1',
+    versionId: 0,
+    value: 'value',
+    progLang: ProgrammingLanguage.javascript,
+    valid: false
+  };
+
+  const entity2 = {
+    id: 'id2',
+    versionId: 0,
+    value: 'value',
+    progLang: ProgrammingLanguage.typescript,
+    valid: false
+  };
+
   describe('Default State', () => {
-    it('should return the default state', () => {
+    it('should return the initial state', () => {
       const action: any = {};
       const state = editorModelReducer(undefined, action);
       expect(state).toBe(emInitialState);
@@ -37,40 +53,18 @@ describe('editorModelReducer', () => {
   describe('Value Change', () => {
     it('should change the value on valueChange', () => {
       const state = editorModelReducer(undefined, changeValueAction);
-      expect(state).toEqual({
-        entities: {
-          id1: {
-            id: 'id1',
-            versionId: 0,
-            value: 'value',
-            progLang: ProgrammingLanguage.javascript
-          }
-        }
-      });
+      expect(state).toEqual({ entities: { id1: entity1 } });
     });
 
     it('should not change other entities', () => {
-      const entity2 = {
-        id2: {
-          id: 'id2',
-          versionId: 0,
-          value: 'value',
-          progLang: ProgrammingLanguage.typescript
-        }
-      };
       const state = editorModelReducer(
-        { entities: { ...entity2 } },
+        { entities: { id2: entity2 } },
         changeValueAction
       );
       expect(state).toEqual({
         entities: {
-          ...entity2,
-          id1: {
-            id: 'id1',
-            versionId: 0,
-            value: 'value',
-            progLang: ProgrammingLanguage.javascript
-          }
+          id2: entity2,
+          id1: entity1
         }
       });
     });
@@ -78,10 +72,9 @@ describe('editorModelReducer', () => {
     it('should ignore older changes', () => {
       const initialEntity = {
         id1: {
-          id: 'id1',
+          ...entity1,
           versionId: 1,
-          value: 'value',
-          progLang: ProgrammingLanguage.typescript
+          valid: true
         }
       };
       const action = new ChangeModelValueAction({
@@ -97,10 +90,9 @@ describe('editorModelReducer', () => {
       expect(state).toEqual({
         entities: {
           id1: {
-            id: 'id1',
+            ...entity1,
             versionId: 1,
-            value: 'value',
-            progLang: ProgrammingLanguage.typescript
+            valid: true
           }
         }
       });
@@ -108,12 +100,7 @@ describe('editorModelReducer', () => {
 
     it('should overwrite for newer changes', () => {
       const initialEntity = {
-        id1: {
-          id: 'id1',
-          versionId: 0,
-          value: 'value',
-          progLang: ProgrammingLanguage.javascript
-        }
+        id1: entity1
       };
       const action = new ChangeModelValueAction({
         id: 'id1',
@@ -128,9 +115,9 @@ describe('editorModelReducer', () => {
       expect(state).toEqual({
         entities: {
           id1: {
-            id: 'id1',
-            versionId: 1,
+            ...entity1,
             value: 'value1',
+            versionId: 1,
             progLang: ProgrammingLanguage.typescript
           }
         }
@@ -141,19 +128,14 @@ describe('editorModelReducer', () => {
   describe('Validation', () => {
     it('should update failed validation', () => {
       const initialEntity = {
-        id1: {
-          id: 'id1',
-          versionId: 0,
-          value: 'value',
-          progLang: ProgrammingLanguage.typescript
-        }
+        id1: entity1
       };
 
       const action = new ResultErrorAction(
         SourceType.validation,
         {
           id: 'id1',
-          versionId: 1,
+          versionId: 0,
           value: 'value1',
           progLang: ProgrammingLanguage.typescript
         },
@@ -166,11 +148,9 @@ describe('editorModelReducer', () => {
       expect(state).toEqual({
         entities: {
           id1: {
-            id: 'id1',
-            versionId: 1,
-            value: 'value1',
-            progLang: ProgrammingLanguage.typescript,
-            validation: errorDetails
+            ...entity1,
+            validation: errorDetails,
+            valid: false
           }
         }
       });
@@ -203,7 +183,8 @@ describe('editorModelReducer', () => {
             id: 'id1',
             versionId: 1,
             value: 'value2',
-            progLang: ProgrammingLanguage.typescript
+            progLang: ProgrammingLanguage.typescript,
+            valid: false
           }
         }
       });
@@ -226,7 +207,7 @@ describe('editorModelReducer', () => {
         SourceType.monaco,
         {
           id: 'id1',
-          versionId: 1,
+          versionId: 0,
           value: 'value',
           progLang: ProgrammingLanguage.typescript
         },
@@ -241,13 +222,15 @@ describe('editorModelReducer', () => {
         entities: {
           id1: {
             id: 'id1',
-            versionId: 1,
+            versionId: 0,
             value: 'value',
             progLang: ProgrammingLanguage.typescript,
+            validation: errorDetails,
             monaco: {
               success: false,
               errors: errorMarkers2
-            }
+            },
+            valid: false
           }
         }
       });
@@ -285,10 +268,54 @@ describe('editorModelReducer', () => {
             monaco: {
               success: true,
               errors: []
-            }
+            },
+            valid: false
           }
         }
       });
     });
   });
-});
+
+  describe('Execution', () => {
+    it('should update state to valid, if everything passes', () => {
+      const success = {
+        success: true,
+        errors: []
+      };
+      const initialEntity = {
+        id1: {
+          id: 'id1',
+          versionId: 0,
+          value: 'value',
+          progLang: ProgrammingLanguage.typescript,
+          validation: success
+        }
+      };
+
+      const action = new ResultSuccessAction(SourceType.execution, {
+        id: 'id1',
+        versionId: 0,
+        value: 'value',
+        progLang: ProgrammingLanguage.typescript
+      });
+
+      const state = editorModelReducer(
+        { entities: { ...initialEntity } },
+        action
+      );
+      expect(state).toEqual({
+        entities: {
+          id1: {
+            id: 'id1',
+            versionId: 0,
+            value: 'value',
+            progLang: ProgrammingLanguage.typescript,
+            validation: success,
+            execution: success,
+            valid: true
+          }
+        }
+      });
+    });
+    });
+  });

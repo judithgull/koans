@@ -62,7 +62,8 @@ describe('Editor Model Selectors', () => {
         validation: {
           success: false,
           errors
-        }
+        },
+        valid: false
       });
     });
 

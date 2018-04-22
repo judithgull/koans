@@ -4,6 +4,7 @@ import { ProgrammingLanguage } from '../../model';
 import { CodeExecutorService } from './code-executor.service';
 import { JSExecutorService } from './js-executor.service';
 import { TsTranspilerService } from './ts-transpiler.service';
+import { MonacoLoaderService } from '../monaco-loader.service';
 
 class MockTsTranspilerService {
   run(v: string) {
@@ -15,9 +16,11 @@ describe('CodeExecutorService', () => {
   let service: CodeExecutorService;
   let transpilerService: TsTranspilerService;
   let jsService: JSExecutorService;
-  beforeEach(() => {
+
+  beforeEach(done => {
     TestBed.configureTestingModule({
       providers: [
+        MonacoLoaderService,
         CodeExecutorService,
         JSExecutorService,
         { provide: TsTranspilerService, useClass: MockTsTranspilerService }
@@ -26,7 +29,15 @@ describe('CodeExecutorService', () => {
     service = TestBed.get(CodeExecutorService);
     transpilerService = TestBed.get(TsTranspilerService);
     jsService = TestBed.get(JSExecutorService);
+
+    const monacoLoader = TestBed.get(MonacoLoaderService);
+    monacoLoader.isMonacoLoaded.subscribe(loaded => {
+      if (loaded) {
+        done();
+      }
+    });
   });
+
   it('should run a valid js value', () => {
     expect(service.run('', ProgrammingLanguage.javascript)).toEqual([]);
   });

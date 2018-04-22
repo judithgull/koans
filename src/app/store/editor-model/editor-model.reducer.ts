@@ -1,4 +1,4 @@
-import { Feedback } from '../../model';
+import { Feedback, FeedbackDetails, SourceType } from '../../model';
 import {
   CHANGE_MODEL_VALUE_ACTION,
   EditorModelAction,
@@ -37,7 +37,7 @@ export function editorModelReducer(
         ...state,
         entities: {
           ...state.entities,
-          [action.modelState.id]: { ...action.modelState }
+          [action.modelState.id]: { ...action.modelState, valid: false }
         }
       };
     case MODEL_RESULT_ERROR: {
@@ -70,9 +70,26 @@ export function editorModelReducer(
   return state;
 }
 
+function isValid(resultKey: string, result: FeedbackDetails, existingModelState: Feedback): boolean {
+  const existingValidationValid = existingModelState.validation && existingModelState.validation.success;
+  const existingExecutionValid = existingModelState.execution && existingModelState.execution.success;
+  const existingMonacoValid = !existingModelState.monaco || existingModelState.monaco.success;
+
+  if (!result.success) {
+    return false;
+  } else if (resultKey === SourceType.execution && existingValidationValid && existingMonacoValid) {
+    return true;
+  } else if (resultKey === SourceType.monaco && existingValidationValid && existingExecutionValid) {
+    return true;
+  } else if (resultKey === SourceType.validation && existingExecutionValid && existingMonacoValid) {
+    return true;
+  }
+  return false;
+}
+
 function addResult(
   resultKey: string,
-  result: any,
+  result: FeedbackDetails,
   existingModelState: Feedback,
   newModelState: Feedback,
   state: EditorModelEntities
@@ -87,7 +104,8 @@ function addResult(
         ...state.entities,
         [newModelState.id]: {
           ...existingModelState,
-          [resultKey]: result
+          [resultKey]: result,
+          valid: isValid(resultKey, result, existingModelState)
         }
       }
     };
@@ -101,7 +119,8 @@ function addResult(
           progLang: newModelState.progLang,
           id: newModelState.id,
           versionId: newModelState.versionId,
-          [resultKey]: result
+          [resultKey]: result,
+          valid: existingModelState.valid
         }
       }
     };

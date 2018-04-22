@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { ErrorMarker, ModelState } from '../../model';
+import { ErrorMarker, ModelState, FeedbackDetails } from '../../model';
 
 export interface ModelResultAction extends Action {
   modelState: ModelState;
@@ -26,7 +26,9 @@ export class ResultErrorAction implements ModelResultAction {
 export const MODEL_RESULT_SUCCESS = 'MODEL_RESULT_SUCCESS';
 export class ResultSuccessAction implements ModelResultAction {
   readonly type = MODEL_RESULT_SUCCESS;
-  constructor(public key: string, public modelState: ModelState) { }
+  constructor(
+    public key: string,
+    public modelState: ModelState) { }
 }
 
 // all validations successful
