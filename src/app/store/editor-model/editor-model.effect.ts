@@ -9,12 +9,12 @@ import { CodeEditorValidationSerivce, CodeExecutorService } from '../../code-edi
 import { ErrorMarker, Feedback, ModelState, SourceType } from '../../model';
 import { EditorModelState } from './editor-model-state';
 import {
-  CHANGE_MODEL_VALUE_ACTION,
+  MODEL_VALUE_CHANGE,
   createResultAction,
   EditorModelAction,
-  MODEL_RESULT_SUCCESS,
+  MODEL_SUCCESS,
   ModelResultAction,
-  ResultSuccessAction,
+  ModelSuccess,
 } from './editor-model.action';
 import { getModelEntity } from './editor-model.selector';
 
@@ -30,7 +30,7 @@ export class EditorModelEffects {
 
   @Effect()
   validate$: Observable<ModelResultAction> = this.actions$
-    .ofType(CHANGE_MODEL_VALUE_ACTION)
+    .ofType(MODEL_VALUE_CHANGE)
     .pipe(
       map((a: EditorModelAction) => a.modelState),
       map((modelState: ModelState) => {
@@ -45,7 +45,7 @@ export class EditorModelEffects {
 
   @Effect()
   execute$: Observable<ModelResultAction> = this.actions$
-    .ofType(MODEL_RESULT_SUCCESS)
+    .ofType(MODEL_SUCCESS)
     .pipe(
       filter(
         (a: ModelResultAction) => a.key === SourceType.validation.toString()

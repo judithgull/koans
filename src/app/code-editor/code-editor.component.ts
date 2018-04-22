@@ -30,7 +30,7 @@ import {
   toMarkerData
 } from './marker-data-util';
 import {
-  ChangeModelValueAction,
+  ModelValueChange,
   createResultAction,
   EditorModelEntities,
   getValidationResult
@@ -160,7 +160,7 @@ export class CodeEditorComponent
     this.disposables.push(
       this.model.onDidChangeContent(e => {
         this.editorModelChange.emit(this.modelState);
-        this.store.dispatch(new ChangeModelValueAction(this.modelState));
+        this.store.dispatch(new ModelValueChange(this.modelState));
 
         this.onChange(this.value);
         this.height = this.computeHeight();

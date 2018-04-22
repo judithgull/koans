@@ -1,4 +1,4 @@
-import { ChangeModelValueAction, ResultErrorAction, ResultSuccessAction } from '..';
+import { ModelValueChange, ModelError, ModelSuccess } from '..';
 import { ErrorMarker, FeedbackDetails, ProgrammingLanguage, SourceType } from '../../model';
 import { editorModelReducer, emInitialState } from './editor-model.reducer';
 
@@ -19,7 +19,7 @@ describe('editorModelReducer', () => {
       startLineNumber: -1
     }
   ];
-  const changeValueAction = new ChangeModelValueAction({
+  const changeValueAction = new ModelValueChange({
     id: 'id1',
     versionId: 0,
     value: 'value',
@@ -77,7 +77,7 @@ describe('editorModelReducer', () => {
           valid: true
         }
       };
-      const action = new ChangeModelValueAction({
+      const action = new ModelValueChange({
         id: 'id1',
         versionId: 0,
         value: 'value1',
@@ -102,7 +102,7 @@ describe('editorModelReducer', () => {
       const initialEntity = {
         id1: entity1
       };
-      const action = new ChangeModelValueAction({
+      const action = new ModelValueChange({
         id: 'id1',
         versionId: 1,
         value: 'value1',
@@ -131,7 +131,7 @@ describe('editorModelReducer', () => {
         id1: entity1
       };
 
-      const action = new ResultErrorAction(
+      const action = new ModelError(
         SourceType.validation,
         {
           id: 'id1',
@@ -167,7 +167,7 @@ describe('editorModelReducer', () => {
         }
       };
 
-      const action = new ChangeModelValueAction({
+      const action = new ModelValueChange({
         id: 'id1',
         versionId: 1,
         value: 'value2',
@@ -203,7 +203,7 @@ describe('editorModelReducer', () => {
         }
       };
 
-      const action = new ResultErrorAction(
+      const action = new ModelError(
         SourceType.monaco,
         {
           id: 'id1',
@@ -246,7 +246,7 @@ describe('editorModelReducer', () => {
         }
       };
 
-      const action = new ResultSuccessAction(SourceType.monaco, {
+      const action = new ModelSuccess(SourceType.monaco, {
         id: 'id1',
         versionId: 0,
         value: 'value',
@@ -292,7 +292,7 @@ describe('editorModelReducer', () => {
         }
       };
 
-      const action = new ResultSuccessAction(SourceType.execution, {
+      const action = new ModelSuccess(SourceType.execution, {
         id: 'id1',
         versionId: 0,
         value: 'value',

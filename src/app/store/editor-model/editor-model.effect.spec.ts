@@ -8,7 +8,7 @@ import { CodeEditorValidationSerivce, CodeExecutorService, JSExecutorService, Ts
 import { EditableMarkerService } from '../../common';
 import { ProgrammingLanguage, SourceType } from '../../model';
 import { getActions, TestActions } from '../test';
-import { ChangeModelValueAction, ResultErrorAction, ResultSuccessAction } from './editor-model.action';
+import { ModelValueChange, ModelError, ModelSuccess } from './editor-model.action';
 import { EditorModelEffects } from './editor-model.effect';
 
 class StoreMock {
@@ -55,7 +55,7 @@ describe('EditorModelEffects', () => {
 
   describe('validate$', () => {
     it('should fail validation for empty value', () => {
-      const action = new ChangeModelValueAction(modelState);
+      const action = new ModelValueChange(modelState);
 
       actions$.stream = hot('-a', { a: action });
 
@@ -67,7 +67,7 @@ describe('EditorModelEffects', () => {
       ];
 
       const expected = cold('-b', {
-        b: new ResultErrorAction(
+        b: new ModelError(
           SourceType.validation.toString(),
           modelState,
           validationErrors
@@ -79,12 +79,12 @@ describe('EditorModelEffects', () => {
 
   describe('execute$', () => {
     it('should execute on validation success', () => {
-      const action = new ResultSuccessAction(SourceType.validation, modelState);
+      const action = new ModelSuccess(SourceType.validation, modelState);
 
       actions$.stream = hot('-a', { a: action });
 
       const expected = cold('-b', {
-        b: new ResultSuccessAction(SourceType.execution, modelState)
+        b: new ModelSuccess(SourceType.execution, modelState)
       });
       expect(effects.execute$).toBeObservable(expected);
     });

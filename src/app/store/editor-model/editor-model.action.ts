@@ -7,15 +7,15 @@ export interface ModelResultAction extends Action {
   key: string;
 }
 
-export const CHANGE_MODEL_VALUE_ACTION = 'CHANGE MODEL VALUE ACTION';
-export class ChangeModelValueAction implements Action {
-  readonly type = CHANGE_MODEL_VALUE_ACTION;
+export const MODEL_VALUE_CHANGE = 'MODEL VALUE CHANGE';
+export class ModelValueChange implements Action {
+  readonly type = MODEL_VALUE_CHANGE;
   constructor(public modelState: ModelState) { }
 }
 
-export const MODEL_RESULT_ERROR = 'MODEL_RESULT_ERROR';
-export class ResultErrorAction implements ModelResultAction {
-  readonly type = MODEL_RESULT_ERROR;
+export const MODEL_ERROR = 'MODEL_ERROR';
+export class ModelError implements ModelResultAction {
+  readonly type = MODEL_ERROR;
   constructor(
     public key: string,
     public modelState: ModelState,
@@ -23,9 +23,9 @@ export class ResultErrorAction implements ModelResultAction {
   ) { }
 }
 
-export const MODEL_RESULT_SUCCESS = 'MODEL_RESULT_SUCCESS';
-export class ResultSuccessAction implements ModelResultAction {
-  readonly type = MODEL_RESULT_SUCCESS;
+export const MODEL_SUCCESS = 'MODEL_SUCCESS';
+export class ModelSuccess implements ModelResultAction {
+  readonly type = MODEL_SUCCESS;
   constructor(
     public key: string,
     public modelState: ModelState) { }
@@ -35,15 +35,15 @@ export function createResultAction(
   owner: string,
   modelState: ModelState,
   errors: ErrorMarker[]
-): ResultSuccessAction | ResultErrorAction {
+): ModelSuccess | ModelError {
   if (errors.length) {
-    return new ResultErrorAction(owner, modelState, errors);
+    return new ModelError(owner, modelState, errors);
   } else {
-    return new ResultSuccessAction(owner, modelState);
+    return new ModelSuccess(owner, modelState);
   }
 }
 
 export type EditorModelAction =
-  | ChangeModelValueAction
-  | ResultErrorAction
-  | ResultSuccessAction;
+  | ModelValueChange
+  | ModelError
+  | ModelSuccess;

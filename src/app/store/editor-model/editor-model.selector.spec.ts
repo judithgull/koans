@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 
-import { ChangeModelValueAction, getValidationResult, reducers, ResultErrorAction } from '..';
+import { ModelValueChange, getValidationResult, reducers, ModelError } from '..';
 import { ModelState, ProgrammingLanguage, SourceType } from '../../model';
 import { EditorModelEntities } from './editor-model.reducer';
 
@@ -46,9 +46,9 @@ describe('Editor Model Selectors', () => {
         progLang: ProgrammingLanguage.javascript,
         value: ''
       };
-      store.dispatch(new ChangeModelValueAction(modelState));
+      store.dispatch(new ModelValueChange(modelState));
       store.dispatch(
-        new ResultErrorAction(
+        new ModelError(
           SourceType.validation.toString(),
           modelState,
           errors

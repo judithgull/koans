@@ -1,9 +1,9 @@
 import { Feedback, FeedbackDetails, SourceType } from '../../model';
 import {
-  CHANGE_MODEL_VALUE_ACTION,
+  MODEL_VALUE_CHANGE,
   EditorModelAction,
-  MODEL_RESULT_ERROR,
-  MODEL_RESULT_SUCCESS,
+  MODEL_ERROR,
+  MODEL_SUCCESS,
 } from './editor-model.action';
 
 export interface EditorModelEntities {
@@ -32,7 +32,7 @@ export function editorModelReducer(
     return state;
   }
   switch (action.type) {
-    case CHANGE_MODEL_VALUE_ACTION:
+    case MODEL_VALUE_CHANGE:
       return {
         ...state,
         entities: {
@@ -40,7 +40,7 @@ export function editorModelReducer(
           [action.modelState.id]: { ...action.modelState, valid: false }
         }
       };
-    case MODEL_RESULT_ERROR: {
+    case MODEL_ERROR: {
       const result = {
         success: false,
         errors: action.errors
@@ -53,7 +53,7 @@ export function editorModelReducer(
         state
       );
     }
-    case MODEL_RESULT_SUCCESS: {
+    case MODEL_SUCCESS: {
       const result = {
         success: true,
         errors: []
