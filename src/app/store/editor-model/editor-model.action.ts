@@ -43,7 +43,7 @@ export function createResultAction(
   }
 }
 
-export type EditorModelAction =
+export type ModelAction =
   | ModelValueChange
   | ModelError
   | ModelSuccess;

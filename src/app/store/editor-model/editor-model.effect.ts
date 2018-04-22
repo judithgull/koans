@@ -11,7 +11,7 @@ import { EditorModelState } from './editor-model-state';
 import {
   MODEL_VALUE_CHANGE,
   createResultAction,
-  EditorModelAction,
+  ModelAction,
   MODEL_SUCCESS,
   ModelResultAction,
   ModelSuccess,
@@ -32,7 +32,7 @@ export class EditorModelEffects {
   validate$: Observable<ModelResultAction> = this.actions$
     .ofType(MODEL_VALUE_CHANGE)
     .pipe(
-      map((a: EditorModelAction) => a.modelState),
+      map((a: ModelAction) => a.modelState),
       map((modelState: ModelState) => {
         const errors = this.validationService.validate(modelState.value);
         return createResultAction(

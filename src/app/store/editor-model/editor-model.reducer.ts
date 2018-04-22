@@ -1,7 +1,7 @@
 import { Feedback, FeedbackDetails, SourceType } from '../../model';
 import {
   MODEL_VALUE_CHANGE,
-  EditorModelAction,
+  ModelAction,
   MODEL_ERROR,
   MODEL_SUCCESS,
 } from './editor-model.action';
@@ -18,7 +18,7 @@ export const emInitialState: EditorModelEntities = {
 
 export function editorModelReducer(
   state = emInitialState,
-  action: EditorModelAction
+  action: ModelAction
 ): EditorModelEntities {
   const existingModelState = action.modelState
     ? state.entities[action.modelState.id]
