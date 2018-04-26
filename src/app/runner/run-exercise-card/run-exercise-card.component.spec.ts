@@ -5,6 +5,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 import { AppCommonModule } from '../../common/common.module';
+import { testFeedback } from '../../common/test';
 import { mockSeries } from '../../common/test/series.mock';
 import { Exercise } from '../../model/exercise';
 import * as st from '../../store';
@@ -38,13 +39,7 @@ describe('RunExerciseCardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RunExerciseCardComponent);
     component = fixture.componentInstance;
-    component.progress = {
-      value: '',
-      id: 1,
-      solutionRequested: false,
-      solutionVisible: false,
-      solved: false
-    };
+    component.progress = testFeedback;
     component.series = mockSeries[0];
     component.ex = component.series.items[0];
     fixture.detectChanges();

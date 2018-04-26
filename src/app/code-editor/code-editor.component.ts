@@ -67,7 +67,7 @@ export class CodeEditorComponent
 
   height = 100;
 
-  private _path: string;
+  private _modelConfig: { path: string, initialValue: string };
   uri: monaco.Uri;
 
   private _language: ProgrammingLanguage;
@@ -91,7 +91,7 @@ export class CodeEditorComponent
     if (exisitngModel) {
       return exisitngModel;
     }
-    return monaco.editor.createModel(this.value, this.language, this.uri);
+    return monaco.editor.createModel(this._modelConfig.initialValue, this.language, this.uri);
   }
 
   get model() {
@@ -123,16 +123,16 @@ export class CodeEditorComponent
   }
 
   @Input()
-  set path(path: string) {
-    this._path = path;
+  set modelConfig(config: { path: string, initialValue: string }) {
+    this._modelConfig = config;
     this.uri = monaco.Uri.file(this.path);
     if (this.editor) {
       this.editor.setModel(this.getOrCreateModel());
     }
   }
 
-  get path() {
-    return this._path;
+  get path(): string {
+    return this._modelConfig.path;
   }
 
   get modelState(): ModelState {
@@ -248,8 +248,8 @@ export class CodeEditorComponent
    */
   ngOnDestroy() {
     this.disposables.forEach(d => d.dispose());
-    if (this.editor) {
-      this.editor.dispose();
+    if (this.model) {
+      this.model.dispose();
     }
 
     this.subs.forEach(s => s.unsubscribe());

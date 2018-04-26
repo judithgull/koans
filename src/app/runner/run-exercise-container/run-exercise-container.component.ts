@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { Exercise, ExerciseProgress, ISeries } from '../../model';
+import { Exercise, ExerciseProgress, ISeries, Feedback } from '../../model';
 import * as st from '../../store';
 
 @Component({
@@ -16,14 +16,14 @@ import * as st from '../../store';
 })
 export class RunExerciseContainerComponent implements OnInit {
   ex$: Store<Exercise>;
-  progress$: Observable<ExerciseProgress>;
+  progress$: Observable<Feedback>;
   series$: Store<ISeries>;
 
   constructor(private store: Store<st.State>) { }
 
   ngOnInit() {
     this.ex$ = this.store.select(st.getSelectedExercise);
-    this.progress$ = this.store.select(st.getSelectedUserState);
+    this.progress$ = this.store.select(st.getSelectedProgress);
     this.series$ = this.store.select(st.getSelectedSeries);
   }
 }

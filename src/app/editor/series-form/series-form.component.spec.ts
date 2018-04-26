@@ -1,18 +1,18 @@
 import { CommonModule } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 import { CodeEditorModule } from '../../code-editor/code-editor.module';
+import { MonacoLoaderService } from '../../code-editor/monaco-loader.service';
 import { AppCommonModule } from '../../common/common.module';
 import { mockSeries } from '../../common/test';
 import { Series } from '../../model';
 import * as rootStore from '../../store';
 import { ExerciseFormComponent } from '../exercise-form/exercise-form.component';
 import { SeriesFormComponent } from './series-form.component';
-import { MonacoLoaderService } from '../../code-editor/monaco-loader.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SeriesFormComponent', () => {
   let component: SeriesFormComponent;

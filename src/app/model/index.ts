@@ -8,3 +8,4 @@ export * from './search.params';
 export * from './series';
 export * from './exercise-progress';
 export * from './series-progress';
+export * from './exercise-key';

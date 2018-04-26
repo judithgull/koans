@@ -1,9 +1,10 @@
-import { Feedback, FeedbackDetails, SourceType } from '../../model';
+import { Feedback, FeedbackDetails, SourceType, ModelState } from '../../model';
 import {
   MODEL_VALUE_CHANGE,
   ModelAction,
   MODEL_ERROR,
   MODEL_SUCCESS,
+  MODEL_SOLUTION_VISIBLE_TOGGLE,
 } from './editor-model.action';
 
 export interface EditorModelEntities {
@@ -20,27 +21,52 @@ export function editorModelReducer(
   state = emInitialState,
   action: ModelAction
 ): EditorModelEntities {
-  const existingModelState = action.modelState
-    ? state.entities[action.modelState.id]
-    : undefined;
-
-  // ignore old values
-  if (
-    existingModelState &&
-    existingModelState.versionId > action.modelState.versionId
-  ) {
-    return state;
-  }
   switch (action.type) {
-    case MODEL_VALUE_CHANGE:
+    case MODEL_SOLUTION_VISIBLE_TOGGLE: {
+      const id = action.key.exercisePath;
+      // ignore, if the value does not exist yet
+      if (!state.entities[id]) {
+        return state;
+      }
+      const currentlyVisible = state.entities[id].solutionVisible;
+
       return {
         ...state,
         entities: {
           ...state.entities,
-          [action.modelState.id]: { ...action.modelState, valid: false }
+          [action.key.exercisePath]: {
+            ...state.entities[id],
+            solutionRequested: true,
+            solutionVisible: !currentlyVisible
+          }
+        }
+      };
+    }
+    case MODEL_VALUE_CHANGE:
+      if (isOldVersion(state, action.modelState)) {
+        return state;
+      }
+      const currentModel = state.entities[action.modelState.id];
+      const solutionVisible = currentModel ? currentModel.solutionVisible : false;
+      const solutionRequested = currentModel ? currentModel.solutionRequested : false;
+
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          [action.modelState.id]: {
+            ...action.modelState,
+            valid: false,
+            solutionRequested,
+            solutionVisible
+          }
         }
       };
     case MODEL_ERROR: {
+      const currentModelState = state.entities[action.modelState.id];
+      if (!currentModelState || isOldVersion(state, action.modelState)) {
+        return state;
+      }
       const result = {
         success: false,
         errors: action.errors
@@ -48,12 +74,16 @@ export function editorModelReducer(
       return addResult(
         action.key,
         result,
-        existingModelState,
+        state.entities[action.modelState.id],
         action.modelState,
         state
       );
     }
     case MODEL_SUCCESS: {
+      const currentModelState = state.entities[action.modelState.id];
+      if (!currentModelState || isOldVersion(state, action.modelState)) {
+        return state;
+      }
       const result = {
         success: true,
         errors: []
@@ -61,13 +91,20 @@ export function editorModelReducer(
       return addResult(
         action.key,
         result,
-        existingModelState,
+        currentModelState,
         action.modelState,
         state
       );
     }
   }
   return state;
+}
+
+function isOldVersion(existingState: EditorModelEntities, newState: ModelState): boolean {
+  const existingModelState = newState
+    ? existingState.entities[newState.id]
+    : undefined;
+  return existingModelState && existingModelState.versionId > newState.versionId;
 }
 
 function isValid(resultKey: string, result: FeedbackDetails, existingModelState: Feedback): boolean {
@@ -91,7 +128,7 @@ function addResult(
   resultKey: string,
   result: FeedbackDetails,
   existingModelState: Feedback,
-  newModelState: Feedback,
+  newModelState: ModelState,
   state: EditorModelEntities
 ): EditorModelEntities {
   const isEqualVersion =
@@ -120,7 +157,9 @@ function addResult(
           id: newModelState.id,
           versionId: newModelState.versionId,
           [resultKey]: result,
-          valid: existingModelState.valid
+          valid: existingModelState.valid,
+          solutionRequested: existingModelState.solutionRequested,
+          solutionVisible: existingModelState.solutionVisible
         }
       }
     };

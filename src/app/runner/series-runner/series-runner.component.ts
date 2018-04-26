@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { ExerciseProgress, ISeries } from '../../model';
+import { ExerciseProgress, ISeries, Feedback } from '../../model';
 
 @Component({
   selector: 'app-series-runner',
@@ -17,7 +17,7 @@ import { ExerciseProgress, ISeries } from '../../model';
     <div class="exercise-card">
       <router-outlet #o="outlet"></router-outlet>
       <app-exercise-nav-buttons
-        [userProgress]="progress"
+        [progress]="progress"
         [exerciseCount]="series?.items.length">
       </app-exercise-nav-buttons>
     </div>
@@ -28,5 +28,5 @@ import { ExerciseProgress, ISeries } from '../../model';
 export class SeriesRunnerComponent {
   @Input() series: ISeries;
   @Input() progresses: ExerciseProgress[];
-  @Input() progress: ExerciseProgress;
+  @Input() progress: Feedback;
 }

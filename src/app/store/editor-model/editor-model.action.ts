@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { ErrorMarker, ModelState, FeedbackDetails } from '../../model';
+import { ErrorMarker, ModelState, FeedbackDetails, ExerciseKey } from '../../model';
 
 export interface ModelResultAction extends Action {
   modelState: ModelState;
@@ -31,6 +31,14 @@ export class ModelSuccess implements ModelResultAction {
     public modelState: ModelState) { }
 }
 
+export const MODEL_SOLUTION_VISIBLE_TOGGLE = 'MODEL_SOLUTION_VISIBLE_TOGGLE';
+export class ModelSolutionVisibleToggle implements Action {
+  readonly type = MODEL_SOLUTION_VISIBLE_TOGGLE;
+  constructor(
+    public key: ExerciseKey
+  ) { }
+}
+
 export function createResultAction(
   owner: string,
   modelState: ModelState,
@@ -46,4 +54,5 @@ export function createResultAction(
 export type ModelAction =
   | ModelValueChange
   | ModelError
-  | ModelSuccess;
+  | ModelSuccess
+  | ModelSolutionVisibleToggle;

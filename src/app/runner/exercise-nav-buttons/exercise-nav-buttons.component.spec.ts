@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExerciseNavButtonsComponent } from './exercise-nav-buttons.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { testFeedback } from '../../common/test';
 
 describe('ExerciseNavButtonsComponent', () => {
   let component: ExerciseNavButtonsComponent;
@@ -19,13 +20,7 @@ describe('ExerciseNavButtonsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ExerciseNavButtonsComponent);
     component = fixture.componentInstance;
-    component.userProgress = {
-      id: 1,
-      solutionRequested: false,
-      solutionVisible: false,
-      solved: false,
-      value: 'x'
-    };
+    component.progress = testFeedback;
     fixture.detectChanges();
   });
 

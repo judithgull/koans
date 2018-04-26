@@ -1,6 +1,7 @@
-import { ModelValueChange, ModelError, ModelSuccess } from '..';
-import { ErrorMarker, FeedbackDetails, ProgrammingLanguage, SourceType } from '../../model';
+import { ModelValueChange, ModelError, ModelSuccess, ModelSolutionVisibleToggle } from '..';
+import { ErrorMarker, FeedbackDetails, ProgrammingLanguage, SourceType, ExerciseKey, ModelState } from '../../model';
 import { editorModelReducer, emInitialState } from './editor-model.reducer';
+import { mockSeries, testModelState } from '../../common/test';
 
 describe('editorModelReducer', () => {
   const errors = [
@@ -31,7 +32,9 @@ describe('editorModelReducer', () => {
     versionId: 0,
     value: 'value',
     progLang: ProgrammingLanguage.javascript,
-    valid: false
+    valid: false,
+    solutionRequested: false,
+    solutionVisible: false
   };
 
   const entity2 = {
@@ -39,7 +42,9 @@ describe('editorModelReducer', () => {
     versionId: 0,
     value: 'value',
     progLang: ProgrammingLanguage.typescript,
-    valid: false
+    valid: false,
+    solutionRequested: false,
+    solutionVisible: false
   };
 
   describe('Default State', () => {
@@ -126,6 +131,24 @@ describe('editorModelReducer', () => {
   });
 
   describe('Validation', () => {
+
+    it('ignores success, if there is no value', () => {
+      const action = new ModelSuccess('unknown', testModelState);
+      const state = editorModelReducer(
+        emInitialState,
+        action
+      );
+    });
+
+    it('ignores error, if there is no value', () => {
+      const action = new ModelError('unknown', testModelState,[]);
+      const state = editorModelReducer(
+        emInitialState,
+        action
+      );
+    });
+
+
     it('should update failed validation', () => {
       const initialEntity = {
         id1: entity1
@@ -163,7 +186,10 @@ describe('editorModelReducer', () => {
           versionId: 0,
           value: 'value',
           progLang: ProgrammingLanguage.typescript,
-          validation: errorDetails
+          validation: errorDetails,
+          valid: false,
+          solutionRequested: false,
+          solutionVisible: false
         }
       };
 
@@ -184,11 +210,14 @@ describe('editorModelReducer', () => {
             versionId: 1,
             value: 'value2',
             progLang: ProgrammingLanguage.typescript,
-            valid: false
+            valid: false,
+            solutionRequested: false,
+            solutionVisible: false
           }
         }
       });
     });
+
   });
 
   describe('Monaco', () => {
@@ -199,7 +228,10 @@ describe('editorModelReducer', () => {
           versionId: 0,
           value: 'value',
           progLang: ProgrammingLanguage.typescript,
-          validation: errorDetails
+          validation: errorDetails,
+          valid: false,
+          solutionRequested: false,
+          solutionVisible: false
         }
       };
 
@@ -230,7 +262,9 @@ describe('editorModelReducer', () => {
               success: false,
               errors: errorMarkers2
             },
-            valid: false
+            valid: false,
+            solutionRequested: false,
+            solutionVisible: false
           }
         }
       });
@@ -242,7 +276,10 @@ describe('editorModelReducer', () => {
           versionId: 0,
           value: 'value',
           progLang: ProgrammingLanguage.typescript,
-          validation: errorDetails
+          validation: errorDetails,
+          valid: false,
+          solutionRequested: false,
+          solutionVisible: false
         }
       };
 
@@ -269,7 +306,9 @@ describe('editorModelReducer', () => {
               success: true,
               errors: []
             },
-            valid: false
+            valid: false,
+            solutionRequested: false,
+            solutionVisible: false
           }
         }
       });
@@ -288,7 +327,10 @@ describe('editorModelReducer', () => {
           versionId: 0,
           value: 'value',
           progLang: ProgrammingLanguage.typescript,
-          validation: success
+          validation: success,
+          valid: false,
+          solutionRequested: false,
+          solutionVisible: false
         }
       };
 
@@ -312,10 +354,72 @@ describe('editorModelReducer', () => {
             progLang: ProgrammingLanguage.typescript,
             validation: success,
             execution: success,
-            valid: true
+            valid: true,
+            solutionRequested: false,
+            solutionVisible: false
           }
         }
       });
     });
-    });
   });
+  describe('ModelSolutionToggle action', () => {
+    it('toggle solution initially', () => {
+      const key = new ExerciseKey(1, 2);
+
+      const action = new ModelSolutionVisibleToggle(key);
+
+      const state = editorModelReducer(emInitialState, action);
+      const path = key.exercisePath;
+      expect(state.entities[path]).toBeUndefined();
+    });
+
+    it('toggles solution after value change', () => {
+      const key = new ExerciseKey(1, 2);
+
+      const modelState: ModelState = {
+        id: key.exercisePath,
+        versionId: 0,
+        progLang: ProgrammingLanguage.typescript,
+        value: 'x'
+      }
+
+      const valueChange = new ModelValueChange(modelState);
+
+      const action = new ModelSolutionVisibleToggle(key);
+
+      const state1 = editorModelReducer(emInitialState, valueChange);
+      const state = editorModelReducer(state1, action);
+
+      const path = key.exercisePath;
+      expect(state.entities[path]).toBeDefined();
+      expect(state.entities[path].solutionRequested).toBe(true);
+      expect(state.entities[path].solutionVisible).toBe(true);
+    });
+
+    it('toggles solution invisible when toggeling twice', () => {
+      const key = new ExerciseKey(1, 2);
+
+      const modelState: ModelState = {
+        id: key.exercisePath,
+        versionId: 0,
+        progLang: ProgrammingLanguage.typescript,
+        value: 'x'
+      }
+
+      const valueChange = new ModelValueChange(modelState);
+
+      const action = new ModelSolutionVisibleToggle(key);
+
+      const state1 = editorModelReducer(emInitialState, valueChange);
+      const state2 = editorModelReducer(state1, action);
+      const state = editorModelReducer(state2, action);
+
+      const path = key.exercisePath;
+      expect(state.entities[path]).toBeDefined();
+      expect(state.entities[path].solutionRequested).toBe(true);
+      expect(state.entities[path].solutionVisible).toBe(false);
+    });
+
+  });
+
+});

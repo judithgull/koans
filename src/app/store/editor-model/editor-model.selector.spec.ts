@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 
-import { ModelValueChange, getValidationResult, reducers, ModelError } from '..';
-import { ModelState, ProgrammingLanguage, SourceType } from '../../model';
+import { ModelValueChange, getValidationResult, reducers, ModelError, getSelectedProgress, QuerySeriesSuccess } from '..';
+import { ModelState, ProgrammingLanguage, SourceType, Feedback } from '../../model';
 import { EditorModelEntities } from './editor-model.reducer';
+import { mockSeries } from '../../common/test';
 
 describe('Editor Model Selectors', () => {
   let store: Store<EditorModelEntities>;
@@ -63,33 +64,52 @@ describe('Editor Model Selectors', () => {
           success: false,
           errors
         },
-        valid: false
+        valid: false,
+        solutionRequested: false,
+        solutionVisible: false
+      });
+    });
+  });
+
+  describe('getSelectedProgress', () => {
+    it('should initially return no progress', () => {
+      store.select(getSelectedProgress).subscribe(value => {
+        expect(value).toBeFalsy();
       });
     });
 
-    // TODO
-    // it('should not return other errors', () => {
-    //   const modelId = 'model1';
-    //   let result;
-    //   store.select(getValidationResult(modelId)).subscribe(value => {
-    //     result = value;
-    //   });
+    it('should return a progress', () => {
+      var f: Feedback;
+      store.select(getSelectedProgress).subscribe(value => {
+        f = value;
+      });
 
-    //   const feedback = {
-    //     success: true,
-    //     message: 'message',
-    //     startLineNumber: 1
-    //   };
+      const modelState: ModelState = {
+        id: '2/1/exercise',
+        versionId: 0,
+        progLang: ProgrammingLanguage.typescript,
+        value: 'x'
+      }
 
-    //   store.dispatch(
-    //     new ValidationFailedAction({
-    //       id: modelId,
-    //       versionId: 1,
-    //       value: '',
-    //       runner: feedback
-    //     })
-    //   );
-    //   expect(result).toBeFalsy();
-    // });
+      store.dispatch(new QuerySeriesSuccess(mockSeries));
+
+      store.dispatch({
+        type: 'ROUTER_NAVIGATION',
+        payload: {
+          routerState: {
+            url: '/series/2/e/1',
+            queryParams: {},
+            params: { id: '2', exId: '1' }
+          },
+          event: {}
+        }
+      });
+
+
+      store.dispatch(new ModelValueChange(modelState));
+      expect(f).toBeTruthy();
+    });
+
   });
+
 });

@@ -21,14 +21,14 @@
       <div class="l-grid-cell l-one-half l-mobile-one-whole">
         <label class="label t-label" for="exerciseEditor">Exercise *</label>
         <app-code-editor id="exerciseEditor" [language]='programmingLanguage' formControlName='exExercise' [(ngModel)]="item.exercise"
-          path="{{index}}/exercise"></app-code-editor>
+          [modelConfig]='exerciseModelConfig'></app-code-editor>
         <app-validation-messages [control]='form.get("codeEditors.exExercise")' validationKey='exercise'></app-validation-messages>
       </div>
 
       <div class="l-grid-cell l-one-half l-mobile-one-whole">
         <label class="label t-label" for="solution">Solution *</label>
         <app-code-editor id="solution" [language]='programmingLanguage' formControlName='exSolution' [(ngModel)]="item.solution"
-          path="{{index}}/solution" (errorMarkerChanges)="updateSolutionError($event)"></app-code-editor>
+          [modelConfig]="solutionModelConfig" (errorMarkerChanges)="updateSolutionError($event)"></app-code-editor>
         <div *ngFor="let f of solutionFeedback">
           <app-exercise-feedback [feedback]='f'></app-exercise-feedback>
         </div>

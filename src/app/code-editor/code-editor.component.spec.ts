@@ -26,7 +26,7 @@ describe('CodeEditorComponent', () => {
   const initialValue = testScript;
   let monacoLoader: MonacoLoaderService;
 
-  class MockCodeExecutorService {}
+  class MockCodeExecutorService { }
 
   describe('Component', () => {
     beforeEach(
@@ -53,7 +53,7 @@ describe('CodeEditorComponent', () => {
         if (loaded) {
           fixture = TestBed.createComponent(CodeEditorComponent);
           component = fixture.componentInstance;
-          component.path = 'path' + new Date().getTime();
+          component.modelConfig = { path: 'path' + new Date().getTime(), initialValue: '' };
           fixture.detectChanges();
           done();
         }
@@ -93,14 +93,15 @@ describe('CodeEditorComponent', () => {
     @Component({
       template: `
     <form [formGroup]="form">
-    <app-code-editor path='path' formControlName='editorValue' language="typescript" (errorMarkerChanges)="onErrorChanges()"></app-code-editor>
+    <app-code-editor [modelConfig]='modelConfig' formControlName='editorValue' language="typescript" (errorMarkerChanges)="onErrorChanges()"></app-code-editor>
     </form>
     `
     })
     class TestContainerComponent implements OnInit {
+      modelConfig = { path: 'p', initialValue: 'v' };
       form: FormGroup;
       errorMarkers: Feedback[];
-      constructor(private fb: FormBuilder) {}
+      constructor(private fb: FormBuilder) { }
 
       ngOnInit(): void {
         this.form = this.fb.group({

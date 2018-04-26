@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { combineReducers, StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 
 import { AppCommonModule } from '../../common/common.module';
-import { mockSeries } from '../../common/test';
+import { mockSeries, testFeedback } from '../../common/test';
 import * as st from '../../store';
 import { ExerciseNavButtonsComponent } from '../exercise-nav-buttons/exercise-nav-buttons.component';
 import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
@@ -37,13 +37,7 @@ describe('SeriesRunnerComponent', () => {
     component = fixture.componentInstance;
     component.series = mockSeries[0];
     component.progresses = [];
-    component.progress = {
-      id: 1,
-      value: '',
-      solved: false,
-      solutionRequested: false,
-      solutionVisible: false
-    };
+    component.progress = testFeedback;
     fixture.detectChanges();
   });
 

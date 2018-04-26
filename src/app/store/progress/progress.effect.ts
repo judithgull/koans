@@ -3,18 +3,10 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map, switchMap, take } from 'rxjs/operators';
 
-import {
-  EXERCISE_SOLVED,
-  ExerciseSolved,
-  SeriesCompleted
-} from './progress.action';
-import {
-  getAllExerciseProgresses,
-  getSelectedUserState
-} from './progress.selectors';
 import { State } from '..';
-
 import { GoToExercise } from '../series-routing';
+import { EXERCISE_SOLVED, ExerciseSolved, SeriesCompleted } from './progress.action';
+import { getAllExerciseProgresses } from './progress.selectors';
 
 @Injectable()
 export class ProgressEffects {

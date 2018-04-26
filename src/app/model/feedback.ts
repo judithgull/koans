@@ -22,7 +22,9 @@ export interface Feedback extends ModelState {
   validation?: FeedbackDetails;
   execution?: FeedbackDetails;
   monaco?: FeedbackDetails;
-  valid?: boolean;
+  valid: boolean;
+  solutionRequested: boolean,
+  solutionVisible: boolean
 }
 
 export interface FeedbackDetails {

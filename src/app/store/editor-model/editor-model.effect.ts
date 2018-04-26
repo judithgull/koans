@@ -32,7 +32,7 @@ export class EditorModelEffects {
   validate$: Observable<ModelResultAction> = this.actions$
     .ofType(MODEL_VALUE_CHANGE)
     .pipe(
-      map((a: ModelAction) => a.modelState),
+      map((a: ModelResultAction) => a.modelState),
       map((modelState: ModelState) => {
         const errors = this.validationService.validate(modelState.value);
         return createResultAction(

@@ -18,7 +18,15 @@ export class ExerciseFormComponent implements OnInit {
 
   solutionFeedback: ErrorMarker[];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
+
+  get exerciseModelConfig() {
+    return { path: this.index + '/exercise', initialValue: '' };
+  };
+
+  get solutionModelConfig() {
+    return { path: this.index + '/solution', initialValue: '' };
+  };
 
   ngOnInit() {
     const codeEditors = this.fb.group(
