@@ -49,8 +49,6 @@ describe('EditorModelEffects', () => {
     effects = TestBed.get(EditorModelEffects);
     const tsTranspilerService = TestBed.get(TsTranspilerService);
     store = TestBed.get(Store);
-
-    spyOn(tsTranspilerService, 'run').and.returnValue('');
   });
 
   describe('validate$', () => {

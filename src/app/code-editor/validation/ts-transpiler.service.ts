@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-
 declare const ts: any;
 
 @Injectable()
 export class TsTranspilerService {
-  run(source: string): string {
-    const options = {};
-    const res = ts.transpileModule(source, options);
-    return res.outputText;
+  static transpileOptions = { reportDiagnostics: true };
+
+  transpile(source: string) {
+    return ts.transpileModule(source, TsTranspilerService.transpileOptions);
   }
+
 }

@@ -12,7 +12,26 @@ export class CodeExecutorService {
   ) { }
 
   run(value: string, progLang: ProgrammingLanguage): ErrorMarker[] {
-    const transpiledValue: string = this.getTranspiledValue(value, progLang);
+    if (progLang === ProgrammingLanguage.typescript) {
+      const transpileRes = this.tsTraspiler.transpile(value);
+      const errors = transpileRes.diagnostics
+        .filter(d => d.category === 1);
+      if (errors.length > 0) {
+        return errors.map(e => {
+          return {
+            message: e.messageText || 'Unknown Error',
+            startLineNumber: 1
+          }
+        });
+      } else {
+        return this.executeTranspiledValue(transpileRes.outputText);
+      }
+
+    }
+    return this.executeTranspiledValue(value);
+  }
+
+  private executeTranspiledValue(transpiledValue: string) {
     let prefix = '';
     if (transpiledValue.includes('expect')) {
       prefix = 'var chai = require("chai");var expect = chai.expect;';
@@ -21,13 +40,4 @@ export class CodeExecutorService {
     return this.jsService.run(all);
   }
 
-  private getTranspiledValue(
-    value: string,
-    progLang: ProgrammingLanguage
-  ): string {
-    if (progLang === ProgrammingLanguage.typescript) {
-      return this.tsTraspiler.run(value);
-    }
-    return value;
-  }
 }
