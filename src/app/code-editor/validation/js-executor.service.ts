@@ -18,7 +18,6 @@ export class JSExecutorService {
       eval(source);
       return [];
     } catch (e) {
-      console.log(e);
       var message = this.runtimeErrorMessage;
       if (e.message) {
         message = e.message;

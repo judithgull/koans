@@ -16,7 +16,7 @@ export class RunExerciseCardComponent {
 
   @Input() series: ISeries;
 
-  markers: ErrorMarker[] = [];
+  @Input() errors: ErrorMarker[];
 
   constructor(private store: Store<st.State>) { }
 
@@ -40,9 +40,5 @@ export class RunExerciseCardComponent {
     this.store.dispatch(
       new st.ModelSolutionVisibleToggle(this.exerciseKey)
     );
-  }
-
-  updateFeedback(markers: ErrorMarker[]) {
-    this.markers = markers;
   }
 }
