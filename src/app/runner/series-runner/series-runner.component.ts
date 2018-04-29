@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { ExerciseProgress, ISeries, Feedback } from '../../model';
+import { Feedback, ISeries } from '../../model';
 
 @Component({
   selector: 'app-series-runner',
   template: `
   <h1 class="t-title main-title">{{series?.title}}</h1>
   <app-progress-bar
-    [userProgress]="progresses">
+    [progresses]="progresses">
   </app-progress-bar>
   <div class="programming-lang-wrap">
     <app-series-icon
@@ -27,6 +27,6 @@ import { ExerciseProgress, ISeries, Feedback } from '../../model';
 })
 export class SeriesRunnerComponent {
   @Input() series: ISeries;
-  @Input() progresses: ExerciseProgress[];
+  @Input() progresses: Feedback[];
   @Input() progress: Feedback;
 }

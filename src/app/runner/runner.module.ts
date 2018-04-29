@@ -13,15 +13,15 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { RunExerciseCardComponent } from './run-exercise-card/run-exercise-card.component';
 import { RunExerciseContainerComponent } from './run-exercise-container/run-exercise-container.component';
 import { SeriesContainerComponent } from './series-container/series-container.component';
-import { SeriesProgressExistsGuard } from './series-progress.guard';
 import { SeriesRunnerComponent } from './series-runner/series-runner.component';
 import { MonacoLoadedGuard } from '../code-editor/monaco-loaded.guard';
+import { SeriesExistsGuard } from '../common';
 
 const routes: Routes = [
   {
     path: 'series/:id',
     component: SeriesContainerComponent,
-    canActivate: [SeriesProgressExistsGuard, MonacoLoadedGuard],
+    canActivate: [SeriesExistsGuard, MonacoLoadedGuard],
     children: [
       {
         pathMatch: 'full',
@@ -55,6 +55,6 @@ const routes: Routes = [
     SeriesContainerComponent,
     RunExerciseContainerComponent
   ],
-  providers: [SeriesProgressExistsGuard]
+  providers: [SeriesExistsGuard]
 })
 export class RunnerModule { }

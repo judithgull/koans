@@ -1,7 +1,8 @@
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { getRouterState } from '../router';
 import { EditorModelEntities } from '..';
-import { Feedback, ExerciseKey } from '../../model';
+import { getSelectedSeries } from '../series/series.selectors';
+import { Feedback, ExerciseKey, ISeries, ExerciseProgress } from '../../model';
 
 export const getEditorModel = createFeatureSelector<EditorModelEntities>(
   'editorModel'
@@ -42,17 +43,40 @@ export const getSelectedProgress: MemoizedSelector<object, Feedback> = createSel
   }
 );
 
-/*
-export const getSelectedProgresses: MemoizedSelector<object, Feedback[]> = createSelector(
+const initialProgress = {
+  solutionRequested: false,
+  solutionVisible: false,
+  valid: false,
+  solved: false
+};
+
+export const getSelectedProgresses: MemoizedSelector<object, ExerciseProgress[]> = createSelector(
   getEditorModelEntities,
-  getRouterState,
-  (entities: { [id: string]: Feedback; }, router) => {
-    if (entities && router && router.state) {
-      const seriesId = router.state.params.id;
-      const path = seriesId + '/' + exId + '/exercise';
-      return entities[path];
+  getSelectedSeries,
+  (entities: { [id: string]: Feedback; }, series: ISeries) => {
+    if (entities && series) {
+      const progresses = getExerciseKeys(series)
+        .map(key => {
+          return entities[key.exercisePath];
+        })
+        .map(f => {
+          if (!f) {
+            return initialProgress;
+          } else {
+            return {
+              solutionRequested: f.solutionRequested,
+              solutionVisible: f.solutionVisible,
+              valid: f.valid,
+              solved: f.valid && !f.solutionRequested
+            }
+          }
+        });
+      return progresses;
     }
-    return null;
+    return [];
   }
 );
-*/
+
+function getExerciseKeys(series: ISeries): ExerciseKey[] {
+  return series.items.map(item => new ExerciseKey(series._id, item.sortOrder));
+}

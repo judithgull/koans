@@ -1,9 +1,8 @@
 import { ModelState } from './feedback';
 
 export interface ExerciseProgress {
-  id: number;
-  value: string;
   solved: boolean;
+  valid: boolean;
   solutionRequested: boolean;
   solutionVisible: boolean;
 }

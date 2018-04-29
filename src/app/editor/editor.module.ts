@@ -4,11 +4,10 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AppCommonModule } from '../common/common.module';
+import { AppCommonModule, SeriesExistsGuard } from '../common';
 import { SeriesFormComponent } from './series-form/series-form.component';
 import { CodeEditorModule } from '../code-editor/code-editor.module';
 import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
-import { SeriesExistsGuard } from './series.guard';
 import { SeriesContainerComponent } from './series-container/series-container.component';
 import { MonacoLoadedGuard } from '../code-editor/monaco-loaded.guard';
 

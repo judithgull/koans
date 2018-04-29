@@ -1,7 +1,8 @@
-import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { createSelector, createFeatureSelector, MemoizedSelector } from '@ngrx/store';
 
 import * as r from '../router';
 import * as sr from './series.reducer';
+import { ISeries } from '../../model';
 
 export const getSeries = createFeatureSelector<sr.SeriesEntities>('series');
 
@@ -14,7 +15,7 @@ export const getSeriesEntities = createSelector(
 );
 
 /** Series given by router state params */
-export const getSelectedSeries = createSelector(
+export const getSelectedSeries: MemoizedSelector<object, ISeries> = createSelector(
   getSeriesEntities,
   r.getRouterState,
   (entities, router) => {

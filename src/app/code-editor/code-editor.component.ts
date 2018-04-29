@@ -91,7 +91,31 @@ export class CodeEditorComponent
     if (exisitngModel) {
       return exisitngModel;
     }
-    return monaco.editor.createModel(this._modelConfig.initialValue, this.language, this.uri);
+    const model = monaco.editor.createModel(this._modelConfig.initialValue, this.language, this.uri);
+    this.initModel(model);
+    return model;
+  }
+
+  private initModel(model: monaco.editor.ITextModel) {
+    this.disposables.push(
+      model.onDidChangeContent(e => {
+        this.editorModelChange.emit(this.modelState);
+        this.store.dispatch(new ModelValueChange(this.modelState));
+        this.onChange(this.value);
+        this.height = this.computeHeight();
+      })
+    );
+    this.disposables.push(
+      model.onDidChangeDecorations(e => {
+        if (
+          this.model &&
+          !R.equals(this.monacoMarkers, this.getMonacoMarkers())
+        ) {
+          this.monacoMarkers = this.getMonacoMarkers();
+          this.dispatchMonacoErrors();
+        }
+      })
+    );
   }
 
   get model() {
@@ -157,21 +181,10 @@ export class CodeEditorComponent
       glyphMargin: true
     });
 
-    this.disposables.push(
-      this.model.onDidChangeContent(e => {
-        this.editorModelChange.emit(this.modelState);
-        this.store.dispatch(new ModelValueChange(this.modelState));
-
-        this.onChange(this.value);
-        this.height = this.computeHeight();
-      })
-    );
 
     this.editor.onKeyUp(e => {
       this.onTouched();
     });
-
-    this.height = this.computeHeight();
 
     this.editor.layout();
 
@@ -189,18 +202,6 @@ export class CodeEditorComponent
         } else {
           const markers = e.validation.errors.map(toMarkerData);
           this.setMarkers(SourceType.validation.toString(), markers);
-        }
-      })
-    );
-
-    this.disposables.push(
-      this.model.onDidChangeDecorations(e => {
-        if (
-          this.model &&
-          !R.equals(this.monacoMarkers, this.getMonacoMarkers())
-        ) {
-          this.monacoMarkers = this.getMonacoMarkers();
-          this.dispatchMonacoErrors();
         }
       })
     );
