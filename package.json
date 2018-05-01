@@ -16,15 +16,15 @@
     "test": "NODE_ENV=test gulp clean && NODE_ENV=test gulp pre-build && npm run servertests && ng test"
   },
   "dependencies": {
-    "@angular/animations": "^5.1.2",
-    "@angular/common": "^5.1.2",
-    "@angular/compiler": "^5.1.2",
-    "@angular/core": "^5.1.2",
-    "@angular/forms": "^5.1.2",
-    "@angular/http": "^5.1.2",
-    "@angular/platform-browser": "^5.1.2",
-    "@angular/platform-browser-dynamic": "^5.1.2",
-    "@angular/router": "^5.1.2",
+    "@angular/animations": "5.2.10",
+    "@angular/common": "5.2.10",
+    "@angular/compiler": "5.2.10",
+    "@angular/core": "5.2.10",
+    "@angular/forms": "5.2.10",
+    "@angular/http": "5.2.10",
+    "@angular/platform-browser": "5.2.10",
+    "@angular/platform-browser-dynamic": "5.2.10",
+    "@angular/router": "5.2.10",
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^4.1.1",
     "@ngrx/router-store": "^4.1.1",
@@ -96,12 +96,12 @@
     "url-loader": "^0.5.9",
     "webpack": "^3.6.0",
     "webpack-stream": "^4.0.0",
-    "zone.js": "^0.8.18"
+    "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular/cli": "^1.7.3",
-    "@angular/compiler-cli": "^5.2.9",
-    "@angular/language-service": "^5.1.2",
+    "@angular/cli": "1.7.4",
+    "@angular/compiler-cli": "5.2.10",
+    "@angular/language-service": "5.2.10",
     "@ngrx/store-devtools": "^4.1.1",
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
@@ -122,7 +122,7 @@
     "protractor": "~5.1.2",
     "ts-node": "~3.2.0",
     "tslint": "^5.8.0",
-    "typescript": "2.4.2",
+    "typescript": "2.6.2",
     "wallaby-webpack": "0.0.42"
   },
   "prettier": {
