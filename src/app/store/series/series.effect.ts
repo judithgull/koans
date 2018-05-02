@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, toPayload } from '@ngrx/effects';
+import { Actions, Effect } from '@ngrx/effects';
 import { switchMap, map, catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { HttpParams, HttpErrorResponse } from '@angular/common/http';
@@ -35,7 +35,7 @@ export class SeriesEffects {
     private actions$: Actions,
     private seriesService: SeriesService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   @Effect()
   loadSeries$ = this.actions$.ofType(LOAD_SERIES).pipe(
@@ -125,7 +125,7 @@ export class SeriesEffects {
 
   @Effect({ dispatch: false })
   seriesErrors$ = this.actions$.ofType(SERIES_ERROR).pipe(
-    map(toPayload),
+    map((a: SeriesError) => a.payload),
     tap(error => {
       if (typeof error === 'string') {
         this.toastr.error(error);

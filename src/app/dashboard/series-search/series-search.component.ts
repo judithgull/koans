@@ -5,6 +5,7 @@ import { debounceTime } from 'rxjs/operators';
 import { SearchParams } from '../../model/search.params';
 import { ISeries } from '../../model/series';
 import * as st from '../../store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-series-search',
@@ -22,7 +23,7 @@ export class SeriesSearchComponent implements OnInit {
   searchParamChange = new EventEmitter<SearchParams>();
   showOwnSeries = false;
 
-  constructor(private store: Store<st.State>) {}
+  constructor(private store: Store<st.State>) { }
 
   ngOnInit() {
     this.searchParamChange
@@ -35,7 +36,7 @@ export class SeriesSearchComponent implements OnInit {
     this.store.dispatch(new st.QuerySeries(params));
   }
 
-  get seriesList$(): Store<ISeries[]> {
+  get seriesList$(): Observable<ISeries[]> {
     if (this.showOwnSeries) {
       return this.store.select(st.getOwnSeries(this.authorId));
     }

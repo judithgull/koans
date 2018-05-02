@@ -13,9 +13,9 @@ import * as st from '../../store';
   templateUrl: './series-container.component.html'
 })
 export class SeriesContainerComponent implements OnInit {
-  series$: Store<ISeries>;
+  series$: Observable<ISeries>;
   progresses$: Observable<ExerciseProgress[]>;
-  progress$: Store<Feedback>;
+  progress$: Observable<Feedback>;
 
   constructor(private store: Store<st.State>) { }
 

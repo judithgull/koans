@@ -21,7 +21,7 @@ export class SeriesService {
         responseType: 'json',
         params: params
       })
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError)) as Observable<ISeries[]>;
   }
 
   get(id: string): Observable<ISeries> {
@@ -30,7 +30,7 @@ export class SeriesService {
     }
     return this.http
       .get(`${URL_SERIES}${id}`)
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError)) as Observable<ISeries>;
   }
 
   private getItem(series: ISeries, exSortOrder: number): Exercise {
@@ -44,13 +44,13 @@ export class SeriesService {
   create(series: ISeries): Observable<ISeries> {
     return this.http
       .post(URL_SERIES, series)
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError)) as Observable<ISeries>;
   }
 
   update(series: ISeries): Observable<ISeries> {
     return this.http
       .put(`${URL_SERIES}${series._id}`, series)
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError)) as Observable<ISeries> ;
   }
 
   delete(id: string): Observable<any> {

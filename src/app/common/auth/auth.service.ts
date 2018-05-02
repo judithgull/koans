@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../../auth/model/user';
 import { LoginInfo } from '../../model/login-info';
 import { LoginTokenInfo } from '../../model/login-token-info';
+import { map } from 'rxjs/operators/map';
+import { catchError } from 'rxjs/operators';
 
 const USER_KEY = 'user';
 const TOKEN_KEY = 'token';
@@ -18,15 +20,19 @@ export class AuthService {
 
   signUp(user: User): Observable<any> {
     return this.http.post(USERS_URL, user)
-      .map(data => this.saveLoginData(data as LoginTokenInfo))
-      .catch(this.handleError);
+      .pipe(
+        map(data => this.saveLoginData(data as LoginTokenInfo)),
+        catchError(this.handleError)
+      );
   }
 
   login(loginInfo: LoginInfo): Observable<any> {
     return this.http
       .post(LOGIN_URL, loginInfo)
-      .map(data => this.saveLoginData(data as LoginTokenInfo))
-      .catch(this.handleError);
+      .pipe(
+        map(data => this.saveLoginData(data as LoginTokenInfo)),
+        catchError(this.handleError)
+      );
   }
 
   logout(): void {

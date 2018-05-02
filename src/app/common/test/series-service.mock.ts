@@ -1,10 +1,10 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 
 import { ISeries } from '../../model/series';
 import { mockSeries } from './series.mock';
 
 export class MockSeriesService {
   get(id: string): Observable<ISeries> {
-    return Observable.of(mockSeries[0]);
+    return of(mockSeries[0]);
   }
 }

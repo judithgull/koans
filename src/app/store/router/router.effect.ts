@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, toPayload } from '@ngrx/effects';
+import { Actions, Effect } from '@ngrx/effects';
 import { GO, Go, HOME } from './router.action';
 import { map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ export class RouterEffects {
 
   @Effect({ dispatch: false })
   navigate$ = this.actions$.ofType(GO).pipe(
-    map(toPayload),
+    map((a:Go) => a.payload),
     tap(({ path, query: queryParams, extras }) => {
       this.router.navigate(path, { queryParams, ...extras });
     })

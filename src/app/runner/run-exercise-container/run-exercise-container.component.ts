@@ -17,10 +17,10 @@ import { map } from 'rxjs/operators/map';
   </app-run-exercise-card>`
 })
 export class RunExerciseContainerComponent implements OnInit {
-  ex$: Store<Exercise>;
+  ex$: Observable<Exercise>;
   progress$: Observable<Feedback>;
   errors$: Observable<ErrorMarker[]>;
-  series$: Store<ISeries>;
+  series$: Observable<ISeries>;
 
   constructor(private store: Store<st.State>) { }
 
