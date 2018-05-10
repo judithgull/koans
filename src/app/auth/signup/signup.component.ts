@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../common/auth/auth.service';
 import { User } from '../model/user';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 function passwordMatcher(
   group: AbstractControl
@@ -38,7 +39,7 @@ export class SignupComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -79,7 +80,13 @@ export class SignupComponent implements OnInit {
       .subscribe(() => this.router.navigate(['/']), err => this.showError(err));
   }
 
-  showError(message: string) {
-    this.toastr.error(message, 'Error');
+  showError(error) {
+    if (typeof error === 'string') {
+      this.toastr.error(error);
+    } else if (error instanceof HttpErrorResponse) {
+      this.toastr.error(error.error.message);
+    } else {
+      this.toastr.error('Unknown error');
+    }
   }
 }

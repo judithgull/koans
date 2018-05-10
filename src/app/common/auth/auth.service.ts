@@ -7,6 +7,7 @@ import { LoginInfo } from '../../model/login-info';
 import { LoginTokenInfo } from '../../model/login-token-info';
 import { map } from 'rxjs/operators/map';
 import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 const USER_KEY = 'user';
 const TOKEN_KEY = 'token';
@@ -56,9 +57,9 @@ export class AuthService {
   private handleError(err: any) {
     console.log(err);
     if (err.status === 401) {
-      return Observable.throw('Unauthorized');
+      return throwError('Unauthorized');
     }
-    return Observable.throw(err);
+    return throwError(err);
   }
 
 }

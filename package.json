@@ -10,7 +10,8 @@
     "ng": "ng",
     "start": "concurrently 'ng serve' 'ts-node app-node/app.ts' ",
     "clienttests": "NODE_ENV=test karma start",
-    "servertests": "NODE_ENV=test mocha --compilers ts:ts-node/register app-node/**/*test.ts",
+    "servertests": "mocha app-node/**/*test.ts --require ts-node/register --exit",
+    "mocha": "mocha",
     "test": "NODE_ENV=test npm run servertests && ng test"
   },
   "dependencies": {
@@ -28,7 +29,6 @@
     "@ngrx/store": "^6.0.0-beta.1",
     "@types/chai": "^4.0.4",
     "@types/node": "^10.0.6",
-    "@types/ramda": "^0.25.27",
     "ajv": "^6.0.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
