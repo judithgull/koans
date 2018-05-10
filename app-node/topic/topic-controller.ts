@@ -1,5 +1,3 @@
-'use strict';
-
 import * as url from 'url';
 import * as TopicModel from './topic-model';
 import * as jwt from 'jwt-simple';
@@ -27,19 +25,21 @@ const getUserId = (req): string => {
   return payload.sub;
 };
 
-export const getTopics = function(req, res) {
+export const getTopics = (req, res) => {
   res.format({
-    'application/json': function(req, res) {
+    'application/json': (req, res) => {
       const query = url.parse(req.url, true).query;
+      const authorId = query.authorId as string;
+      const search = query.search as string;
 
-      TopicModel.find(query.authorId, query.search).then(topics =>
+      TopicModel.find(authorId, search).then((topics: string[]) =>
         res.send(topics)
       );
     }
   });
 };
 
-export const getTopic = function(req, res) {
+export const getTopic = (req, res) => {
   res.format({
     'application/json': (req, res) => {
       TopicModel.get(req.params.id)
@@ -55,9 +55,9 @@ export const getTopic = function(req, res) {
   });
 };
 
-export const deleteTopic = function(req, res) {
+export const deleteTopic = (req, res) => {
   res.format({
-    'application/json': function(req, res) {
+    'application/json': (req, res) => {
       TopicModel.get(req.params.id).then(
         topic => {
           if (!topic) {
@@ -82,9 +82,9 @@ export const deleteTopic = function(req, res) {
   });
 };
 
-export const updateTopic = function(req, res) {
+export const updateTopic = (req, res) => {
   res.format({
-    'application/json': function(req, res) {
+    'application/json': (req, res) => {
       TopicModel.get(req.params.id).then(
         topic => {
           if (!topic) {
@@ -120,9 +120,9 @@ export const updateTopic = function(req, res) {
   });
 };
 
-export const postTopic = function(req, res) {
+export const postTopic = (req, res) => {
   res.format({
-    'application/json': function(req, res) {
+    'application/json': (req, res) => {
       if (!hasValidTocken(req)) {
         res.status(401).send({ message: 'Login Required!' });
       } else {

@@ -10,7 +10,6 @@ import { EditorModule } from './editor/editor.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RunnerModule } from './runner/runner.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { storeFreeze } from 'ngrx-store-freeze';
 import { MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -26,8 +25,6 @@ const routes: Routes = [
   // { path: '**', component: NotFoundComponent }
 ];
 
-// not used in production -- REMOVE
-export const metaReducers: Array<MetaReducer<any>> = [storeFreeze];
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
@@ -41,7 +38,7 @@ export const metaReducers: Array<MetaReducer<any>> = [storeFreeze];
     EditorModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot(routes),
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
     StoreRouterConnectingModule,
     StoreDevtoolsModule.instrument()
@@ -49,4 +46,4 @@ export const metaReducers: Array<MetaReducer<any>> = [storeFreeze];
   providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

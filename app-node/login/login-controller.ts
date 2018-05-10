@@ -1,4 +1,4 @@
-var jwt = require("jwt-simple");
+var jwt = require('jwt-simple');
 var User = require("../user/user-model");
 var userCtrl = require("../user/user-controller");
 
@@ -7,10 +7,10 @@ export class LoginController {
   constructor(private bcrypt) {
   }
 
-  login = (email:string, pwd:string, error:Function, success:Function) => {
+  login = (email: string, pwd: string, error: Function, success: Function) => {
     var loginError = "The email and password do not match.";
 
-    User.findOne({email: email}, (err, user) => {
+    User.findOne({ email: email }, (err, user) => {
       if (err) {
         console.log(err);
         error(err);
@@ -40,9 +40,9 @@ export class LoginController {
         this.login(body.email, body.password,
           (err) => {
             console.log(err);
-            res.status(401).send({message: err});
+            res.status(401).send({ message: err });
           }, (token, user) => {
-            res.status(200).send({token: token, user: user});
+            res.status(200).send({ token: token, user: user });
           });
 
       }

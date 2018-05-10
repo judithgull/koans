@@ -1,1 +1,1 @@
-export class MockToastService {}
+export class MockToastService { }

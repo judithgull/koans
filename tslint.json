@@ -45,7 +45,8 @@
       "@angular/platform-browser",
       "@angular/common/http",
       "@angular/core/testing",
-      "@angular/router/testing"
+      "@angular/router/testing",
+      "@angular/platform-browser-dynamic"
     ],
     "arrow-parens": [
       true,

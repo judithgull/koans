@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EllipsisModule } from 'ngx-ellipsis';
 
 import { AuthModule } from '../auth/auth.module';
 import { AppCommonModule } from '../common/common.module';
@@ -31,7 +30,6 @@ const routes: Routes = [
   imports: [
     CommonModule,
     HttpClientModule,
-    EllipsisModule,
     RouterModule,
     // app modules
     AppCommonModule,

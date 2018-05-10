@@ -1,18 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
-
+import { Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
 
 
 class MockHttpClient {
-  post(url: string, body: any | null): Observable<Object> {
+  post(url: string, body: any | null): Observable<object> {
     return null;
   }
 }
 
 function createResponse(body) {
-  Observable.of(new Response(JSON.stringify(body)));
+  of(new Response(JSON.stringify(body)));
 }
 
 describe('AuthService', () => {

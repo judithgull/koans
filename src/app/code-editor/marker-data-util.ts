@@ -2,7 +2,7 @@ import { ErrorMarker, SourceType } from '../model';
 
 export function toMarkerData(e: ErrorMarker): monaco.editor.IMarkerData {
   return {
-    severity: monaco.Severity.Error,
+    severity: monaco.MarkerSeverity.Error,
     message: e.message,
     startLineNumber: e.startLineNumber,
     startColumn: 1,
@@ -38,7 +38,7 @@ export function getSortedErrorMarkers(
   markers: monaco.editor.IMarker[]
 ): monaco.editor.IMarker[] {
   const sortedErrorMarkers = markers
-    .filter(m => m.severity === monaco.Severity.Error)
+    .filter(m => m.severity === monaco.MarkerSeverity.Error)
     .sort(compareLineAndOwner);
   return sortedErrorMarkers;
 }
