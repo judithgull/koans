@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { switchMap, map, catchError, tap } from 'rxjs/operators';
+import { switchMap, map, catchError, tap, filter } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { ISeries, SearchParams } from '../../model';
+import { ISeries, SearchParams, ProgrammingLanguage, ExerciseKey, Exercise } from '../../model';
 import { Home } from '../router';
 import { SeriesService } from '../../common/series.service';
 import { ToastrService } from 'ngx-toastr';
@@ -26,8 +26,12 @@ import {
   CREATE_SERIES_SUCCESS,
   DeleteSeriesSuccess,
   UPDATE_SERIES_SUCCESS,
-  SERIES_ERROR
+  SERIES_ERROR,
+  LOAD_SERIES_SUCCESS,
+  SeriesAction,
+  QUERY_SERIES_SUCCESS
 } from './series.action';
+import { ModelValueChange } from '../editor-model/editor-model.action';
 
 @Injectable()
 export class SeriesEffects {
@@ -36,6 +40,21 @@ export class SeriesEffects {
     private seriesService: SeriesService,
     private toastr: ToastrService
   ) { }
+
+  toModelValueChanges = (series: ISeries) => {
+    return series.items.map(e => this.toModelValueChange(series, e));
+  };
+
+  toModelValueChange = (series: ISeries, e: Exercise) => {
+    const key = new ExerciseKey(series._id, e.sortOrder);
+    const action = new ModelValueChange({
+      id: key.exercisePath,
+      versionId: 1,
+      progLang: ProgrammingLanguage.typescript,
+      value: e.exercise
+    });
+    return action;
+  }
 
   @Effect()
   loadSeries$ = this.actions$.ofType(LOAD_SERIES).pipe(
@@ -136,4 +155,23 @@ export class SeriesEffects {
       }
     })
   );
+
+  @Effect()
+  initModel$ = this.actions$.ofType(LOAD_SERIES_SUCCESS).pipe(
+    map((a: LoadSeriesSuccess) => a.payload),
+    filter((series: ISeries) => series && series.items && series.items.length > 0),
+    switchMap(this.toModelValueChanges)
+  );
+
+
+  @Effect()
+  initModelQuery$ = this.actions$.ofType(QUERY_SERIES_SUCCESS).pipe(
+    map((a: QuerySeriesSuccess) => a.payload),
+    switchMap((s: ISeries[]) => s),
+    switchMap(this.toModelValueChanges)
+  );
+
 }
+
+
+

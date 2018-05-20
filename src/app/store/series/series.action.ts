@@ -3,36 +3,34 @@ import { Action } from '@ngrx/store';
 import { SearchParams } from '../../model/search.params';
 
 export const SERIES_ERROR = 'SERIES ERROR';
-
-export const LOAD_SERIES = 'LOAD SERIES';
-export const LOAD_SERIES_SUCCESS = 'LOAD SERIES SUCCESS';
-
-export const QUERY_SERIES = 'QUERY SERIES';
-export const QUERY_SERIES_SUCCESS = 'QUERY SERIES SUCCESS';
-
 export class SeriesError implements Action {
   readonly type = SERIES_ERROR;
-  constructor(public payload: any) {}
+  constructor(public payload: any) { }
 }
 
+export const QUERY_SERIES = 'QUERY SERIES';
 export class QuerySeries implements Action {
   readonly type = QUERY_SERIES;
-  constructor(public searchParams: SearchParams) {}
+  constructor(public searchParams: SearchParams) { }
 }
 
+export const QUERY_SERIES_SUCCESS = 'QUERY SERIES SUCCESS';
 export class QuerySeriesSuccess implements Action {
   readonly type = QUERY_SERIES_SUCCESS;
-  constructor(public payload: ISeries[]) {}
+  constructor(public payload: ISeries[]) { }
 }
 
+export const LOAD_SERIES = 'LOAD SERIES';
 export class LoadSeries implements Action {
   readonly type = LOAD_SERIES;
-  constructor(public id: string) {}
+  constructor(public id: string) { }
 }
 
+
+export const LOAD_SERIES_SUCCESS = 'LOAD SERIES SUCCESS';
 export class LoadSeriesSuccess implements Action {
   readonly type = LOAD_SERIES_SUCCESS;
-  constructor(public payload: ISeries) {}
+  constructor(public payload: ISeries) { }
 }
 
 // create
@@ -41,12 +39,12 @@ export const CREATE_SERIES_SUCCESS = 'CREATE SERIES SUCCESS';
 
 export class CreateSeries implements Action {
   readonly type = CREATE_SERIES;
-  constructor(public payload: ISeries) {}
+  constructor(public payload: ISeries) { }
 }
 
 export class CreateSeriesSuccess implements Action {
   readonly type = CREATE_SERIES_SUCCESS;
-  constructor(public payload: ISeries) {}
+  constructor(public payload: ISeries) { }
 }
 
 // update
@@ -55,12 +53,12 @@ export const UPDATE_SERIES_SUCCESS = 'UPDATE SERIES SUCCESS';
 
 export class UpdateSeries implements Action {
   readonly type = UPDATE_SERIES;
-  constructor(public payload: ISeries) {}
+  constructor(public payload: ISeries) { }
 }
 
 export class UpdateSeriesSuccess implements Action {
   readonly type = UPDATE_SERIES_SUCCESS;
-  constructor(public payload: ISeries) {}
+  constructor(public payload: ISeries) { }
 }
 
 // delete
@@ -69,12 +67,12 @@ export const DELETE_SERIES_SUCCESS = 'DELETE SERIES SUCCESS';
 
 export class DeleteSeries implements Action {
   readonly type = DELETE_SERIES;
-  constructor(public payload: string) {}
+  constructor(public payload: string) { }
 }
 
 export class DeleteSeriesSuccess implements Action {
   readonly type = DELETE_SERIES_SUCCESS;
-  constructor(public payload: string) {}
+  constructor(public payload: string) { }
 }
 
 export type SeriesAction =
