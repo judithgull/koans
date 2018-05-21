@@ -1,21 +1,14 @@
 <app-exercise-text [ex]="ex"></app-exercise-text>
-<div class="l-grid-wrap">
-  <div class="l-grid code-editor-wrap">
 
-    <div class="l-grid-cell l-one-half l-mobile-one-whole">
-      <app-code-editor *ngIf="exerciseModelConfig" [modelConfig]='exerciseModelConfig' [language]='series?.programmingLanguage'
-        (ngModelChange)="onExerciseValueChange($event)" ngDefaultControl>
-      </app-code-editor>
-    </div>
-
-    <div class="l-grid-cell l-one-half l-mobile-one-whole ">
-      <app-code-editor *ngIf="progress?.solutionVisible " [modelConfig]='solutionModelConfig' [language]='series?.programmingLanguage'
-        [ngModel]='progress?.solution'></app-code-editor>
-      <div *ngIf="!progress?.solutionVisible ">
-        <app-exercise-feedback *ngFor="let f of errors " [feedback]='f'></app-exercise-feedback>
-      </div>
-    </div>
+<div class="code-editor-grid">
+  <app-code-editor class="code-editor-cell" *ngIf="exerciseModelConfig" [modelConfig]='exerciseModelConfig' [language]='series?.programmingLanguage'
+    (ngModelChange)="onExerciseValueChange($event)" ngDefaultControl>
+  </app-code-editor>
+  <app-code-editor class="code-editor-cell" *ngIf="progress?.solutionVisible " [modelConfig]='solutionModelConfig' [language]='series?.programmingLanguage'
+    [ngModel]='progress?.solution'>
+  </app-code-editor>
+  <div class="code-editor-cell" *ngIf="!progress?.solutionVisible ">
+    <app-exercise-feedback *ngFor="let f of errors " [feedback]='f'></app-exercise-feedback>
   </div>
-
 </div>
 <button class="button " (click)="toggleSolution() ">{{!progress?.solutionVisible && "Show " || "Hide "}} solution</button>

@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@import '../node_modules/sensible/mediaqueries';
 @import './common-styles/0.settings.colors';
 @import './common-styles/0.settings';
 @import './common-styles/0.settings.sizes';
@@ -7,7 +6,6 @@
 @import './common-styles/1.base';
 @import './common-styles/2.layout';
 @import './common-styles/3.helpers';
-@import './common-styles/4.print';
 @import './common-styles/5.states';
 @import './common-styles/mixins';
 @import '~ngx-toastr/toastr';

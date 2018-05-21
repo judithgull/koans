@@ -16,16 +16,16 @@
       <a class="t-info-msg" href="http://chaijs.com/">Chai</a> assertions can be use to validate the user solution</p>
     <p class="t-paragraph t-info-msg">You can insert the comment //hidden to hide everything below this keyword.</p>
 
-    <div class="l-grid code-editor-wrap" formGroupName='codeEditors'>
+    <div class="code-editor-grid" formGroupName='codeEditors'>
 
-      <div class="l-grid-cell l-one-half l-mobile-one-whole">
+      <div class="l-grid-cell">
         <label class="label t-label" for="exerciseEditor">Exercise *</label>
         <app-code-editor id="exerciseEditor" [language]='programmingLanguage' formControlName='exExercise' [(ngModel)]="item.exercise"
           [modelConfig]='exerciseModelConfig'></app-code-editor>
         <app-validation-messages [control]='form.get("codeEditors.exExercise")' validationKey='exercise'></app-validation-messages>
       </div>
 
-      <div class="l-grid-cell l-one-half l-mobile-one-whole">
+      <div class="l-grid-cell">
         <label class="label t-label" for="solution">Solution *</label>
         <app-code-editor id="solution" [language]='programmingLanguage' formControlName='exSolution' [(ngModel)]="item.solution"
           [modelConfig]="solutionModelConfig" (errorMarkerChanges)="updateSolutionError($event)"></app-code-editor>
@@ -34,7 +34,7 @@
         </div>
         <app-validation-messages [control]='form.get("codeEditors.exSolution")' validationKey='solution'></app-validation-messages>
       </div>
-      <div class="l-grid-cell l-one-half l-mobile-one-whole">
+      <div class="l-grid-cell">
         <app-validation-messages [control]='form.get("codeEditors")' validationKey='codeEditors'></app-validation-messages>
       </div>
     </div>

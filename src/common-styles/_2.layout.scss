@@ -1,12 +1,17 @@
-@import "../node_modules/sensible/grid";
 @import "mixins";
 @import "../../node_modules/bonescss/2.layout";
 
-// Consider adding sensible grid for grid and responsiveness
-@include sensibleGrid();
+.code-editor-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  grid-gap: s(medium);
+  margin-bottom: s(medium);
+}
 
-.l-grid-wrap {
-  overflow: hidden;
+.l-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: s(medium);
 }
 
 .l-list-reset {

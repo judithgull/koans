@@ -4,8 +4,6 @@ html {
   min-height: 100%;
   font: $t-default-font-size/#{$t-default-line-height} $t-default-font-family;
   color: c(black);
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
   overflow-y: scroll;
 }
 
@@ -29,18 +27,6 @@ strong {
 ::selection {
   background: c(green);
   text-shadow: none;
-}
-
-// Remove the gap between audio, canvas, iframes,
-// images, videos and the bottom of their containers:
-// https://github.com/h5bp/html5-boilerplate/issues/440
-audio,
-canvas,
-iframe,
-img,
-svg,
-video {
-  vertical-align: middle;
 }
 
 // Remove default fieldset styles.
@@ -157,7 +143,6 @@ a.button {
 
 .select {
   width: 200px;
-  -webkit-appearance: none;
 }
 
 .textarea {

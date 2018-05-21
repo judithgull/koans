@@ -3,6 +3,7 @@
 @import '../../../common-styles/_0.settings.typography';
 
 .exercise-card-form {
+  overflow: hidden;
   background-color: c(black);
   padding: s(huge) s(small);
   margin-bottom: s(large);

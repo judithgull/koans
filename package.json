@@ -51,7 +51,6 @@
     "ramda": "^0.25.0",
     "rxjs": "6.0.0",
     "rxjs-compat": "^6.0.0",
-    "sensible": "0.8.2",
     "ts-node": "~6.0.3",
     "webpack": "^4.6.0",
     "zone.js": "^0.8.26"
