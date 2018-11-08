@@ -1,11 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as R from 'ramda';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 
 import { ExerciseProgress, Feedback, ISeries } from '../../model';
-import * as st from '../../store';
+import { AppState, SeriesQueries } from '../../store';
+import { getSelectedProgresses, getSelectedProgress } from '../../store/editor-model';
+import { SeriesFacade } from '../../store/series';
 
 
 @Component({
@@ -17,15 +19,15 @@ export class SeriesContainerComponent implements OnInit {
   progresses$: Observable<ExerciseProgress[]>;
   progress$: Observable<Feedback>;
 
-  constructor(private store: Store<st.State>) { }
+  constructor(private store: Store<AppState>, private seriesFacade: SeriesFacade) { }
 
   ngOnInit() {
-    this.series$ = this.store.select(st.getSelectedSeries);
+    this.series$ = this.seriesFacade.selectedSeries$;
     this.progresses$ =
-      this.store.select(st.getSelectedProgresses)
+      this.store.select(getSelectedProgresses)
         .pipe(
           distinctUntilChanged((a, b) => R.equals(a, b))
         );
-    this.progress$ = this.store.select(st.getSelectedProgress);
+    this.progress$ = this.store.select(getSelectedProgress);
   }
 }

@@ -10,7 +10,7 @@ import { EditorModule } from './editor/editor.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RunnerModule } from './runner/runner.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { MetaReducer, StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

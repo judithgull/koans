@@ -7,7 +7,7 @@ import {
   getValidationResult,
   ModelError,
   ModelValueChange,
-  QuerySeriesSuccess,
+  SeriesQuerySuccess,
   reducers,
   ModelSuccess,
 } from '..';
@@ -93,7 +93,7 @@ describe('Editor Model Selectors', () => {
         f = value;
       });
 
-      store.dispatch(new QuerySeriesSuccess(mockSeries));
+      store.dispatch(new SeriesQuerySuccess(mockSeries));
 
       const key = ExerciseKey.from(testModelState.id);
 
@@ -128,7 +128,7 @@ describe('Editor Model Selectors', () => {
         f = value;
       });
 
-      store.dispatch(new QuerySeriesSuccess(mockSeries));
+      store.dispatch(new SeriesQuerySuccess(mockSeries));
 
       const key = ExerciseKey.from(testModelState.id);
 

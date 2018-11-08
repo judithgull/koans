@@ -1,19 +1,13 @@
-import { routerReducer, RouterReducerState } from '@ngrx/router-store';
-import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
-import { RouterStateUrl } from './router';
-import { SeriesEntities, seriesReducer, SeriesEffects } from './series';
+import { routerReducer } from '@ngrx/router-store';
+import { ActionReducerMap } from '@ngrx/store';
+import { seriesReducer, SeriesEffects } from './series';
 import { RouterEffects } from './router/router.effect';
 import { SeriesRouterEffects } from './series-routing';
 import { EditorModelEffects } from './editor-model/editor-model.effect';
-import { EditorModelEntities, editorModelReducer } from './editor-model';
+import { editorModelReducer } from './editor-model';
+import { AppState } from './app.state';
 
-export interface State {
-  routerReducer: RouterReducerState<RouterStateUrl>;
-  series: SeriesEntities;
-  editorModel: EditorModelEntities;
-}
-
-export const reducers: ActionReducerMap<State> = {
+export const reducers: ActionReducerMap<AppState> = {
   routerReducer: routerReducer,
   series: seriesReducer,
   editorModel: editorModelReducer
@@ -30,3 +24,4 @@ export * from './series';
 export * from './router';
 export * from './series-routing';
 export * from './editor-model';
+export * from './app.state';

@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { getRouterState } from '../router';
 import { EditorModelEntities } from '..';
-import { getSelectedSeries } from '../series/series.selectors';
+import { SeriesQueries } from '../series';
 import { Feedback, ExerciseKey, ISeries, ExerciseProgress } from '../../model';
 
 export const getEditorModel = createFeatureSelector<EditorModelEntities>(
@@ -52,7 +52,7 @@ const initialProgress = {
 
 export const getSelectedProgresses: MemoizedSelector<object, ExerciseProgress[]> = createSelector(
   getEditorModelEntities,
-  getSelectedSeries,
+  SeriesQueries.selectedSeries,
   (entities: { [id: string]: Feedback; }, series: ISeries) => {
     if (entities && series) {
       const progresses = getExerciseKeys(series)

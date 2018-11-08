@@ -2,30 +2,25 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { filter, map} from 'rxjs/operators';
 
-import { State } from '..';
+import { AppState } from '..';
 import { CodeEditorValidationSerivce, CodeExecutorService } from '../../code-editor';
-import { ErrorMarker, Feedback, ModelState, SourceType } from '../../model';
+import { ErrorMarker, ModelState, SourceType } from '../../model';
 import { EditorModelState } from './editor-model-state';
 import {
   MODEL_VALUE_CHANGE,
   createResultAction,
-  ModelAction,
   MODEL_SUCCESS,
   ModelResultAction,
-  ModelSuccess,
 } from './editor-model.action';
-import { getModelEntity } from './editor-model.selector';
 
 @Injectable()
 export class EditorModelEffects {
   constructor(
     private actions$: Actions,
     private validationService: CodeEditorValidationSerivce,
-    private codeExecutorService: CodeExecutorService,
-    private store: Store<EditorModelState>,
-    private ceStore: Store<State>
+    private codeExecutorService: CodeExecutorService
   ) { }
 
   @Effect()

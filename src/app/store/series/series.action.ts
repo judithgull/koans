@@ -1,89 +1,101 @@
-import { ISeries } from '../../model/series';
 import { Action } from '@ngrx/store';
+import { ISeries } from '../../model/series';
 import { SearchParams } from '../../model/search.params';
 
-export const SERIES_ERROR = 'SERIES ERROR';
+// TODO: QUERY, LOAD, SELECT
+
+export enum SeriesActionTypes {
+  QUERY_REQUEST  = '[Series] QUERY REQUEST',
+  QUERY_SUCCESS  = '[Series] QUERY SUCCESS',
+  LOAD_REQUEST   = '[Series] LOAD REQUEST',
+  LOAD_SUCCESS   = '[Series] SELECT SUCCESS',
+  CREATE_REQUEST = '[Series] CREATE REQUEST',
+  CREATE_SUCCESS = '[Series] CREATE SUCCESS',
+  UPDATE_REQUEST = '[Series] UPDATE REQUEST',
+  UPDATE_SUCCESS = '[Series] UPDATE SUCCESS',
+  DELETE_REQUEST = '[Series] DELETE REQUEST',
+  DELETE_SUCCESS = '[Series] DELETE SUCCESS',
+  SELECT         = '[Series] SELECT',
+  SELECT_EXERCISE  = '[Series] SELECT EXERCISE',
+  ERROR          = '[Series] ERROR'
+}
+
 export class SeriesError implements Action {
-  readonly type = SERIES_ERROR;
+  readonly type = SeriesActionTypes.ERROR;
   constructor(public payload: any) { }
 }
 
-export const QUERY_SERIES = 'QUERY SERIES';
-export class QuerySeries implements Action {
-  readonly type = QUERY_SERIES;
+export class SeriesQueryRequest implements Action {
+  readonly type = SeriesActionTypes.QUERY_REQUEST;
   constructor(public searchParams: SearchParams) { }
 }
 
-export const QUERY_SERIES_SUCCESS = 'QUERY SERIES SUCCESS';
-export class QuerySeriesSuccess implements Action {
-  readonly type = QUERY_SERIES_SUCCESS;
-  constructor(public payload: ISeries[]) { }
+export class SeriesQuerySuccess implements Action {
+  readonly type = SeriesActionTypes.QUERY_SUCCESS;
+  constructor(public series: ISeries[]) { }
 }
 
-export const LOAD_SERIES = 'LOAD SERIES';
-export class LoadSeries implements Action {
-  readonly type = LOAD_SERIES;
+export class SeriesLoadRequest implements Action {
+  readonly type = SeriesActionTypes.LOAD_REQUEST;
   constructor(public id: string) { }
 }
 
-
-export const LOAD_SERIES_SUCCESS = 'LOAD SERIES SUCCESS';
-export class LoadSeriesSuccess implements Action {
-  readonly type = LOAD_SERIES_SUCCESS;
-  constructor(public payload: ISeries) { }
+export class SeriesLoadSuccess implements Action {
+  readonly type = SeriesActionTypes.LOAD_SUCCESS;
+  constructor(public series: ISeries) { }
 }
 
-// create
-export const CREATE_SERIES = 'CREATE SERIES';
-export const CREATE_SERIES_SUCCESS = 'CREATE SERIES SUCCESS';
-
-export class CreateSeries implements Action {
-  readonly type = CREATE_SERIES;
-  constructor(public payload: ISeries) { }
+export class SeriesCreateRequest implements Action {
+  readonly type = SeriesActionTypes.CREATE_REQUEST;
+  constructor(public series: ISeries) { }
 }
 
-export class CreateSeriesSuccess implements Action {
-  readonly type = CREATE_SERIES_SUCCESS;
-  constructor(public payload: ISeries) { }
+export class SeriesCreateSuccess implements Action {
+  readonly type = SeriesActionTypes.CREATE_SUCCESS;
+  constructor(public series: ISeries) { }
 }
 
-// update
-export const UPDATE_SERIES = 'UPDATE SERIES';
-export const UPDATE_SERIES_SUCCESS = 'UPDATE SERIES SUCCESS';
-
-export class UpdateSeries implements Action {
-  readonly type = UPDATE_SERIES;
-  constructor(public payload: ISeries) { }
+export class SeriesUpdateRequest implements Action {
+  readonly type = SeriesActionTypes.UPDATE_REQUEST;
+  constructor(public series: ISeries) { }
 }
 
-export class UpdateSeriesSuccess implements Action {
-  readonly type = UPDATE_SERIES_SUCCESS;
-  constructor(public payload: ISeries) { }
+export class SeriesUpdateSuccess implements Action {
+  readonly type = SeriesActionTypes.UPDATE_SUCCESS;
+  constructor(public series: ISeries) { }
 }
 
-// delete
-export const DELETE_SERIES = 'DELETE SERIES';
-export const DELETE_SERIES_SUCCESS = 'DELETE SERIES SUCCESS';
-
-export class DeleteSeries implements Action {
-  readonly type = DELETE_SERIES;
-  constructor(public payload: string) { }
+export class SeriesDeleteRequest implements Action {
+  readonly type = SeriesActionTypes.DELETE_REQUEST;
+  constructor(public seriesId: string) { }
 }
 
-export class DeleteSeriesSuccess implements Action {
-  readonly type = DELETE_SERIES_SUCCESS;
-  constructor(public payload: string) { }
+export class SeriesDeleteSuccess implements Action {
+  readonly type = SeriesActionTypes.DELETE_SUCCESS;
+  constructor(public seriesId: string) { }
 }
 
-export type SeriesAction =
+export class SeriesSelectAction implements Action {
+  readonly type = SeriesActionTypes.SELECT;
+  constructor(public seriesId: string) { }
+}
+
+export class ExerciseSelectAction implements Action {
+  readonly type = SeriesActionTypes.SELECT_EXERCISE;
+  constructor(public exerciseNr: number) { }
+}
+
+export type SeriesActions =
   | SeriesError
-  | LoadSeries
-  | LoadSeriesSuccess
-  | QuerySeries
-  | QuerySeriesSuccess
-  | CreateSeries
-  | CreateSeriesSuccess
-  | UpdateSeries
-  | UpdateSeriesSuccess
-  | DeleteSeries
-  | DeleteSeriesSuccess;
+  | SeriesLoadRequest
+  | SeriesLoadSuccess
+  | SeriesQueryRequest
+  | SeriesQuerySuccess
+  | SeriesCreateRequest
+  | SeriesCreateSuccess
+  | SeriesUpdateRequest
+  | SeriesUpdateSuccess
+  | SeriesDeleteRequest
+  | SeriesDeleteSuccess
+  | SeriesSelectAction
+  | ExerciseSelectAction;

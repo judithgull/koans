@@ -1,7 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-
 import {
   Exercise,
   ProgrammingLanguages,
@@ -9,12 +7,6 @@ import {
   ProgrammingLanguage,
   ISeries
 } from '../../model';
-import {
-  State,
-  CreateSeries,
-  UpdateSeries,
-  getSelectedSeries
-} from '../../store/index';
 
 @Component({
   selector: 'app-series-form',
@@ -29,7 +21,7 @@ export class SeriesFormComponent {
 
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store<State>) {
+  constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       programmingLanguage: [ProgrammingLanguage.typescript],
       title: [null, Validators.required]

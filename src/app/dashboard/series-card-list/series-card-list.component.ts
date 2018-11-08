@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
 
 import { Series } from '../../model/series';
-import { DeleteSeries, State } from '../../store';
+import { SeriesFacade } from '../../store';
 
 @Component({
   selector: 'app-series-card-list',
@@ -13,13 +12,9 @@ export class SeriesCardListComponent {
 
   @Input() seriesList: Series[];
 
-  constructor(private store: Store<State>) {}
+  constructor(private seriesFacade: SeriesFacade) {}
 
-  /**
-   * Remove item with id locally
-   * @param id
-   */
   onRemove(id: string) {
-    this.store.dispatch(new DeleteSeries(id));
+    this.seriesFacade.remove(id);
   }
 }

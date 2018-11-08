@@ -1,10 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { Exercise, ExerciseProgress, ISeries, Feedback, ErrorMarker } from '../../model';
-import * as st from '../../store';
+import { Exercise,  ISeries, Feedback, ErrorMarker } from '../../model';
 import { map } from 'rxjs/operators/map';
+import { AppState, getSelectedProgress } from '../../store';
+import { SeriesFacade } from '../../store/series/series.facade';
 
 @Component({
   selector: 'app-run-exercise-container',
@@ -22,12 +23,12 @@ export class RunExerciseContainerComponent implements OnInit {
   errors$: Observable<ErrorMarker[]>;
   series$: Observable<ISeries>;
 
-  constructor(private store: Store<st.State>) { }
+  constructor(private store: Store<AppState>, private seriesFacade:SeriesFacade) { }
 
   ngOnInit() {
-    this.ex$ = this.store.select(st.getSelectedExercise);
-    this.progress$ = this.store.select(st.getSelectedProgress);
-    this.series$ = this.store.select(st.getSelectedSeries);
+    this.ex$ = this.seriesFacade.selectedExercise$;
+    this.progress$ = this.store.select(getSelectedProgress);
+    this.series$ = this.seriesFacade.selectedSeries$;
 
     this.errors$ = this.progress$
       .pipe(

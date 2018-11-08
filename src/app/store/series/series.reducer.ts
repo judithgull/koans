@@ -1,70 +1,110 @@
+import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { ISeries } from '../../model';
-import * as sa from './series.action';
-import { toEntities } from '../entityUtil';
+import { SeriesActions, SeriesActionTypes } from './series.action';
+import { SeriesState } from './series.state';
+import { AppState } from '../app.state';
+import { createSelector } from '@ngrx/store';
 
-export interface SeriesEntities {
-  entities: { [id: string]: ISeries };
-  loaded: boolean;
-  loading: boolean;
-}
-
-export const initialState: SeriesEntities = {
+export const INITIAL_STATE: SeriesState = {
+  ids: [],
   entities: {},
-  loaded: false,
-  loading: false
+  selectedSeriesId: undefined,
+  selectedExerciseNr: undefined
 };
 
-export function seriesReducer(
-  state = initialState,
-  action: sa.SeriesAction
-): SeriesEntities {
-  switch (action.type) {
-    case sa.LOAD_SERIES:
-    case sa.QUERY_SERIES: {
-      return {
-        ...state,
-        loading: true
-      };
-    }
-    case sa.LOAD_SERIES_SUCCESS:
-    case sa.CREATE_SERIES_SUCCESS:
-    case sa.UPDATE_SERIES_SUCCESS: {
-      const entity = action.payload;
-      const id = entity._id;
-      return {
-        loading: false,
-        loaded: true,
-        entities: {
-          ...state.entities,
-          [id]: entity
-        }
-      };
-    }
-    case sa.SERIES_ERROR: {
-      return {
-        ...state,
-        loading: false,
-        loaded: false
-      };
-    }
-    case sa.QUERY_SERIES_SUCCESS: {
-      const entities = toEntities(action.payload, s => s._id, state.entities);
+const adapter: EntityAdapter<ISeries> = createEntityAdapter<ISeries>();
 
+function addId(series: ISeries) {
+  return {
+    ...series,
+    id: series._id
+  };
+}
+
+const removeId = (entity: any) => {
+  if (entity) {
+    const { 'id': id, ...entityWithoutId } = entity;
+    return entityWithoutId;
+  }
+  return undefined;
+}
+
+export function seriesReducer(state = INITIAL_STATE, action: SeriesActions): SeriesState {
+  switch (action.type) {
+    case SeriesActionTypes.SELECT:
       return {
         ...state,
-        loading: false,
-        loaded: true,
-        entities
+        selectedSeriesId: action.seriesId
+      }
+    case SeriesActionTypes.SELECT_EXERCISE:
+      return {
+        ...state,
+        selectedExerciseNr: action.exerciseNr
+      }
+    case SeriesActionTypes.LOAD_SUCCESS:
+    case SeriesActionTypes.CREATE_SUCCESS:
+    case SeriesActionTypes.UPDATE_SUCCESS: {
+      const entity = addId(action.series);
+      return {
+        ...adapter.addOne(entity, state)
       };
     }
-    case sa.DELETE_SERIES_SUCCESS: {
-      const id = action.payload;
-      const { [id]: removeEntities, ...entities } = state.entities;
+    case SeriesActionTypes.QUERY_SUCCESS: {
+      const eWithIds = action.series.map(addId);
       return {
-        ...state,
-        entities
+        ...adapter.upsertMany(eWithIds, state)
       };
+    }
+    case SeriesActionTypes.DELETE_SUCCESS: {
+      return adapter.removeOne(action.seriesId, state);
     }
   }
   return state;
+}
+
+export namespace SeriesQueries {
+
+  const getEntities = (state: AppState) => state.series.entities;
+  export const selectedSeriesId = (state:AppState) => state.series.selectedSeriesId;
+  export const selectedExerciseNr = (state:AppState) => state.series.selectedExerciseNr;
+
+  export const all = createSelector(
+    getEntities,
+    entities => Object.values(entities).map(entity => removeId(entity))
+  );
+
+  export function byAuthorId(authorId: string) {
+    return createSelector(
+      all,
+      series => series.filter(s => s.authorId === authorId)
+    );
+  }
+
+  export const byId = (id: string) => {
+    return createSelector(
+      getEntities,
+      entities => removeId(entities[id])
+    );
+  };
+
+  export const selectedSeries = createSelector(
+    getEntities,
+    selectedSeriesId,
+    (entities, seriesId) => {
+      if (seriesId) {
+        return removeId(entities[seriesId]);
+      }
+      return undefined;
+    }
+  );
+
+  export const selectedExercise = createSelector(
+    selectedSeries,
+    selectedExerciseNr,
+    (series, exerciseNr) => {
+      return (
+        series && exerciseNr && removeId(series.items[exerciseNr-1])
+      );
+    }
+  );
 }

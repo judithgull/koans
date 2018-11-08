@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import {
-  State,
-  getSelectedSeries,
-  UpdateSeries,
-  CreateSeries
+  SeriesFacade
 } from '../../store';
 import {
   ISeries,
@@ -38,10 +34,10 @@ export class SeriesContainerComponent implements OnInit {
     }
   ];
 
-  constructor(private store: Store<State>) { }
+  constructor(private seriesFacade: SeriesFacade) { }
 
   ngOnInit() {
-    this.series$ = this.store.select(getSelectedSeries).pipe(
+    this.series$ = this.seriesFacade.selectedSeries$.pipe(
       map(s => {
         return s ? new Series({ ...s }) : this.createNewSeries();
       }));
@@ -54,6 +50,6 @@ export class SeriesContainerComponent implements OnInit {
   }
 
   submitSeries(s: ISeries) {
-    this.store.dispatch(s._id ? new UpdateSeries(s) : new CreateSeries(s));
+    this.seriesFacade.upsert(s);
   }
 }

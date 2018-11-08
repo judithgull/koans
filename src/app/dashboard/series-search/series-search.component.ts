@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { debounceTime } from 'rxjs/operators';
 
 import { SearchParams } from '../../model/search.params';
 import { ISeries } from '../../model/series';
-import * as st from '../../store';
 import { Observable } from 'rxjs';
+import { SeriesFacade } from '../../store/series/series.facade';
 
 @Component({
   selector: 'app-series-search',
@@ -23,7 +22,7 @@ export class SeriesSearchComponent implements OnInit {
   searchParamChange = new EventEmitter<SearchParams>();
   showOwnSeries = false;
 
-  constructor(private store: Store<st.State>) { }
+  constructor(private seriesFacade:SeriesFacade) { }
 
   ngOnInit() {
     this.searchParamChange
@@ -33,14 +32,14 @@ export class SeriesSearchComponent implements OnInit {
   }
 
   private search(params: SearchParams) {
-    this.store.dispatch(new st.QuerySeries(params));
+    this.seriesFacade.search(params);
   }
 
   get seriesList$(): Observable<ISeries[]> {
     if (this.showOwnSeries) {
-      return this.store.select(st.getOwnSeries(this.authorId));
+      return this.seriesFacade.getByAuthorId(this.authorId);
     }
-    return this.store.select(st.getAllSeries);
+    return this.seriesFacade.allSeries$;
   }
 
   updateSearchFilter(authEvent) {

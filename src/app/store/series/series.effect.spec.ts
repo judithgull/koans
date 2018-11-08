@@ -1,18 +1,17 @@
 import { Actions } from '@ngrx/effects';
-import { Observable } from 'rxjs/Observable';
 import { TestBed } from '@angular/core/testing';
 
 import { mockSeries } from '../../common/test/index';
 import {
-  QuerySeries,
-  QuerySeriesSuccess,
-  CreateSeries,
-  CreateSeriesSuccess,
-  UpdateSeriesSuccess,
-  UpdateSeries,
-  DeleteSeries,
-  DeleteSeriesSuccess,
-  LoadSeriesSuccess,
+  SeriesQueryRequest,
+  SeriesQuerySuccess,
+  SeriesCreateRequest,
+  SeriesCreateSuccess,
+  SeriesUpdateSuccess,
+  SeriesUpdateRequest,
+  SeriesDeleteRequest,
+  SeriesDeleteSuccess,
+  SeriesLoadSuccess,
   Home,
   SeriesError,
   ModelValueChange
@@ -21,11 +20,10 @@ import { SeriesService } from '../../common/series.service';
 import { SeriesEffects } from './series.effect';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs/observable/of';
-import { empty } from 'rxjs/observable/empty';
 import { hot, cold } from 'jasmine-marbles';
 import { TestActions, getActions } from '../test/test.actions';
 import { ToastrService } from 'ngx-toastr';
-import { ModelState, ProgrammingLanguage, ExerciseKey, ISeries } from '../../model';
+import { ModelState, ProgrammingLanguage, ExerciseKey } from '../../model';
 
 class MockToastrService {
   // tslint:disable-next-line:no-empty
@@ -62,11 +60,11 @@ describe('SeriesEffects', () => {
 
   describe('querySeries$', () => {
     it('should return a collection from QuerySeriesSuccess', () => {
-      const action = new QuerySeries({});
+      const action = new SeriesQueryRequest({});
 
       actions$.stream = hot('-a', { a: action });
 
-      const completionAction = new QuerySeriesSuccess(mockSeries);
+      const completionAction = new SeriesQuerySuccess(mockSeries);
       const expected = cold('-b', { b: completionAction });
 
       expect(effects.querySeries$).toBeObservable(expected);
@@ -75,11 +73,11 @@ describe('SeriesEffects', () => {
 
   describe('createSeries$', () => {
     it('should create a series from CreateSeriesSuccess', () => {
-      const action = new CreateSeries(mockSeries[0]);
+      const action = new SeriesCreateRequest(mockSeries[0]);
 
       actions$.stream = hot('-a', { a: action });
 
-      const completionAction = new CreateSeriesSuccess(mockSeries[0]);
+      const completionAction = new SeriesCreateSuccess(mockSeries[0]);
       const expected = cold('-b', { b: completionAction });
       expect(effects.createSeries$).toBeObservable(expected);
     });
@@ -87,11 +85,11 @@ describe('SeriesEffects', () => {
 
   describe('updateSeries$', () => {
     it('should update a series from UpdateSeries', () => {
-      const action = new UpdateSeries(mockSeries[0]);
+      const action = new SeriesUpdateRequest(mockSeries[0]);
 
       actions$.stream = hot('-a', { a: action });
 
-      const completionAction = new UpdateSeriesSuccess(mockSeries[0]);
+      const completionAction = new SeriesUpdateSuccess(mockSeries[0]);
       const expected = cold('-b', { b: completionAction });
       expect(effects.updateSeries$).toBeObservable(expected);
     });
@@ -99,11 +97,11 @@ describe('SeriesEffects', () => {
 
   describe('deleteSeries$', () => {
     it('should delete a series from DeleteSeries', () => {
-      const action = new DeleteSeries(mockSeries[0]._id + '');
+      const action = new SeriesDeleteRequest(mockSeries[0]._id + '');
 
       actions$.stream = hot('-a', { a: action });
 
-      const completionAction = new DeleteSeriesSuccess(mockSeries[0]._id + '');
+      const completionAction = new SeriesDeleteSuccess(mockSeries[0]._id + '');
       const expected = cold('-b', { b: completionAction });
       expect(effects.deleteSeries$).toBeObservable(expected);
     });
@@ -111,7 +109,7 @@ describe('SeriesEffects', () => {
 
   describe('homeOnSuccess$', () => {
     it('should navigate home on CreateSeriesSuccess', () => {
-      const action = new CreateSeriesSuccess(mockSeries[0]);
+      const action = new SeriesCreateSuccess(mockSeries[0]);
       actions$.stream = hot('-a', { a: action });
 
       const completionAction = new Home();
@@ -138,7 +136,7 @@ describe('SeriesEffects', () => {
   describe('initModel$', () => {
     it('should init model series load success', () => {
       const series = mockSeries[0];
-      const action = new LoadSeriesSuccess(series);
+      const action = new SeriesLoadSuccess(series);
 
       actions$.stream = hot('-a', { a: action });
 
@@ -158,7 +156,7 @@ describe('SeriesEffects', () => {
 
     it('should init model after query series success', () => {
       const series = mockSeries[0];
-      const action = new QuerySeriesSuccess([series]);
+      const action = new SeriesQuerySuccess([series]);
 
       actions$.stream = hot('-a', { a: action });
 
