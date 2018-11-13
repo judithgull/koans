@@ -2,13 +2,11 @@ import { Action } from '@ngrx/store';
 import { ISeries } from '../../model/series';
 import { SearchParams } from '../../model/search.params';
 
-// TODO: QUERY, LOAD, SELECT
-
 export enum SeriesActionTypes {
   QUERY_REQUEST  = '[Series] QUERY REQUEST',
   QUERY_SUCCESS  = '[Series] QUERY SUCCESS',
   LOAD_REQUEST   = '[Series] LOAD REQUEST',
-  LOAD_SUCCESS   = '[Series] SELECT SUCCESS',
+  LOAD_SUCCESS   = '[Series] LOAD SUCCESS',
   CREATE_REQUEST = '[Series] CREATE REQUEST',
   CREATE_SUCCESS = '[Series] CREATE SUCCESS',
   UPDATE_REQUEST = '[Series] UPDATE REQUEST',

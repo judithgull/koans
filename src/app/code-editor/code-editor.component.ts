@@ -11,10 +11,8 @@ import {
   ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { filter } from 'rxjs/operators';
 import * as R from 'ramda';
 
 import {
@@ -24,16 +22,12 @@ import {
   SourceType
 } from '../model';
 import {
-  filterEqualLines,
   getSortedErrorMarkers,
   toErrorMarker,
   toMarkerData
 } from './marker-data-util';
 import {
-  ModelValueChange,
-  createResultAction,
-  EditorModelEntities,
-  getValidationResult
+  EditorModelFacade
 } from '../store';
 
 /**
@@ -53,7 +47,7 @@ import {
 })
 export class CodeEditorComponent
   implements OnInit, OnDestroy, ControlValueAccessor {
-  constructor(private store: Store<EditorModelEntities>) { }
+  constructor(private facade: EditorModelFacade) { }
 
   @ViewChild('editor') editorContent: ElementRef;
 
@@ -100,7 +94,7 @@ export class CodeEditorComponent
     this.disposables.push(
       model.onDidChangeContent(e => {
         this.editorModelChange.emit(this.modelState);
-        this.store.dispatch(new ModelValueChange(this.modelState));
+        this.facade.update(this.modelState);
         this.onChange(this.value);
         this.height = this.computeHeight();
       })
@@ -188,13 +182,7 @@ export class CodeEditorComponent
 
     this.editor.layout();
 
-    const validationResults = this.store
-      .select(getValidationResult(this.model.id))
-      .pipe(
-        filter(e => e && e.validation && true),
-        filter(e => e.versionId === this.model.getVersionId())
-      );
-
+    const validationResults = this.facade.getValidationResult(this.model.id, this.model.getVersionId);
     this.subs.push(
       validationResults.subscribe(e => {
         if (e.validation.success) {
@@ -211,10 +199,7 @@ export class CodeEditorComponent
 
   private dispatchMonacoErrors() {
     const monacoFeedbacks = this.monacoMarkers.map(toErrorMarker);
-
-    this.store.dispatch(
-      createResultAction(SourceType.monaco, this.modelState, monacoFeedbacks)
-    );
+    this.facade.updateMonacoResult(this.modelState, monacoFeedbacks);
   }
 
   private getMonacoMarkers() {

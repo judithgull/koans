@@ -1,5 +1,6 @@
-import { EditorModelEntities } from './editor-model.reducer';
 
-export interface EditorModelState {
-  editorModel: EditorModelEntities;
+import { Feedback } from '../../model';
+import { EntityState } from '@ngrx/entity';
+
+export interface EditorModelState extends EntityState<Feedback>  {
 }

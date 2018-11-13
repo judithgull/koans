@@ -5,7 +5,7 @@ import { SeriesState } from './series.state';
 import { AppState } from '../app.state';
 import { createSelector } from '@ngrx/store';
 
-export const INITIAL_STATE: SeriesState = {
+const INITIAL_STATE: SeriesState = {
   ids: [],
   entities: {},
   selectedSeriesId: undefined,
@@ -65,8 +65,8 @@ export function seriesReducer(state = INITIAL_STATE, action: SeriesActions): Ser
 export namespace SeriesQueries {
 
   const getEntities = (state: AppState) => state.series.entities;
-  export const selectedSeriesId = (state:AppState) => state.series.selectedSeriesId;
-  export const selectedExerciseNr = (state:AppState) => state.series.selectedExerciseNr;
+  export const selectedSeriesId = (state: AppState) => state.series.selectedSeriesId;
+  export const selectedExerciseNr = (state: AppState) => state.series.selectedExerciseNr;
 
   export const all = createSelector(
     getEntities,
@@ -103,7 +103,7 @@ export namespace SeriesQueries {
     selectedExerciseNr,
     (series, exerciseNr) => {
       return (
-        series && exerciseNr && removeId(series.items[exerciseNr-1])
+        series && exerciseNr && removeId(series.items[exerciseNr - 1])
       );
     }
   );

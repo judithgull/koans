@@ -7,21 +7,21 @@ import { SeriesQueries } from './series.reducer';
 import { AppState } from '../app.state';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class SeriesFacade {
 
-  allSeries$:Observable<ISeries[]>        = this.store.select(SeriesQueries.all);
-  selectedSeries$:Observable<ISeries>     = this.store.select(SeriesQueries.selectedSeries);
-  selectedExercise$:Observable<Exercise>  = this.store.select(SeriesQueries.selectedExercise);
+  allSeries$: Observable<ISeries[]> = this.store.select(SeriesQueries.all);
+  selectedSeries$: Observable<ISeries> = this.store.select(SeriesQueries.selectedSeries);
+  selectedExercise$: Observable<Exercise> = this.store.select(SeriesQueries.selectedExercise);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) { }
 
-  getByAuthorId(authorId:string): Observable<ISeries[]> {
+  getByAuthorId(authorId: string): Observable<ISeries[]> {
     return this.store.select(SeriesQueries.byAuthorId(authorId));
   }
 
-  getById(id:string): Observable<ISeries> {
+  getById(id: string): Observable<ISeries> {
     return this.store.select(SeriesQueries.byId(id));
   }
 
@@ -45,7 +45,7 @@ export class SeriesFacade {
     this.store.dispatch(series._id ? new SeriesUpdateRequest(series) : new SeriesCreateRequest(series));
   }
 
-  remove(seriesId:string) {
+  remove(seriesId: string) {
     this.store.dispatch(new SeriesDeleteRequest(seriesId));
   }
 

@@ -1,68 +1,58 @@
-import { Feedback, FeedbackDetails, SourceType, ModelState } from '../../model';
+import { Feedback, FeedbackDetails, SourceType, ModelState, ExerciseKey, ExerciseProgress, ISeries } from '../../model';
 import {
-  MODEL_VALUE_CHANGE,
   ModelAction,
-  MODEL_ERROR,
-  MODEL_SUCCESS,
-  MODEL_SOLUTION_VISIBLE_TOGGLE,
+  EditorModelActionTypes,
 } from './editor-model.action';
+import { MemoizedSelector, createSelector } from '@ngrx/store';
+import { SeriesQueries } from '../series';
+import { AppState } from '../app.state';
+import { EditorModelState } from './editor-model-state';
+import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 
-export interface EditorModelEntities {
-  entities: {
-    [id: string]: Feedback;
-  };
-}
-
-export const emInitialState: EditorModelEntities = {
+export const EM_INITIAL_STATE: EditorModelState = {
+  ids: [],
   entities: {}
 };
 
-export function editorModelReducer(
-  state = emInitialState,
-  action: ModelAction
-): EditorModelEntities {
-  switch (action.type) {
-    case MODEL_SOLUTION_VISIBLE_TOGGLE: {
-      const id = action.key.exercisePath;
-      // ignore, if the value does not exist yet
-      if (!state.entities[id]) {
-        return state;
-      }
-      const currentlyVisible = state.entities[id].solutionVisible;
+const adapter: EntityAdapter<Feedback> = createEntityAdapter<Feedback>();
 
-      return {
-        ...state,
-        entities: {
-          ...state.entities,
-          [action.key.exercisePath]: {
-            ...state.entities[id],
-            solutionRequested: true,
-            solutionVisible: !currentlyVisible
-          }
-        }
-      };
+export function editorModelReducer(
+  state = EM_INITIAL_STATE,
+  action: ModelAction
+): EditorModelState {
+  switch (action.type) {
+    case EditorModelActionTypes.INIT: {
+      const feedbacks: Feedback[] = action.modelStates.map(m => ({
+        ...m,
+        valid: false,
+        solutionRequested: false,
+        solutionVisible: false
+      }));
+
+      return adapter.upsertMany(feedbacks, state);
     }
-    case MODEL_VALUE_CHANGE:
+    case EditorModelActionTypes.VALUE_CHANGE:
       if (isOldVersion(state, action.modelState)) {
         return state;
       }
-      const currentModel = state.entities[action.modelState.id];
-      const solutionVisible = currentModel ? currentModel.solutionVisible : false;
-      const solutionRequested = currentModel ? currentModel.solutionRequested : false;
+      return adapter.updateOne({ id: action.modelState.id, changes: action.modelState }, state);
+    case EditorModelActionTypes.TOGGLE_SOLUTION: {
+      const id = action.key.exercisePath;
+      if (!state.entities[id]) {
+        return state;
+      }
 
-      return {
-        ...state,
-        entities: {
-          ...state.entities,
-          [action.modelState.id]: {
-            ...action.modelState,
-            valid: false,
-            solutionRequested,
-            solutionVisible
-          }
+      const currentlyVisible = state.entities[id].solutionVisible;
+
+      return adapter.updateOne({
+        id,
+        changes: {
+          solutionRequested: true,
+          solutionVisible: !currentlyVisible
         }
-      };
-    case MODEL_ERROR: {
+      }, state);
+    }
+    case EditorModelActionTypes.ERROR: {
       const currentModelState = state.entities[action.modelState.id];
       if (!currentModelState || isOldVersion(state, action.modelState)) {
         return state;
@@ -79,7 +69,7 @@ export function editorModelReducer(
         state
       );
     }
-    case MODEL_SUCCESS: {
+    case EditorModelActionTypes.SUCCESS: {
       const currentModelState = state.entities[action.modelState.id];
       if (!currentModelState || isOldVersion(state, action.modelState)) {
         return state;
@@ -100,10 +90,8 @@ export function editorModelReducer(
   return state;
 }
 
-function isOldVersion(existingState: EditorModelEntities, newState: ModelState): boolean {
-  const existingModelState = newState
-    ? existingState.entities[newState.id]
-    : undefined;
+function isOldVersion(existingState: EditorModelState, newState: ModelState): boolean {
+  const existingModelState = existingState.entities[newState.id];
   return existingModelState && existingModelState.versionId > newState.versionId;
 }
 
@@ -129,8 +117,8 @@ function addResult(
   result: FeedbackDetails,
   existingModelState: Feedback,
   newModelState: ModelState,
-  state: EditorModelEntities
-): EditorModelEntities {
+  state: EditorModelState
+): EditorModelState {
   const isEqualVersion =
     existingModelState.versionId === newModelState.versionId;
 
@@ -163,5 +151,80 @@ function addResult(
         }
       }
     };
+  }
+}
+
+
+export namespace EditorModelQueries {
+
+  export const entities = (state: AppState) => state.editorModel.entities;
+
+  export function getModelEntity(modelId: string) {
+    return createSelector(
+      entities,
+      entities => entities && entities[modelId]
+    );
+  }
+
+  export function getValidationResult(modelId: string) {
+    return createSelector(
+      getModelEntity(modelId),
+      model => {
+        if (model && model.validation) {
+          return model;
+        }
+        return null;
+      });
+  }
+
+  export const getSelectedProgress: MemoizedSelector<object, Feedback> = createSelector(
+    entities,
+    SeriesQueries.selectedSeriesId,
+    SeriesQueries.selectedExerciseNr,
+    (entities: { [id: string]: Feedback; }, seriesId: string, exerciseNr: number) => {
+      if (entities && seriesId && exerciseNr) {
+        const key = new ExerciseKey(+seriesId, exerciseNr);
+        return entities[key.exercisePath];
+      }
+      return null;
+    }
+  );
+
+  const initialProgress = {
+    solutionRequested: false,
+    solutionVisible: false,
+    valid: false,
+    solved: false
+  };
+
+  export const getSelectedProgresses: MemoizedSelector<object, ExerciseProgress[]> = createSelector(
+    entities,
+    SeriesQueries.selectedSeries,
+    (entities: { [id: string]: Feedback; }, series: ISeries) => {
+      if (entities && series) {
+        const progresses = getExerciseKeys(series)
+          .map(key => {
+            return entities[key.exercisePath];
+          })
+          .map(f => {
+            if (!f) {
+              return initialProgress;
+            } else {
+              return {
+                solutionRequested: f.solutionRequested,
+                solutionVisible: f.solutionVisible,
+                valid: f.valid,
+                solved: f.valid && !f.solutionRequested
+              }
+            }
+          });
+        return progresses;
+      }
+      return [];
+    }
+  );
+
+  function getExerciseKeys(series: ISeries): ExerciseKey[] {
+    return series.items.map(item => new ExerciseKey(series._id, item.sortOrder));
   }
 }

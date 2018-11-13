@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
 
 import { ErrorMarker, Exercise, ExerciseKey, Feedback, ISeries } from '../../model';
-import { AppState, ModelSolutionVisibleToggle } from '../../store';
+import { EditorModelFacade } from '../../store';
 
 @Component({
   selector: 'app-run-exercise-card',
@@ -18,7 +17,7 @@ export class RunExerciseCardComponent {
 
   @Input() errors: ErrorMarker[];
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private facade: EditorModelFacade) { }
 
   get exerciseKey(): ExerciseKey {
     return new ExerciseKey(this.series._id, this.ex.sortOrder);
@@ -37,8 +36,6 @@ export class RunExerciseCardComponent {
   }
 
   toggleSolution() {
-    this.store.dispatch(
-      new ModelSolutionVisibleToggle(this.exerciseKey)
-    );
+    this.facade.toggleSolution(this.exerciseKey);
   }
 }

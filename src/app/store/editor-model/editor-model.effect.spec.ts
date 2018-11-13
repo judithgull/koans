@@ -8,8 +8,10 @@ import { CodeEditorValidationSerivce, CodeExecutorService, JSExecutorService, Ts
 import { EditableMarkerService } from '../../common';
 import { ProgrammingLanguage, SourceType } from '../../model';
 import { getActions, TestActions } from '../test';
-import { ModelValueChange, ModelError, ModelSuccess } from './editor-model.action';
+import { ModelValueChange, ModelError, ModelSuccess, ModelInitAction } from './editor-model.action';
 import { EditorModelEffects } from './editor-model.effect';
+import { mockSeries } from '../../common/test';
+import { SeriesLoadSuccess, SeriesQuerySuccess } from '../series/series.action';
 
 class StoreMock {
   select<K>(mapFn) {
@@ -87,4 +89,46 @@ describe('EditorModelEffects', () => {
       expect(effects.execute$).toBeObservable(expected);
     });
   });
+
+
+  describe('initModel$', () => {
+    it('triggers model init after loading a series successfully', () => {
+      const series = mockSeries[0];
+      const action = new SeriesLoadSuccess(series);
+
+      actions$.stream = hot('-a', { a: action });
+
+      const expected = cold('-b', { b: new  ModelInitAction([
+        {id: '1/1/exercise', progLang: ProgrammingLanguage.typescript, value: series.items[0].exercise, versionId: 1 },
+        {id: '1/1/solution', progLang: ProgrammingLanguage.typescript, value: series.items[0].solution, versionId: 1 },
+        {id: '1/2/exercise', progLang: ProgrammingLanguage.typescript, value: series.items[1].exercise, versionId: 1 },
+        {id: '1/2/solution', progLang: ProgrammingLanguage.typescript, value: series.items[1].solution, versionId: 1 },
+        {id: '1/3/exercise', progLang: ProgrammingLanguage.typescript, value: series.items[2].exercise, versionId: 1 },
+        {id: '1/3/solution', progLang: ProgrammingLanguage.typescript, value: series.items[2].solution, versionId: 1 },
+        ])});
+      expect(effects.initModel$).toBeObservable(expected);
+    });
+
+    it('triggers model init after loading multiple series successfully', () => {
+      const action = new SeriesQuerySuccess(mockSeries);
+
+      actions$.stream = hot('-a', { a: action });
+
+      const expected = cold('-b', { b: new  ModelInitAction([
+        {id: '1/1/exercise', progLang: ProgrammingLanguage.typescript, value: mockSeries[0].items[0].exercise, versionId: 1 },
+        {id: '1/1/solution', progLang: ProgrammingLanguage.typescript, value: mockSeries[0].items[0].solution, versionId: 1 },
+        {id: '1/2/exercise', progLang: ProgrammingLanguage.typescript, value: mockSeries[0].items[1].exercise, versionId: 1 },
+        {id: '1/2/solution', progLang: ProgrammingLanguage.typescript, value: mockSeries[0].items[1].solution, versionId: 1 },
+        {id: '1/3/exercise', progLang: ProgrammingLanguage.typescript, value: mockSeries[0].items[2].exercise, versionId: 1 },
+        {id: '1/3/solution', progLang: ProgrammingLanguage.typescript, value: mockSeries[0].items[2].solution, versionId: 1 },
+        {id: '2/1/exercise', progLang: ProgrammingLanguage.typescript, value: mockSeries[1].items[0].exercise, versionId: 1 },
+        {id: '2/1/solution', progLang: ProgrammingLanguage.typescript, value: mockSeries[1].items[0].solution, versionId: 1 },
+        {id: '2/2/exercise', progLang: ProgrammingLanguage.typescript, value: mockSeries[1].items[1].exercise, versionId: 1 },
+        {id: '2/2/solution', progLang: ProgrammingLanguage.typescript, value: mockSeries[1].items[1].solution, versionId: 1 },
+        ])});
+      expect(effects.initModelQuery$).toBeObservable(expected);
+    });
+
+  });
+
 });

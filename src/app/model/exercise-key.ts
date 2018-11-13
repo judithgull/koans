@@ -5,12 +5,16 @@ export class ExerciseKey {
     public exerciseId: number
   ) { }
 
+  get uuid() {
+    return this.seriesId + '/' + this.exerciseId
+  }
+
   get exercisePath() {
-    return this.seriesId + '/' + this.exerciseId + '/exercise'
+    return this.uuid + '/exercise'
   };
 
   get solutionPath() {
-    return this.seriesId + '/' + this.exerciseId + '/solution'
+    return this.uuid + '/solution'
   };
 
 

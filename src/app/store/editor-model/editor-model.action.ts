@@ -1,21 +1,32 @@
 import { Action } from '@ngrx/store';
 
-import { ErrorMarker, ModelState, FeedbackDetails, ExerciseKey } from '../../model';
+import { ErrorMarker, ModelState, ExerciseKey, ProgrammingLanguage } from '../../model';
+
+export enum EditorModelActionTypes {
+  INIT = '[Editor Model] INIT',
+  VALUE_CHANGE = '[Editor Model] VALUE CHANGE',
+  ERROR = '[Editor Model] ERROR',
+  SUCCESS = '[Editor Model] SUCCESS',
+  TOGGLE_SOLUTION = '[Editor Model] TOGGLE SOLUTION'
+}
 
 export interface ModelResultAction extends Action {
   modelState: ModelState;
   key: string;
 }
 
-export const MODEL_VALUE_CHANGE = 'MODEL VALUE CHANGE';
+export class ModelInitAction implements Action {
+  readonly type = EditorModelActionTypes.INIT;
+  constructor(public modelStates: ModelState[]) { }
+}
+
 export class ModelValueChange implements Action {
-  readonly type = MODEL_VALUE_CHANGE;
+  readonly type = EditorModelActionTypes.VALUE_CHANGE;
   constructor(public modelState: ModelState) { }
 }
 
-export const MODEL_ERROR = 'MODEL_ERROR';
 export class ModelError implements ModelResultAction {
-  readonly type = MODEL_ERROR;
+  readonly type = EditorModelActionTypes.ERROR;
   constructor(
     public key: string,
     public modelState: ModelState,
@@ -23,17 +34,15 @@ export class ModelError implements ModelResultAction {
   ) { }
 }
 
-export const MODEL_SUCCESS = 'MODEL_SUCCESS';
 export class ModelSuccess implements ModelResultAction {
-  readonly type = MODEL_SUCCESS;
+  readonly type = EditorModelActionTypes.SUCCESS;
   constructor(
     public key: string,
     public modelState: ModelState) { }
 }
 
-export const MODEL_SOLUTION_VISIBLE_TOGGLE = 'MODEL_SOLUTION_VISIBLE_TOGGLE';
-export class ModelSolutionVisibleToggle implements Action {
-  readonly type = MODEL_SOLUTION_VISIBLE_TOGGLE;
+export class ModelToggleSolutionAction implements Action {
+  readonly type = EditorModelActionTypes.TOGGLE_SOLUTION;
   constructor(
     public key: ExerciseKey
   ) { }
@@ -55,4 +64,5 @@ export type ModelAction =
   | ModelValueChange
   | ModelError
   | ModelSuccess
-  | ModelSolutionVisibleToggle;
+  | ModelToggleSolutionAction
+  | ModelInitAction;
