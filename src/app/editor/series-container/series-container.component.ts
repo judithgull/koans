@@ -9,8 +9,8 @@ import {
   ProgrammingLanguages,
   ProgrammingLanguage
 } from '../../model';
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators/map';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-series-container',

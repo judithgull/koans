@@ -14,12 +14,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { reducers, CustomSerializer, effects } from './store';
+import { reducers, effects } from './store';
 import { ToastrModule } from 'ngx-toastr';
-import {
-  StoreRouterConnectingModule,
-  RouterStateSerializer
-} from '@ngrx/router-store';
 
 const routes: Routes = [
   // { path: '**', component: NotFoundComponent }
@@ -40,10 +36,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
-    StoreRouterConnectingModule,
     StoreDevtoolsModule.instrument()
   ],
-  providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

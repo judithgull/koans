@@ -1,12 +1,9 @@
 import { RouterEffects } from './router.effect';
 import { TestBed } from '@angular/core/testing';
 import { Actions } from '@ngrx/effects';
-import { Observable } from 'rxjs/Observable';
 
-import { expand } from 'rxjs/operators/expand';
 import { hot, cold } from 'jasmine-marbles';
 import { Home, Go } from './router.action';
-import { Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TestActions, getActions } from '../test/test.actions';
 import { Router } from '@angular/router';

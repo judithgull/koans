@@ -15,7 +15,9 @@ export class SeriesContainerComponent implements OnInit {
   progresses$: Observable<ExerciseProgress[]>;
   progress$: Observable<Feedback>;
 
-  constructor(private seriesFacade: SeriesFacade, private editorModelFacade:EditorModelFacade) { }
+  constructor(
+    private seriesFacade: SeriesFacade,
+    private editorModelFacade:EditorModelFacade) { }
 
   ngOnInit() {
     this.series$ = this.seriesFacade.selectedSeries$;

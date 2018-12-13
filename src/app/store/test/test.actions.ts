@@ -1,6 +1,5 @@
 import { Actions } from '@ngrx/effects';
-import { Observable } from 'rxjs/Observable';
-import { empty } from 'rxjs/observable/empty';
+import { empty, Observable } from 'rxjs';
 /**
  *  Actions with stream setter for testing.
  */

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.state';
-import { ModelValueChange, createResultAction, ModelToggleSolutionAction } from './editor-model.action';
-import { ModelState, Feedback, SourceType, ErrorMarker, ExerciseKey, ExerciseProgress } from '../../model';
+import { ModelValueChange, createResultAction, ModelToggleSolutionAction,  ModelValidateAction } from './editor-model.action';
+import { ModelState,  SourceType, ErrorMarker, ExerciseKey, ExerciseProgress } from '../../model';
 import { EditorModelQueries } from './editor-model.reducer';
 import { filter, map, distinctUntilChanged } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import * as R from 'ramda';
+import { FeedbackDetails } from '../../model/feedback';
 
 @Injectable({
   providedIn: 'root',
@@ -15,22 +16,22 @@ export class EditorModelFacade {
   selectedProgress$ = this.store.select(EditorModelQueries.getSelectedProgress);
 
   errors$ = this.selectedProgress$
-      .pipe(
-        map(f => {
-          if (f && f.validation && !f.validation.success) {
-            return f.validation.errors;
-          } else if (f && f.monaco && !f.monaco.success) {
-            return f.monaco.errors;
-          } else if (f && f.execution && !f.execution.success) {
-            return f.execution.errors;
-          }
-          return [];
-        })
-      );
+    .pipe(
+      map(f => {
+        if (f && f.validation && !f.validation.success) {
+          return f.validation.errors;
+        } else if (f && f.monaco && !f.monaco.success) {
+          return f.monaco.errors;
+        } else if (f && f.execution && !f.execution.success) {
+          return f.execution.errors;
+        }
+        return [];
+      })
+    );
   distinctProgresses$: Observable<ExerciseProgress[]> = this.store.select(EditorModelQueries.getSelectedProgresses)
-  .pipe(
-    distinctUntilChanged((a, b) => R.equals(a, b))
-  );;
+    .pipe(
+      distinctUntilChanged((a, b) => R.equals(a, b))
+    );;
 
   constructor(private store: Store<AppState>) { }
 
@@ -38,12 +39,11 @@ export class EditorModelFacade {
     this.store.dispatch(new ModelValueChange(value));
   }
 
-  getValidationResult(id: string, version): Observable<Feedback> {
+  getValidationResult(id: string, version: number): Observable<FeedbackDetails> {
     return this.store
-      .select(EditorModelQueries.getValidationResult(id))
+      .select(EditorModelQueries.getValidationResult(id, version))
       .pipe(
-        filter(e => e && e.validation && true),
-        filter(e => e.versionId === version)
+        filter(e => !!e)
       );
   }
 
@@ -57,6 +57,10 @@ export class EditorModelFacade {
     this.store.dispatch(
       new ModelToggleSolutionAction(exerciseKey)
     );
+  }
+
+  triggerValidation(modelState: ModelState) {
+    this.store.dispatch(new ModelValidateAction(modelState));
   }
 
 }

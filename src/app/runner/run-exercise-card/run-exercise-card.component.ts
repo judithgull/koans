@@ -20,7 +20,7 @@ export class RunExerciseCardComponent {
   constructor(private facade: EditorModelFacade) { }
 
   get exerciseKey(): ExerciseKey {
-    return new ExerciseKey(this.series._id, this.ex.sortOrder);
+    return new ExerciseKey(''+this.series._id, this.ex.sortOrder);
   }
 
   get exerciseModelConfig(): { path: string, initialValue: string } {

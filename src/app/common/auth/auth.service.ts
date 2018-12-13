@@ -1,13 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, throwError } from 'rxjs';
 
 import { User } from '../../auth/model/user';
 import { LoginInfo } from '../../model/login-info';
 import { LoginTokenInfo } from '../../model/login-token-info';
-import { map } from 'rxjs/operators/map';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 const USER_KEY = 'user';
 const TOKEN_KEY = 'token';

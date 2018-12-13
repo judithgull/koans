@@ -3,7 +3,7 @@ import {
   ModelAction,
   EditorModelActionTypes,
 } from './editor-model.action';
-import { MemoizedSelector, createSelector } from '@ngrx/store';
+import { createSelector, Selector } from '@ngrx/store';
 import { SeriesQueries } from '../series';
 import { AppState } from '../app.state';
 import { EditorModelState } from './editor-model-state';
@@ -61,13 +61,14 @@ export function editorModelReducer(
         success: false,
         errors: action.errors
       };
-      return addResult(
-        action.key,
-        result,
-        state.entities[action.modelState.id],
-        action.modelState,
-        state
-      );
+
+      return adapter.updateOne({
+        id: action.modelState.id,
+        changes: {
+          [action.key]: result,
+          valid: isValid(action.key, result, currentModelState)
+        }
+      }, state);
     }
     case EditorModelActionTypes.SUCCESS: {
       const currentModelState = state.entities[action.modelState.id];
@@ -78,13 +79,13 @@ export function editorModelReducer(
         success: true,
         errors: []
       };
-      return addResult(
-        action.key,
-        result,
-        currentModelState,
-        action.modelState,
-        state
-      );
+      return adapter.updateOne({
+        id: action.modelState.id,
+        changes: {
+          [action.key]: result,
+          valid: isValid(action.key, result, currentModelState)
+        }
+      }, state);;
     }
   }
   return state;
@@ -112,49 +113,6 @@ function isValid(resultKey: string, result: FeedbackDetails, existingModelState:
   return false;
 }
 
-function addResult(
-  resultKey: string,
-  result: FeedbackDetails,
-  existingModelState: Feedback,
-  newModelState: ModelState,
-  state: EditorModelState
-): EditorModelState {
-  const isEqualVersion =
-    existingModelState.versionId === newModelState.versionId;
-
-  if (isEqualVersion) {
-    return {
-      ...state,
-      entities: {
-        ...state.entities,
-        [newModelState.id]: {
-          ...existingModelState,
-          [resultKey]: result,
-          valid: isValid(resultKey, result, existingModelState)
-        }
-      }
-    };
-  } else {
-    return {
-      ...state,
-      entities: {
-        ...state.entities,
-        [newModelState.id]: {
-          value: newModelState.value,
-          progLang: newModelState.progLang,
-          id: newModelState.id,
-          versionId: newModelState.versionId,
-          [resultKey]: result,
-          valid: existingModelState.valid,
-          solutionRequested: existingModelState.solutionRequested,
-          solutionVisible: existingModelState.solutionVisible
-        }
-      }
-    };
-  }
-}
-
-
 export namespace EditorModelQueries {
 
   export const entities = (state: AppState) => state.editorModel.entities;
@@ -166,65 +124,69 @@ export namespace EditorModelQueries {
     );
   }
 
-  export function getValidationResult(modelId: string) {
+  export function getFeedbackDetails(modelId: string, sourceType: SourceType, version: number) {
     return createSelector(
       getModelEntity(modelId),
       model => {
-        if (model && model.validation) {
-          return model;
+        if (model && model.versionId === version) {
+          return model[sourceType];
         }
-        return null;
-      });
+        return undefined;
+      }
+    );
   }
 
-  export const getSelectedProgress: MemoizedSelector<object, Feedback> = createSelector(
+  export function getValidationResult(modelId: string, version: number) {
+    return getFeedbackDetails(modelId, SourceType.validation, version);
+  }
+
+  export const getSelectedProgress: Selector<AppState, Feedback> = createSelector(
     entities,
     SeriesQueries.selectedSeriesId,
     SeriesQueries.selectedExerciseNr,
     (entities: { [id: string]: Feedback; }, seriesId: string, exerciseNr: number) => {
       if (entities && seriesId && exerciseNr) {
-        const key = new ExerciseKey(+seriesId, exerciseNr);
+        const key = new ExerciseKey(seriesId, exerciseNr);
+       // console.log(entities[key.exercisePath]);
         return entities[key.exercisePath];
       }
       return null;
     }
   );
 
-  const initialProgress = {
+  export const initialProgress = {
     solutionRequested: false,
     solutionVisible: false,
     valid: false,
     solved: false
   };
 
-  export const getSelectedProgresses: MemoizedSelector<object, ExerciseProgress[]> = createSelector(
+  export const getSelectedProgresses: Selector<AppState, ExerciseProgress[]> = createSelector(
     entities,
     SeriesQueries.selectedSeries,
     (entities: { [id: string]: Feedback; }, series: ISeries) => {
       if (entities && series) {
-        const progresses = getExerciseKeys(series)
-          .map(key => {
-            return entities[key.exercisePath];
-          })
-          .map(f => {
-            if (!f) {
-              return initialProgress;
-            } else {
-              return {
-                solutionRequested: f.solutionRequested,
-                solutionVisible: f.solutionVisible,
-                valid: f.valid,
-                solved: f.valid && !f.solutionRequested
-              }
-            }
-          });
-        return progresses;
+        const keys: string[] = getExerciseKeys(series);
+        const values: Feedback[] = keys.map(key => entities[key]);
+        const v2 = values.map((v: Feedback) => {
+          if (v) {
+            return {
+              solutionRequested: v.solutionRequested,
+              solutionVisible: v.solutionVisible,
+              valid: v.valid,
+              solved: v.valid && !v.solutionRequested,
+            };
+          }
+          return undefined;
+        }
+        );
+        return v2;
       }
       return [];
     }
   );
 
-  function getExerciseKeys(series: ISeries): ExerciseKey[] {
-    return series.items.map(item => new ExerciseKey(series._id, item.sortOrder));
+  function getExerciseKeys(series: ISeries): string[] {
+    return series.items.map(item => new ExerciseKey(''+series._id, item.sortOrder).exercisePath);
   }
 }

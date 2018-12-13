@@ -4,10 +4,9 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot
 } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { MonacoLoaderService } from '../code-editor/monaco-loader.service';
 import { filter, take, timeout } from 'rxjs/operators';
-import { pipe } from 'rxjs';
 
 @Injectable()
 export class MonacoLoadedGuard implements CanActivate {

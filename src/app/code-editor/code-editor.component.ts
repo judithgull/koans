@@ -11,8 +11,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import * as R from 'ramda';
 
 import {
@@ -182,13 +181,13 @@ export class CodeEditorComponent
 
     this.editor.layout();
 
-    const validationResults = this.facade.getValidationResult(this.model.id, this.model.getVersionId);
+    const validationResults = this.facade.getValidationResult(this.model.id, this.model.getVersionId());
     this.subs.push(
       validationResults.subscribe(e => {
-        if (e.validation.success) {
+        if (e.success) {
           this.clearMarkers(SourceType.validation.toString());
         } else {
-          const markers = e.validation.errors.map(toMarkerData);
+          const markers = e.errors.map(toMarkerData);
           this.setMarkers(SourceType.validation.toString(), markers);
         }
       })

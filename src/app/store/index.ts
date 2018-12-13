@@ -1,4 +1,3 @@
-import { routerReducer } from '@ngrx/router-store';
 import { ActionReducerMap } from '@ngrx/store';
 import { seriesReducer, SeriesEffects } from './series';
 import { RouterEffects } from './router/router.effect';
@@ -8,7 +7,6 @@ import { editorModelReducer } from './editor-model';
 import { AppState } from './app.state';
 
 export const reducers: ActionReducerMap<AppState> = {
-  routerReducer: routerReducer,
   series: seriesReducer,
   editorModel: editorModelReducer
 };

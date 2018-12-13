@@ -5,6 +5,8 @@
 Thumbs.db
 ehthumbs.db
 
+dist
+
 #IntelliJ
 .idea
 

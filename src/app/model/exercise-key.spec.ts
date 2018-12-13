@@ -10,6 +10,6 @@ describe('fromPath', () => {
   });
 
   it('should return a valid key for a valid path', () => {
-    expect(ExerciseKey.from('123/3/exercise')).toEqual(new ExerciseKey(123, 3));
+    expect(ExerciseKey.from('123/3/exercise')).toEqual(new ExerciseKey('123', 3));
   });
 });

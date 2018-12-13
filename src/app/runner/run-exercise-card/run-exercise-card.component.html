@@ -5,7 +5,7 @@
     (ngModelChange)="onExerciseValueChange($event)" ngDefaultControl>
   </app-code-editor>
   <app-code-editor class="code-editor-cell" *ngIf="progress?.solutionVisible " [modelConfig]='solutionModelConfig' [language]='series?.programmingLanguage'
-    [ngModel]='progress?.solution'>
+    [ngModel]='ex?.solution'>
   </app-code-editor>
   <div class="code-editor-cell" *ngIf="!progress?.solutionVisible ">
     <app-exercise-feedback *ngFor="let f of errors " [feedback]='f'></app-exercise-feedback>

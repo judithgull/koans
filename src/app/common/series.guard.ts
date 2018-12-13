@@ -2,12 +2,10 @@ import {
   CanActivate,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { SeriesFacade, SeriesSelectAction } from '../store';
-import { tap, filter, take, switchMap, map, timeout } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
+import { SeriesFacade } from '../store';
+import { tap, filter, take, switchMap, timeout,catchError } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs/operators/catchError';
 import { ISeries } from '../model';
 
 @Injectable()

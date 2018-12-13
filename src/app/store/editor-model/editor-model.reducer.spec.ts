@@ -1,11 +1,10 @@
-import { ModelValueChange, ModelError, ModelSuccess, ModelToggleSolutionAction, reducers, EditorModelQueries, SeriesQuerySuccess, SeriesSelectAction, ExerciseSelectAction } from '..';
-import { ErrorMarker, FeedbackDetails, ProgrammingLanguage, SourceType, ExerciseKey, ModelState, Feedback, ExerciseProgress } from '../../model';
-import { editorModelReducer, EM_INITIAL_STATE } from './editor-model.reducer';
+import { ModelValueChange, ModelError, ModelToggleSolutionAction, reducers, EditorModelQueries, SeriesQuerySuccess, SeriesSelectAction, ExerciseSelectAction, SeriesQueries } from '..';
+import { FeedbackDetails, ProgrammingLanguage, SourceType, ExerciseKey,  Feedback, ExerciseProgress } from '../../model';
 import { mockSeries, testModelState } from '../../common/test';
 import { Store, StoreModule } from '@ngrx/store';
 import { TestBed } from '@angular/core/testing';
 import { AppState } from '../app.state';
-import { ModelInitAction } from './editor-model.action';
+import { ModelInitAction, ModelSuccess } from './editor-model.action';
 import { Subscription } from 'rxjs';
 
 describe('Editor Model Selectors', () => {
@@ -121,7 +120,7 @@ describe('Editor Model Selectors', () => {
       store.dispatch(new SeriesQuerySuccess(mockSeries));
       store.dispatch(new SeriesSelectAction('2'));
       store.dispatch(new ExerciseSelectAction(1));
-      store.dispatch(new ModelToggleSolutionAction(new ExerciseKey(2, 1)));
+      store.dispatch(new ModelToggleSolutionAction(new ExerciseKey('2', 1)));
       expect(f).toBeUndefined();
     });
 
@@ -134,7 +133,7 @@ describe('Editor Model Selectors', () => {
       store.dispatch(new SeriesSelectAction('2'));
       store.dispatch(new ExerciseSelectAction(1));
       store.dispatch(new ModelInitAction([testModelState]));
-      store.dispatch(new ModelToggleSolutionAction(new ExerciseKey(2, 1)));
+      store.dispatch(new ModelToggleSolutionAction(new ExerciseKey('2', 1)));
       expect(f.solutionVisible).toBeTruthy();
       expect(f.solutionRequested).toBeTruthy();
     });
@@ -148,431 +147,108 @@ describe('Editor Model Selectors', () => {
       store.dispatch(new SeriesSelectAction('2'));
       store.dispatch(new ExerciseSelectAction(1));
       store.dispatch(new ModelInitAction([testModelState]));
-      store.dispatch(new ModelToggleSolutionAction(new ExerciseKey(2, 1)));
-      store.dispatch(new ModelToggleSolutionAction(new ExerciseKey(2, 1)));
+      store.dispatch(new ModelToggleSolutionAction(new ExerciseKey('2', 1)));
+      store.dispatch(new ModelToggleSolutionAction(new ExerciseKey('2', 1)));
       expect(f.solutionVisible).toBeFalsy();
       expect(f.solutionRequested).toBeTruthy();
     });
-
   });
+
+
+  describe('Error', () => {
+
+    it('adds an execution error', () => {
+      const errors = [
+        {
+          message: 'message',
+          startLineNumber: 1
+        }
+      ];
+
+      var f: FeedbackDetails;
+      store.select(EditorModelQueries.getFeedbackDetails(testModelState.id, SourceType.execution, testModelState.versionId)).subscribe(value => {
+        f = value;
+      });
+      store.dispatch(new ModelInitAction([testModelState]));
+      store.dispatch(new ModelError(SourceType.execution, testModelState, errors));
+
+      const errorFeedback:FeedbackDetails = {
+        success:false,
+        errors
+      }
+
+      expect(f).toEqual(errorFeedback);
+    });
+
+    it('does not add errors for old execution version', () => {
+      const errors = [
+        {
+          message: 'message',
+          startLineNumber: 1
+        }
+      ];
+
+      var f: FeedbackDetails;
+      store.select(EditorModelQueries.getFeedbackDetails(testModelState.id, SourceType.execution, testModelState.versionId)).subscribe(value => {
+        f = value;
+      });
+      store.dispatch(new ModelInitAction([testModelState]));
+      store.dispatch(new ModelError(SourceType.execution, {...testModelState, versionId: testModelState.versionId-1}, errors));
+
+      expect(f).toBeUndefined();
+    });
+  });
+
+  describe('Success', () => {
+    it('does not add errors for old execution version', () => {
+      const errors = [
+        {
+          message: 'message',
+          startLineNumber: 1
+        }
+      ];
+      var f: FeedbackDetails;
+      store.select(EditorModelQueries.getFeedbackDetails(testModelState.id, SourceType.execution, testModelState.versionId)).subscribe(value => {
+        f = value;
+      });
+      store.dispatch(new ModelInitAction([testModelState]));
+      store.dispatch(new ModelError(SourceType.execution, {...testModelState, versionId: testModelState.versionId-1}, errors));
+      store.dispatch(new ModelSuccess(SourceType.execution, testModelState));
+
+      expect(f.success).toBeTruthy();
+      expect(f.errors).toEqual([]);
+    });
+  });
+
+
+  describe('Selected Progresses', () => {
+    it('is empty, if no series is selected', () => {
+      var f: ExerciseProgress[];
+      store.select(EditorModelQueries.getSelectedProgresses).subscribe(value => {
+        f = value;
+      });
+
+      expect(f).toEqual([]);
+    });
+
+    it('returns initial selected progresses', () => {
+      let f: ExerciseProgress[];
+      store.select(EditorModelQueries.getSelectedProgresses).subscribe(value => {
+        f = value;
+      });
+
+      store.dispatch(new SeriesQuerySuccess(mockSeries));
+      store.dispatch(new SeriesSelectAction('2'));
+      store.dispatch(new ModelInitAction([testModelState, {...testModelState, id: '2/2/exercise'}]));
+
+      const initialProgress = {
+        solutionRequested: false,
+        solutionVisible: false,
+        valid: false,
+        solved: false
+      };
+      expect(f).toEqual([initialProgress, initialProgress]);
+    });
+  });
+
 });
-/*
-    describe('getValidationError', () => {
-      it('should initially return no validation errors', () => {
-        store.select(EditorModelQueries.getValidationResult('')).subscribe(value => {
-          expect(value).toBeFalsy();
-        });
-      });
-
-      it('should return a validation error', () => {
-        const modelId = 'model1';
-        let result: Feedback;
-        const selector = EditorModelQueries.getValidationResult(modelId);
-        store.select(selector).subscribe(value => {
-          result = value;
-        });
-        const errors = [
-          {
-            message: 'message',
-            startLineNumber: 1
-          }
-        ];
-        const modelState: ModelState = {
-          id: modelId,
-          versionId: 1,
-          progLang: ProgrammingLanguage.javascript,
-          value: ''
-        };
-        store.dispatch(new ModelValueChange(modelState));
-        store.dispatch(
-          new ModelError(
-            SourceType.validation.toString(),
-            modelState,
-            errors
-          )
-        );
-        expect(result).toEqual({
-          id: modelId,
-          versionId: 1,
-          value: '',
-          progLang: ProgrammingLanguage.javascript,
-          validation: {
-            success: false,
-            errors
-          },
-          valid: false,
-          solutionRequested: false,
-          solutionVisible: false
-        });
-      });
-    });
-
-    describe('getSelectedProgress', () => {
-
-      it('should select progresses of a series', () => {
-        var f: ExerciseProgress[];
-        store.select(EditorModelQueries.getSelectedProgresses).subscribe(value => {
-          f = value;
-        });
-
-        store.dispatch(new SeriesQuerySuccess(mockSeries));
-        store.dispatch(new SeriesSelectAction('2'));
-        store.dispatch(new ModelValueChange(testModelState));
-        store.dispatch(new ModelSuccess('validation', testModelState));
-        store.dispatch(new ModelSuccess('execution', testModelState));
-        expect(f).toBeTruthy();
-        expect(f.length).toBe(mockSeries[1].items.length);
-        expect(f[0].valid).toEqual(true);
-      });
-
-    });
-
-  });
-
-  describe('editorModelReducer', () => {
-    const errors = [
-      {
-        message: 'error',
-        startLineNumber: 1
-      }
-    ];
-    const errorDetails: FeedbackDetails = {
-      success: false,
-      errors
-    };
-    const errorMarkers2: ErrorMarker[] = [
-      {
-        message: 'error2',
-        startLineNumber: -1
-      }
-    ];
-    const changeValueAction = new ModelValueChange({
-      id: 'id1',
-      versionId: 0,
-      value: 'value',
-      progLang: ProgrammingLanguage.javascript
-    });
-
-    const entity1 = {
-      id: 'id1',
-      versionId: 0,
-      value: 'value',
-      progLang: ProgrammingLanguage.javascript,
-      valid: false,
-      solutionRequested: false,
-      solutionVisible: false
-    };
-
-    const entity2 = {
-      id: 'id2',
-      versionId: 0,
-      value: 'value',
-      progLang: ProgrammingLanguage.typescript,
-      valid: false,
-      solutionRequested: false,
-      solutionVisible: false
-    };
-
-    describe('Default State', () => {
-      it('should return the initial state', () => {
-        const action: any = {};
-        const state = editorModelReducer(undefined, action);
-        expect(state).toBe(EM_INITIAL_STATE);
-      });
-    });
-
-    describe('Validation', () => {
-
-      it('ignores success, if there is no value', () => {
-        const action = new ModelSuccess('unknown', testModelState);
-        const state = editorModelReducer(
-          EM_INITIAL_STATE,
-          action
-        );
-      });
-
-      it('ignores error, if there is no value', () => {
-        const action = new ModelError('unknown', testModelState, []);
-        const state = editorModelReducer(
-          EM_INITIAL_STATE,
-          action
-        );
-      });
-
-
-      it('should update failed validation', () => {
-        const initialEntity = {
-          id1: entity1
-        };
-
-        const action = new ModelError(
-          SourceType.validation,
-          {
-            id: 'id1',
-            versionId: 0,
-            value: 'value1',
-            progLang: ProgrammingLanguage.typescript
-          },
-          errors
-        );
-        const state = editorModelReducer(
-          { entities: { ...initialEntity } },
-          action
-        );
-        expect(state).toEqual({
-          entities: {
-            id1: {
-              ...entity1,
-              validation: errorDetails,
-              valid: false
-            }
-          }
-        });
-      });
-
-      it('should reset validation result on change', () => {
-        const initialEntity = {
-          id1: {
-            id: 'id1',
-            versionId: 0,
-            value: 'value',
-            progLang: ProgrammingLanguage.typescript,
-            validation: errorDetails,
-            valid: false,
-            solutionRequested: false,
-            solutionVisible: false
-          }
-        };
-
-        const action = new ModelValueChange({
-          id: 'id1',
-          versionId: 1,
-          value: 'value2',
-          progLang: ProgrammingLanguage.typescript
-        });
-        const state = editorModelReducer(
-          { entities: { ...initialEntity } },
-          action
-        );
-        expect(state).toEqual({
-          entities: {
-            id1: {
-              id: 'id1',
-              versionId: 1,
-              value: 'value2',
-              progLang: ProgrammingLanguage.typescript,
-              valid: false,
-              solutionRequested: false,
-              solutionVisible: false
-            }
-          }
-        });
-      });
-
-    });
-
-    describe('Monaco', () => {
-      it('should update monaco result on change', () => {
-        const initialEntity = {
-          id1: {
-            id: 'id1',
-            versionId: 0,
-            value: 'value',
-            progLang: ProgrammingLanguage.typescript,
-            validation: errorDetails,
-            valid: false,
-            solutionRequested: false,
-            solutionVisible: false
-          }
-        };
-
-        const action = new ModelError(
-          SourceType.monaco,
-          {
-            id: 'id1',
-            versionId: 0,
-            value: 'value',
-            progLang: ProgrammingLanguage.typescript
-          },
-          errorMarkers2
-        );
-
-        const state = editorModelReducer(
-          { entities: { ...initialEntity } },
-          action
-        );
-        expect(state).toEqual({
-          entities: {
-            id1: {
-              id: 'id1',
-              versionId: 0,
-              value: 'value',
-              progLang: ProgrammingLanguage.typescript,
-              validation: errorDetails,
-              monaco: {
-                success: false,
-                errors: errorMarkers2
-              },
-              valid: false,
-              solutionRequested: false,
-              solutionVisible: false
-            }
-          }
-        });
-      });
-      it('should update monaco success on change', () => {
-        const initialEntity = {
-          id1: {
-            id: 'id1',
-            versionId: 0,
-            value: 'value',
-            progLang: ProgrammingLanguage.typescript,
-            validation: errorDetails,
-            valid: false,
-            solutionRequested: false,
-            solutionVisible: false
-          }
-        };
-
-        const action = new ModelSuccess(SourceType.monaco, {
-          id: 'id1',
-          versionId: 0,
-          value: 'value',
-          progLang: ProgrammingLanguage.typescript
-        });
-
-        const state = editorModelReducer(
-          { entities: { ...initialEntity } },
-          action
-        );
-        expect(state).toEqual({
-          entities: {
-            id1: {
-              id: 'id1',
-              versionId: 0,
-              value: 'value',
-              progLang: ProgrammingLanguage.typescript,
-              validation: errorDetails,
-              monaco: {
-                success: true,
-                errors: []
-              },
-              valid: false,
-              solutionRequested: false,
-              solutionVisible: false
-            }
-          }
-        });
-      });
-    });
-
-    describe('Execution', () => {
-      it('should update state to valid, if everything passes', () => {
-        const success = {
-          success: true,
-          errors: []
-        };
-        const initialEntity = {
-          id1: {
-            id: 'id1',
-            versionId: 0,
-            value: 'value',
-            progLang: ProgrammingLanguage.typescript,
-            validation: success,
-            valid: false,
-            solutionRequested: false,
-            solutionVisible: false
-          }
-        };
-
-        const action = new ModelSuccess(SourceType.execution, {
-          id: 'id1',
-          versionId: 0,
-          value: 'value',
-          progLang: ProgrammingLanguage.typescript
-        });
-
-        const state = editorModelReducer(
-          { entities: { ...initialEntity } },
-          action
-        );
-        expect(state).toEqual({
-          entities: {
-            id1: {
-              id: 'id1',
-              versionId: 0,
-              value: 'value',
-              progLang: ProgrammingLanguage.typescript,
-              validation: success,
-              execution: success,
-              valid: true,
-              solutionRequested: false,
-              solutionVisible: false
-            }
-          }
-        });
-      });
-    });
-    describe('ModelSolutionToggle action', () => {
-      it('toggle solution initially', () => {
-        const key = new ExerciseKey(1, 2);
-
-        const action = new ModelToggleSolutionAction(key);
-
-        const state = editorModelReducer(EM_INITIAL_STATE, action);
-        const path = key.exercisePath;
-        expect(state.entities[path]).toBeUndefined();
-      });
-
-      it('toggles solution after value change', () => {
-        const key = new ExerciseKey(1, 2);
-
-        const modelState: ModelState = {
-          id: key.exercisePath,
-          versionId: 0,
-          progLang: ProgrammingLanguage.typescript,
-          value: 'x'
-        }
-
-        const valueChange = new ModelValueChange(modelState);
-
-        const action = new ModelToggleSolutionAction(key);
-
-        const state1 = editorModelReducer(EM_INITIAL_STATE, valueChange);
-        const state = editorModelReducer(state1, action);
-
-        const path = key.exercisePath;
-        expect(state.entities[path]).toBeDefined();
-        expect(state.entities[path].solutionRequested).toBe(true);
-        expect(state.entities[path].solutionVisible).toBe(true);
-      });
-
-      it('toggles solution invisible when toggeling twice', () => {
-        const key = new ExerciseKey(1, 2);
-
-        const modelState: ModelState = {
-          id: key.exercisePath,
-          versionId: 0,
-          progLang: ProgrammingLanguage.typescript,
-          value: 'x'
-        }
-
-        const valueChange = new ModelValueChange(modelState);
-
-        const action = new ModelToggleSolutionAction(key);
-
-        const state1 = editorModelReducer(EM_INITIAL_STATE, valueChange);
-        const state2 = editorModelReducer(state1, action);
-        const state = editorModelReducer(state2, action);
-
-        const path = key.exercisePath;
-        expect(state.entities[path]).toBeDefined();
-        expect(state.entities[path].solutionRequested).toBe(true);
-        expect(state.entities[path].solutionVisible).toBe(false);
-      });
-
-    });
-
-  });
-
-  */

@@ -11,19 +11,16 @@ import {
   SeriesUpdateRequest,
   SeriesDeleteRequest,
   SeriesDeleteSuccess,
-  SeriesLoadSuccess,
   Home,
-  SeriesError,
-  ModelValueChange
+  SeriesError
 } from '../index';
 import { SeriesService } from '../../common/series.service';
 import { SeriesEffects } from './series.effect';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { hot, cold } from 'jasmine-marbles';
 import { TestActions, getActions } from '../test/test.actions';
 import { ToastrService } from 'ngx-toastr';
-import { ModelState, ProgrammingLanguage, ExerciseKey } from '../../model';
 
 class MockToastrService {
   // tslint:disable-next-line:no-empty
@@ -130,50 +127,5 @@ describe('SeriesEffects', () => {
       expect(toastr.error).toHaveBeenCalledWith(message);
     });
   });
-
-
-/*
-  describe('initModel$', () => {
-    it('should init model series load success', () => {
-      const series = mockSeries[0];
-      const action = new SeriesLoadSuccess(series);
-
-      actions$.stream = hot('-a', { a: action });
-
-      const getModelValueChange = (sortCode: number) => {
-        const key0 = new ExerciseKey(series._id, sortCode);
-        const modelState: ModelState = {
-          id: key0.exercisePath,
-          versionId: 1,
-          progLang: ProgrammingLanguage.typescript,
-          value: series.items[sortCode - 1].exercise
-        }
-        return new ModelValueChange(modelState);
-      }
-      const expected = cold('-(cde)', { c: getModelValueChange(1), d: getModelValueChange(2), e: getModelValueChange(3) });
-      expect(effects.initModel$).toBeObservable(expected);
-    });
-
-    it('should init model after query series success', () => {
-      const series = mockSeries[0];
-      const action = new SeriesQuerySuccess([series]);
-
-      actions$.stream = hot('-a', { a: action });
-
-      const getModelValueChange = (sortCode: number) => {
-        const key0 = new ExerciseKey(series._id, sortCode);
-        const modelState: ModelState = {
-          id: key0.exercisePath,
-          versionId: 1,
-          progLang: ProgrammingLanguage.typescript,
-          value: series.items[sortCode - 1].exercise
-        }
-        return new ModelValueChange(modelState);
-      }
-      const expected = cold('-(cde)', { c: getModelValueChange(1), d: getModelValueChange(2), e: getModelValueChange(3) });
-      expect(effects.initTriggerValueChange$).toBeObservable(expected);
-    });
-  });
-  */
 
 });

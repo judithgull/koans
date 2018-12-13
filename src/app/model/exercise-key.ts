@@ -1,7 +1,7 @@
 export class ExerciseKey {
 
   constructor(
-    public seriesId: number,
+    public seriesId: string,
     public exerciseId: number
   ) { }
 
@@ -26,9 +26,9 @@ export class ExerciseKey {
     if (fragments.length !== 3) {
       return null;
     }
-    const seriesId = parseInt(fragments[0], 10);
+    const seriesId = fragments[0];
     const exerciseId = parseInt(fragments[1], 10);
-    if (isNaN(seriesId) || isNaN(exerciseId)) {
+    if (isNaN(exerciseId)) {
       return null;
     }
     return new ExerciseKey(seriesId, exerciseId);

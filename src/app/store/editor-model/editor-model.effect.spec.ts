@@ -8,7 +8,7 @@ import { CodeEditorValidationSerivce, CodeExecutorService, JSExecutorService, Ts
 import { EditableMarkerService } from '../../common';
 import { ProgrammingLanguage, SourceType } from '../../model';
 import { getActions, TestActions } from '../test';
-import { ModelValueChange, ModelError, ModelSuccess, ModelInitAction } from './editor-model.action';
+import { ModelValueChange, ModelError, ModelSuccess, ModelInitAction, ModelValidateAction } from './editor-model.action';
 import { EditorModelEffects } from './editor-model.effect';
 import { mockSeries } from '../../common/test';
 import { SeriesLoadSuccess, SeriesQuerySuccess } from '../series/series.action';
@@ -54,8 +54,22 @@ describe('EditorModelEffects', () => {
   });
 
   describe('validate$', () => {
-    it('should fail validation for empty value', () => {
+    it('validation is triggered after value change', () => {
       const action = new ModelValueChange(modelState);
+
+      actions$.stream = hot('-a', { a: action });
+
+      const expected = cold('-b', {
+        b: new ModelValidateAction(
+          modelState
+        )
+      });
+      expect(effects.triggerValidateOnValueChange$).toBeObservable(expected);
+    });
+
+
+    it('should fail validation for empty value', () => {
+      const action = new ModelValidateAction(modelState);
 
       actions$.stream = hot('-a', { a: action });
 
@@ -75,6 +89,7 @@ describe('EditorModelEffects', () => {
       });
       expect(effects.validate$).toBeObservable(expected);
     });
+
   });
 
   describe('execute$', () => {

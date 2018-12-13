@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { switchMap, map, catchError, tap, concatMap } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { ISeries, SearchParams} from '../../model';
 import { Home } from '../router';
@@ -32,8 +32,8 @@ export class SeriesEffects {
 
   @Effect()
   loadSeries$ = this.actions$
-  .ofType(SeriesActionTypes.LOAD_REQUEST)
   .pipe(
+    ofType(SeriesActionTypes.LOAD_REQUEST),
     switchMap((a: SeriesLoadRequest) => {
       return this.seriesService
         .get(a.id)
@@ -45,7 +45,9 @@ export class SeriesEffects {
   );
 
   @Effect()
-  querySeries$ = this.actions$.ofType(SeriesActionTypes.QUERY_REQUEST).pipe(
+  querySeries$ = this.actions$
+  .pipe(
+    ofType(SeriesActionTypes.QUERY_REQUEST),
     switchMap((a: SeriesQueryRequest) => {
       return this.seriesService
         .getSeries(this.getHttpParams(a.searchParams))
@@ -70,9 +72,9 @@ export class SeriesEffects {
 
   @Effect()
   createSeries$ = this.actions$
-    .ofType(SeriesActionTypes.CREATE_REQUEST)
-    .pipe(map((a: SeriesCreateRequest) => a.series))
     .pipe(
+      ofType(SeriesActionTypes.CREATE_REQUEST),
+      map((a: SeriesCreateRequest) => a.series),
       concatMap((series: ISeries) => {
         return this.seriesService
           .create(series)
@@ -85,9 +87,9 @@ export class SeriesEffects {
 
   @Effect()
   updateSeries$ = this.actions$
-    .ofType(SeriesActionTypes.UPDATE_REQUEST)
-    .pipe(map((a: SeriesUpdateRequest) => a.series))
     .pipe(
+      ofType(SeriesActionTypes.UPDATE_REQUEST),
+      map((a: SeriesUpdateRequest) => a.series),
       concatMap((series: ISeries) => {
         return this.seriesService
           .update(series)
@@ -100,9 +102,9 @@ export class SeriesEffects {
 
   @Effect()
   deleteSeries$ = this.actions$
-    .ofType(SeriesActionTypes.DELETE_REQUEST)
-    .pipe(map((a: SeriesDeleteRequest) => a.seriesId))
     .pipe(
+      ofType(SeriesActionTypes.DELETE_REQUEST),
+      map((a: SeriesDeleteRequest) => a.seriesId),
       concatMap((id: string) => {
         return this.seriesService
           .delete(id)
@@ -115,11 +117,15 @@ export class SeriesEffects {
 
   @Effect()
   homeOnSuccess$ = this.actions$
-    .ofType(SeriesActionTypes.CREATE_SUCCESS, SeriesActionTypes.UPDATE_SUCCESS)
-    .pipe(map((a: SeriesCreateSuccess) => new Home()));
+    .pipe(
+      ofType(SeriesActionTypes.CREATE_SUCCESS, SeriesActionTypes.UPDATE_SUCCESS),
+      map((a: SeriesCreateSuccess) => new Home())
+      );
 
   @Effect({ dispatch: false })
-  seriesErrors$ = this.actions$.ofType(SeriesActionTypes.ERROR).pipe(
+  seriesErrors$ = this.actions$
+  .pipe(
+    ofType(SeriesActionTypes.ERROR),
     map((a: SeriesError) => a.payload),
     tap(error => {
       if (typeof error === 'string') {

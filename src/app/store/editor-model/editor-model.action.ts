@@ -1,13 +1,15 @@
 import { Action } from '@ngrx/store';
 
-import { ErrorMarker, ModelState, ExerciseKey, ProgrammingLanguage } from '../../model';
+import { ErrorMarker, ModelState, ExerciseKey } from '../../model';
 
 export enum EditorModelActionTypes {
   INIT = '[Editor Model] INIT',
   VALUE_CHANGE = '[Editor Model] VALUE CHANGE',
   ERROR = '[Editor Model] ERROR',
   SUCCESS = '[Editor Model] SUCCESS',
-  TOGGLE_SOLUTION = '[Editor Model] TOGGLE SOLUTION'
+  TOGGLE_SOLUTION = '[Editor Model] TOGGLE SOLUTION',
+  VALIDATE_SELECTED = '[Editor Model] VALIDATE SELECTED',
+  VALIDATE = '[Editor Model] VALIDATE'
 }
 
 export interface ModelResultAction extends Action {
@@ -22,6 +24,15 @@ export class ModelInitAction implements Action {
 
 export class ModelValueChange implements Action {
   readonly type = EditorModelActionTypes.VALUE_CHANGE;
+  constructor(public modelState: ModelState) { }
+}
+
+export class ModelValidateSelected implements Action {
+  readonly type = EditorModelActionTypes.VALIDATE_SELECTED;
+}
+
+export class ModelValidateAction implements Action {
+  readonly type = EditorModelActionTypes.VALIDATE;
   constructor(public modelState: ModelState) { }
 }
 

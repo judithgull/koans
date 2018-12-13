@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { Observable, throwError } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { Exercise } from '../model/exercise';
@@ -26,7 +25,7 @@ export class SeriesService {
 
   get(id: string): Observable<ISeries> {
     if (!id) {
-      return ErrorObservable.create('invalid id');
+      return throwError('invalid id');
     }
     return this.http
       .get(`${URL_SERIES}${id}`)
@@ -62,8 +61,8 @@ export class SeriesService {
   private handleError(err: any) {
     console.log(err);
     if (err.status === 401) {
-      return ErrorObservable.create('Unauthorized');
+      return throwError('Unauthorized');
     }
-    return ErrorObservable.create(err);
+    return throwError(err);
   }
 }
