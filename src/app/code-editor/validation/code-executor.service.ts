@@ -9,24 +9,24 @@ export class CodeExecutorService {
   constructor(
     private jsService: JSExecutorService,
     private tsTraspiler: TsTranspilerService
-  ) { }
+  ) {}
 
   run(value: string, progLang: ProgrammingLanguage): ErrorMarker[] {
     if (progLang === ProgrammingLanguage.typescript) {
       const transpileRes = this.tsTraspiler.transpile(value);
-      const errors = transpileRes.diagnostics
-        .filter(d => d.category === 1);
+      const errors = transpileRes.diagnostics.filter(d => d.category === 1);
       if (errors.length > 0) {
         return errors.map(e => {
+          const message: string =
+            typeof e.messageText === 'string' ? e.messageText : 'Unknown error';
           return {
-            message: e.messageText || 'Unknown Error',
+            message,
             startLineNumber: 1
-          }
+          };
         });
       } else {
         return this.executeTranspiledValue(transpileRes.outputText);
       }
-
     }
     return this.executeTranspiledValue(value);
   }
@@ -39,5 +39,4 @@ export class CodeExecutorService {
     const all: string = prefix + transpiledValue;
     return this.jsService.run(all);
   }
-
 }

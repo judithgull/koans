@@ -2,8 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 
 import { CodeEditorModule } from '../code-editor/code-editor.module';
 import { AppCommonModule } from '../common/common.module';
@@ -60,4 +58,4 @@ const routes: Routes = [
   ],
   providers: [SeriesExistsGuard]
 })
-export class RunnerModule { }
+export class RunnerModule {}

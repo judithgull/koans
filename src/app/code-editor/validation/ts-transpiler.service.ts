@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-declare const ts: any;
+import * as ts from 'typescript';
 
 @Injectable()
 export class TsTranspilerService {
@@ -8,5 +8,4 @@ export class TsTranspilerService {
   transpile(source: string) {
     return ts.transpileModule(source, TsTranspilerService.transpileOptions);
   }
-
 }
