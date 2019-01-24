@@ -1,8 +1,13 @@
-import { Feedback, FeedbackDetails, SourceType, ModelState, ExerciseKey, ExerciseProgress, ISeries } from '../../model';
 import {
-  ModelAction,
-  EditorModelActionTypes,
-} from './editor-model.action';
+  Feedback,
+  FeedbackDetails,
+  SourceType,
+  ModelState,
+  ExerciseKey,
+  ExerciseProgress,
+  ISeries
+} from '../../model';
+import { ModelAction, EditorModelActionTypes } from './editor-model.action';
 import { createSelector, Selector } from '@ngrx/store';
 import { SeriesQueries } from '../series';
 import { AppState } from '../app.state';
@@ -35,7 +40,10 @@ export function editorModelReducer(
       if (isOldVersion(state, action.modelState)) {
         return state;
       }
-      return adapter.updateOne({ id: action.modelState.id, changes: action.modelState }, state);
+      return adapter.updateOne(
+        { id: action.modelState.id, changes: action.modelState },
+        state
+      );
     case EditorModelActionTypes.TOGGLE_SOLUTION: {
       const id = action.key.exercisePath;
       if (!state.entities[id]) {
@@ -44,13 +52,16 @@ export function editorModelReducer(
 
       const currentlyVisible = state.entities[id].solutionVisible;
 
-      return adapter.updateOne({
-        id,
-        changes: {
-          solutionRequested: true,
-          solutionVisible: !currentlyVisible
-        }
-      }, state);
+      return adapter.updateOne(
+        {
+          id,
+          changes: {
+            solutionRequested: true,
+            solutionVisible: !currentlyVisible
+          }
+        },
+        state
+      );
     }
     case EditorModelActionTypes.ERROR: {
       const currentModelState = state.entities[action.modelState.id];
@@ -62,13 +73,16 @@ export function editorModelReducer(
         errors: action.errors
       };
 
-      return adapter.updateOne({
-        id: action.modelState.id,
-        changes: {
-          [action.key]: result,
-          valid: isValid(action.key, result, currentModelState)
-        }
-      }, state);
+      return adapter.updateOne(
+        {
+          id: action.modelState.id,
+          changes: {
+            [action.key]: result,
+            valid: isValid(action.key, result, currentModelState)
+          }
+        },
+        state
+      );
     }
     case EditorModelActionTypes.SUCCESS: {
       const currentModelState = state.entities[action.modelState.id];
@@ -79,42 +93,68 @@ export function editorModelReducer(
         success: true,
         errors: []
       };
-      return adapter.updateOne({
-        id: action.modelState.id,
-        changes: {
-          [action.key]: result,
-          valid: isValid(action.key, result, currentModelState)
-        }
-      }, state);;
+      return adapter.updateOne(
+        {
+          id: action.modelState.id,
+          changes: {
+            [action.key]: result,
+            valid: isValid(action.key, result, currentModelState)
+          }
+        },
+        state
+      );
     }
   }
   return state;
 }
 
-function isOldVersion(existingState: EditorModelState, newState: ModelState): boolean {
+function isOldVersion(
+  existingState: EditorModelState,
+  newState: ModelState
+): boolean {
   const existingModelState = existingState.entities[newState.id];
-  return existingModelState && existingModelState.versionId > newState.versionId;
+  return (
+    existingModelState && existingModelState.versionId > newState.versionId
+  );
 }
 
-function isValid(resultKey: string, result: FeedbackDetails, existingModelState: Feedback): boolean {
-  const existingValidationValid = existingModelState.validation && existingModelState.validation.success;
-  const existingExecutionValid = existingModelState.execution && existingModelState.execution.success;
-  const existingMonacoValid = !existingModelState.monaco || existingModelState.monaco.success;
+function isValid(
+  resultKey: string,
+  result: FeedbackDetails,
+  existingModelState: Feedback
+): boolean {
+  const existingValidationValid =
+    existingModelState.validation && existingModelState.validation.success;
+  const existingExecutionValid =
+    existingModelState.execution && existingModelState.execution.success;
+  const existingMonacoValid =
+    !existingModelState.monaco || existingModelState.monaco.success;
 
   if (!result.success) {
     return false;
-  } else if (resultKey === SourceType.execution && existingValidationValid && existingMonacoValid) {
+  } else if (
+    resultKey === SourceType.execution &&
+    existingValidationValid &&
+    existingMonacoValid
+  ) {
     return true;
-  } else if (resultKey === SourceType.monaco && existingValidationValid && existingExecutionValid) {
+  } else if (
+    resultKey === SourceType.monaco &&
+    existingValidationValid &&
+    existingExecutionValid
+  ) {
     return true;
-  } else if (resultKey === SourceType.validation && existingExecutionValid && existingMonacoValid) {
+  } else if (
+    resultKey === SourceType.validation &&
+    existingExecutionValid &&
+    existingMonacoValid
+  ) {
     return true;
   }
   return false;
 }
 
 export namespace EditorModelQueries {
-
   export const entities = (state: AppState) => state.editorModel.entities;
 
   export function getModelEntity(modelId: string) {
@@ -124,7 +164,11 @@ export namespace EditorModelQueries {
     );
   }
 
-  export function getFeedbackDetails(modelId: string, sourceType: SourceType, version: number) {
+  export function getFeedbackDetails(
+    modelId: string,
+    sourceType: SourceType,
+    version: number
+  ) {
     return createSelector(
       getModelEntity(modelId),
       model => {
@@ -140,14 +184,20 @@ export namespace EditorModelQueries {
     return getFeedbackDetails(modelId, SourceType.validation, version);
   }
 
-  export const getSelectedProgress: Selector<AppState, Feedback> = createSelector(
+  export const getSelectedProgress: Selector<
+    AppState,
+    Feedback
+  > = createSelector(
     entities,
     SeriesQueries.selectedSeriesId,
     SeriesQueries.selectedExerciseNr,
-    (entities: { [id: string]: Feedback; }, seriesId: string, exerciseNr: number) => {
+    (
+      entities: { [id: string]: Feedback },
+      seriesId: string,
+      exerciseNr: number
+    ) => {
       if (entities && seriesId && exerciseNr) {
         const key = new ExerciseKey(seriesId, exerciseNr);
-       // console.log(entities[key.exercisePath]);
         return entities[key.exercisePath];
       }
       return null;
@@ -161,10 +211,13 @@ export namespace EditorModelQueries {
     solved: false
   };
 
-  export const getSelectedProgresses: Selector<AppState, ExerciseProgress[]> = createSelector(
+  export const getSelectedProgresses: Selector<
+    AppState,
+    ExerciseProgress[]
+  > = createSelector(
     entities,
     SeriesQueries.selectedSeries,
-    (entities: { [id: string]: Feedback; }, series: ISeries) => {
+    (entities: { [id: string]: Feedback }, series: ISeries) => {
       if (entities && series) {
         const keys: string[] = getExerciseKeys(series);
         const values: Feedback[] = keys.map(key => entities[key]);
@@ -174,12 +227,11 @@ export namespace EditorModelQueries {
               solutionRequested: v.solutionRequested,
               solutionVisible: v.solutionVisible,
               valid: v.valid,
-              solved: v.valid && !v.solutionRequested,
+              solved: v.valid && !v.solutionRequested
             };
           }
           return undefined;
-        }
-        );
+        });
         return v2;
       }
       return [];
@@ -187,6 +239,8 @@ export namespace EditorModelQueries {
   );
 
   function getExerciseKeys(series: ISeries): string[] {
-    return series.items.map(item => new ExerciseKey(''+series._id, item.sortOrder).exercisePath);
+    return series.items.map(
+      item => new ExerciseKey('' + series._id, item.sortOrder).exercisePath
+    );
   }
 }

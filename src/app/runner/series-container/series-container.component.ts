@@ -5,7 +5,6 @@ import { ExerciseProgress, Feedback, ISeries } from '../../model';
 import { SeriesFacade } from '../../store/series';
 import { EditorModelFacade } from '../../store/editor-model/editor-model.facade';
 
-
 @Component({
   selector: 'app-series-container',
   templateUrl: './series-container.component.html'
@@ -17,7 +16,8 @@ export class SeriesContainerComponent implements OnInit {
 
   constructor(
     private seriesFacade: SeriesFacade,
-    private editorModelFacade:EditorModelFacade) { }
+    private editorModelFacade: EditorModelFacade
+  ) {}
 
   ngOnInit() {
     this.series$ = this.seriesFacade.selectedSeries$;

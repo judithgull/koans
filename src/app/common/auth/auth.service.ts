@@ -14,24 +14,20 @@ export const USERS_URL = 'http://localhost:3000/users/';
 
 @Injectable()
 export class AuthService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   signUp(user: User): Observable<any> {
-    return this.http.post(USERS_URL, user)
-      .pipe(
-        map(data => this.saveLoginData(data as LoginTokenInfo)),
-        catchError(this.handleError)
-      );
+    return this.http.post(USERS_URL, user).pipe(
+      map(data => this.saveLoginData(data as LoginTokenInfo)),
+      catchError(this.handleError)
+    );
   }
 
   login(loginInfo: LoginInfo): Observable<any> {
-    return this.http
-      .post(LOGIN_URL, loginInfo)
-      .pipe(
-        map(data => this.saveLoginData(data as LoginTokenInfo)),
-        catchError(this.handleError)
-      );
+    return this.http.post(LOGIN_URL, loginInfo).pipe(
+      map(data => this.saveLoginData(data as LoginTokenInfo)),
+      catchError(this.handleError)
+    );
   }
 
   logout(): void {
@@ -53,11 +49,9 @@ export class AuthService {
   }
 
   private handleError(err: any) {
-    console.log(err);
     if (err.status === 401) {
       return throwError('Unauthorized');
     }
     return throwError(err);
   }
-
 }

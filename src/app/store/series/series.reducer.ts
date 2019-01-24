@@ -23,24 +23,33 @@ function addId(series: ISeries) {
 
 const removeId = (entity: any) => {
   if (entity) {
-    const { 'id': id, ...entityWithoutId } = entity;
+    const { id: id, ...entityWithoutId } = entity;
     return entityWithoutId;
   }
   return undefined;
-}
+};
 
-export function seriesReducer(state = INITIAL_STATE, action: SeriesActions): SeriesState {
+export function seriesReducer(
+  state = INITIAL_STATE,
+  action: SeriesActions
+): SeriesState {
   switch (action.type) {
     case SeriesActionTypes.SELECT:
       return {
         ...state,
         selectedSeriesId: action.seriesId
-      }
+      };
     case SeriesActionTypes.SELECT_EXERCISE:
       return {
         ...state,
         selectedExerciseNr: action.exerciseNr
-      }
+      };
+    case SeriesActionTypes.DESELECT:
+      return {
+        ...state,
+        selectedSeriesId: null,
+        selectedExerciseNr: null
+      };
     case SeriesActionTypes.LOAD_SUCCESS:
     case SeriesActionTypes.CREATE_SUCCESS:
     case SeriesActionTypes.UPDATE_SUCCESS: {
@@ -63,10 +72,11 @@ export function seriesReducer(state = INITIAL_STATE, action: SeriesActions): Ser
 }
 
 export namespace SeriesQueries {
-
   const getEntities = (state: AppState) => state.series.entities;
-  export const selectedSeriesId = (state: AppState) => state.series.selectedSeriesId;
-  export const selectedExerciseNr = (state: AppState) => state.series.selectedExerciseNr;
+  export const selectedSeriesId = (state: AppState) =>
+    state.series.selectedSeriesId;
+  export const selectedExerciseNr = (state: AppState) =>
+    state.series.selectedExerciseNr;
 
   export const all = createSelector(
     getEntities,
@@ -102,9 +112,7 @@ export namespace SeriesQueries {
     selectedSeries,
     selectedExerciseNr,
     (series, exerciseNr) => {
-      return (
-        series && exerciseNr && removeId(series.items[exerciseNr - 1])
-      );
+      return series && exerciseNr && removeId(series.items[exerciseNr - 1]);
     }
   );
 }

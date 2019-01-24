@@ -8,7 +8,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "concurrently 'ng serve' 'ts-node app-node/app.ts' ",
+    "start": "concurrently 'ng serve --host 0.0.0.0' 'ts-node app-node/app.ts' ",
     "build": "ng build",
     "clienttests": "NODE_ENV=test karma start",
     "servertests": "mocha app-node/**/*test.ts --require ts-node/register --exit",

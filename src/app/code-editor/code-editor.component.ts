@@ -25,9 +25,7 @@ import {
   toErrorMarker,
   toMarkerData
 } from './marker-data-util';
-import {
-  EditorModelFacade
-} from '../store';
+import { EditorModelFacade } from '../store';
 
 /**
  * Monaco editor as a custom form control
@@ -46,7 +44,7 @@ import {
 })
 export class CodeEditorComponent
   implements OnInit, OnDestroy, ControlValueAccessor {
-  constructor(private facade: EditorModelFacade) { }
+  constructor(private facade: EditorModelFacade) {}
 
   @ViewChild('editor') editorContent: ElementRef;
 
@@ -60,7 +58,7 @@ export class CodeEditorComponent
 
   height = 100;
 
-  private _modelConfig: { path: string, initialValue: string };
+  private _modelConfig: { path: string; initialValue: string };
   uri: monaco.Uri;
 
   private _language: ProgrammingLanguage;
@@ -71,9 +69,9 @@ export class CodeEditorComponent
   private disposables: monaco.IDisposable[] = [];
 
   // tslint:disable-next-line:no-empty
-  onChange: (_: string) => void = () => { };
+  onChange: (_: string) => void = () => {};
   // tslint:disable-next-line:no-empty
-  onTouched: () => void = () => { };
+  onTouched: () => void = () => {};
 
   ngOnInit(): void {
     this.initEditor();
@@ -84,7 +82,11 @@ export class CodeEditorComponent
     if (exisitngModel) {
       return exisitngModel;
     }
-    const model = monaco.editor.createModel(this._modelConfig.initialValue, this.language, this.uri);
+    const model = monaco.editor.createModel(
+      this._modelConfig.initialValue,
+      this.language,
+      this.uri
+    );
     this.initModel(model);
     return model;
   }
@@ -140,7 +142,7 @@ export class CodeEditorComponent
   }
 
   @Input()
-  set modelConfig(config: { path: string, initialValue: string }) {
+  set modelConfig(config: { path: string; initialValue: string }) {
     this._modelConfig = config;
     this.uri = monaco.Uri.file(this.path);
     if (this.editor) {
@@ -174,14 +176,16 @@ export class CodeEditorComponent
       glyphMargin: true
     });
 
-
     this.editor.onKeyUp(e => {
       this.onTouched();
     });
 
     this.editor.layout();
 
-    const validationResults = this.facade.getValidationResult(this.model.id, this.model.getVersionId());
+    const validationResults = this.facade.getValidationResult(
+      this.model.id,
+      this.model.getVersionId()
+    );
     this.subs.push(
       validationResults.subscribe(e => {
         if (e.success) {

@@ -1,4 +1,3 @@
-import { CodeEditorComponent } from '../code-editor/code-editor.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -10,6 +9,7 @@ import { CodeEditorModule } from '../code-editor/code-editor.module';
 import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
 import { SeriesContainerComponent } from './series-container/series-container.component';
 import { MonacoLoadedGuard } from '../code-editor/monaco-loaded.guard';
+import { SeriesDeselectedGuard } from './series-deselected.guard';
 
 const routes: Routes = [
   {
@@ -22,7 +22,7 @@ const routes: Routes = [
     path: 'editor',
     component: SeriesContainerComponent,
     pathMatch: 'full',
-    canActivate: [MonacoLoadedGuard]
+    canActivate: [SeriesDeselectedGuard, MonacoLoadedGuard]
   }
 ];
 
@@ -41,4 +41,4 @@ const routes: Routes = [
   ],
   providers: [SeriesExistsGuard]
 })
-export class EditorModule { }
+export class EditorModule {}
