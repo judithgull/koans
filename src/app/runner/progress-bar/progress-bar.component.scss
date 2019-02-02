@@ -1,7 +1,4 @@
-@import "../../../common-styles/_0.settings.colors";
-@import "../../../common-styles/_0.settings.sizes";
-@import "../../../common-styles/_0.settings.typography";
-
+@import '0.settings';
 .progress-bar {
   &-item {
     display: inline-block;

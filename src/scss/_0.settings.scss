@@ -14,9 +14,12 @@ $boilerplate-mode: true !default;
 // %l-site-width, .l-site-width { /* foobar */ }
 // if not in boilerplate mode this will be ignored
 
-$layout-selectors: "%l-" ".l-";
-$text-selectors: "%t-" ".t-";
-$form-selectors: "%form-" ".form-";
-$state-selectors: "%is-" ".is-";
-$state-selectors-and: "&%is-" "&.is-";
+$layout-selectors: '%l-' '.l-';
+$text-selectors: '%t-' '.t-';
+$form-selectors: '%form-' '.form-';
+$state-selectors: '%is-' '.is-';
+$state-selectors-and: '&%is-' '&.is-';
 
+@import './_0.settings.colors';
+@import './_0.settings.sizes';
+@import './_0.settings.typography';

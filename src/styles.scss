@@ -1,11 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
-@import './common-styles/0.settings.colors';
-@import './common-styles/0.settings';
-@import './common-styles/0.settings.sizes';
-@import './common-styles/0.settings.typography';
-@import './common-styles/1.base';
-@import './common-styles/2.layout';
-@import './common-styles/3.helpers';
-@import './common-styles/5.states';
-@import './common-styles/mixins';
+@import '0.settings';
+@import '1.base';
+@import '2.layout';
+@import '3.helpers';
+@import '5.states';
+@import 'mixins';
 @import '~ngx-toastr/toastr';

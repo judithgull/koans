@@ -1,7 +1,4 @@
-@import "../common-styles/_0.settings.sizes";
-@import "../common-styles/_0.settings.colors";
-@import "../common-styles/_0.settings.typography";
-
+@import '_0.settings';
 .main-wrap {
   background-color: c(light-grey);
   padding: s(large) s(medium);

@@ -1,14 +1,11 @@
-@import "../../../common-styles/_0.settings.sizes";
-@import "../../../common-styles/_0.settings.colors";
-@import "../../../common-styles/_0.settings.typography";
-
+@import '0.settings';
 
 // Defines the visible lines until ellipsis is shown.
 $lines: 2;
 $title-wrap-height: $lines * ($t-title-font-size * $t-title-line-height);
 
 $title-wrap-space-bottom: s(large);
-$button-height: ($t-default-font-size * $t-default-line-height) + ( 2 * s(small));
+$button-height: ($t-default-font-size * $t-default-line-height) + (2 * s(small));
 $topic-item-padding: s(small);
 
 .filter-tabs {

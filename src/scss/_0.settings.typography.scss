@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700');
+
+$t-regular: 400;
+$t-bold: 700;
+
+$t-default-font-size: $s-base;
+$t-default-font-family: 'Quattrocento Sans', sans-serif;
+$t-default-font-weight: $t-regular;
+$t-default-font-style: normal;
+$t-default-line-height: 1.375;
+
+$t-title-font-size: 2.25rem;
+$t-title-line-height: 1.667;
+
+$types: (
+  default: (
+    font-size: 1rem,
+    font-family: $t-default-font-family,
+    font-weight: $t-regular,
+    font-style: normal,
+    line-height: $t-default-line-height
+  ),
+  title: (
+    font-weight: $t-bold,
+    font-size: $t-title-font-size,
+    line-height: $t-title-line-height
+  ),
+  title-small: (
+    font-weight: $t-bold,
+    font-size: 1.75rem,
+    line-height: 1.143
+  ),
+  label: (
+    font-weight: $t-bold,
+    font-size: 0.75rem
+  ),
+  paragraph: (
+    font-size: 1rem,
+    line-height: 1.375
+  )
+);
+
+@mixin t($name: default) {
+  @if map-has-key($types, $name) {
+    @include cssify-map(map-get($types, $name));
+  } @else {
+    @warn 'no type named `#{$types}` in $types';
+  }
+}
