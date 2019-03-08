@@ -6,20 +6,20 @@
 
 # Features
 
-* Creation of exercise series with template code and assertions
-* Support for Typescript and Javascript
-* Automatic verification of user solution and instant feedback
-* Exercise search
-* Authentication
+- Creation of exercise series with template code and assertions
+- Support for Typescript and Javascript
+- Automatic verification of user solution and instant feedback
+- Exercise search
 
 # Technology Stack
 
-* [Angular](https://angular.io/)
-* [Sass (SCSS)](http://sass-lang.com/)
-* [NodeJs](https://nodejs.org/)
-* [MongoDb](https://www.mongodb.org/)
-* [Typescript](http://www.typescriptlang.org/)
-* [Gulp](http://gulpjs.com/)
+- [Angular](https://angular.io/)
+- [Sass (SCSS)](http://sass-lang.com/)
+- [NodeJs](https://nodejs.org/)
+- [MongoDb](https://www.mongodb.org/)
+- [Typescript](http://www.typescriptlang.org/)
+- [Gulp](http://gulpjs.com/)
+- [Firebase Authentication](https://firebase.google.com/docs/auth/)
 
 # Installation
 
@@ -92,7 +92,13 @@ cd <path_to_cloned_project>/koans
 
 Run `npm install` to install all dependencies. (npm, patched libraries)
 
-#### 5. Run
+#### 5. Environment Settings
+
+- Create a firebase project (for handling users and authentication): https://console.firebase.google.com/
+- Open develop/authentication and activate google authentication
+- Copy the properties to environments/environment.ts and fill in firebase properties
+
+#### 6. Run
 
 Make sure mongodb is running:
 
@@ -105,14 +111,6 @@ Run `npm start` to start application (in a different terminal)
 Open browser with [http://localhost:4200](http://localhost:4200)
 
 # Development
-
-#### 1. Webstorm
-
-1. Use the latest Webstorm 11.0 or higher
-2. Make sure the appropriate typescript compiler is used >= 1.6.2: Preferences/Languages & Frameworks/Typescript
-
-* Compiler version (2.5 (bundeled)
-* Use tsconfig.json
 
 ## Maintenance tasks
 

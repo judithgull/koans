@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-account',
@@ -6,15 +6,19 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./account.component.scss']
 })
 export class AccountComponent {
-
-  @Input() isLoggedIn: boolean;
+  @Input() signedIn: boolean;
 
   @Input() userName: string;
 
-  @Output() logoutChanges = new EventEmitter<string>();
+  @Output() signOut = new EventEmitter<string>();
 
-  logout() {
-    this.logoutChanges.emit('');
+  @Output() signIn = new EventEmitter<string>();
+
+  OnSignOut() {
+    this.signOut.emit('');
   }
 
+  OnSignIn() {
+    this.signIn.emit('');
+  }
 }

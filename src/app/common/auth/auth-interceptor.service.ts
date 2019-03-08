@@ -11,7 +11,7 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (req.url.indexOf('topics') !== -1) {
+    if (this.isAuthNeeded(req.url)) {
       const authHeader = this.getAuthorizationHeader();
       const authReq = req.clone({
         headers: req.headers.set('authorization', authHeader)
@@ -19,6 +19,10 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(authReq);
     }
     return next.handle(req);
+  }
+
+  isAuthNeeded(url: string) {
+    return url.indexOf('topics') !== -1 || url.indexOf('users');
   }
 
   getAuthorizationHeader(): string {

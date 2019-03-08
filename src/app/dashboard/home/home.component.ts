@@ -1,30 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-
-import { User } from '../../auth/model/user';
+import { Component } from '@angular/core';
 import { AuthService } from '../../common/auth/auth.service';
+import { UserFacade } from '../../store/user/user.facade';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-  isLoggedIn = false;
-  user: User;
+export class HomeComponent {
+  signedIn$ = this.authService.signedIn$;
+  user$ = this.userFacade.currentUser$;
 
-  constructor(private auth: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private userFacade: UserFacade
+  ) {}
 
-  ngOnInit(): void {
-    this.updateLoginData();
+  signIn() {
+    this.authService.signInWithGoogle();
   }
 
-  logout() {
-    this.auth.logout();
-    this.updateLoginData();
-  }
-
-  updateLoginData() {
-    this.isLoggedIn = this.auth.isLoggedIn();
-    this.user = this.auth.getLoggedInUser();
+  signOut() {
+    this.authService.signOut();
   }
 }

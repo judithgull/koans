@@ -16,10 +16,7 @@
     "no-var-keyword": false,
     "no-namespace": false,
     "no-internal-module": false,
-    "no-implicit-dependencies": [
-      true,
-      "dev"
-    ],
+    "no-implicit-dependencies": [true, "dev"],
     "no-string-literal": false,
     "object-literal-shorthand": false,
     "no-shadowed-variable": false,
@@ -33,10 +30,7 @@
     "ordered-imports": false,
     "no-var-requires": false,
     "max-classes-per-file": false,
-    "quotemark": [
-      true,
-      "single"
-    ],
+    "quotemark": [true, "single"],
     "no-submodule-imports": [
       true,
       "rxjs",
@@ -46,11 +40,10 @@
       "@angular/common/http",
       "@angular/core/testing",
       "@angular/router/testing",
-      "@angular/platform-browser-dynamic"
+      "@angular/platform-browser-dynamic",
+      "@angular/fire",
+      "firebase/app"
     ],
-    "arrow-parens": [
-      true,
-      "ban-single-arg-parens"
-    ]
+    "arrow-parens": [true, "ban-single-arg-parens"]
   }
 }

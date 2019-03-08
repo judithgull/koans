@@ -1,14 +1,13 @@
 import * as url from 'url';
 import * as TopicModel from './topic-model';
 import * as jwt from 'jwt-simple';
-import * as userCtrl from '../user/user-controller';
 
 const decodeToken = req => {
   if (!req.headers || !req.headers.authorization) {
     return null;
   }
   const token = req.headers.authorization.split(' ')[1];
-  return jwt.decode(token, userCtrl.getSecret());
+  return jwt.decode(token, 'userCtrl.getSecret()');
 };
 
 const isAuthorOfOwnTopic = (topic, req): boolean => {

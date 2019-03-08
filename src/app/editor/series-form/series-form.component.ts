@@ -15,6 +15,7 @@ import {
 })
 export class SeriesFormComponent {
   @Input() model: Series;
+
   @Input() programmingLanguages: ProgrammingLanguages[];
 
   @Output() submitSeries = new EventEmitter<ISeries>();

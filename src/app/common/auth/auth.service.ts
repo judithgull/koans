@@ -1,57 +1,78 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, from } from 'rxjs';
 
-import { User } from '../../auth/model/user';
-import { LoginInfo } from '../../model/login-info';
-import { LoginTokenInfo } from '../../model/login-token-info';
-import { catchError, map } from 'rxjs/operators';
+import { IUser } from '../../model/user';
+import { map, switchMap, filter, tap } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
+import { UserFacade } from '../../store/user/user.facade';
 
-const USER_KEY = 'user';
 const TOKEN_KEY = 'token';
-export const LOGIN_URL = 'http://localhost:3000/login/';
-export const USERS_URL = 'http://localhost:3000/users/';
 
-@Injectable()
+/**
+ * Service for authenticating user (uses firebase as an authentication server),
+ * Saves user in backend as well, to be able to associate exercises with users.
+ */
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  firebaseUsers$ = this.fireAuth.authState.pipe(filter(user => !!user));
+  firebaseTokens$ = this.firebaseUsers$.pipe(
+    switchMap(firebaseUser => firebaseUser.getIdToken(true))
+  );
 
-  signUp(user: User): Observable<any> {
-    return this.http.post(USERS_URL, user).pipe(
-      map(data => this.saveLoginData(data as LoginTokenInfo)),
-      catchError(this.handleError)
-    );
+  constructor(
+    private fireAuth: AngularFireAuth,
+    private userFacade: UserFacade
+  ) {
+    this.init();
   }
 
-  login(loginInfo: LoginInfo): Observable<any> {
-    return this.http.post(LOGIN_URL, loginInfo).pipe(
-      map(data => this.saveLoginData(data as LoginTokenInfo)),
-      catchError(this.handleError)
-    );
+  init() {
+    this.firebaseTokens$.subscribe(token => this.saveToken(token));
+
+    this.firebaseUsers$
+      .pipe(
+        map(AuthService.toUser),
+        tap(user => this.userFacade.upsert(user))
+      )
+      .subscribe();
   }
 
-  logout(): void {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(USER_KEY);
+  private saveToken(token: string): void {
+    localStorage.setItem(TOKEN_KEY, token);
   }
 
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem(TOKEN_KEY);
-  }
-
-  getLoggedInUser(): User {
-    return JSON.parse(localStorage.getItem(USER_KEY));
-  }
-
-  private saveLoginData(data: LoginTokenInfo): void {
-    localStorage.setItem(TOKEN_KEY, data.token);
-    localStorage.setItem(USER_KEY, JSON.stringify(data.user));
-  }
-
-  private handleError(err: any) {
-    if (err.status === 401) {
-      return throwError('Unauthorized');
+  static toUser(firebaseUser: firebase.User): IUser {
+    if (!firebaseUser) {
+      return null;
     }
-    return throwError(err);
+    return {
+      uid: firebaseUser.uid,
+      name: firebaseUser.displayName,
+      email: firebaseUser.email
+    };
+  }
+
+  signInWithGoogle(): Observable<IUser> {
+    return this.signInWithFireBase().pipe(
+      map(cred => cred.user),
+      map(AuthService.toUser),
+      tap(user => this.userFacade.upsert(user))
+    );
+  }
+
+  private signInWithFireBase(): Observable<auth.UserCredential> {
+    const provider = new auth.GoogleAuthProvider();
+    provider.addScope('email');
+    return from(this.fireAuth.auth.signInWithPopup(provider));
+  }
+
+  signOut() {
+    this.fireAuth.auth.signOut();
+    this.userFacade.deselectUser();
+  }
+
+  get signedIn$(): Observable<boolean> {
+    return this.fireAuth.user.pipe(map(user => !!user));
   }
 }

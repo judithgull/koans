@@ -1,18 +1,16 @@
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
+  uid: String,
   name: String,
-  email: String,
-  password: String
+  email: String
 });
 
-module.exports = mongoose.model("User", UserSchema);
-module.exports.getNonSensitiveUser = (user) => {
+module.exports = mongoose.model('User', UserSchema);
+module.exports.getNonSensitiveUser = user => {
   return {
-    _id: user._id,
-    email: user.email,
+    id: user._id,
     name: user.name
   };
 };
-

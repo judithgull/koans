@@ -1,13 +1,11 @@
-"use strict";
+'use strict';
 
-import {topicRouter} from "./topic/topic-routes";
+import { topicRouter } from './topic/topic-routes';
 
-var express = require("express");
+var express = require('express');
 export var appRouter = express.Router();
 
-appRouter.use("/topics", topicRouter);
-appRouter.use("/users", require("./user/user-routes"));
-appRouter.use("/login", require("./login/login-routes"));
+appRouter.use('/topics', topicRouter);
+appRouter.use('/users', require('./user/user-routes'));
 
 module.exports = appRouter;
-

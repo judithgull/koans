@@ -16,11 +16,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { reducers, effects } from './store';
 import { ToastrModule } from 'ngx-toastr';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
 
 const routes: Routes = [
   // { path: '**', component: NotFoundComponent }
 ];
-
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
@@ -36,8 +38,10 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
-    StoreDevtoolsModule.instrument()
+    StoreDevtoolsModule.instrument(),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

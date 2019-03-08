@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthInterceptor } from './auth/auth-interceptor.service';
-import { AuthService } from './auth/auth.service';
 import { EditableMarkerService } from './editable-marker.service';
 import { ExerciseFeedbackComponent } from './exercise-feedback/exercise-feedback.component';
 import { JsLibsService } from './js-libs.service';
@@ -31,7 +30,6 @@ import { ValidationService } from './validation-messages/validation.service';
   providers: [
     ValidationService,
     SeriesService,
-    AuthService,
     EditableMarkerService,
     JsLibsService,
     {

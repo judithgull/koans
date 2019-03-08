@@ -2,9 +2,10 @@
   <app-logo></app-logo>
   <app-account
     class="header-chunk"
-    [isLoggedIn]="isLoggedIn"
-    [userName]="user?.name"
-    (logoutChanges)="logout()"
+    [signedIn]="signedIn$ | async"
+    [userName]="(user$ | async)?.name"
+    (signIn)="signIn(event)"
+    (signOut)="signOut()"
   ></app-account>
   <div class="intro">
     <h1 class="t-paragraph">
@@ -15,7 +16,7 @@
     </p>
   </div>
   <app-series-search
-    [isLoggedIn]="isLoggedIn"
-    [userId]="user?._id"
+    [isLoggedIn]="signedIn$ | async"
+    [userId]="(user$ | async)?.id"
   ></app-series-search>
 </div>

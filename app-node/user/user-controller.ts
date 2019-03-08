@@ -1,74 +1,82 @@
-var jwt = require("jwt-simple");
-var User = require("./user-model");
-
-export var getSecret = () => {
-  if (!process.env.SECRET) {
-    console.log("no secret defined, using default");
-    return "veryBigSecret...";
-  }
-  return process.env.SECRET;
-};
+import * as admin from 'firebase-admin';
+const User = require('./user-model');
 
 export class UserController {
-
-  constructor(private bcrypt) {
-  }
-
-  checkEmail = (email:string, error:Function, success:Function) => {
-    User.findOne({email: email}, function (err, res) {
+  private saveUser = (user, error: (err) => void, success: (user) => void) => {
+    User.findOne({ email: user.email }, function(err, res) {
       if (err) {
         error(err);
       } else {
         if (res === null) {
-          success();
+          // create
+          user.save(err => {
+            if (err) {
+              console.log('error');
+              error(err);
+            } else {
+              success(User.getNonSensitiveUser(user));
+            }
+          });
         } else {
-          error("This E-Mail already exists.");
+          // update
+          res.uid = user.uid;
+          res.name = user.name;
+
+          res.save(err => {
+            if (err) {
+              console.log('error');
+              error(err);
+            } else {
+              success(User.getNonSensitiveUser(user));
+            }
+          });
         }
       }
     });
-
-
   };
 
-  saveUser = (name:string, email:string, pwd:string, user, error:Function, success:Function) => {
-    this.checkEmail(email, error, () => {
-      this.bcrypt.hash(pwd, null, null, (err, hash) => {
+  getIdToken(req): string {
+    if (!req.headers || !req.headers.authorization) {
+      return null;
+    }
+    return req.headers.authorization.split(' ')[1];
+  }
 
-        user.name = name;
-        user.email = email;
-        user.password = hash;
-
-        user.save((err) => {
-          if (err) {
-            error(err);
-          } else {
-            var payload = {
-              sub: user._id
-            };
-            var token = jwt.encode(payload, getSecret());
-            success(token, User.getNonSensitiveUser(user));
-          }
-        });
-      });
-    });
-  };
+  decodeToken(idToken: string): Promise<admin.auth.DecodedIdToken> {
+    return admin.auth().verifyIdToken(idToken);
+  }
 
   postUser = (req, res) => {
     res.format({
-      "application/json": (req, res) => {
-        var body = req.body;
-        this.saveUser(body.name, body.email, body.password, new User(),
-          (err) => {
-            console.log(err);
-            res.status(400).send({message: err});
-          }, (token, user) => {
-            res.status(200).send(
-              {
-                token: token,
-                user: user
-              });
-          });
+      'application/json': (req, res) => {
+        const idToken = this.getIdToken(req);
+        if (!idToken) {
+          res.status(401).send({ message: 'Login Required!' });
+        } else {
+          const p = this.decodeToken(idToken);
+          p.then(decodedToken => {
+            const user = new User();
+            user.uid = decodedToken.uid;
+            user.name = decodedToken.name;
+            user.email = decodedToken.email;
 
+            this.saveUser(
+              user,
+              err => {
+                console.log(err);
+                res.status(400).send({ message: err });
+              },
+              user => {
+                res.status(200).send({
+                  user: user
+                });
+              }
+            );
+          }).catch(function(error) {
+            console.log('error' + error);
+            res.status(401).send({ message: 'Login Required!' });
+          });
+        }
       }
     });
   };

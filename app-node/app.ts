@@ -6,6 +6,10 @@ import * as mongoose from 'mongoose';
 import * as path from 'path';
 import * as compression from 'compression';
 import * as routes from './app-routes';
+import * as admin from 'firebase-admin';
+import { environment } from '../src/environments/environment';
+
+admin.initializeApp(environment.firebase);
 
 export var serverApp = express();
 
