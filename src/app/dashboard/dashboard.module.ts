@@ -6,7 +6,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthModule } from '../auth/auth.module';
 import { AppCommonModule } from '../common/common.module';
 import { HomeComponent } from './home/home.component';
-import { SearchFieldComponent } from './search-field/search-field.component';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 import { SeriesCardListComponent } from './series-card-list/series-card-list.component';
 import { SeriesCardComponent } from './series-card/series-card.component';
@@ -14,7 +13,7 @@ import { SeriesSearchComponent } from './series-search/series-search.component';
 import { TabItemComponent } from './tab-item/tab-item.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: '', component: HomeComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -24,7 +23,6 @@ const routes: Routes = [
     TabItemComponent,
     HomeComponent,
     SearchFilterComponent,
-    SearchFieldComponent,
     SeriesSearchComponent
   ],
   imports: [
@@ -38,4 +36,4 @@ const routes: Routes = [
   ],
   providers: []
 })
-export class DashboardModule { }
+export class DashboardModule {}

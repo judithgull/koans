@@ -1,7 +1,19 @@
-<app-search-field (valueChange)="updateSearchText($event)"></app-search-field>
-<app-search-filter [userId]="userId" [hidden]="!isLoggedIn" (valueChange)="updateSearchFilter($event)"></app-search-filter>
+<app-search-filter
+  [userId]="userId"
+  [hidden]="!isLoggedIn"
+  (valueChange)="updateSearchFilter($event)"
+></app-search-filter>
 <div class="filter-wrap">
-  <button class="button button-plus" routerLink="/editor" [disabled]="!isLoggedIn"></button>
-  <p [hidden]="!message" class="t-paragraph topic-list-message">{{message}}</p>
-  <app-series-card-list [seriesList]="seriesList$ | async" [userId]="userId"></app-series-card-list>
+  <button
+    class="button button-plus"
+    routerLink="/editor"
+    [disabled]="!isLoggedIn"
+  ></button>
+  <p [hidden]="!message" class="t-paragraph topic-list-message">
+    {{ message }}
+  </p>
+  <app-series-card-list
+    [seriesList]="seriesList$ | async"
+    [userId]="userId"
+  ></app-series-card-list>
 </div>
