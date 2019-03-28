@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { EditorModule } from './editor/editor.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RunnerModule } from './runner/runner.module';
@@ -19,9 +18,10 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { AdminModule } from './admin/admin.module';
+import { DashboardComponent } from './admin/widgets/dashboard/dashboard.component';
 
 const routes: Routes = [
-  // { path: '**', component: NotFoundComponent }
+  { path: '', component: DashboardComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -30,7 +30,6 @@ const routes: Routes = [
     AdminModule,
     BrowserModule,
     BrowserAnimationsModule,
-    DashboardModule,
     HttpClientModule,
     RunnerModule,
     EditorModule,

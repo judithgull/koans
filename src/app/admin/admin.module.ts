@@ -5,7 +5,7 @@ import { SeriesCardComponent } from './widgets/series-card/series-card.component
 import { SeriesCardListComponent } from './widgets/series-card-list/series-card-list.component';
 import { AppCommonModule } from '../common';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './widgets/home/home.component';
+import { DashboardComponent } from './widgets/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -13,13 +13,13 @@ import { HomeComponent } from './widgets/home/home.component';
     IntroTextComponent,
     SeriesCardComponent,
     SeriesCardListComponent,
-    HomeComponent
+    DashboardComponent
   ],
   exports: [
     AccountComponent,
     IntroTextComponent,
     SeriesCardListComponent,
-    HomeComponent
+    DashboardComponent
   ],
   imports: [AppCommonModule, CommonModule]
 })
