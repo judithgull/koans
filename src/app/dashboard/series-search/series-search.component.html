@@ -4,7 +4,10 @@
     routerLink="/editor"
     [disabled]="!isLoggedIn"
   ></button>
-  <p [hidden]="!message" class="t-paragraph topic-list-message">
+  <p
+    [hidden]="(seriesList$ | async).length > 0"
+    class="t-paragraph topic-list-message"
+  >
     {{ message }}
   </p>
   <app-series-card-list

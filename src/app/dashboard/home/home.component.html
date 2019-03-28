@@ -15,8 +15,5 @@
       Search and solve interesting exercises or login and create your own!
     </p>
   </div>
-  <app-series-search
-    [isLoggedIn]="signedIn$ | async"
-    [userId]="(user$ | async)?.id"
-  ></app-series-search>
+  <app-series-search [userId]="(user$ | async)?.id"></app-series-search>
 </div>
