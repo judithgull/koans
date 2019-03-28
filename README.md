@@ -1,15 +1,13 @@
 [![Build Status](https://travis-ci.org/judithgull/koans.svg?branch=master)](https://travis-ci.org/judithgull/koans)
 
-# A Platform for Programming Exercises in Typescript and Javascript
+# A Platform for Programming Exercises in TypeScript
 
 [https://ilovecode.herokuapp.com/](https://ilovecode.herokuapp.com/)
 
 # Features
 
 - Creation of exercise series with template code and assertions
-- Support for Typescript and Javascript
 - Automatic verification of user solution and instant feedback
-- Exercise search
 
 # Technology Stack
 
