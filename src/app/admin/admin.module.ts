@@ -6,6 +6,7 @@ import { SeriesCardListComponent } from './widgets/series-card-list/series-card-
 import { AppCommonModule } from '../common';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './widgets/dashboard/dashboard.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -15,12 +16,7 @@ import { DashboardComponent } from './widgets/dashboard/dashboard.component';
     SeriesCardListComponent,
     DashboardComponent
   ],
-  exports: [
-    AccountComponent,
-    IntroTextComponent,
-    SeriesCardListComponent,
-    DashboardComponent
-  ],
-  imports: [AppCommonModule, CommonModule]
+  imports: [AppCommonModule, CommonModule, RouterModule.forChild([])],
+  exports: [DashboardComponent]
 })
 export class AdminModule {}
