@@ -5,15 +5,22 @@ import { SeriesCardComponent } from './widgets/series-card/series-card.component
 import { SeriesCardListComponent } from './widgets/series-card-list/series-card-list.component';
 import { AppCommonModule } from '../common';
 import { CommonModule } from '@angular/common';
+import { HomeComponent } from './widgets/home/home.component';
 
 @NgModule({
   declarations: [
     AccountComponent,
     IntroTextComponent,
     SeriesCardComponent,
-    SeriesCardListComponent
+    SeriesCardListComponent,
+    HomeComponent
   ],
-  exports: [AccountComponent, IntroTextComponent, SeriesCardListComponent],
+  exports: [
+    AccountComponent,
+    IntroTextComponent,
+    SeriesCardListComponent,
+    HomeComponent
+  ],
   imports: [AppCommonModule, CommonModule]
 })
 export class AdminModule {}

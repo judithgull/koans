@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../common/auth/auth.service';
-import { UserFacade } from '../../store/user/user.facade';
-import { SeriesFacade } from '../../store';
+import { AuthService } from '../../../common/auth/auth.service';
+import { UserFacade } from '../../../store/user/user.facade';
+import { SeriesFacade } from '../../../store';
 
 @Component({
   selector: 'app-home',

@@ -4,15 +4,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppCommonModule } from '../common/common.module';
-import { HomeComponent } from './home/home.component';
 import { AdminModule } from '../admin/admin.module';
+import { HomeComponent } from '../admin/widgets/home/home.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [],
   imports: [
     CommonModule,
     HttpClientModule,
