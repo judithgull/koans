@@ -1,4 +1,11 @@
 @import '0.settings';
+// Defines the visible lines until ellipsis is shown.
+$lines: 2;
+$title-wrap-height: $lines * ($t-title-font-size * $t-title-line-height);
+$title-wrap-space-bottom: s(large);
+$button-height: ($t-default-font-size * $t-default-line-height) + (2 * s(small));
+$topic-item-padding: s(small);
+
 .main-wrap {
   background-color: c(light-grey);
   padding: s(large) s(medium);
@@ -15,4 +22,25 @@
   position: absolute;
   top: 0;
   right: 0;
+}
+
+.filter-tabs {
+  margin-bottom: 0;
+  padding: 0;
+  &--item {
+    display: inline-block;
+    text-decoration: none;
+    &-link {
+      display: block;
+      padding: s(small) s(medium);
+    }
+    &.isActive {
+      background-color: c(black);
+    }
+  }
+}
+
+.filter-wrap {
+  background-color: c(black);
+  padding: s(medium);
 }

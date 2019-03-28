@@ -7,7 +7,6 @@ import { AppCommonModule } from '../common/common.module';
 import { HomeComponent } from './home/home.component';
 import { SeriesCardListComponent } from './series-card-list/series-card-list.component';
 import { SeriesCardComponent } from './series-card/series-card.component';
-import { SeriesSearchComponent } from './series-search/series-search.component';
 import { TabItemComponent } from './tab-item/tab-item.component';
 import { AdminModule } from '../admin/admin.module';
 
@@ -20,8 +19,7 @@ const routes: Routes = [
     SeriesCardListComponent,
     SeriesCardComponent,
     TabItemComponent,
-    HomeComponent,
-    SeriesSearchComponent
+    HomeComponent
   ],
   imports: [
     CommonModule,

@@ -1,47 +1,53 @@
-/*import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { StoreModule } from '@ngrx/store';
 
-import { AuthModule } from '../../auth/auth.module';
-import { AppCommonModule } from '../../common/common.module';
-import * as rootStore from '../../store';
-import { SearchFieldComponent } from '../search-field/search-field.component';
-import { SearchFilterComponent } from '../search-filter/search-filter.component';
+import { HomeComponent } from './home.component';
+import { LogoComponent } from '../../common/logo/logo.component';
+import { AccountComponent } from '../../admin/widgets/account/account.component';
+import { IntroTextComponent } from '../../admin/widgets/intro-text/intro-text.component';
 import { SeriesCardListComponent } from '../series-card-list/series-card-list.component';
 import { SeriesCardComponent } from '../series-card/series-card.component';
-import { SeriesSearchComponent } from '../series-search/series-search.component';
-import { TabItemComponent } from '../tab-item/tab-item.component';
-import { HomeComponent } from './home.component';
+import { SeriesIconComponent } from '../../common/series-icon/series-icon.component';
+import { of } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule } from '@ngrx/store';
+import * as rootStore from '../../store';
+import { AuthService } from '../../common/auth/auth.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        declarations: [
-          HomeComponent,
-          SeriesSearchComponent,
-          SearchFieldComponent,
-          SearchFilterComponent,
-          SeriesCardComponent,
-          SeriesCardListComponent,
-          TabItemComponent
-        ],
-        imports: [
-          AppCommonModule,
-          AuthModule,
-          RouterTestingModule,
-          HttpClientTestingModule,
-          StoreModule.forRoot({
-            ...rootStore.reducers
-          })
-        ]
-      }).compileComponents();
-    })
-  );
+  const AngularFireAuthMocks = {
+    auth: of({ uid: 'ABC123' })
+  };
+  const AuthServiceMocks = {};
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        HomeComponent,
+        LogoComponent,
+        AccountComponent,
+        IntroTextComponent,
+        SeriesCardListComponent,
+        SeriesCardComponent,
+        SeriesIconComponent
+      ],
+      providers: [
+        {
+          provide: AuthService,
+          useValue: AuthServiceMocks
+        }
+      ],
+      imports: [
+        RouterTestingModule,
+        StoreModule.forRoot({
+          ...rootStore.reducers
+        })
+      ]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
@@ -53,4 +59,3 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-*/

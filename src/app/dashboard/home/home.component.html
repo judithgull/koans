@@ -8,5 +8,21 @@
     (signOut)="signOut()"
   ></app-account>
   <app-intro-text></app-intro-text>
-  <app-series-search [userId]="(user$ | async)?.id"></app-series-search>
+  <div class="filter-wrap">
+    <button
+      class="button button-plus"
+      routerLink="/editor"
+      [disabled]="!(signedIn$ | async)"
+    ></button>
+    <p
+      [hidden]="(seriesList$ | async).length > 0"
+      class="t-paragraph topic-list-message"
+    >
+      {{ message }}
+    </p>
+    <app-series-card-list
+      [seriesList]="seriesList$ | async"
+      [userId]="userId"
+    ></app-series-card-list>
+  </div>
 </div>
