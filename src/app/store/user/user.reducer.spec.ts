@@ -36,7 +36,12 @@ describe('User Reducer and Selectors', () => {
 
     it('upserts a user', (done: () => void) => {
       const all$ = store.select(UserQueries.all);
-      const testUser = { id: 'id', name: 'testName' };
+      const testUser = {
+        id: 'id',
+        name: 'testName',
+        uid: 'uid',
+        email: 'email'
+      };
       store.dispatch(new UserUpsertSuccess(testUser));
       subs.push(
         all$.subscribe(value => {
@@ -48,9 +53,14 @@ describe('User Reducer and Selectors', () => {
 
     it('selects the current user', (done: () => void) => {
       const currentUser$ = store.select(UserQueries.currentUser);
-      const testUser = { id: 'id', name: 'testName' };
+      const testUser = {
+        uid: 'uid',
+        name: 'testName',
+        id: 'id',
+        email: 'email'
+      };
       store.dispatch(new UserUpsertSuccess(testUser));
-      store.dispatch(new UserSelectRequest('id'));
+      store.dispatch(new UserSelectRequest('uid'));
       subs.push(
         currentUser$.subscribe(value => {
           expect(value).toEqual(testUser);

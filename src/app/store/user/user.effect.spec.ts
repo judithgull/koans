@@ -56,7 +56,7 @@ describe('User effects', () => {
 
     actions$.stream = hot('-a', { a: action });
 
-    const completionAction = new UserUpsertSuccess(testNonSensitiveUser);
+    const completionAction = new UserUpsertSuccess(testUser);
     const expected = cold('-b', { b: completionAction });
 
     expect(effects.upsertUsers$).toBeObservable(expected);

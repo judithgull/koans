@@ -25,7 +25,7 @@ export class UserEffects {
     ofType(UserActionTypes.UPSERT_REQUEST),
     switchMap((a: UserUpsertRequest) => {
       return this.userService.save(a.user).pipe(
-        map(user => new UserUpsertSuccess(user)),
+        map(user => new UserUpsertSuccess({ ...a.user, ...user })),
         catchError(error => of(new UserError(error)))
       );
     })

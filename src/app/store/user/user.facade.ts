@@ -10,15 +10,13 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UserFacade {
-  currentUser$: Observable<INonSensitiveUser> = this.store.select(
-    UserQueries.currentUser
-  );
+  currentUser$: Observable<IUser> = this.store.select(UserQueries.currentUser);
 
   constructor(private store: Store<AppState>) {}
 
   upsert(user: IUser) {
     this.store.dispatch(new UserUpsertRequest(user));
-    this.store.dispatch(new UserSelectRequest(user.id));
+    this.store.dispatch(new UserSelectRequest(user.uid));
   }
 
   deselectUser() {

@@ -8,7 +8,7 @@ import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 const INITIAL_STATE: UserState = {
   ids: [],
   entities: {},
-  currentId: undefined
+  currentUid: undefined
 };
 const adapter: EntityAdapter<INonSensitiveUser> = createEntityAdapter<
   INonSensitiveUser
@@ -24,7 +24,7 @@ export function userReducer(
     case UserActionTypes.SELECT:
       return {
         ...state,
-        currentId: action.id
+        currentUid: action.uid
       };
   }
   return state;
@@ -33,7 +33,7 @@ export function userReducer(
 export namespace UserQueries {
   const getEntities = (state: AppState) => state.users.entities;
 
-  const currentId = (state: AppState) => state.users.currentId;
+  const currentUid = (state: AppState) => state.users.currentUid;
 
   export const all = createSelector(
     getEntities,
@@ -41,11 +41,12 @@ export namespace UserQueries {
   );
 
   export const currentUser = createSelector(
-    getEntities,
-    currentId,
-    (entities, id) => {
-      if (id) {
-        return entities[id];
+    all,
+    currentUid,
+    (entities, uid) => {
+      if (uid) {
+        const usersWithUid = entities.filter(e => e.uid === uid);
+        return usersWithUid.length > 0 ? usersWithUid[0] : undefined;
       }
       return undefined;
     }

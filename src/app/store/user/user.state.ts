@@ -1,6 +1,6 @@
-import { INonSensitiveUser } from '../../model/user';
+import { IUser } from '../../model/user';
 import { EntityState } from '@ngrx/entity';
 
-export interface UserState extends EntityState<INonSensitiveUser> {
-  currentId: string;
+export interface UserState extends EntityState<IUser> {
+  currentUid: string;
 }

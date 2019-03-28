@@ -24,7 +24,7 @@ export class UserUpsertSuccess implements Action {
 
 export class UserSelectRequest implements Action {
   readonly type = UserActionTypes.SELECT;
-  constructor(public id: string) {}
+  constructor(public uid: string) {}
 }
 
 export type UserActions =
