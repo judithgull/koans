@@ -1,26 +1,16 @@
 import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { of, Observable } from 'rxjs';
-
 import { AccountComponent } from './account.component';
-import { AuthService } from '../../common/auth/auth.service';
 
 describe('AccountComponent', () => {
   let component: AccountComponent;
   let fixture: ComponentFixture<AccountComponent>;
   let el: DebugElement;
 
-  class MockAuthService {
-    userName$: Observable<string> = of(null);
-    loggedIn$ = of(false);
-  }
-  const mockAuthService = new MockAuthService();
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AccountComponent],
-      providers: [{ provide: AuthService, useValue: mockAuthService }]
+      declarations: [AccountComponent]
     }).compileComponents();
   }));
 

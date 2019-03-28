@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { EditorModule } from './editor/editor.module';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -19,6 +18,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { AdminModule } from './admin/admin.module';
 
 const routes: Routes = [
   // { path: '**', component: NotFoundComponent }
@@ -27,11 +27,11 @@ const routes: Routes = [
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
   imports: [
+    AdminModule,
     BrowserModule,
     BrowserAnimationsModule,
     DashboardModule,
     HttpClientModule,
-    AuthModule,
     RunnerModule,
     EditorModule,
     ToastrModule.forRoot(),
