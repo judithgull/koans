@@ -7,7 +7,6 @@ import { AppCommonModule } from '../common/common.module';
 import { HomeComponent } from './home/home.component';
 import { SeriesCardListComponent } from './series-card-list/series-card-list.component';
 import { SeriesCardComponent } from './series-card/series-card.component';
-import { TabItemComponent } from './tab-item/tab-item.component';
 import { AdminModule } from '../admin/admin.module';
 
 const routes: Routes = [
@@ -15,12 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    SeriesCardListComponent,
-    SeriesCardComponent,
-    TabItemComponent,
-    HomeComponent
-  ],
+  declarations: [SeriesCardListComponent, SeriesCardComponent, HomeComponent],
   imports: [
     CommonModule,
     HttpClientModule,
