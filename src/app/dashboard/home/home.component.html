@@ -7,13 +7,6 @@
     (signIn)="signIn(event)"
     (signOut)="signOut()"
   ></app-account>
-  <div class="intro">
-    <h1 class="t-paragraph">
-      Programming exercises in typescript and javascript
-    </h1>
-    <p class="t-paragraph">
-      Search and solve interesting exercises or login and create your own!
-    </p>
-  </div>
+  <app-intro-text></app-intro-text>
   <app-series-search [userId]="(user$ | async)?.id"></app-series-search>
 </div>
