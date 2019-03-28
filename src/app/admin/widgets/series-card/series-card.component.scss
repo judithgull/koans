@@ -32,7 +32,7 @@ $topic-item-padding: s(small);
   padding: s(medium);
 }
 
-.series-item {
+.topic-item {
   background-color: c(light-grey);
   min-height: $title-wrap-height + $title-wrap-space-bottom + $button-height +
     (2 * $topic-item-padding);
@@ -44,13 +44,17 @@ $topic-item-padding: s(small);
   box-sizing: border-box;
 }
 
-.series-title {
+.topic-title {
   word-wrap: break-word;
   margin-right: 3rem;
   &-wrap {
     height: $title-wrap-height;
     overflow: hidden;
   }
+}
+
+.topic-list-message {
+  color: c(white);
 }
 
 .programming-lang-wrap {

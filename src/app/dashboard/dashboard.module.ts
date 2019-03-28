@@ -5,8 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppCommonModule } from '../common/common.module';
 import { HomeComponent } from './home/home.component';
-import { SeriesCardListComponent } from './series-card-list/series-card-list.component';
-import { SeriesCardComponent } from './series-card/series-card.component';
 import { AdminModule } from '../admin/admin.module';
 
 const routes: Routes = [
@@ -14,7 +12,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [SeriesCardListComponent, SeriesCardComponent, HomeComponent],
+  declarations: [HomeComponent],
   imports: [
     CommonModule,
     HttpClientModule,

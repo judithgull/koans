@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { Series } from '../../model/series';
-import { SeriesFacade } from '../../store';
+import { Series } from '../../../model/series';
+import { SeriesFacade } from '../../../store';
 
 @Component({
   selector: 'app-series-card-list',
