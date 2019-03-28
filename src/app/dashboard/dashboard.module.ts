@@ -6,7 +6,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthModule } from '../auth/auth.module';
 import { AppCommonModule } from '../common/common.module';
 import { HomeComponent } from './home/home.component';
-import { SearchFilterComponent } from './search-filter/search-filter.component';
 import { SeriesCardListComponent } from './series-card-list/series-card-list.component';
 import { SeriesCardComponent } from './series-card/series-card.component';
 import { SeriesSearchComponent } from './series-search/series-search.component';
@@ -22,7 +21,6 @@ const routes: Routes = [
     SeriesCardComponent,
     TabItemComponent,
     HomeComponent,
-    SearchFilterComponent,
     SeriesSearchComponent
   ],
   imports: [
