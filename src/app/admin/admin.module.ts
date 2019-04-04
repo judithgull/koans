@@ -7,6 +7,8 @@ import { AppCommonModule } from '../common';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './widgets/dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,13 @@ import { RouterModule } from '@angular/router';
     SeriesCardListComponent,
     DashboardComponent
   ],
-  imports: [AppCommonModule, CommonModule, RouterModule.forChild([])],
+  imports: [
+    AngularFireModule,
+    AngularFirestoreModule,
+    AppCommonModule,
+    CommonModule,
+    RouterModule.forChild([])
+  ],
   exports: [DashboardComponent]
 })
 export class AdminModule {}

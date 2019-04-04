@@ -6,7 +6,7 @@ import { SeriesCardComponent } from './series-card.component';
 import { StoreModule } from '@ngrx/store';
 
 import * as rootStore from '../../../store';
-import { SeriesIconComponent } from '../../../common/series-icon/series-icon.component';
+import { SeriesIconComponent } from '../../../common/widgets/series-icon/series-icon.component';
 
 describe('SeriesComponent', () => {
   let component: SeriesCardComponent;

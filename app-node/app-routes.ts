@@ -6,6 +6,5 @@ var express = require('express');
 export var appRouter = express.Router();
 
 appRouter.use('/topics', topicRouter);
-appRouter.use('/users', require('./user/user-routes'));
 
 module.exports = appRouter;

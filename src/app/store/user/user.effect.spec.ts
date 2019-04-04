@@ -9,11 +9,14 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Actions } from '@ngrx/effects';
 import { of } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 class MockToastrService {
   // tslint:disable-next-line:no-empty
   error(message: string) {}
 }
+
+class MockAngularFireStore {}
 
 const testNonSensitiveUser: INonSensitiveUser = {
   id: 'id',
@@ -33,7 +36,8 @@ describe('User effects', () => {
         UserService,
         UserEffects,
         { provide: Actions, useFactory: getActions },
-        { provide: ToastrService, useClass: MockToastrService }
+        { provide: ToastrService, useClass: MockToastrService },
+        { provide: AngularFirestore, useClass: MockAngularFireStore }
       ]
     });
 

@@ -1,25 +1,41 @@
 import { Injectable } from '@angular/core';
 import { IUser, INonSensitiveUser } from '../../model/user';
-import { HttpClient } from '@angular/common/http';
-import { throwError, Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
+import { throwError, Observable, from, merge } from 'rxjs';
+import { catchError, map, take, filter, switchMap } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/firestore';
 
-export const USERS_URL = `${environment.apiUrl}users/`;
+const USER_COLLECTION = 'users';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private db: AngularFirestore) {}
 
   save(user: IUser): Observable<INonSensitiveUser> {
-    return this.http.post(USERS_URL, user).pipe(
-      map(res => (res as any).user as INonSensitiveUser),
-      catchError(this.handleError)
+    const userQuery$ = this.db
+      .collection(USER_COLLECTION, ref => ref.where('uid', '==', user.uid))
+      .get()
+      .pipe(take(1));
+
+    const existingUser$: Observable<INonSensitiveUser> = userQuery$.pipe(
+      filter(d => !d.empty),
+      map(d => ({ ...user, id: d.docs[0].id }))
     );
+
+    const newUser$ = userQuery$.pipe(
+      filter(d => d.empty),
+      switchMap(_ =>
+        from(this.db.collection(`${USER_COLLECTION}`).add(user)).pipe(
+          map(res => ({ id: res.id, ...user })),
+          catchError(this.handleError)
+        )
+      )
+    );
+
+    return merge(existingUser$, newUser$);
   }
 
   private handleError(err: any) {
-    if (err.status === 401) {
+    if (err && err.status === 401) {
       return throwError('Unauthorized');
     }
     return throwError(err);

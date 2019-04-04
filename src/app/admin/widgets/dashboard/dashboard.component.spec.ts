@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
-import { LogoComponent } from '../../../common/logo/logo.component';
+import { LogoComponent } from '../../../common/widgets/logo/logo.component';
 import { AccountComponent } from '../account/account.component';
 import { IntroTextComponent } from '../intro-text/intro-text.component';
-import { SeriesIconComponent } from '../../../common/series-icon/series-icon.component';
+import { SeriesIconComponent } from '../../../common/widgets/series-icon/series-icon.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import * as rootStore from '../../../store';
