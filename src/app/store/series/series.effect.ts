@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 import { ISeries, SearchParams } from '../../model';
 import { Home } from '../router';
-import { SeriesService } from '../../common/series.service';
+import { SeriesService } from '../../services/series/series.service';
 import {
   SeriesLoadRequest,
   SeriesLoadSuccess,

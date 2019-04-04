@@ -1,16 +1,20 @@
-import {
-  CanActivate,
-  ActivatedRouteSnapshot
-} from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { SeriesFacade } from '../store';
-import { tap, filter, take, switchMap, timeout,catchError } from 'rxjs/operators';
+import {
+  tap,
+  filter,
+  take,
+  switchMap,
+  timeout,
+  catchError
+} from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ISeries } from '../model';
 
 @Injectable()
 export class SeriesExistsGuard implements CanActivate {
-  constructor(private seriesFacade:SeriesFacade) {}
+  constructor(private seriesFacade: SeriesFacade) {}
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     const seriesId = route.params.id;

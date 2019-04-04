@@ -59,7 +59,7 @@ export class SeriesFacade {
 
   upsert(series: ISeries) {
     this.store.dispatch(
-      series._id
+      series.id
         ? new SeriesUpdateRequest(series)
         : new SeriesCreateRequest(series)
     );

@@ -12,7 +12,8 @@ export class ErrorHandlerService {
     } else if (error instanceof HttpErrorResponse) {
       this.toastr.error(error.message);
     } else {
-      this.toastr.error('Unknown error');
+      const message = error.message || 'Unknown error';
+      this.toastr.error(message);
     }
   }
 }

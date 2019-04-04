@@ -2,7 +2,7 @@ import { Exercise } from './exercise';
 import { ProgrammingLanguage } from './programming-language';
 
 export interface ISeries {
-  _id: number;
+  id: string;
   title: string;
   programmingLanguage: string;
   items: Exercise[];
@@ -10,8 +10,7 @@ export interface ISeries {
 }
 
 export class Series implements ISeries {
-  _id: number;
-
+  id: string;
   title: string;
   programmingLanguage = ProgrammingLanguage.typescript.toString();
   items: Exercise[] = [];
@@ -19,7 +18,7 @@ export class Series implements ISeries {
 
   constructor(series?: ISeries) {
     if (series) {
-      this._id = series._id;
+      this.id = series.id;
       this.programmingLanguage = series.programmingLanguage;
       this.title = series.title;
       this.authorId = series.authorId;

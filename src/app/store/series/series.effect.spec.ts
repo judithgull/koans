@@ -14,17 +14,20 @@ import {
   Home,
   SeriesError
 } from '../index';
-import { SeriesService } from '../../common/series.service';
+import { SeriesService } from '../../services/series/series.service';
 import { SeriesEffects } from './series.effect';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { hot, cold } from 'jasmine-marbles';
 import { TestActions, getActions } from '../test/test.actions';
 import { ToastrService } from 'ngx-toastr';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../../../environments/environment.test';
 
 class MockToastrService {
   // tslint:disable-next-line:no-empty
-  error(message: string) { }
+  error(_: string) {}
 }
 
 describe('SeriesEffects', () => {
@@ -34,7 +37,12 @@ describe('SeriesEffects', () => {
   let toastr: ToastrService;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFirestoreModule,
+        AngularFirestoreModule.enablePersistence()
+      ],
       providers: [
         SeriesService,
         SeriesEffects,
@@ -51,7 +59,7 @@ describe('SeriesEffects', () => {
     spyOn(service, 'getSeries').and.returnValue(of(mockSeries));
     spyOn(service, 'create').and.returnValue(of(mockSeries[0]));
     spyOn(service, 'update').and.returnValue(of(mockSeries[0]));
-    spyOn(service, 'delete').and.returnValue(of({ id: mockSeries[0]._id }));
+    spyOn(service, 'delete').and.returnValue(of({ id: mockSeries[0].id }));
     spyOn(toastr, 'error');
   });
 
@@ -94,11 +102,11 @@ describe('SeriesEffects', () => {
 
   describe('deleteSeries$', () => {
     it('should delete a series from DeleteSeries', () => {
-      const action = new SeriesDeleteRequest(mockSeries[0]._id + '');
+      const action = new SeriesDeleteRequest(mockSeries[0].id + '');
 
       actions$.stream = hot('-a', { a: action });
 
-      const completionAction = new SeriesDeleteSuccess(mockSeries[0]._id + '');
+      const completionAction = new SeriesDeleteSuccess(mockSeries[0].id + '');
       const expected = cold('-b', { b: completionAction });
       expect(effects.deleteSeries$).toBeObservable(expected);
     });
@@ -127,5 +135,4 @@ describe('SeriesEffects', () => {
       expect(toastr.error).toHaveBeenCalledWith(message);
     });
   });
-
 });

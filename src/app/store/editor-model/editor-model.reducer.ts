@@ -240,7 +240,7 @@ export namespace EditorModelQueries {
 
   function getExerciseKeys(series: ISeries): string[] {
     return series.items.map(
-      item => new ExerciseKey('' + series._id, item.sortOrder).exercisePath
+      item => new ExerciseKey(series.id, item.sortOrder).exercisePath
     );
   }
 }

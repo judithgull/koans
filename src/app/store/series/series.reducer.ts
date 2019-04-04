@@ -14,21 +14,6 @@ const INITIAL_STATE: SeriesState = {
 
 const adapter: EntityAdapter<ISeries> = createEntityAdapter<ISeries>();
 
-function addId(series: ISeries) {
-  return {
-    ...series,
-    id: series._id
-  };
-}
-
-const removeId = (entity: any) => {
-  if (entity) {
-    const { id: id, ...entityWithoutId } = entity;
-    return entityWithoutId;
-  }
-  return undefined;
-};
-
 export function seriesReducer(
   state = INITIAL_STATE,
   action: SeriesActions
@@ -53,15 +38,14 @@ export function seriesReducer(
     case SeriesActionTypes.LOAD_SUCCESS:
     case SeriesActionTypes.CREATE_SUCCESS:
     case SeriesActionTypes.UPDATE_SUCCESS: {
-      const entity = addId(action.series);
+      const entity = action.series;
       return {
         ...adapter.addOne(entity, state)
       };
     }
     case SeriesActionTypes.QUERY_SUCCESS: {
-      const eWithIds = action.series.map(addId);
       return {
-        ...adapter.upsertMany(eWithIds, state)
+        ...adapter.upsertMany(action.series, state)
       };
     }
     case SeriesActionTypes.DELETE_SUCCESS: {
@@ -80,7 +64,7 @@ export namespace SeriesQueries {
 
   export const all = createSelector(
     getEntities,
-    entities => Object.values(entities).map(entity => removeId(entity))
+    entities => Object.values(entities)
   );
 
   export function byAuthorId(authorId: string) {
@@ -93,7 +77,7 @@ export namespace SeriesQueries {
   export const byId = (id: string) => {
     return createSelector(
       getEntities,
-      entities => removeId(entities[id])
+      entities => entities[id]
     );
   };
 
@@ -102,7 +86,7 @@ export namespace SeriesQueries {
     selectedSeriesId,
     (entities, seriesId) => {
       if (seriesId) {
-        return removeId(entities[seriesId]);
+        return entities[seriesId];
       }
       return undefined;
     }
@@ -112,7 +96,7 @@ export namespace SeriesQueries {
     selectedSeries,
     selectedExerciseNr,
     (series, exerciseNr) => {
-      return series && exerciseNr && removeId(series.items[exerciseNr - 1]);
+      return series && exerciseNr && series.items[exerciseNr - 1];
     }
   );
 }

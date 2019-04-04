@@ -96,7 +96,7 @@ describe('Series Reducer and Selectors', () => {
     });
 
     it('returns series with the given id', done => {
-      const id = mockSeries[0]._id;
+      const id = mockSeries[0].id;
       const series$ = store.select(SeriesQueries.byId('' + id));
       store.dispatch(new SeriesQuerySuccess(mockSeries));
 
@@ -113,7 +113,7 @@ describe('Series Reducer and Selectors', () => {
     it('has no effect, if the deleted object is not found', done => {
       const all$ = store.select(SeriesQueries.all);
 
-      store.dispatch(new SeriesDeleteSuccess('' + mockSeries[0]._id));
+      store.dispatch(new SeriesDeleteSuccess(mockSeries[0].id));
 
       subs.push(
         all$.subscribe(value => {
@@ -127,7 +127,7 @@ describe('Series Reducer and Selectors', () => {
       const all$ = store.select(SeriesQueries.all);
 
       store.dispatch(new SeriesQuerySuccess(mockSeries));
-      store.dispatch(new SeriesDeleteSuccess('' + mockSeries[0]._id));
+      store.dispatch(new SeriesDeleteSuccess(mockSeries[0].id));
 
       subs.push(
         all$.subscribe(value => {
@@ -175,7 +175,7 @@ describe('Series Reducer and Selectors', () => {
     it('selects a series', done => {
       const selected$ = store.select(SeriesQueries.selectedSeries);
       store.dispatch(new SeriesQuerySuccess(mockSeries));
-      const seriesId = mockSeries[1]._id;
+      const seriesId = mockSeries[1].id;
       store.dispatch(new SeriesSelectAction('' + seriesId));
       subs.push(
         selected$.subscribe(value => {
@@ -214,7 +214,7 @@ describe('Series Reducer and Selectors', () => {
     it('selects an exercise', done => {
       const selectedExercise$ = store.select(SeriesQueries.selectedExercise);
       const series = mockSeries[1];
-      const seriesId = series._id;
+      const seriesId = series.id;
       const exercise = series.items[0];
       const exerciseNr = +exercise.sortOrder;
       store.dispatch(new SeriesQuerySuccess(mockSeries));
@@ -246,7 +246,7 @@ describe('Series Reducer and Selectors', () => {
     it('deselects an exercise', done => {
       const selectedExercise$ = store.select(SeriesQueries.selectedExercise);
       const series = mockSeries[1];
-      const seriesId = series._id;
+      const seriesId = series.id;
       const exercise = series.items[0];
       const exerciseNr = +exercise.sortOrder;
       store.dispatch(new SeriesQuerySuccess(mockSeries));

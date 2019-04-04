@@ -1,6 +1,12 @@
 import { Component, Input } from '@angular/core';
 
-import { ErrorMarker, Exercise, ExerciseKey, Feedback, ISeries } from '../../model';
+import {
+  ErrorMarker,
+  Exercise,
+  ExerciseKey,
+  Feedback,
+  ISeries
+} from '../../model';
 import { EditorModelFacade } from '../../store';
 
 @Component({
@@ -17,18 +23,24 @@ export class RunExerciseCardComponent {
 
   @Input() errors: ErrorMarker[];
 
-  constructor(private facade: EditorModelFacade) { }
+  constructor(private facade: EditorModelFacade) {}
 
   get exerciseKey(): ExerciseKey {
-    return new ExerciseKey(''+this.series._id, this.ex.sortOrder);
+    return new ExerciseKey(this.series.id, this.ex.sortOrder);
   }
 
-  get exerciseModelConfig(): { path: string, initialValue: string } {
-    return { path: this.exerciseKey.exercisePath, initialValue: this.ex.exercise };
+  get exerciseModelConfig(): { path: string; initialValue: string } {
+    return {
+      path: this.exerciseKey.exercisePath,
+      initialValue: this.ex.exercise
+    };
   }
 
-  get solutionModelConfig(): { path: string, initialValue: string } {
-    return { path: this.exerciseKey.solutionPath, initialValue: this.ex.exercise };
+  get solutionModelConfig(): { path: string; initialValue: string } {
+    return {
+      path: this.exerciseKey.solutionPath,
+      initialValue: this.ex.exercise
+    };
   }
 
   onExerciseValueChange(value: string) {
