@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import {
   ErrorMarker,
-  Exercise,
+  IExercise,
   ExerciseKey,
   Feedback,
   ISeries
@@ -15,7 +15,7 @@ import { EditorModelFacade } from '../../store';
   styleUrls: ['./run-exercise-card.component.scss']
 })
 export class RunExerciseCardComponent {
-  @Input() ex: Exercise;
+  @Input() ex: IExercise;
 
   @Input() progress: Feedback;
 

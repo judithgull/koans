@@ -1,52 +1,54 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  SeriesFacade
-} from '../../store';
-import {
-  ISeries,
-  Series,
-  Exercise,
-  ProgrammingLanguages,
-  ProgrammingLanguage
-} from '../../model';
+import { SeriesFacade } from '../../store';
+import { ISeries } from '../../model';
 import { Observable } from 'rxjs';
+import { UserFacade } from '../../store/user/user.facade';
+import { IUser } from '../../model/user';
 import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-series-container',
   template: `
-  <app-series-form
-    [model]="series$ | async"
-    [programmingLanguages]="programmingLanguages"
-    (submitSeries)="submitSeries($event)">
-  </app-series-form>`
+    <app-series-form
+      [model]="series$ | async"
+      [author]="author$ | async"
+      (submitSeries)="submitSeries($event)"
+    >
+    </app-series-form>
+  `
 })
 export class SeriesContainerComponent implements OnInit {
-  series$: Observable<Series>;
-  programmingLanguages: ProgrammingLanguages[] = [
-    {
-      key: ProgrammingLanguage.typescript.toString(),
-      value: 'Typescript'
-    },
-    {
-      key: ProgrammingLanguage.javascript.toString(),
-      value: 'Javascript'
-    }
-  ];
-
-  constructor(private seriesFacade: SeriesFacade) { }
+  series$: Observable<ISeries>;
+  author$: Observable<IUser>;
+  constructor(
+    private seriesFacade: SeriesFacade,
+    private userFacade: UserFacade
+  ) {}
 
   ngOnInit() {
     this.series$ = this.seriesFacade.selectedSeries$.pipe(
       map(s => {
-        return s ? new Series({ ...s }) : this.createNewSeries();
-      }));
+        return s ? s : this.createEmptySeries();
+      })
+    );
+    this.author$ = this.userFacade.currentUser$;
   }
 
-  private createNewSeries(): Series {
-    const s = new Series();
-    s.addItem(new Exercise());
-    return s;
+  private createEmptySeries(): ISeries {
+    return {
+      title: '',
+      authorId: '',
+      programmingLanguage: 'typescript',
+      items: [
+        {
+          sortOrder: 1,
+          title: '',
+          description: '',
+          exercise: '',
+          solution: ''
+        }
+      ]
+    };
   }
 
   submitSeries(s: ISeries) {

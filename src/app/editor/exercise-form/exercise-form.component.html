@@ -1,41 +1,72 @@
-<li [formGroup]='form' class="exercise-card-form">
+<li [formGroup]="form" class="exercise-card-form">
   <div class="field-row">
     <label class="label t-label" for="title">Exercise Title</label>
-    <input class="input" formControlName='exTitle' id="title" name="title" [(ngModel)]="item.title" />
+    <input class="input" formControlName="title" name="title" />
   </div>
   <div class="field-row">
     <label class="label t-label" for="description">Description *</label>
-    <textarea class="textarea" formControlName='exDescription' id="description" name="description" [(ngModel)]="item.description"
-      required></textarea>
-    <app-validation-messages [control]='form.get("exDescription")' validationKey='description'></app-validation-messages>
+    <textarea
+      class="textarea"
+      formControlName="description"
+      name="description"
+      required
+    ></textarea>
+    <app-validation-messages
+      [control]="form.get('description')"
+      validationKey="description"
+    ></app-validation-messages>
   </div>
   <div class="field-row">
-    <p class="t-paragraph t-info-msg">The exercise must contain a placeholder "???". In the solution, the placeholder must be replaced with code in order to
-      make the exercise and assertions run without errors.</p>
     <p class="t-paragraph t-info-msg">
-      <a class="t-info-msg" href="http://chaijs.com/">Chai</a> assertions can be use to validate the user solution</p>
-    <p class="t-paragraph t-info-msg">You can insert the comment //hidden to hide everything below this keyword.</p>
+      The exercise must contain a placeholder "???". In the solution, the
+      placeholder must be replaced with code in order to make the exercise and
+      assertions run without errors.
+    </p>
+    <p class="t-paragraph t-info-msg">
+      <a class="t-info-msg" href="http://chaijs.com/">Chai</a> assertions can be
+      use to validate the user solution
+    </p>
+    <p class="t-paragraph t-info-msg">
+      You can insert the comment //hidden to hide everything below this keyword.
+    </p>
 
-    <div class="code-editor-grid" formGroupName='codeEditors'>
-
+    <div class="code-editor-grid" formGroupName="code">
       <div class="l-grid-cell">
         <label class="label t-label" for="exerciseEditor">Exercise *</label>
-        <app-code-editor id="exerciseEditor" [language]='programmingLanguage' formControlName='exExercise' [(ngModel)]="item.exercise"
-          [modelConfig]='exerciseModelConfig'></app-code-editor>
-        <app-validation-messages [control]='form.get("codeEditors.exExercise")' validationKey='exercise'></app-validation-messages>
+        <app-code-editor
+          id="exerciseEditor"
+          language="typescript"
+          formControlName="exercise"
+          [modelConfig]="exerciseModelConfig"
+        ></app-code-editor>
+        <app-validation-messages
+          [control]="form.get('code.exercise')"
+          validationKey="exercise"
+        ></app-validation-messages>
       </div>
 
       <div class="l-grid-cell">
         <label class="label t-label" for="solution">Solution *</label>
-        <app-code-editor id="solution" [language]='programmingLanguage' formControlName='exSolution' [(ngModel)]="item.solution"
-          [modelConfig]="solutionModelConfig" (errorMarkerChanges)="updateSolutionError($event)"></app-code-editor>
+        <app-code-editor
+          id="solution"
+          language="typescript"
+          formControlName="solution"
+          [modelConfig]="solutionModelConfig"
+          (errorMarkerChanges)="updateSolutionError($event)"
+        ></app-code-editor>
         <div *ngFor="let f of solutionFeedback">
-          <app-exercise-feedback [feedback]='f'></app-exercise-feedback>
+          <app-exercise-feedback [feedback]="f"></app-exercise-feedback>
         </div>
-        <app-validation-messages [control]='form.get("codeEditors.exSolution")' validationKey='solution'></app-validation-messages>
+        <app-validation-messages
+          [control]="form.get('code.solution')"
+          validationKey="solution"
+        ></app-validation-messages>
       </div>
       <div class="l-grid-cell">
-        <app-validation-messages [control]='form.get("codeEditors")' validationKey='codeEditors'></app-validation-messages>
+        <app-validation-messages
+          [control]="form.get('code')"
+          validationKey="code"
+        ></app-validation-messages>
       </div>
     </div>
   </div>

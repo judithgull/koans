@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Series } from '../../../model/series';
+import { ISeries } from '../../../model/series';
 import { SeriesFacade } from '../../../store';
 
 @Component({
@@ -10,7 +10,7 @@ import { SeriesFacade } from '../../../store';
 export class SeriesCardListComponent {
   @Input() userId: string;
 
-  @Input() seriesList: Series[];
+  @Input() seriesList: ISeries[];
 
   constructor(private seriesFacade: SeriesFacade) {}
 

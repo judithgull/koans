@@ -1,8 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
-import { CodeEditorTextValidators } from '../../code-editor-validators/code-editor-text-validators';
-import { Exercise } from '../../model/exercise';
 import { ErrorMarker } from '../../model/feedback';
 
 @Component({
@@ -10,52 +8,23 @@ import { ErrorMarker } from '../../model/feedback';
   templateUrl: './exercise-form.component.html',
   styleUrls: ['./exercise-form.component.scss']
 })
-export class ExerciseFormComponent implements OnInit {
+export class ExerciseFormComponent {
   @Input() form: FormGroup;
-  @Input() item: Exercise;
-  @Input() programmingLanguage: string;
   @Input() index: number;
 
   solutionFeedback: ErrorMarker[];
 
-  constructor(private fb: FormBuilder) { }
-
   get exerciseModelConfig() {
     return { path: this.index + '/exercise', initialValue: '' };
-  };
+  }
 
   get solutionModelConfig() {
     return { path: this.index + '/solution', initialValue: '' };
-  };
-
-  ngOnInit() {
-    const codeEditors = this.fb.group(
-      {
-        exExercise: [
-          null,
-          [Validators.required, CodeEditorTextValidators.containsText('???')]
-        ],
-        exSolution: [null, Validators.required]
-      },
-      {
-        validator: CodeEditorTextValidators.onlyTextChanged(
-          '???',
-          'exExercise',
-          'exSolution'
-        )
-      }
-    );
-
-    this.form = this.fb.group({
-      exTitle: [],
-      exDescription: [null, Validators.required],
-      codeEditors
-    });
   }
 
   updateSolutionError(markers: ErrorMarker[]) {
     this.solutionFeedback = markers;
-    const solutionControl = this.form.get('codeEditors.exSolution');
+    const solutionControl = this.form.get('code.solution');
     solutionControl.setErrors({ error: true });
   }
 }

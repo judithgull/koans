@@ -1,29 +1,47 @@
-<form [formGroup]='form' (ngSubmit)='onSubmit()' novalidate>
-  <div class="topic-info">
-    <div class="field-row">
-      <label class="custom-select t-label" for="programmingLanguage">
-        <span class="inline-label">Language</span>
-        <select class="select" id="programmingLanguage" name="programmingLanguage" formControlName='programmingLanguage' [(ngModel)]="model.programmingLanguage">
-          <option *ngFor="let item of programmingLanguages" [ngValue]="item.key">{{item.value}}</option>
-        </select>
-      </label>
-    </div>
-  </div>
-
-  <div class='field-row'>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+  <div class="field-row">
     <label class="label t-label" for="title">Series Title *</label>
-    <input class="input" id="title" name="title" formControlName='title' [(ngModel)]="model.title" required />
-    <app-validation-messages [control]='form.get("title")' validationKey='title'></app-validation-messages>
+    <input
+      class="input"
+      id="title"
+      name="title"
+      formControlName="title"
+      required
+    />
+    <app-validation-messages
+      [control]="form.get('title')"
+      validationKey="title"
+    ></app-validation-messages>
   </div>
 
-  <app-exercise-form [form]="item" [programmingLanguage]="model.programmingLanguage" [item]="item" class="exercise-card-form"
-    [index]="i" *ngFor="let item of model.items; index as i;last as last">
+  <app-exercise-form
+    *ngFor="let item of items.controls; index as i; last as last"
+    [form]="item"
+    [index]="i"
+    class="exercise-card-form"
+  >
     <ul class="l-list-reset">
-      <button class="button" type="button" name="delete" (click)="removeExercise(i)" *ngIf="model.items.length&gt;1">Delete</button>
-      <button class="button" type="button" name="add" (click)="addExercise()" *ngIf="last">Add another exercise</button>
+      <button
+        class="button"
+        type="button"
+        name="delete"
+        (click)="removeExercise(i)"
+        *ngIf="items.controls.length&gt;1"
+      >
+        Delete
+      </button>
+      <button
+        class="button"
+        type="button"
+        name="add"
+        (click)="addExercise()"
+        *ngIf="last"
+      >
+        Add another exercise
+      </button>
     </ul>
   </app-exercise-form>
 
-  <button class='button' type='submit' [disabled]='!form.valid'>Submit</button>
-  <button class='button' routerLink="/">Cancel</button>
+  <button class="button" type="submit" [disabled]="!form.valid">Submit</button>
+  <button class="button" routerLink="/">Cancel</button>
 </form>

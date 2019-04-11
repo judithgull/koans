@@ -9,39 +9,33 @@ import { AppCommonModule } from '../../common/common.module';
 import { CodeEditorModule } from '../../code-editor/code-editor.module';
 import { StoreModule } from '@ngrx/store';
 import * as rootStore from '../../store';
-import { EffectsModule } from '@ngrx/effects';
 import { MonacoLoaderService } from '../../code-editor/monaco-loader.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SeriesContainerComponent', () => {
   let component: SeriesContainerComponent;
   let fixture: ComponentFixture<SeriesContainerComponent>;
   let monacoLoader: MonacoLoaderService;
 
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        declarations: [
-          SeriesContainerComponent,
-          SeriesFormComponent,
-          ExerciseFormComponent
-        ],
-        providers: [MonacoLoaderService],
-        imports: [
-          CommonModule,
-          FormsModule,
-          ReactiveFormsModule,
-          AppCommonModule,
-          CodeEditorModule,
-          HttpClientTestingModule,
-          StoreModule.forRoot({
-            ...rootStore.reducers
-          }),
-          EffectsModule.forRoot([])
-        ]
-      }).compileComponents();
-    })
-  );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        SeriesContainerComponent,
+        SeriesFormComponent,
+        ExerciseFormComponent
+      ],
+      providers: [MonacoLoaderService],
+      imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppCommonModule,
+        CodeEditorModule,
+        StoreModule.forRoot({
+          ...rootStore.reducers
+        })
+      ]
+    }).compileComponents();
+  }));
 
   beforeEach(done => {
     monacoLoader = TestBed.get(MonacoLoaderService);

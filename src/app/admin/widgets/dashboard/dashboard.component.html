@@ -1,5 +1,6 @@
 <div class="header">
   <app-logo></app-logo>
+
   <app-account
     class="header-chunk"
     [signedIn]="signedIn$ | async"
@@ -7,7 +8,8 @@
     (signIn)="signIn(event)"
     (signOut)="signOut()"
   ></app-account>
-  <app-intro-text></app-intro-text>
+  <app-intro-text> </app-intro-text>
+
   <div class="filter-wrap">
     <button
       class="button button-plus"
@@ -22,7 +24,7 @@
     </p>
     <app-series-card-list
       [seriesList]="seriesList$ | async"
-      [userId]="userId"
+      [userId]="(user$ | async)?.id"
     ></app-series-card-list>
   </div>
 </div>

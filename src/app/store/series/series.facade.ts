@@ -11,7 +11,7 @@ import {
   SeriesDeselectAction
 } from './series.action';
 import { Observable } from 'rxjs';
-import { ISeries, SearchParams, Exercise } from '../../model';
+import { ISeries, SearchParams, IExercise } from '../../model';
 import { SeriesQueries } from './series.reducer';
 import { AppState } from '../app.state';
 
@@ -23,7 +23,7 @@ export class SeriesFacade {
   selectedSeries$: Observable<ISeries> = this.store.select(
     SeriesQueries.selectedSeries
   );
-  selectedExercise$: Observable<Exercise> = this.store.select(
+  selectedExercise$: Observable<IExercise> = this.store.select(
     SeriesQueries.selectedExercise
   );
 

@@ -7,34 +7,30 @@ import { StoreModule } from '@ngrx/store';
 import { AppCommonModule } from '../../common/common.module';
 import { testFeedback } from '../../common/test';
 import { mockSeries } from '../../common/test/series.mock';
-import { Exercise } from '../../model/exercise';
 import * as st from '../../store';
 import { RunExerciseCardComponent } from './run-exercise-card.component';
+import { IExercise } from '../../model';
 
 describe('RunExerciseCardComponent', () => {
   let component: RunExerciseCardComponent;
   let fixture: ComponentFixture<RunExerciseCardComponent>;
+  const e: IExercise = mockSeries[0].items[0];
 
-  const testLanguage = 'testLang';
-  const e: Exercise = mockSeries[0].items[0];
-
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        declarations: [RunExerciseCardComponent],
-        imports: [
-          AppCommonModule,
-          ReactiveFormsModule,
-          FormsModule,
-          StoreModule.forRoot({
-            ...st.reducers
-          }),
-          EffectsModule.forRoot([])
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).compileComponents();
-    })
-  );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [RunExerciseCardComponent],
+      imports: [
+        AppCommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        StoreModule.forRoot({
+          ...st.reducers
+        }),
+        EffectsModule.forRoot([])
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RunExerciseCardComponent);

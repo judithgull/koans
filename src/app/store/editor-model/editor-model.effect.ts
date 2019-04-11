@@ -13,9 +13,7 @@ import {
   ModelState,
   SourceType,
   ExerciseKey,
-  ISeries,
-  Exercise,
-  Feedback
+  ISeries
 } from '../../model';
 import {
   EditorModelActionTypes,
@@ -28,8 +26,6 @@ import {
 import { SeriesActionTypes, SeriesLoadSuccess } from '../series';
 import { SeriesQuerySuccess } from '../series/series.action';
 import { SeriesFacade } from '../series/series.facade';
-import { Store } from '@ngrx/store';
-import { AppState } from '../app.state';
 
 @Injectable()
 export class EditorModelEffects {

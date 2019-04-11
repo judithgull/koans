@@ -1,5 +1,5 @@
-export class Exercise {
-  _id: number;
+export interface IExercise {
+  id?: number;
   sortOrder: number;
   title: string;
   description: string;
