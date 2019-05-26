@@ -9,7 +9,6 @@ import { ExerciseFeedbackComponent } from './exercise-feedback/exercise-feedback
 import { JsLibsService } from './js-libs.service';
 import { LogoComponent } from './widgets/logo/logo.component';
 import { SeriesIconComponent } from './widgets/series-icon/series-icon.component';
-import { SeriesService } from '../services/series/series.service';
 import { ValidationMessagesComponent } from './validation-messages/validation-messages.component';
 import { ValidationService } from './validation-messages/validation.service';
 

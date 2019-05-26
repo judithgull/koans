@@ -26,12 +26,16 @@ export class ExerciseSelectedGuard implements CanActivate {
     this.seriesFacade.selectExercise(next.params.exId);
     return this.checkSelection(next.params.exId).pipe(
       switchMap(() => of(true)),
-      catchError(() => of(false))
+      catchError(e => {
+        console.log(e);
+        return of(false);
+      })
     );
   }
 
   checkSelection(id: string): Observable<Feedback> {
     return this.editorModelFacade.selectedProgress$.pipe(
+      filter(p => !!p),
       tap(p => {
         if (!p.validation) {
           this.editorModelFacade.triggerValidation(p);
@@ -39,7 +43,7 @@ export class ExerciseSelectedGuard implements CanActivate {
       }),
       filter(p => !!p.validation),
       take(1),
-      timeout(1000)
+      timeout(10000)
     );
   }
 }

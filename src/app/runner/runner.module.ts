@@ -15,10 +15,30 @@ import { SeriesRunnerComponent } from './series-runner/series-runner.component';
 import { MonacoLoadedGuard } from '../code-editor/monaco-loaded.guard';
 import { SeriesExistsGuard } from '../common';
 import { ExerciseSelectedGuard } from './exercise-selected.guard';
+import { SeriesPageComponent } from './series-page/series-page.component';
 
 const routes: Routes = [
   {
     path: 'series/:id',
+    component: SeriesPageComponent,
+    canActivate: [SeriesExistsGuard, MonacoLoadedGuard],
+    children: [
+      {
+        pathMatch: 'full',
+        path: 'e/:exId',
+        component: RunExerciseContainerComponent,
+        canActivate: [ExerciseSelectedGuard]
+      },
+      {
+        pathMatch: 'full',
+        path: '',
+        redirectTo: 'e/1',
+        canActivate: [ExerciseSelectedGuard]
+      }
+    ]
+  },
+  {
+    path: 's/:id',
     component: SeriesContainerComponent,
     canActivate: [SeriesExistsGuard, MonacoLoadedGuard],
     children: [
@@ -54,7 +74,8 @@ const routes: Routes = [
     ExerciseTextComponent,
     ExerciseNavButtonsComponent,
     SeriesContainerComponent,
-    RunExerciseContainerComponent
+    RunExerciseContainerComponent,
+    SeriesPageComponent
   ],
   providers: [SeriesExistsGuard]
 })
