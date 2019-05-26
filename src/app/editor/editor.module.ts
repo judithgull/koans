@@ -7,20 +7,20 @@ import { AppCommonModule, SeriesExistsGuard } from '../common';
 import { SeriesFormComponent } from './series-form/series-form.component';
 import { CodeEditorModule } from '../code-editor/code-editor.module';
 import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
-import { SeriesContainerComponent } from './series-container/series-container.component';
+import { SeriesFormContainerComponent } from './series-container/series-form-container.component';
 import { MonacoLoadedGuard } from '../code-editor/monaco-loaded.guard';
 import { SeriesDeselectedGuard } from './series-deselected.guard';
 
 const routes: Routes = [
   {
     path: 'editor/:id',
-    component: SeriesContainerComponent,
+    component: SeriesFormContainerComponent,
     pathMatch: 'full',
     canActivate: [SeriesExistsGuard, MonacoLoadedGuard]
   },
   {
     path: 'editor',
-    component: SeriesContainerComponent,
+    component: SeriesFormContainerComponent,
     pathMatch: 'full',
     canActivate: [SeriesDeselectedGuard, MonacoLoadedGuard]
   }
@@ -37,7 +37,7 @@ const routes: Routes = [
   declarations: [
     SeriesFormComponent,
     ExerciseFormComponent,
-    SeriesContainerComponent
+    SeriesFormContainerComponent
   ],
   providers: [SeriesExistsGuard]
 })

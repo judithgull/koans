@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SeriesContainerComponent } from './series-container.component';
+import { SeriesFormContainerComponent } from './series-form-container.component';
 import { SeriesFormComponent } from '../series-form/series-form.component';
 import { ExerciseFormComponent } from '../exercise-form/exercise-form.component';
 import { CommonModule } from '@angular/common';
@@ -11,15 +11,15 @@ import { StoreModule } from '@ngrx/store';
 import * as rootStore from '../../store';
 import { MonacoLoaderService } from '../../code-editor/monaco-loader.service';
 
-describe('SeriesContainerComponent', () => {
-  let component: SeriesContainerComponent;
-  let fixture: ComponentFixture<SeriesContainerComponent>;
+describe('SeriesFormContainerComponent', () => {
+  let component: SeriesFormContainerComponent;
+  let fixture: ComponentFixture<SeriesFormContainerComponent>;
   let monacoLoader: MonacoLoaderService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        SeriesContainerComponent,
+        SeriesFormContainerComponent,
         SeriesFormComponent,
         ExerciseFormComponent
       ],
@@ -41,7 +41,7 @@ describe('SeriesContainerComponent', () => {
     monacoLoader = TestBed.get(MonacoLoaderService);
     monacoLoader.isMonacoLoaded.subscribe(loaded => {
       if (loaded) {
-        fixture = TestBed.createComponent(SeriesContainerComponent);
+        fixture = TestBed.createComponent(SeriesFormContainerComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
         done();

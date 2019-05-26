@@ -7,7 +7,7 @@ import { IUser } from '../../model/user';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-series-container',
+  selector: 'app-series-form-container',
   template: `
     <app-series-form
       [model]="series$ | async"
@@ -17,7 +17,7 @@ import { map } from 'rxjs/operators';
     </app-series-form>
   `
 })
-export class SeriesContainerComponent implements OnInit {
+export class SeriesFormContainerComponent implements OnInit {
   series$: Observable<ISeries>;
   author$: Observable<IUser>;
   constructor(
