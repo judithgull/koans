@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { AuthInterceptor } from './auth/auth-interceptor.service';
 import { EditableMarkerService } from './editable-marker.service';
 import { ExerciseFeedbackComponent } from './exercise-feedback/exercise-feedback.component';
 import { JsLibsService } from './js-libs.service';
@@ -26,15 +24,6 @@ import { ValidationService } from './validation-messages/validation.service';
     ExerciseFeedbackComponent,
     SeriesIconComponent
   ],
-  providers: [
-    ValidationService,
-    EditableMarkerService,
-    JsLibsService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
-  ]
+  providers: [ValidationService, EditableMarkerService, JsLibsService]
 })
 export class AppCommonModule {}
