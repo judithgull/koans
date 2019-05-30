@@ -7,11 +7,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { UserFacade } from '../../store/user/user.facade';
 
-const TOKEN_KEY = 'token';
-
 /**
- * Service for authenticating user (uses firebase as an authentication server),
- * Saves user in backend as well, to be able to associate exercises with users.
+ * Service for authenticating user (uses firebase as an authentication server)
  */
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -23,24 +20,7 @@ export class AuthService {
   constructor(
     private fireAuth: AngularFireAuth,
     private userFacade: UserFacade
-  ) {
-    this.init();
-  }
-
-  init() {
-    this.firebaseTokens$.subscribe(token => this.saveToken(token));
-
-    this.firebaseUsers$
-      .pipe(
-        map(AuthService.toUser),
-        tap(user => this.userFacade.upsert(user))
-      )
-      .subscribe();
-  }
-
-  private saveToken(token: string): void {
-    localStorage.setItem(TOKEN_KEY, token);
-  }
+  ) {}
 
   static toUser(firebaseUser: firebase.User): IUser {
     if (!firebaseUser) {
