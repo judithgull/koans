@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 
 import { ISeries } from '../../model/series';
 import {
@@ -8,7 +8,7 @@ import {
   AngularFirestoreDocument,
   AngularFirestoreCollection
 } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 export const SERIES_COLLECTION = 'series';
 /**
@@ -22,14 +22,19 @@ export class SeriesService {
 
   getSeries(params?: HttpParams): Observable<ISeries[]> {
     // TODO restrict user
-    return this.getAfsCollection().valueChanges();
+    return this.getAfsCollection()
+      .valueChanges()
+      .pipe(take(1));
   }
 
   get(id: string): Observable<ISeries> {
     return this.afs
       .collection<ISeries>(SERIES_COLLECTION, ref => ref.where('id', '==', id))
       .valueChanges()
-      .pipe(map(s => s[0]));
+      .pipe(
+        map(s => s[0]),
+        take(1)
+      );
   }
 
   create(series: ISeries): Observable<ISeries> {

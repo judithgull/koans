@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
 
 import { IUser } from '../../model/user';
-import { map, switchMap, filter, tap } from 'rxjs/operators';
+import { map, switchMap, filter, tap, take } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { UserFacade } from '../../store/user/user.facade';
@@ -37,7 +37,8 @@ export class AuthService {
     return this.signInWithFireBase().pipe(
       map(cred => cred.user),
       map(AuthService.toUser),
-      tap(user => this.userFacade.upsert(user))
+      tap(user => this.userFacade.upsert(user)),
+      take(1)
     );
   }
 

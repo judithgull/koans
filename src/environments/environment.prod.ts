@@ -1,6 +1,9 @@
 export const environment = {
   production: true,
   apiUrl: 'https://ilovecode.herokuapp.com/',
+  firebaseSettings: {
+    requestTimeout: 10000
+  },
   firebase: {
     apiKey: 'YOUR_API_KEY',
     authDomain: 'YOUR_AUTH_DOMAIN',

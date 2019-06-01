@@ -6,6 +6,9 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000/',
+  firebaseSettings: {
+    requestTimeout: 10000
+  },
   firebase: {
     apiKey: 'YOUR_API_KEY',
     authDomain: 'YOUR_AUTH_DOMAIN',

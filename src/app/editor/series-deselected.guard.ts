@@ -11,6 +11,7 @@ import {
   take,
   timeout
 } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class SeriesDeselectedGuard implements CanActivate {
       }),
       filter(s => !s),
       take(1),
-      timeout(1000)
+      timeout(environment.firebaseSettings.requestTimeout)
     );
   }
 }

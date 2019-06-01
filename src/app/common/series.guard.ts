@@ -11,6 +11,7 @@ import {
 import { of, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ISeries } from '../model';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class SeriesExistsGuard implements CanActivate {
@@ -21,7 +22,10 @@ export class SeriesExistsGuard implements CanActivate {
     this.seriesFacade.selectSeries(seriesId);
     return this.checkStore(seriesId).pipe(
       switchMap(() => of(true)),
-      catchError(() => of(false))
+      catchError(e => {
+        console.log(e);
+        return of(false);
+      })
     );
   }
 
@@ -34,7 +38,7 @@ export class SeriesExistsGuard implements CanActivate {
       }),
       filter(series => !!series),
       take(1),
-      timeout(1000)
+      timeout(environment.firebaseSettings.requestTimeout)
     );
   }
 }

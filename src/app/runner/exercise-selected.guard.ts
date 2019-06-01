@@ -12,6 +12,7 @@ import {
 } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Feedback } from '../model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class ExerciseSelectedGuard implements CanActivate {
       }),
       filter(p => !!p.validation),
       take(1),
-      timeout(10000)
+      timeout(environment.firebaseSettings.requestTimeout)
     );
   }
 }
