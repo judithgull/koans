@@ -60,7 +60,7 @@
     "method-override": "^2.3.5",
     "mocha": "^2.5.3",
     "mongodb": "^2.0.45",
-    "mongoose": "^4.6.5",
+    "mongoose": "^5.7.7",
     "multi-glob": "^0.4.0",
     "node-sass": "^4.5.3",
     "nodemon": "^1.7.1",
