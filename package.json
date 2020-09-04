@@ -59,7 +59,7 @@
     "mailgun-js": "^0.7.7",
     "method-override": "^2.3.5",
     "mocha": "^2.5.3",
-    "mongodb": "^2.0.45",
+    "mongodb": "^3.6.1",
     "mongoose": "^4.6.5",
     "multi-glob": "^0.4.0",
     "node-sass": "^4.5.3",
